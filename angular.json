@@ -25,13 +25,22 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/scss/style.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css",
               "node_modules/toastr/build/toastr.css",
-              "node_modules/node-waves/dist/waves.css"
+              "node_modules/node-waves/dist/waves.css",
+              "node_modules/@coreui/icons/css/coreui-icons.css",
+              "node_modules/flag-icon-css/css/flag-icon.css",
+              "node_modules/simple-line-icons/css/simple-line-icons.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./node_modules"
+              ]
+            },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/jquery-migrate/dist/jquery-migrate.min.js",
@@ -62,7 +71,8 @@
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js",
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js",
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js",
-              "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.moment.js"
+              "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.moment.js",
+              "node_modules/chart.js/dist/Chart.min.js"
             ]
           },
           "configurations": {
@@ -137,13 +147,22 @@
             ],
             "styles": [
               "src/styles.css",
+              "src/scss/style.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/famfamfam-flags/dist/sprite/famfamfam-flags.css",
               "node_modules/toastr/build/toastr.css",
-              "node_modules/node-waves/dist/waves.css"
+              "node_modules/node-waves/dist/waves.css",
+              "node_modules/@coreui/icons/css/coreui-icons.css",
+              "node_modules/flag-icon-css/css/flag-icon.css",
+              "node_modules/simple-line-icons/css/simple-line-icons.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "./node_modules"
+              ]
+            },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/jquery-migrate/dist/jquery-migrate.min.js",
@@ -174,7 +193,8 @@
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.blockUI.js",
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.spin.js",
               "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.sweet-alert.js",
-              "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.moment.js"
+              "node_modules/abp-web-resources/Abp/Framework/scripts/libs/abp.moment.js",
+              "node_modules/chart.js/dist/Chart.min.js"
             ]
           }
         },
