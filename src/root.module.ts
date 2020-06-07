@@ -24,10 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import * as _ from 'lodash';
 
-export function appInitializerFactory(injector: Injector,
-                                      platformLocation: PlatformLocation) {
+export function appInitializerFactory(injector: Injector, platformLocation: PlatformLocation) {
     return () => {
-
         abp.ui.setBusy();
         return new Promise<boolean>((resolve, reject) => {
             AppConsts.appBaseHref = getBaseHref(platformLocation);
@@ -100,10 +98,12 @@ export function getCurrentLanguage(): string {
         AbpModule,
         ServiceProxyModule,
         RootRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserModule,
+        BrowserAnimationsModule
     ],
     declarations: [
-        RootComponent
+        RootComponent,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },

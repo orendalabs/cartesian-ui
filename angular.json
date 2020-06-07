@@ -33,8 +33,7 @@
               "node_modules/toastr/build/toastr.css",
               "node_modules/node-waves/dist/waves.css",
               "node_modules/@coreui/icons/css/coreui-icons.css",
-              "node_modules/flag-icon-css/css/flag-icon.css",
-              "node_modules/simple-line-icons/css/simple-line-icons.css"
+              "node_modules/flag-icon-css/css/flag-icon.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -155,8 +154,7 @@
               "node_modules/toastr/build/toastr.css",
               "node_modules/node-waves/dist/waves.css",
               "node_modules/@coreui/icons/css/coreui-icons.css",
-              "node_modules/flag-icon-css/css/flag-icon.css",
-              "node_modules/simple-line-icons/css/simple-line-icons.css"
+              "node_modules/flag-icon-css/css/flag-icon.css"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
