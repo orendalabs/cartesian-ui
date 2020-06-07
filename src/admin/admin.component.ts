@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
-  selector: 'admin-root',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })

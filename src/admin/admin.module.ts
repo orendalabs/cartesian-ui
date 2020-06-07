@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -52,8 +52,7 @@ import { ChartsModule } from 'ng2-charts';
     RegisterComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
     AdminRoutingModule,
     AppAsideModule,
     AppBreadcrumbModule.forRoot(),
@@ -69,6 +68,6 @@ import { ChartsModule } from 'ng2-charts';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
-  bootstrap: [ AdminComponent ]
+  entryComponents: [ AdminComponent ]
 })
 export class AdminModule { }

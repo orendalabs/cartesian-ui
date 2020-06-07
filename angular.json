@@ -24,7 +24,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "src/scss/style.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
@@ -145,7 +144,6 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "src/scss/style.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/simple-line-icons/css/simple-line-icons.css",
