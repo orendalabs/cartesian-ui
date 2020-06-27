@@ -6,10 +6,9 @@
       "node"
     ],
     "typeRoots": [
-      "../node_modules/@types"
+      "./node_modules/@types"
     ],
     "paths": {
-      "@abp/*": [ "../node_modules/abp-ng2-module/dist/src/*" ],
       "@app/*": [ "./app/*" ],
       "@shared/*": [ "./shared/*" ],
       "@node_modules/*": [ "../node_modules/*" ]
@@ -20,6 +19,7 @@
     "src/polyfills.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.d.ts",
+    "src/typings.d.ts"
   ]
 }
