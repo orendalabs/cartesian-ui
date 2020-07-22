@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { AppComponentBase } from '@shared/app-component-base';
-import { AbpValidationError } from './abp-validation.api';
+import { AxisValidationError } from './axis-validation.api';
 
 @Component({
-  selector: 'abp-validation-summary',
-  templateUrl: './abp-validation.summary.component.html'
+  selector: 'axis-validation-summary',
+  templateUrl: './axis-validation.summary.component.html'
 })
-export class AbpValidationSummaryComponent extends AppComponentBase implements OnInit {
+export class AxisValidationSummaryComponent extends AppComponentBase implements OnInit {
 
-  defaultValidationErrors: Partial<AbpValidationError>[] = [
+  defaultValidationErrors: Partial<AxisValidationError>[] = [
     { name: 'required', localizationKey: 'ThisFieldIsRequired' },
     {
       name: 'minlength',
@@ -42,7 +42,7 @@ export class AbpValidationSummaryComponent extends AppComponentBase implements O
       localizationKey: 'PairsDoNotMatch',
     },
   ];
-  validationErrors = <AbpValidationError[]>this.defaultValidationErrors;
+  validationErrors = <AxisValidationError[]>this.defaultValidationErrors;
 
   @Input() control: AbstractControl;
   @Input() controlEl: ElementRef;
@@ -51,7 +51,7 @@ export class AbpValidationSummaryComponent extends AppComponentBase implements O
     super(injector);
   }
 
-  @Input() set customValidationErrors(val: AbpValidationError[]) {
+  @Input() set customValidationErrors(val: AxisValidationError[]) {
     if (val && val.length > 0) {
       const defaults = this.defaultValidationErrors.filter(
         (defaultValidationError) =>
@@ -60,7 +60,7 @@ export class AbpValidationSummaryComponent extends AppComponentBase implements O
               customValidationError.name === defaultValidationError.name
           )
       );
-      this.validationErrors = <AbpValidationError[]>[...defaults, ...val];
+      this.validationErrors = <AxisValidationError[]>[...defaults, ...val];
     }
   }
 
@@ -77,7 +77,7 @@ export class AbpValidationSummaryComponent extends AppComponentBase implements O
     }
   }
 
-  getValidationErrorMessage(error: AbpValidationError): string {
+  getValidationErrorMessage(error: AxisValidationError): string {
     if (this.controlEl) {
       this._renderer.addClass(this.controlEl, 'is-invalid');
     }

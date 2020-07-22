@@ -26,7 +26,7 @@ export class TenantChangeDialogComponent extends AppComponentBase {
 
   save(): void {
     if (!this.tenancyName) {
-      abp.multiTenancy.setTenantIdCookie(undefined);
+      axis.multiTenancy.setTenantIdCookie(undefined);
       this.bsModalRef.hide();
       location.reload();
       return;
@@ -46,7 +46,7 @@ export class TenantChangeDialogComponent extends AppComponentBase {
       .subscribe((result: IsTenantAvailableOutput) => {
         switch (result.state) {
           case AppTenantAvailabilityState.Available:
-            abp.multiTenancy.setTenantIdCookie(result.tenantId);
+            axis.multiTenancy.setTenantIdCookie(result.tenantId);
             location.reload();
             return;
           case AppTenantAvailabilityState.InActive:

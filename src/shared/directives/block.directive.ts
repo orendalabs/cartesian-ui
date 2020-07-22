@@ -26,9 +26,9 @@ export class BlockDirective implements AfterViewInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         $.blockUI.defaults.overlayCSS.cursor = 'not-allowed';
         if (changes['loading'].currentValue) {
-            abp.ui.block(this._element.nativeElement);
+            axis.ui.block(this._element.nativeElement);
         } else {
-            abp.ui.unblock(this._element.nativeElement);
+            axis.ui.unblock(this._element.nativeElement);
         }
     }
 }

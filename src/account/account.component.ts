@@ -17,7 +17,7 @@ export class AccountComponent extends AppComponentBase implements OnInit {
   }
 
   showTenantChange(): boolean {
-    return abp.multiTenancy.isEnabled;
+    return axis.multiTenancy.isEnabled;
   }
 
   ngOnInit(): void {

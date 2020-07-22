@@ -14,8 +14,8 @@ import * as _ from 'lodash';
 })
 export class AccountLanguagesComponent extends AppComponentBase
   implements OnInit {
-  languages: abp.localization.ILanguageInfo[];
-  currentLanguage: abp.localization.ILanguageInfo;
+  languages: axis.localization.ILanguageInfo[];
+  currentLanguage: axis.localization.ILanguageInfo;
 
   constructor(injector: Injector) {
     super(injector);
@@ -30,11 +30,11 @@ export class AccountLanguagesComponent extends AppComponentBase
   }
 
   changeLanguage(languageName: string): void {
-    abp.utils.setCookieValue(
-      'Abp.Localization.CultureName',
+    axis.utils.setCookieValue(
+      'Axis.Localization.CultureName',
       languageName,
       new Date(new Date().getTime() + 5 * 365 * 86400000), // 5 year
-      abp.appPath
+      axis.appPath
     );
 
     location.reload();

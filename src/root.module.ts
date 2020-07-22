@@ -9,7 +9,7 @@ import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module
 import { RootRoutingModule } from './root-routing.module';
 
 import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
-import { AbpHttpInterceptor } from 'abp-ng2-module';
+import { AxisHttpInterceptor } from '@cartesian-ui/ng-axis';
 
 import { AppInitializer } from './app-initializer';
 import { RootComponent } from './root.component';
@@ -22,49 +22,42 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import * as _ from 'lodash';
 
 export function getCurrentLanguage(): string {
-    if (abp.localization.currentLanguage.name) {
-        return abp.localization.currentLanguage.name;
-    }
+  if (axis.localization.currentLanguage.name) {
+    return axis.localization.currentLanguage.name;
+  }
 
-    // todo: Waiting for https://github.com/angular/angular/issues/31465 to be fixed.
-    return 'en';
+  // todo: Waiting for https://github.com/angular/angular/issues/31465 to be fixed.
+  return 'en';
 }
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        ModalModule.forRoot(),
-        SharedModule.forRoot(),
-        ServiceProxyModule,
-        RootRoutingModule,
-        BsDropdownModule.forRoot(),
-        CollapseModule.forRoot(),
-        TabsModule.forRoot(),
-    ],
-    declarations: [
-        RootComponent,
-    ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AbpHttpInterceptor, multi: true },
-        { provide: API_BASE_URL, useFactory: () => AppConsts.remoteServiceBaseUrl },
-        {
-          provide: APP_INITIALIZER,
-          useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
-          deps: [AppInitializer],
-          multi: true,
-        },
-        {
-            provide: LOCALE_ID,
-            useFactory: getCurrentLanguage
-        }
-    ],
-    bootstrap: [RootComponent]
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ModalModule.forRoot(),
+    SharedModule.forRoot(),
+    ServiceProxyModule,
+    RootRoutingModule,
+    BsDropdownModule.forRoot(),
+    CollapseModule.forRoot(),
+    TabsModule.forRoot(),
+  ],
+  declarations: [RootComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AxisHttpInterceptor, multi: true },
+    { provide: API_BASE_URL, useFactory: () => AppConsts.remoteServiceBaseUrl },
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
+    //   deps: [AppInitializer],
+    //   multi: true,
+    // },
+    {
+      provide: LOCALE_ID,
+      useFactory: getCurrentLanguage,
+    },
+  ],
+  bootstrap: [RootComponent],
 })
-
-export class RootModule { }
-
-
-
-
+export class RootModule {}

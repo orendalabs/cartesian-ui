@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { AbpSessionService } from 'abp-ng2-module';
+import { AxisSessionService } from '@cartesian-ui/ng-axis';
 import { AppComponentBase } from '@shared/app-component-base';
 import { accountModuleAnimation } from '@shared/animations/routerTransition';
 import { AppAuthService } from '@shared/auth/app-auth.service';
@@ -14,7 +14,7 @@ export class LoginComponent extends AppComponentBase {
   constructor(
     injector: Injector,
     public authService: AppAuthService,
-    private _sessionService: AbpSessionService
+    private _sessionService: AxisSessionService
   ) {
     super(injector);
   }
