@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { TokenService, LogService, UtilsService } from 'abp-ng2-module';
+import { TokenService, LogService, UtilsService } from '@cartesian-ui/ng-axis';
 import { AppConsts } from '@shared/AppConsts';
 import { UrlHelper } from '@shared/helpers/UrlHelper';
 import {
@@ -27,12 +27,12 @@ export class AppAuthService {
     }
 
     logout(reload?: boolean): void {
-        abp.auth.clearToken();
-        abp.utils.setCookieValue(
+        axis.auth.clearToken();
+        axis.utils.setCookieValue(
             AppConsts.authorization.encryptedAuthTokenName,
             undefined,
             undefined,
-            abp.appPath
+            axis.appPath
         );
         if (reload !== false) {
             location.href = AppConsts.appBaseUrl;
@@ -91,7 +91,7 @@ export class AppAuthService {
             AppConsts.authorization.encryptedAuthTokenName,
             encryptedAccessToken,
             tokenExpireDate,
-            abp.appPath
+            axis.appPath
         );
 
         let initialUrl = UrlHelper.initialUrl;

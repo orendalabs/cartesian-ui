@@ -19,21 +19,21 @@ export class AppInitializer {
 
   init(): () => Promise<boolean> {
     return () => {
-      abp.ui.setBusy();
+      axis.ui.setBusy();
       return new Promise<boolean>((resolve, reject) => {
         AppConsts.appBaseHref = this.getBaseHref();
         const appBaseUrl = this.getDocumentOrigin() + AppConsts.appBaseHref;
         this.getApplicationConfig(appBaseUrl, () => {
           this.getUserConfiguration(() => {
-            abp.event.trigger('abp.dynamicScriptsInitialized');
+            axis.event.trigger('axis.dynamicScriptsInitialized');
             // do not use constructor injection for AppSessionService
             const appSessionService = this._injector.get(AppSessionService);
             appSessionService.init().then(
               (result) => {
-                abp.ui.clearBusy();
+                axis.ui.clearBusy();
                 if (this.shouldLoadLocale()) {
-                  const angularLocale = this.convertAbpLocaleToAngularLocale(
-                    abp.localization.currentLanguage.name
+                  const angularLocale = this.convertAxisLocaleToAngularLocale(
+                    axis.localization.currentLanguage.name
                   );
                   import(`@angular/common/locales/${angularLocale}.js`).then(
                     (module) => {
@@ -47,7 +47,7 @@ export class AppInitializer {
                 }
               },
               (err) => {
-                abp.ui.clearBusy();
+                axis.ui.clearBusy();
                 reject(err);
               }
             );
@@ -79,12 +79,12 @@ export class AppInitializer {
 
   private shouldLoadLocale(): boolean {
     return (
-      abp.localization.currentLanguage.name &&
-      abp.localization.currentLanguage.name !== 'en-US'
+      axis.localization.currentLanguage.name &&
+      axis.localization.currentLanguage.name !== 'en-US'
     );
   }
 
-  private convertAbpLocaleToAngularLocale(locale: string): string {
+  private convertAxisLocaleToAngularLocale(locale: string): string {
     if (!AppConsts.localeMappings) {
       return locale;
     }
@@ -99,26 +99,26 @@ export class AppInitializer {
 
   private getCurrentClockProvider(
     currentProviderName: string
-  ): abp.timing.IClockProvider {
+  ): axis.timing.IClockProvider {
     if (currentProviderName === 'unspecifiedClockProvider') {
-      return abp.timing.unspecifiedClockProvider;
+      return axis.timing.unspecifiedClockProvider;
     }
 
     if (currentProviderName === 'utcClockProvider') {
-      return abp.timing.utcClockProvider;
+      return axis.timing.utcClockProvider;
     }
 
-    return abp.timing.localClockProvider;
+    return axis.timing.localClockProvider;
   }
 
   private getUserConfiguration(callback: () => void): void {
-    const cookieLangValue = abp.utils.getCookieValue(
-      'Abp.Localization.CultureName'
+    const cookieLangValue = axis.utils.getCookieValue(
+      'Axis.Localization.CultureName'
     );
-    const token = abp.auth.getToken();
+    const token = axis.auth.getToken();
 
     const requestHeaders = {
-      'Abp.TenantId': `${abp.multiTenancy.getTenantIdCookie()}`,
+      'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
       '.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
     };
 
@@ -128,7 +128,7 @@ export class AppInitializer {
 
     this._httpClient
       .get<any>(
-        `${AppConsts.remoteServiceBaseUrl}/AbpUserConfiguration/GetAll`,
+        `${AppConsts.remoteServiceBaseUrl}/AxisUserConfiguration/GetAll`,
         {
           headers: requestHeaders,
         }
@@ -136,16 +136,16 @@ export class AppInitializer {
       .subscribe((response) => {
         const result = response.result;
 
-        _.merge(abp, result);
+        _.merge(axis, result);
 
-        abp.clock.provider = this.getCurrentClockProvider(
+        axis.clock.provider = this.getCurrentClockProvider(
           result.clock.provider
         );
 
-        moment.locale(abp.localization.currentLanguage.name);
+        moment.locale(axis.localization.currentLanguage.name);
 
-        if (abp.clock.provider.supportsMultipleTimezone) {
-          moment.tz.setDefault(abp.timing.timeZoneInfo.iana.timeZoneId);
+        if (axis.clock.provider.supportsMultipleTimezone) {
+          moment.tz.setDefault(axis.timing.timeZoneInfo.iana.timeZoneId);
         }
 
         callback();
@@ -156,7 +156,7 @@ export class AppInitializer {
     this._httpClient
       .get<any>(`${appRootUrl}assets/${environment.appConfig}`, {
         headers: {
-          'Abp.TenantId': `${abp.multiTenancy.getTenantIdCookie()}`,
+          'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
         },
       })
       .subscribe((response) => {

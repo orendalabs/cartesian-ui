@@ -17,9 +17,9 @@ export class BusyDirective {
     }
 
     if (isBusy) {
-      abp.ui.setBusy(this._element.nativeElement);
+      axis.ui.setBusy(this._element.nativeElement);
     } else {
-      abp.ui.clearBusy(this._element.nativeElement);
+      axis.ui.clearBusy(this._element.nativeElement);
     }
   }
 }

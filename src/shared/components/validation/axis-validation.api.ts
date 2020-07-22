@@ -1,4 +1,4 @@
-export interface AbpValidationError {
+export interface AxisValidationError {
   name: string;
   localizationKey: string;
   propertyKey: string;

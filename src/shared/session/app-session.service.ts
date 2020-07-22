@@ -1,4 +1,4 @@
-import { AbpMultiTenancyService } from 'abp-ng2-module';
+import { AxisMultiTenancyService } from '@cartesian-ui/ng-axis';
 import { Injectable } from '@angular/core';
 import {
     ApplicationInfoDto,
@@ -17,7 +17,7 @@ export class AppSessionService {
 
     constructor(
         private _sessionService: SessionServiceProxy,
-        private _abpMultiTenancyService: AbpMultiTenancyService) {
+        private _axisMultiTenancyService: AxisMultiTenancyService) {
     }
 
     get application(): ApplicationInfoDto {
@@ -42,7 +42,7 @@ export class AppSessionService {
 
     getShownLoginName(): string {
         const userName = this._user.userName;
-        if (!this._abpMultiTenancyService.isEnabled) {
+        if (!this._axisMultiTenancyService.isEnabled) {
             return userName;
         }
 
@@ -68,7 +68,7 @@ export class AppSessionService {
             return false;
         }
 
-        abp.multiTenancy.setTenantIdCookie(tenantId);
+        axis.multiTenancy.setTenantIdCookie(tenantId);
         location.reload();
         return true;
     }

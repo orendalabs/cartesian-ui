@@ -7,8 +7,8 @@ import {
     NotifyService,
     SettingService,
     MessageService,
-    AbpMultiTenancyService
-} from 'abp-ng2-module';
+    AxisMultiTenancyService
+} from '@cartesian-ui/ng-axis';
 
 import { AppSessionService } from '@shared/session/app-session.service';
 
@@ -22,7 +22,7 @@ export abstract class AppComponentBase {
     notify: NotifyService;
     setting: SettingService;
     message: MessageService;
-    multiTenancy: AbpMultiTenancyService;
+    multiTenancy: AxisMultiTenancyService;
     appSession: AppSessionService;
     elementRef: ElementRef;
 
@@ -33,7 +33,7 @@ export abstract class AppComponentBase {
         this.notify = injector.get(NotifyService);
         this.setting = injector.get(SettingService);
         this.message = injector.get(MessageService);
-        this.multiTenancy = injector.get(AbpMultiTenancyService);
+        this.multiTenancy = injector.get(AxisMultiTenancyService);
         this.appSession = injector.get(AppSessionService);
         this.elementRef = injector.get(ElementRef);
     }
@@ -50,7 +50,7 @@ export abstract class AppComponentBase {
         }
 
         args.unshift(localizedText);
-        return abp.utils.formatString.apply(this, args);
+        return axis.utils.formatString.apply(this, args);
     }
 
     isGranted(permissionName: string): boolean {

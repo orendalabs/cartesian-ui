@@ -1,10 +1,10 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'abp-pagination-controls',
-  templateUrl: './abp-pagination-controls.component.html'
+  selector: 'axis-pagination-controls',
+  templateUrl: './axis-pagination-controls.component.html'
 })
-export class AbpPaginationControlsComponent {
+export class AxisPaginationControlsComponent {
     @Input() id: string;
     @Input() maxSize = 7;
 

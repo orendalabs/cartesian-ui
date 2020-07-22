@@ -9,11 +9,11 @@ import {
 import { AppComponentBase } from '@shared/app-component-base';
 
 @Component({
-  selector: 'abp-modal-header',
-  templateUrl: './abp-modal-header.component.html',
+  selector: 'axis-modal-header',
+  templateUrl: './axis-modal-header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AbpModalHeaderComponent extends AppComponentBase {
+export class AxisModalHeaderComponent extends AppComponentBase {
   @Input() title: string;
 
   @Output() onCloseClick = new EventEmitter<number>();
