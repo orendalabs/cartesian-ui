@@ -3,7 +3,7 @@ import { PlatformLocation, registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { AppConsts } from '@shared/AppConsts';
+import { AppConstants } from '@cartesian-ui/ng-axis';
 import { AppSessionService } from '@shared/session/app-session.service';
 import { environment } from './environments/environment';
 
@@ -21,40 +21,100 @@ export class AppInitializer {
     return () => {
       axis.ui.setBusy();
       return new Promise<boolean>((resolve, reject) => {
-        AppConsts.appBaseHref = this.getBaseHref();
-        const appBaseUrl = this.getDocumentOrigin() + AppConsts.appBaseHref;
+        AppConstants.appBaseHref = this.getBaseHref();
+        const appBaseUrl = this.getDocumentOrigin() + AppConstants.appBaseHref;
         this.getApplicationConfig(appBaseUrl, () => {
-          this.getUserConfiguration(() => {
-            axis.event.trigger('axis.dynamicScriptsInitialized');
-            // do not use constructor injection for AppSessionService
-            const appSessionService = this._injector.get(AppSessionService);
-            appSessionService.init().then(
-              (result) => {
-                axis.ui.clearBusy();
-                if (this.shouldLoadLocale()) {
-                  const angularLocale = this.convertAxisLocaleToAngularLocale(
-                    axis.localization.currentLanguage.name
-                  );
-                  import(`@angular/common/locales/${angularLocale}.js`).then(
-                    (module) => {
-                      registerLocaleData(module.default);
-                      resolve(result);
-                    },
-                    reject
-                  );
-                } else {
-                  resolve(result);
-                }
-              },
-              (err) => {
-                axis.ui.clearBusy();
-                reject(err);
-              }
-            );
-          });
+          resolve();
+          // this.getUserConfiguration(() => {
+          //   axis.event.trigger('axis.dynamicScriptsInitialized');
+          //   // do not use constructor injection for AppSessionService
+          //   const appSessionService = this._injector.get(AppSessionService);
+          //   appSessionService.init().then(
+          //     (result) => {
+          //       axis.ui.clearBusy();
+          //       if (this.shouldLoadLocale()) {
+          //         const angularLocale = this.convertAxisLocaleToAngularLocale(
+          //           axis.localization.currentLanguage.name
+          //         );
+          //         import(`@angular/common/locales/${angularLocale}.js`).then(
+          //           (module) => {
+          //             registerLocaleData(module.default);
+          //             resolve(result);
+          //           },
+          //           reject
+          //         );
+          //       } else {
+          //         resolve(result);
+          //       }
+          //     },
+          //     (err) => {
+          //       axis.ui.clearBusy();
+          //       reject(err);
+          //     }
+          //   );
+          // });
         });
       });
     };
+  }
+
+  private getApplicationConfig(appRootUrl: string, callback: () => void) {
+    this._httpClient
+      .get<any>(`${appRootUrl}assets/${environment.appConfig}`, {
+        headers: {
+          'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
+        },
+      })
+      .subscribe((response) => {
+        AppConstants.appBaseUrl = response.appBaseUrl;
+        AppConstants.remoteServiceBaseUrl = response.remoteServiceBaseUrl;
+        AppConstants.localeMappings = response.localeMappings;
+
+        callback();
+      });
+  }
+
+  private getUserConfiguration(callback: () => void): void {
+    // const cookieLangValue = axis.utils.getCookieValue(
+    //   'Axis.Localization.CultureName'
+    // );
+
+    const token = axis.auth.getToken();
+
+    const requestHeaders = {
+      'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
+    };
+
+    // '.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
+
+    if (token) {
+      requestHeaders['Authorization'] = `Bearer ${token}`;
+    }
+
+    this._httpClient
+      .get<any>(
+        `${AppConstants.remoteServiceBaseUrl}/AbpUserConfiguration/GetAll`,
+        {
+          headers: requestHeaders,
+        }
+      )
+      .subscribe((response) => {
+        const result = response.result;
+
+        _.merge(axis, result);
+
+        axis.clock.provider = this.getCurrentClockProvider(
+          result.clock.provider
+        );
+
+        moment.locale(axis.localization.currentLanguage.name);
+
+        if (axis.clock.provider.supportsMultipleTimezone) {
+          moment.tz.setDefault(axis.timing.timeZoneInfo.iana.timeZoneId);
+        }
+
+        callback();
+      });
   }
 
   private getBaseHref(): string {
@@ -85,11 +145,11 @@ export class AppInitializer {
   }
 
   private convertAxisLocaleToAngularLocale(locale: string): string {
-    if (!AppConsts.localeMappings) {
+    if (!AppConstants.localeMappings) {
       return locale;
     }
 
-    const localeMapings = _.filter(AppConsts.localeMappings, { from: locale });
+    const localeMapings = _.filter(AppConstants.localeMappings, { from: locale });
     if (localeMapings && localeMapings.length) {
       return localeMapings[0]['to'];
     }
@@ -109,62 +169,5 @@ export class AppInitializer {
     }
 
     return axis.timing.localClockProvider;
-  }
-
-  private getUserConfiguration(callback: () => void): void {
-    const cookieLangValue = axis.utils.getCookieValue(
-      'Axis.Localization.CultureName'
-    );
-    const token = axis.auth.getToken();
-
-    const requestHeaders = {
-      'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
-      '.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
-    };
-
-    if (token) {
-      requestHeaders['Authorization'] = `Bearer ${token}`;
-    }
-
-    this._httpClient
-      .get<any>(
-        `${AppConsts.remoteServiceBaseUrl}/AxisUserConfiguration/GetAll`,
-        {
-          headers: requestHeaders,
-        }
-      )
-      .subscribe((response) => {
-        const result = response.result;
-
-        _.merge(axis, result);
-
-        axis.clock.provider = this.getCurrentClockProvider(
-          result.clock.provider
-        );
-
-        moment.locale(axis.localization.currentLanguage.name);
-
-        if (axis.clock.provider.supportsMultipleTimezone) {
-          moment.tz.setDefault(axis.timing.timeZoneInfo.iana.timeZoneId);
-        }
-
-        callback();
-      });
-  }
-
-  private getApplicationConfig(appRootUrl: string, callback: () => void) {
-    this._httpClient
-      .get<any>(`${appRootUrl}assets/${environment.appConfig}`, {
-        headers: {
-          'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
-        },
-      })
-      .subscribe((response) => {
-        AppConsts.appBaseUrl = response.appBaseUrl;
-        AppConsts.remoteServiceBaseUrl = response.remoteServiceBaseUrl;
-        AppConsts.localeMappings = response.localeMappings;
-
-        callback();
-      });
   }
 }

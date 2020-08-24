@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AppConsts } from '@shared/AppConsts';
+import { AppConstants } from '@cartesian-ui/ng-axis';
 import { AppSessionService } from '../session/app-session.service';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class AppUrlService {
      * Returning url ends with '/'.
      */
     getAppRootUrlOfTenant(tenancyName?: string): string {
-        let baseUrl = this.ensureEndsWith(AppConsts.appBaseUrl, '/');
+        let baseUrl = this.ensureEndsWith(AppConstants.appBaseUrl, '/');
 
         if (baseUrl.indexOf(AppUrlService.tenancyNamePlaceHolder) < 0) {
             return baseUrl;
