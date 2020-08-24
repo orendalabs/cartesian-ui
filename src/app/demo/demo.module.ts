@@ -11,7 +11,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
-import { AdminComponent } from './admin.component';
+import { DemoComponent } from './demo.component';
 
 // Import containers
 import { DefaultLayoutComponent } from './containers';
@@ -34,7 +34,7 @@ import {
 } from '@coreui/angular';
 
 // Import routing module
-import { AdminRoutingModule } from './admin.routing';
+import { DemoRoutingModule } from './demo.routing';
 
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -44,7 +44,7 @@ import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
-    AdminComponent,
+    DemoComponent,
     ...APP_CONTAINERS,
     P404Component,
     P500Component,
@@ -53,7 +53,7 @@ import { ChartsModule } from 'ng2-charts';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule,
+    DemoRoutingModule,
     AppAsideModule,
     AppBreadcrumbModule.forRoot(),
     AppFooterModule,
@@ -68,6 +68,6 @@ import { ChartsModule } from 'ng2-charts';
     provide: LocationStrategy,
     useClass: HashLocationStrategy
   }],
-  entryComponents: [ AdminComponent ]
+  entryComponents: [ DemoComponent ]
 })
-export class AdminModule { }
+export class DemoModule { }

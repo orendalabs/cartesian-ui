@@ -5,12 +5,12 @@ const routes: Routes = [
     { path: '', redirectTo: '/account', pathMatch: 'full' },
     {
         path: 'account',
-        loadChildren: () => import('account/account.module').then(m => m.AccountModule), // Lazy load account module
+        loadChildren: () => import('@app/account/account.module').then(m => m.AccountModule), // Lazy load account module
         data: { preload: true }
     },
     {
-        path: 'admin',
-        loadChildren: () => import('admin/admin.module').then(m => m.AdminModule), // Lazy load account module
+        path: 'demo',
+        loadChildren: () => import('@app/demo/demo.module').then(m => m.DemoModule), // Lazy load account module
         data: { preload: true }
     }
 ];

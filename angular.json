@@ -17,7 +17,7 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
+            "tsConfig": "src/tsconfig.app.json",
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -36,7 +36,7 @@
               "node_modules/sweetalert2/dist/sweetalert2.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/@cartesian-ui/js-axis/src/libs/freeze-ui/freeze-ui.css",
-              "src/shared/core.less"
+              "src/scss/core.less"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -168,7 +168,7 @@
               "node_modules/sweetalert2/dist/sweetalert2.css",
               "node_modules/@cartesian-ui/js-axis/src/libs/freeze-ui/freeze-ui.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/shared/core.less"
+              "src/scss/core.less"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

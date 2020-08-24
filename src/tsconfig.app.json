@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [
@@ -10,16 +10,16 @@
     ],
     "paths": {
       "@app/*": [ "./app/*" ],
-      "@shared/*": [ "./shared/*" ],
+      "@shared/*": [ "./app/shared/*" ],
       "@node_modules/*": [ "../node_modules/*" ]
     }
   },
   "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
+    "./main.ts",
+    "./polyfills.ts"
   ],
   "include": [
-    "src/**/*.d.ts",
-    "src/typings.d.ts"
+    "./**/*.d.ts",
+    "./typings.d.ts"
   ]
 }

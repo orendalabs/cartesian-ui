@@ -14,10 +14,10 @@ export class AccountFooterComponent extends AppComponentBase {
     super(injector);
 
     this.currentYear = new Date().getFullYear();
-    this.versionText =
-      this.appSession.application.version +
-      ' [' +
-      this.appSession.application.releaseDate.format('YYYYDDMM') +
-      ']';
+    this.versionText = ""
+    //   this.appSession.application.version +
+    //   ' [' +
+    //   this.appSession.application.releaseDate.format('YYYYDDMM') +
+    //   ']';
   }
 }
