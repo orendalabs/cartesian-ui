@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { AppConsts } from '@shared/AppConsts';
+import { AppConstants } from '@cartesian-ui/ng-axis';
 import { SharedModule } from '@shared/shared.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { RootRoutingModule } from './root-routing.module';
@@ -20,6 +20,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import * as _ from 'lodash';
+import {HttpServiceModule} from "@cartesian-ui/ng-axis";
 
 export function getCurrentLanguage(): string {
   if (axis.localization.currentLanguage.name) {
@@ -42,21 +43,19 @@ export function getCurrentLanguage(): string {
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
+    HttpServiceModule.forRoot(),
   ],
   declarations: [RootComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AxisHttpInterceptor, multi: true },
-    { provide: API_BASE_URL, useFactory: () => AppConsts.remoteServiceBaseUrl },
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
-    //   deps: [AppInitializer],
-    //   multi: true,
-    // },
+    { provide: API_BASE_URL, useFactory: () => AppConstants.remoteServiceBaseUrl },
     {
-      provide: LOCALE_ID,
-      useFactory: getCurrentLanguage,
+      provide: APP_INITIALIZER,
+      useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
+      deps: [AppInitializer],
+      multi: true,
     },
+    {provide: LOCALE_ID, useFactory: getCurrentLanguage },
   ],
   bootstrap: [RootComponent],
 })

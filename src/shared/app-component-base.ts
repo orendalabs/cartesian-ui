@@ -1,5 +1,5 @@
 import { Injector, ElementRef } from '@angular/core';
-import { AppConsts } from '@shared/AppConsts';
+import { AppConstants } from '@cartesian-ui/ng-axis';
 import {
     LocalizationService,
     PermissionCheckerService,
@@ -14,7 +14,7 @@ import { AppSessionService } from '@shared/session/app-session.service';
 
 export abstract class AppComponentBase {
 
-    localizationSourceName = AppConsts.localization.defaultLocalizationSourceName;
+    localizationSourceName = AppConstants.localization.defaultLocalizationSourceName;
 
     localization: LocalizationService;
     permission: PermissionCheckerService;

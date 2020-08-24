@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { TokenService, LogService, UtilsService } from '@cartesian-ui/ng-axis';
-import { AppConsts } from '@shared/AppConsts';
+import { AppConstants } from '@cartesian-ui/ng-axis';
 import { UrlHelper } from '@shared/helpers/UrlHelper';
 import {
     AuthenticateModel,
@@ -29,13 +29,13 @@ export class AppAuthService {
     logout(reload?: boolean): void {
         axis.auth.clearToken();
         axis.utils.setCookieValue(
-            AppConsts.authorization.encryptedAuthTokenName,
+            AppConstants.authorization.encryptedAuthTokenName,
             undefined,
             undefined,
             axis.appPath
         );
         if (reload !== false) {
-            location.href = AppConsts.appBaseUrl;
+            location.href = AppConstants.appBaseUrl;
         }
     }
 
@@ -88,7 +88,7 @@ export class AppAuthService {
         this._tokenService.setToken(accessToken, tokenExpireDate);
 
         this._utilsService.setCookieValue(
-            AppConsts.authorization.encryptedAuthTokenName,
+            AppConstants.authorization.encryptedAuthTokenName,
             encryptedAccessToken,
             tokenExpireDate,
             axis.appPath
@@ -96,7 +96,7 @@ export class AppAuthService {
 
         let initialUrl = UrlHelper.initialUrl;
         if (initialUrl.indexOf('/login') > 0) {
-            initialUrl = AppConsts.appBaseUrl;
+            initialUrl = AppConstants.appBaseUrl;
         }
 
         location.href = initialUrl;
