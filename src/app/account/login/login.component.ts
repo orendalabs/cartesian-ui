@@ -5,6 +5,7 @@ import { accountModuleAnimation } from '@shared/animations/routerTransition';
 import { AppAuthService } from '@shared/auth/app-auth.service';
 
 @Component({
+  selector: 'app-dashboard',
   templateUrl: './login.component.html',
   animations: [accountModuleAnimation()]
 })
@@ -25,7 +26,7 @@ export class LoginComponent extends AppComponentBase {
 
   get isSelfRegistrationAllowed(): boolean {
     if (!this._sessionService.tenantId) {
-      return false;
+      return true; // false
     }
 
     return true;
