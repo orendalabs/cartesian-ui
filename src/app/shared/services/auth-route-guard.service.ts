@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PermissionCheckerService } from '@cartesian-ui/ng-axis';
-import { AppSessionService } from '../session/app-session.service';
+import { AppSessionService } from './app-session.service';
 
 import {
     CanActivate, Router,

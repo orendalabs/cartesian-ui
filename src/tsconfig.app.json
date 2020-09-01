@@ -7,12 +7,7 @@
     ],
     "typeRoots": [
       "./node_modules/@types"
-    ],
-    "paths": {
-      "@app/*": [ "./app/*" ],
-      "@shared/*": [ "./app/shared/*" ],
-      "@node_modules/*": [ "../node_modules/*" ]
-    }
+    ]
   },
   "files": [
     "./main.ts",

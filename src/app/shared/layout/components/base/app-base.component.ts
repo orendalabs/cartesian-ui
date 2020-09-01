@@ -10,7 +10,7 @@ import {
     AxisMultiTenancyService
 } from '@cartesian-ui/ng-axis';
 
-import { AppSessionService } from '@shared/session/app-session.service';
+import { AppSessionService } from 'app/shared/services/app-session.service';
 
 export abstract class AppComponentBase {
 

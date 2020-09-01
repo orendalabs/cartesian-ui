@@ -4,7 +4,7 @@ import {
   Injector,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { AppComponentBase } from '@shared/app-component-base';
+import { AppBaseComponent } from '@shared/layout';
 import * as _ from 'lodash';
 
 @Component({
@@ -12,7 +12,7 @@ import * as _ from 'lodash';
   templateUrl: './account-languages.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountLanguagesComponent extends AppComponentBase
+export class AccountLanguagesComponent extends AppBaseComponent
   implements OnInit {
   languages: axis.localization.ILanguageInfo[];
   currentLanguage: axis.localization.ILanguageInfo;
