@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppConstants } from '@cartesian-ui/ng-axis';
-import { AppSessionService } from '../session/app-session.service';
+import { AppSessionService } from './app-session.service';
 
 @Injectable()
 export class AppUrlService {
