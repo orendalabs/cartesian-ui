@@ -12,7 +12,7 @@ import {
 
 import { AppSessionService } from 'app/shared/services/app-session.service';
 
-export abstract class AppComponentBase {
+export abstract class AppBaseComponent {
 
     localizationSourceName = AppConstants.localization.defaultLocalizationSourceName;
 

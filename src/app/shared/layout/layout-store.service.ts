@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, pluck } from 'rxjs/operators';
-import { LayoutConfig } from './layout-config';
+import { LayoutConfig } from './layout.config';
 
 @Injectable()
 export class LayoutStoreService {
