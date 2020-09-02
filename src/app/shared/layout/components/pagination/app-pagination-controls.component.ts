@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'axis-pagination-controls',
-  templateUrl: './axis-pagination-controls.component.html'
+  selector: 'app-pagination-controls',
+  templateUrl: './app-pagination-controls.component.html'
 })
-export class AxisPaginationControlsComponent {
+export class AppPaginationControlsComponent {
 
   @Input() id: string;
   @Input() maxSize = 7;

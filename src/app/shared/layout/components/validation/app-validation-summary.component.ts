@@ -7,14 +7,14 @@ import {
   OnInit
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { AppBaseComponent } from '@shared/layout';
-import { AxisValidationError } from './axis-validation.api';
+import { BaseComponent } from '@shared/layout';
+import { AxisValidationError } from './app-validation.api';
 
 @Component({
-  selector: 'axis-validation-summary',
-  templateUrl: './axis-validation.summary.component.html'
+  selector: 'app-validation-summary',
+  templateUrl: './app-validation-summary.component.html'
 })
-export class AxisValidationSummaryComponent extends AppBaseComponent implements OnInit {
+export class AppValidationSummaryComponent extends BaseComponent implements OnInit {
 
   defaultValidationErrors: Partial<AxisValidationError>[] = [
     { name: 'required', localizationKey: 'ThisFieldIsRequired' },

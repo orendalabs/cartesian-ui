@@ -10,9 +10,9 @@ import {
     AxisMultiTenancyService
 } from '@cartesian-ui/ng-axis';
 
-import { AppSessionService } from 'app/shared/services/app-session.service';
+import { AppSessionService } from '@shared/services/app-session.service';
 
-export abstract class AppBaseComponent {
+export abstract class BaseComponent {
 
     localizationSourceName = AppConstants.localization.defaultLocalizationSourceName;
 

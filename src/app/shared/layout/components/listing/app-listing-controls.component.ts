@@ -1,5 +1,5 @@
 import { Injector, OnInit } from '@angular/core';
-import { AppBaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/layout';
 
 export class PagedResultDto {
     items: any[];
@@ -15,7 +15,7 @@ export class PagedRequestDto {
     maxResultCount: number;
 }
 
-export abstract class PagedListingBaseComponent<TEntityDto> extends AppBaseComponent implements OnInit {
+export abstract class AppListingControlsComponent<TEntityDto> extends BaseComponent implements OnInit {
 
     public pageSize = 10;
     public pageNumber = 1;

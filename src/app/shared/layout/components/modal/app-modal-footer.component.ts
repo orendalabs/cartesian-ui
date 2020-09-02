@@ -6,14 +6,14 @@ import {
   ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
-import { AppBaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/layout';
 
 @Component({
-  selector: 'axis-modal-footer',
-  templateUrl: './axis-modal-footer.component.html',
+  selector: 'app-modal-footer',
+  templateUrl: './app-modal-footer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AxisModalFooterComponent extends AppBaseComponent {
+export class AppModalFooterComponent extends BaseComponent {
   @Input() cancelLabel = this.l('Cancel');
   @Input() cancelDisabled: boolean;
   @Input() saveLabel = this.l('Save');

@@ -6,14 +6,14 @@ import {
   ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
-import { AppBaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/layout';
 
 @Component({
-  selector: 'axis-modal-header',
-  templateUrl: './axis-modal-header.component.html',
+  selector: 'app-modal-header',
+  templateUrl: './app-modal-header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AxisModalHeaderComponent extends AppBaseComponent {
+export class AppModalHeaderComponent extends BaseComponent {
   @Input() title: string;
 
   @Output() onCloseClick = new EventEmitter<number>();
