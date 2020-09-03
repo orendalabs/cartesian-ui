@@ -2,21 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-
-import { AppSessionService } from './session/app-session.service';
-import { AppUrlService } from './nav/app-url.service';
-import { AppAuthService } from './auth/app-auth.service';
-import { AppRouteGuard } from './auth/auth-route-guard';
-import { LocalizePipe } from '@shared/pipes/localize.pipe';
-
-import { AxisPaginationControlsComponent } from './components/pagination/axis-pagination-controls.component';
-import { AxisValidationSummaryComponent } from './components/validation/axis-validation.summary.component';
-import { AxisModalHeaderComponent } from './components/modal/axis-modal-header.component';
-import { AxisModalFooterComponent } from './components/modal/axis-modal-footer.component';
-import { LayoutStoreService } from './layout/layout-store.service';
-
-import { BusyDirective } from './directives/busy.directive';
-import { EqualValidator } from './directives/equal-validator.directive';
+import { LayoutStoreService } from './layout';
+import { AppPaginationControlsComponent, AppValidationSummaryComponent, AppModalHeaderComponent, AppModalFooterComponent } from './layout/components';
+import { AppSessionService, AppUrlService, AppAuthService, AppRouteGuard } from './services';
+import { BusyDirective,EqualValidator } from './directives';
+import { LocalizePipe } from './pipes';
 
 @NgModule({
     imports: [
@@ -25,19 +15,19 @@ import { EqualValidator } from './directives/equal-validator.directive';
         NgxPaginationModule
     ],
     declarations: [
-        AxisPaginationControlsComponent,
-        AxisValidationSummaryComponent,
-        AxisModalHeaderComponent,
-        AxisModalFooterComponent,
+        AppPaginationControlsComponent,
+        AppValidationSummaryComponent,
+        AppModalHeaderComponent,
+        AppModalFooterComponent,
         LocalizePipe,
         BusyDirective,
         EqualValidator
     ],
     exports: [
-        AxisPaginationControlsComponent,
-        AxisValidationSummaryComponent,
-        AxisModalHeaderComponent,
-        AxisModalFooterComponent,
+        AppPaginationControlsComponent,
+        AppValidationSummaryComponent,
+        AppModalHeaderComponent,
+        AppModalFooterComponent,
         LocalizePipe,
         BusyDirective,
         EqualValidator
