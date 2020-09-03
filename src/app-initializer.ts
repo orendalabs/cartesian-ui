@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { AppConstants } from '@cartesian-ui/ng-axis';
-import { AppSessionService } from '@shared/session/app-session.service';
+import { AppSessionService } from '@shared/services';
 import { environment } from './environments/environment';
 
 @Injectable({
