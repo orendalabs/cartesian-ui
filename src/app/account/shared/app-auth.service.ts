@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { TokenService, LogService, UtilsService } from '@cartesian-ui/ng-axis';
 import { AppConstants } from '@cartesian-ui/ng-axis';
-import { UrlHelper } from '../helpers/url.helper';
+import { UrlHelper } from '@shared/helpers/url.helper';
 import {
     AuthenticateModel,
     AuthenticateResultModel,
     TokenAuthServiceProxy,
-} from 'app/shared/service-proxies/service-proxies';
+} from '@shared/service-proxies/service-proxies';
 
 @Injectable()
 export class AppAuthService {

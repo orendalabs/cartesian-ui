@@ -17,6 +17,7 @@
     "paths": {
       "@app/*": [ "./app/*" ],
       "@shared/*": [ "./app/shared/*" ],
+      "@store/*": [ "./app/shared/store/*" ],
       "@node_modules/*": [ "../node_modules/*" ]
     }
   },

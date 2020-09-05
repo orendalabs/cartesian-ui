@@ -1,12 +1,12 @@
 import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { AppBaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/layout';
 
 @Component({
   selector: 'account-footer',
   templateUrl: './account-footer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AccountFooterComponent extends AppBaseComponent {
+export class AccountFooterComponent extends BaseComponent {
   currentYear: number;
   versionText: string;
 
