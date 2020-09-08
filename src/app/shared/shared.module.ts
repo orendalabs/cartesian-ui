@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LayoutStoreService } from './layout';
 import { AppPaginationControlsComponent, AppValidationSummaryComponent, AppModalHeaderComponent, AppModalFooterComponent } from './layout/components';
-import { AppSessionService, AppUrlService, AppAuthService, AppRouteGuard } from './services';
+import { AppSessionService, AppUrlService, AppRouteGuard } from './services';
 import { BusyDirective,EqualValidator } from './directives';
 import { LocalizePipe } from './pipes';
 
@@ -40,7 +40,6 @@ export class SharedModule {
             providers: [
                 AppSessionService,
                 AppUrlService,
-                AppAuthService,
                 AppRouteGuard,
                 LayoutStoreService
             ]
