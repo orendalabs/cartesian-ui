@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import { AppConstants } from '@cartesian-ui/ng-axis';
 import { AppSessionService } from '@shared/services';
-import { environment } from './environments/environment';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
