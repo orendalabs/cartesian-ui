@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@cartesian-ui/js-axis": "^1.3.3",
-    "@cartesian-ui/ng-axis": "^4.3.0",
+    "@cartesian-ui/ng-axis": "^4.4.0",
     "@coreui/angular": "^2.9.2",
     "@coreui/coreui": "^2.1.16",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.3.1",
