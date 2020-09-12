@@ -5,13 +5,13 @@ import {
   Injector,
   Renderer2
 } from '@angular/core';
-import { AppComponentBase } from '@shared/app-component-base';
+import { BaseComponent } from '@shared/layout';
 
 @Component({
   templateUrl: './account.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class AccountComponent extends AppComponentBase implements OnInit {
+export class AccountComponent extends BaseComponent implements OnInit {
   constructor(injector: Injector, private renderer: Renderer2) {
     super(injector);
   }
