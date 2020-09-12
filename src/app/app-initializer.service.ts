@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class AppInitializer {
+export class AppInitializerService {
   constructor(
     private _injector: Injector,
     private _platformLocation: PlatformLocation,
