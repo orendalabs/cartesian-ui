@@ -8,9 +8,9 @@ import { SharedModule } from '@shared/shared.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 
-import { AppInitializer } from '../app-initializer';
-import { RootRoutingModule } from './root-routing.module';
-import { RootComponent } from './root.component';
+import { AppInitializerService } from './app-initializer.service';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 // Store
 import { reducer as settingReducer }  from '@app/setting';
@@ -43,7 +43,7 @@ export function getCurrentLanguage(): string {
     ModalModule.forRoot(),
     SharedModule.forRoot(),
     ServiceProxyModule,
-    RootRoutingModule,
+    AppRoutingModule,
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
@@ -53,18 +53,18 @@ export function getCurrentLanguage(): string {
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot()
   ],
-  declarations: [RootComponent],
+  declarations: [AppComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AxisHttpInterceptor, multi: true },
     { provide: API_BASE_URL, useFactory: () => AppConstants.remoteServiceBaseUrl },
     {
       provide: APP_INITIALIZER,
-      useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
-      deps: [AppInitializer],
+      useFactory: (appInitializer: AppInitializerService) => appInitializer.init(),
+      deps: [AppInitializerService],
       multi: true,
     },
     {provide: LOCALE_ID, useFactory: getCurrentLanguage },
   ],
-  bootstrap: [RootComponent],
+  bootstrap: [AppComponent],
 })
-export class RootModule {}
+export class AppModule {}

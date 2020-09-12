@@ -1,7 +1,7 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { environment } from './environments/environment';
-import { RootModule } from './root.module';
+import { AppModule } from '@app/app.module';
 import { hmrBootstrap } from './hmr';
 
 import 'moment/min/locales.min';
@@ -12,7 +12,7 @@ if (environment.production) {
 }
 
 const bootstrap = () => {
-  return platformBrowserDynamic().bootstrapModule(RootModule);
+  return platformBrowserDynamic().bootstrapModule(AppModule);
 };
 
 /* "Hot Module Replacement" is enabled as described on
