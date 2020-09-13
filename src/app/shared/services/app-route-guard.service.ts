@@ -51,4 +51,13 @@ export class AppRouteGuard implements CanActivate, CanActivateChild {
 
         return '/app/home';
     }
+
+    checkLogin(url: string): boolean {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (currentUser) return true;
+
+      // Navigate to the login page with extras
+      this._router.navigate(['/login']);
+      return false;
+    }
 }
