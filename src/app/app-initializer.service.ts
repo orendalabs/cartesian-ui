@@ -24,35 +24,47 @@ export class AppInitializerService {
         AppConstants.appBaseHref = this.getBaseHref();
         const appBaseUrl = this.getDocumentOrigin() + AppConstants.appBaseHref;
         this.getApplicationConfig(appBaseUrl, () => {
-          resolve();
           // this.getUserConfiguration(() => {
           //   axis.event.trigger('axis.dynamicScriptsInitialized');
-          //   // do not use constructor injection for AppSessionService
-          //   const appSessionService = this._injector.get(AppSessionService);
-          //   appSessionService.init().then(
-          //     (result) => {
-          //       axis.ui.clearBusy();
-          //       if (this.shouldLoadLocale()) {
-          //         const angularLocale = this.convertAxisLocaleToAngularLocale(
-          //           axis.localization.currentLanguage.name
-          //         );
-          //         import(`@angular/common/locales/${angularLocale}.js`).then(
-          //           (module) => {
-          //             registerLocaleData(module.default);
-          //             resolve(result);
-          //           },
-          //           reject
-          //         );
-          //       } else {
-          //         resolve(result);
-          //       }
-          //     },
-          //     (err) => {
-          //       axis.ui.clearBusy();
-          //       reject(err);
-          //     }
-          //   );
+
+          // ----------------------------------------------------------
+          //            Data flow for App Session Service
+          // ----------------------------------------------------------
+          // Diversion #1:
+          // Rule: General rule is, every thing is controlled through sandbox, sandbox has all features and only access to api services.
+          // Exception: app session service is exception to that rule, as it is directly communicating with api
+
+          // Diversion #2:
+          // Rule: As redux principle, NgRx Store should be only source of truth, i.e data should flow from store only.
+          // Exception: app session is exception to that as well, AppSessionService holds session data, and it hydrated directly through api.
+
+            // do not use constructor injection for AppSessionService
+            const appSessionService = this._injector.get(AppSessionService);
+            appSessionService.init().then(
+              (result) => {
+                axis.ui.clearBusy();
+                if (this.shouldLoadLocale()) {
+                  const angularLocale = this.convertAxisLocaleToAngularLocale(
+                    axis.localization.currentLanguage.name
+                  );
+                  import(`@angular/common/locales/${angularLocale}.js`).then(
+                    (module) => {
+                      registerLocaleData(module.default);
+                      resolve(result);
+                    },
+                    reject
+                  );
+                } else {
+                  resolve(result);
+                }
+              },
+              (err) => {
+                axis.ui.clearBusy();
+                reject(err);
+              }
+            );
           // });
+
         });
       });
     };
@@ -75,6 +87,15 @@ export class AppInitializerService {
   }
 
   private getUserConfiguration(callback: () => void): void {
+
+    // ----------------------------------------------------------
+    //   TODO: Policy for Axis Object Holding User Configuration
+    // ----------------------------------------------------------
+    // Global `axis` javascript object
+    // getUserConfiguration: these configurations will remain part of the global axis object, and not be included in app state, because
+    // these values will have no impact on state, and these are supposed to be remain constant through application live cycle,
+    // so these will not be required to part of state.
+
     // const cookieLangValue = axis.utils.getCookieValue(
     //   'Axis.Localization.CultureName'
     // );
@@ -83,9 +104,9 @@ export class AppInitializerService {
 
     const requestHeaders = {
       'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
+      //'.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
     };
 
-    // '.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
 
     if (token) {
       requestHeaders['Authorization'] = `Bearer ${token}`;
