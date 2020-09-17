@@ -60,7 +60,8 @@ export class AppInitializerService {
               },
               (err) => {
                 axis.ui.clearBusy();
-                reject(err);
+                //reject(err);
+                resolve()
               }
             );
           // });
