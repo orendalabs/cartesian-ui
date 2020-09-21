@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { AppConstants } from '@cartesian-ui/ng-axis';
 import { TokenService, LogService, UtilsService } from '@cartesian-ui/ng-axis';
 import { UrlHelper } from '@shared/helpers/url.helper';
-import { AuthToken, LoginForm } from "@shared/models";
+import { AuthToken, LoginForm } from "../../models";
 
 @Injectable()
-export class AuthService {
+export class AccountService {
     authenticateModel: LoginForm;
     authenticateResult: AuthToken;
     rememberMe: boolean;
@@ -34,39 +34,39 @@ export class AuthService {
     }
 
     public processAuthenticateResult(authenticateResult: AuthToken) {
-
         this.authenticateResult = authenticateResult;
-
-        if (authenticateResult.accessToken) {
-
-            // Save to local storage
-            // authenticateResult.save();
-
-            // Successfully logged in
+        return new Promise<boolean>((resolve, reject) => {
+          if (authenticateResult.accessToken) {
             this.login(
-                authenticateResult.accessToken,
-                authenticateResult.refreshToken,
-                authenticateResult.expiresIn,
-                this.rememberMe
+              authenticateResult.accessToken,
+              authenticateResult.refreshToken,
+              authenticateResult.expiresIn,
+              this.rememberMe,
+              () => {
+                resolve(true);
+              }
             );
-        } else {
-            // Unexpected result!
-            this._logService.warn('Unexpected authenticateResult!');
-            // this._router.navigate(['account/login']);
-        }
+          } else {
+            this._logService.warn('Unexpected Authenticate Result!');
+            resolve(false);
+          }
+        });
     }
 
     private login(
         accessToken: string,
         refreshToken: string,
         expiresIn: number,
-        rememberMe?: boolean
+        rememberMe: boolean,
+        callback
     ): void {
         const tokenExpireDate = rememberMe
             ? new Date(new Date().getTime() + 1000 * expiresIn)
             : undefined;
 
         this._tokenService.setToken(accessToken, tokenExpireDate);
+
+        callback();
 
         // this._utilsService.setCookieValue(
         //     AppConstants.authorization.encryptedAuthTokenName,

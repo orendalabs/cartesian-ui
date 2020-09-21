@@ -7,16 +7,14 @@ import {
   Body,
   DefaultHeaders,
   Adapter
-}                       from '@cartesian-ui/ng-axis';
+} from '@cartesian-ui/ng-axis';
 import {
   LoginForm,
   RegisterForm
-}                       from '@app/account/shared/models';
-import { AccountAdapter} from "../../adapters/auth.adapter";
+} from '../../models';
+import { AccountAdapter} from "../adapters/account.adapter";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 @DefaultHeaders({
   'Accept': 'application/json',
   'Content-Type': 'application/json'
