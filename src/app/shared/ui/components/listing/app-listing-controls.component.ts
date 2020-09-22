@@ -1,5 +1,5 @@
 import { Injector, OnInit } from '@angular/core';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 import {ChangeDetectionStrategy, Component} from "@node_modules/@angular/core";
 
 export class PagedResultDto {

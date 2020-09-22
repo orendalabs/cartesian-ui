@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   Injector
 } from '@angular/core';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 
 @Component({
   selector: 'app-modal-header',
