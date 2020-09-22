@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AppConstants } from '@cartesian-ui/ng-axis';
-import { SessionService } from './app-session.service';
+import { SessionService } from './session.service';
 
 @Injectable()
-export class AppUrlService {
+export class UrlService {
 
     static tenancyNamePlaceHolder = '{TENANCY_NAME}';
 
@@ -27,22 +27,22 @@ export class AppUrlService {
     // getAppRootUrlOfTenant(tenancyName?: string): string {
     //     let baseUrl = this.ensureEndsWith(AppConstants.appBaseUrl, '/');
     //
-    //     if (baseUrl.indexOf(AppUrlService.tenancyNamePlaceHolder) < 0) {
+    //     if (baseUrl.indexOf(UrlService.tenancyNamePlaceHolder) < 0) {
     //         return baseUrl;
     //     }
     //
-    //     if (baseUrl.indexOf(AppUrlService.tenancyNamePlaceHolder + '.') >= 0) {
-    //         baseUrl = baseUrl.replace(AppUrlService.tenancyNamePlaceHolder + '.', AppUrlService.tenancyNamePlaceHolder);
+    //     if (baseUrl.indexOf(UrlService.tenancyNamePlaceHolder + '.') >= 0) {
+    //         baseUrl = baseUrl.replace(UrlService.tenancyNamePlaceHolder + '.', UrlService.tenancyNamePlaceHolder);
     //         if (tenancyName) {
     //             tenancyName = tenancyName + '.';
     //         }
     //     }
     //
     //     if (!tenancyName) {
-    //         return baseUrl.replace(AppUrlService.tenancyNamePlaceHolder, '');
+    //         return baseUrl.replace(UrlService.tenancyNamePlaceHolder, '');
     //     }
     //
-    //     return baseUrl.replace(AppUrlService.tenancyNamePlaceHolder, tenancyName);
+    //     return baseUrl.replace(UrlService.tenancyNamePlaceHolder, tenancyName);
     // }
     //
     // private ensureEndsWith(str: string, c: string) {
