@@ -1,27 +1,33 @@
-import {AuthToken, User} from '@shared/models';
-import * as fromAuthActions  from './auth.action';
 import {Action, createReducer, on} from "@ngrx/store";
+import { AuthToken, Tenant, User } from '../models';
+import * as fromAccountActions  from './account.action';
 
-export interface AuthState {
+export interface AccountState {
   loading: boolean;
   loaded:  boolean;
   failed:  boolean;
+  user: User;
+  tenant: Tenant;
   authenticated: { status: boolean, token: AuthToken};
 };
 
-const INITIAL_STATE: AuthState = {
+const INITIAL_STATE: AccountState = {
   loading:       false,
   loaded:        false,
   failed:        false,
+  user:          new User(),
+  tenant:        new Tenant(),
   authenticated: { status: false, token: new AuthToken()},
 };
 
-const createAuthReducers = createReducer(
+const createAccountReducers = createReducer(
   INITIAL_STATE,
   on(
-    fromAuthActions.doLoginAction,
-    fromAuthActions.doRegisterAction,
-    fromAuthActions.doLogoutAction,
+    fromAccountActions.doLoginAction,
+    fromAccountActions.fetchAuthenticatedTenant,
+    fromAccountActions.fetchAuthenticatedUser,
+    fromAccountActions.doRegisterAction,
+    fromAccountActions.doLogoutAction,
     (state) => {
       return Object.assign({}, state, {
         loading: true,
@@ -31,7 +37,7 @@ const createAuthReducers = createReducer(
     }
   ),
   on(
-    fromAuthActions.doLoginSuccessAction,
+    fromAccountActions.doLoginSuccessAction,
     (state, { authToken}) => {
       return Object.assign({}, state, {
         loaded:  true,
@@ -42,7 +48,7 @@ const createAuthReducers = createReducer(
     }
   ),
   on(
-    fromAuthActions.doRegisterSuccessAction,
+    fromAccountActions.doRegisterSuccessAction,
     (state,  {user}) => {
       return Object.assign({}, state, {
         loaded:  true,
@@ -53,21 +59,67 @@ const createAuthReducers = createReducer(
     }
   ),
   on(
-    fromAuthActions.doLogoutSuccessAction,
+    fromAccountActions.fetchAuthenticatedTenantSuccess,
+    (state,  { tenant }) => {
+      return Object.assign({}, state, {
+        loaded: true,
+        loading: false,
+        failed: false,
+        tenant: tenant
+      });
+    }
+  ),
+  on(
+    fromAccountActions.fetchAuthenticatedUserSuccess,
+    (state,  {user}) => {
+      return Object.assign({}, state, {
+        loaded:  true,
+        loading: false,
+        failed:  false,
+        user:    user
+      });
+    }
+  ),
+  on(
+    fromAccountActions.addAuthenticatedUserAction,
+    (state,  {user}) => {
+      return Object.assign({}, state, {
+        loaded:  true,
+        loading: false,
+        failed:  false,
+        user:    user
+      });
+    }
+  ),
+  on(
+    fromAccountActions.addAuthenticatedTenantAction,
+    (state,  { tenant}) => {
+      return Object.assign({}, state, {
+        loaded: true,
+        loading: false,
+        failed: false,
+        tenant: tenant
+      });
+    }
+  ),
+  on(
+    fromAccountActions.doLogoutSuccessAction,
     (state) => {
       return Object.assign({}, state, INITIAL_STATE);
     }
   ),
   on(
-    fromAuthActions.doLoginFailAction,
-    fromAuthActions.doLogoutFailAction,
-    fromAuthActions.doRegisterFailAction,
+    fromAccountActions.doLoginFailAction,
+    fromAccountActions.fetchAuthenticatedUserFail,
+    fromAccountActions.fetchAuthenticatedTenantFail,
+    fromAccountActions.doLogoutFailAction,
+    fromAccountActions.doRegisterFailAction,
     (state) => {
       return Object.assign({}, INITIAL_STATE, { failed:  true });
     }
   ),
   on(
-    fromAuthActions.addAuthTokenAction,
+    fromAccountActions.addAuthTokenAction,
     (state,  { authToken }) => {
       return Object.assign({}, state, { token: authToken });
     }
@@ -75,6 +127,6 @@ const createAuthReducers = createReducer(
 );
 
 
-export function reducer(state: AuthState | undefined, action: Action) {
-  return createAuthReducers(state, action);
+export function reducer(state: AccountState | undefined, action: Action) {
+  return createAccountReducers(state, action);
 }
