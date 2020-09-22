@@ -36,7 +36,7 @@
               "node_modules/sweetalert2/dist/sweetalert2.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/@cartesian-ui/js-axis/src/libs/freeze-ui/freeze-ui.css",
-              "src/scss/core.less"
+              "src/scss/core.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -51,7 +51,6 @@
               "node_modules/lodash/lodash.min.js",
               "node_modules/moment/min/moment.min.js",
               "node_modules/toastr/toastr.js",
-              "node_modules/sweetalert/dist/sweetalert.min.js",
               "node_modules/sweetalert2/dist/sweetalert2.js",
               "node_modules/block-ui/jquery.blockUI.js",
               "node_modules/push.js/bin/push.min.js",
@@ -64,7 +63,15 @@
               "node_modules/flot/dist/es5/jquery.flot.js",
               "node_modules/jquery-sparkline/jquery.sparkline.min.js",
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/@cartesian-ui/js-axis/axis.js"
+              "node_modules/@cartesian-ui/js-axis/freeze-ui.min.js",
+              "node_modules/@cartesian-ui/js-axis/axis.min.js",
+              "node_modules/@cartesian-ui/js-axis/axis.ui.freeze.min.js",
+              "node_modules/@cartesian-ui/js-axis/axis.message.swal.min.js",
+              "node_modules/@cartesian-ui/js-axis/axis.notification.swal.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "chart.js"
             ]
           },
           "configurations": {
@@ -163,7 +170,7 @@
               "node_modules/sweetalert2/dist/sweetalert2.css",
               "node_modules/@cartesian-ui/js-axis/src/libs/freeze-ui/freeze-ui.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-              "src/scss/core.less"
+              "src/scss/core.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -178,7 +185,6 @@
               "node_modules/lodash/lodash.min.js",
               "node_modules/moment/min/moment.min.js",
               "node_modules/toastr/toastr.js",
-              "node_modules/sweetalert/dist/sweetalert.min.js",
               "node_modules/sweetalert2/dist/sweetalert2.js",
               "node_modules/block-ui/jquery.blockUI.js",
               "node_modules/push.js/bin/push.min.js",
