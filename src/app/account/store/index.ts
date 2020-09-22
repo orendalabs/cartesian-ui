@@ -1,13 +1,13 @@
-import * as actions from './auth.action';
-import { AuthEffects } from './auth.effect';
+import * as actions from './account.action';
+import { AccountEffects } from './account.effect';
 import {
-  AuthState,
+  AccountState,
   reducer,
-} from './auth.reducer';
+} from './account.reducer';
 
 export {
   actions,
-  AuthState,
-  AuthEffects,
+  AccountState,
+  AccountEffects,
   reducer
 }
