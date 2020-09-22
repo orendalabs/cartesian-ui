@@ -1,17 +1,7 @@
-import { Injectable }   from '@angular/core';
-import { Observable }   from 'rxjs';
-import {
-  HttpService,
-  POST,
-  GET,
-  Body,
-  DefaultHeaders,
-  Adapter
-} from '@cartesian-ui/ng-axis';
-import {
-  LoginForm,
-  RegisterForm
-} from '../../models';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpService, POST, GET, Body, DefaultHeaders, Adapter } from '@cartesian-ui/ng-axis';
+import { IsTenantAvailableForm, LoginForm, RegisterForm } from '../../models';
 import { AccountAdapter} from "../adapters/account.adapter";
 
 @Injectable()
@@ -19,7 +9,7 @@ import { AccountAdapter} from "../adapters/account.adapter";
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 })
-export class AccountHttpService extends HttpService {
+export class AuthHttpService extends HttpService {
 
   /**
    * Submits login form to the server
@@ -27,7 +17,7 @@ export class AccountHttpService extends HttpService {
    * @param form
    */
   @POST("/clients/web/admin/login")
-  @Adapter(AccountAdapter.AccountAdapter)
+  @Adapter(AccountAdapter.accountAdapter)
   public login(@Body form: LoginForm): Observable<any> { return null; };
 
 
@@ -49,6 +39,17 @@ export class AccountHttpService extends HttpService {
   @POST("/account/register")
   @Adapter(AccountAdapter.userAdapter)
   public register(@Body form: RegisterForm): Observable<any> { return null; };
+
+
+  /**
+   * Submits Tenant Availability Form
+   *
+   * @param form
+   */
+  @POST("/clients/web/admin/login")
+  @Adapter(AccountAdapter.accountAdapter)
+  public isTenantAvailable(@Body form: IsTenantAvailableForm): Observable<any> { return null; };
+
 
   /**
    * Logs out current user
