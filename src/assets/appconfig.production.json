@@ -1,5 +1,5 @@
 {
-  "remoteServiceBaseUrl": "http://api.larabeans.com/v1",
+  "remoteServiceBaseUrl": "v1",
   "appBaseUrl": "http://localhost:4200",
   "localeMappings": [
     {
