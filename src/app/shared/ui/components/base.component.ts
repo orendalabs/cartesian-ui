@@ -10,7 +10,7 @@ import {
     MultiTenancyService
 } from '@cartesian-ui/ng-axis';
 
-import { AppSessionService } from '@shared/services/app-session.service';
+import { SessionService } from '@shared/services/session.service';
 
 export abstract class BaseComponent {
 
@@ -23,7 +23,7 @@ export abstract class BaseComponent {
     setting: SettingService;
     message: MessageService;
     multiTenancy: MultiTenancyService;
-    appSession: AppSessionService;
+    appSession: SessionService;
     elementRef: ElementRef;
 
     constructor(injector: Injector) {
@@ -34,7 +34,7 @@ export abstract class BaseComponent {
         this.setting = injector.get(SettingService);
         this.message = injector.get(MessageService);
         this.multiTenancy = injector.get(MultiTenancyService);
-        this.appSession = injector.get(AppSessionService);
+        this.appSession = injector.get(SessionService);
         this.elementRef = injector.get(ElementRef);
     }
 
