@@ -6,7 +6,7 @@ import { UrlHelper } from '@shared/helpers/url.helper';
 import { AuthToken, LoginForm } from "../../models";
 
 @Injectable()
-export class AccountService {
+export class AuthService {
     authenticateModel: LoginForm;
     authenticateResult: AuthToken;
     rememberMe: boolean;
