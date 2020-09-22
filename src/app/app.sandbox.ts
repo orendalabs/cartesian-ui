@@ -1,21 +1,31 @@
-import { Injectable }    		from '@angular/core';
-import { Sandbox }       		from '@shared/base.sandbox';
-import { Store }         		from '@ngrx/store';
-import { State }        		from '@app/app.store';
-import * as settingsActions from '@app/setting/store/settings.action';
+import { Injectable, Injector } from '@angular/core';
+import { Sandbox } from '@shared/base.sandbox';
+import { Store, select } from '@ngrx/store';
+import { State } from '@app/app.store';
 // import { TranslateService } from 'ng2-translate';
 // import { ConfigService }    from './app-config.service';
 
 @Injectable()
 export class AppSandbox extends Sandbox {
 
-  constructor(
-    protected store: Store<State>,
-    // private translate: TranslateService,
-    // private configService: ConfigService
-  ) {
-    super(store);
+  constructor( protected store: Store<State>, protected injector: Injector ) {
+    super(injector);
   }
+
+  /**
+   * Fetch Session User
+   *
+   * @param form
+   */
+  public fetchAuthenticatedUser(): void {}
+
+  /**
+   * Fetch Session Tenant
+   *
+   * @param form
+   */
+  public fetchAuthenticatedTenant(id: string): void {}
+
 
   /**
    * Sets up default language for the application. Uses browser default language.
