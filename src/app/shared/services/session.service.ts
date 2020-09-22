@@ -1,34 +1,27 @@
-import { MultiTenancyService } from '@cartesian-ui/ng-axis';
+import { MultiTenancyService, TokenService, convertObjectKeysToCamel } from '@cartesian-ui/ng-axis';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConstants } from "@cartesian-ui/ng-axis";
-import {
-    ApplicationInfoDto,
-    TenantLoginInfoDto,
-    UserLoginInfoDto
-} from '@shared/service-proxies/service-proxies';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import { Application } from "@shared/models";
+import { User, Tenant } from "@app/account/models";
 
 @Injectable({
   providedIn: "root"
 })
 export class SessionService {
 
-    private _user: UserLoginInfoDto;
-    private _tenant: TenantLoginInfoDto;
-    private _application: ApplicationInfoDto;
-    private _multiTenancyService: MultiTenancyService
+    private _user: User;
+    private _tenant: Tenant;
+    private _application: Application;
 
     constructor(
-      private _httpClient: HttpClient
-    ) {
+      private _httpClient: HttpClient,
+      private _tokenService: TokenService,
+      private _multiTenancyService: MultiTenancyService
+    ) { }
 
-    }
-
-    init(): Promise<boolean> {
-      const token    = axis.auth.getToken();
-      const tenantId = axis.multiTenancy.getTenantIdCookie()
+    init(): Promise<any> {
+      const token    = this._tokenService.getToken();
+      const tenantId = this._multiTenancyService.getTenantId();
 
       const requestHeaders = {};
 
@@ -40,7 +33,7 @@ export class SessionService {
         requestHeaders['Axis.TenantId'] = `${tenantId}`;
       }
 
-      return new Promise<boolean>((resolve, reject) => {
+      return new Promise<any>((resolve, reject) => {
         this._httpClient
           .get<any>(
             `v1/user/profile`,
@@ -50,50 +43,39 @@ export class SessionService {
           .then(
             (result: any) => {
               // this._application = result.application;
-              this._user = result.data;
+              this._user = new User(convertObjectKeysToCamel(result.data));
               // this._tenant = result.tenant;
-              resolve(true);
+              resolve(this._user);
             },
             (err) => {
               reject(err);
             }
           )
       });
-
-      // this._AccountHttpService.fetchUser().toPromise().then((result: any) => {
-      //   this._application = result.application;
-      //   this._user = result.user;
-      //   this._tenant = result.tenant;
-      //
-      //   resolve(true);
-      // }, (err) => {
-      //   reject(err);
-      // });
-
     }
 
-    get application(): ApplicationInfoDto {
+    get application(): Application {
         return this._application;
     }
 
-    get user(): UserLoginInfoDto {
+    get user(): User {
         return this._user;
     }
 
-    get userId(): number {
+    get userId(): string {
         return this.user ? this.user.id : null;
     }
 
-    get tenant(): TenantLoginInfoDto {
+    get tenant(): Tenant {
         return this._tenant;
     }
 
-    get tenantId(): number {
+    get tenantId(): string {
         return this.tenant ? this.tenant.id : null;
     }
 
     getShownLoginName(): string {
-        const userName = this._user.userName;
+        const userName = this._user.email;
 
         // if (!this._multiTenancyService.isEnabled) {
         //     return userName;
@@ -104,7 +86,7 @@ export class SessionService {
       return userName;
     }
 
-    changeTenantIfNeeded(tenantId?: number): boolean {
+    changeTenantIfNeeded(tenantId?: string): boolean {
         if (this.isCurrentTenant(tenantId)) {
             return false;
         }
@@ -114,7 +96,7 @@ export class SessionService {
         return true;
     }
 
-    private isCurrentTenant(tenantId?: number) {
+    private isCurrentTenant(tenantId?: string) {
         if (!tenantId && this.tenant) {
             return false;
         } else if (tenantId && (!this.tenant || this.tenant.id !== tenantId)) {
