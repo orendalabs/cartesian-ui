@@ -1,9 +1,7 @@
 import { Injectable } 	 from '@angular/core';
 import { convertObjectKeysToCamel } from "@cartesian-ui/ng-axis";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class AccountAdapter {
 
 
@@ -15,7 +13,7 @@ export class AccountAdapter {
    *
    * @param token
    */
-  static AccountAdapter(token: any): any {
+  static accountAdapter(token: any): any {
     return Object.assign({}, token, convertObjectKeysToCamel(token));
   }
 
