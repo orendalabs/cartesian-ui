@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './ui/login/login.component';
+import { TenantFormComponent } from './ui/tenant/tenant-form.component';
+import { RegisterComponent } from './ui/register/register.component';
 import { AccountComponent } from './account.component';
 
 @NgModule({
@@ -11,6 +12,7 @@ import { AccountComponent } from './account.component';
                 path: '',
                 component: AccountComponent,
                 children: [
+                    { path: 'tenant', component: TenantFormComponent },
                     { path: 'login', component: LoginComponent },
                     { path: 'register', component: RegisterComponent }
                 ]
