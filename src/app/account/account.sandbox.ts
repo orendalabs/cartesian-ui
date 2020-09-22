@@ -1,43 +1,44 @@
-import { Injectable } 	 from '@angular/core';
+import { Injectable, Injector }  from '@angular/core';
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 import { Store, select } from '@ngrx/store';
 import { Subscription }  from "rxjs";
-import {
-  ValidationService
-}                        from '@cartesian-ui/ng-axis';
-import { AuthService }   from './shared/services/auth.service';
+import { ValidationService } from '@cartesian-ui/ng-axis';
+import { Sandbox } from '@shared/base.sandbox';
 import {
   User,
   LoginForm,
   RegisterForm
-}                        from '@shared/models';
-import { Sandbox } 			 from '@shared/base.sandbox';
+} from './models';
+import { AuthService } from './shared';
+import { actions } from './store'
 import {
   State,
-  getLoggedUser,
   getAuthenticated,
   getAuthLoading,
-  getAuthLoaded
-}   	                   from '@app/app.store';
-import { actions }       from '@app/account';
+  getAuthLoaded, getAuthFailed
+} from '@app/app.store';
 
 
 @Injectable()
 export class AccountSandbox extends Sandbox {
 
-  public loggedUser$   = this.store.pipe(select(getLoggedUser));
   public isAuthenticated$ = this.store.pipe(select(getAuthenticated));
   public loginLoading$ = this.store.pipe(select(getAuthLoading));
   public loginLoaded$  = this.store.pipe(select(getAuthLoaded));
+  public authFailed$ = this.store.pipe(select(getAuthFailed));
 
 
   private subscriptions: Array<Subscription> = [];
 
   constructor(
     protected store: Store<State>,
-    public _authService: AuthService,
-    public validationService: ValidationService
+    private _router: Router,
+    private _accountService: AuthService,
+    public validationService: ValidationService,
+    protected injector: Injector
   ) {
-    super(store);
+    super(injector);
     this.registerAuthEvents();
   }
 
@@ -46,8 +47,8 @@ export class AccountSandbox extends Sandbox {
    *
    * @param form
    */
-  public login(form: any): void {
-    this.store.dispatch(actions.doLoginAction( { loginForm: new LoginForm(form) }));
+  public login(form: LoginForm): void {
+    this.store.dispatch(actions.doLoginAction( { loginForm: form }));
   }
 
   /**
@@ -74,17 +75,29 @@ export class AccountSandbox extends Sandbox {
     // Subscribes to login success event and redirects user to home page
     this.subscriptions.push(this.isAuthenticated$.subscribe((authenticated: any) => {
       if(authenticated.status === true){
-        this.store.dispatch(actions.fetchUserAction());
-        this._authService.processAuthenticateResult(authenticated.token);
+        // This is the only place we are using auth token from state
+        // After this it will/should not be used from state
+        // account service will save access token in cookie, and it will always be used from there
+        // In case of page load we are not maintaining account state
+        // SessionService will be used else where to make session persistent
+        this._accountService.processAuthenticateResult(authenticated.token).then(
+          (logged) => {
+            if (logged) {
+              this._sessionService.init().then(
+                (user: User) => {
+                  if (user) {
+                    this.store.dispatch(actions.addAuthenticatedUserAction({user}))
+                    this._router.navigate(['/demo']);
+                  }
+                },
+                (err: HttpErrorResponse) => {}
+              )
+            }
+          },
+          (err) => {}
+        );
       }
     }));
 
-    // Subscribes to fetch user data and save/remove it from the local storage
-    this.subscriptions.push(this.loggedUser$.subscribe((user: User) => {
-      if (user.isLoggedIn)
-        user.save();
-      else
-        user.remove();
-    }));
   }
 }
