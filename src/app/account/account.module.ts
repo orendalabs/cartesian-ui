@@ -14,8 +14,8 @@ import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
 import { AccountComponent } from './account.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './ui/login/login.component';
+import { RegisterComponent } from './ui/register/register.component';
 
 import {
   AuthService,
@@ -23,15 +23,21 @@ import {
   AccountLanguagesComponent,
   AccountHeaderComponent,
   AccountFooterComponent,
-  AuthEffects,
-  reducer as authReducer
-} from '@app/account';
+} from './shared';
+
+
+import {
+  AccountEffects,
+  reducer as accountReducer
+} from './store';
+
 
 import { AccountSandbox } from './account.sandbox';
 
 // tenants
-import { TenantChangeComponent } from './tenant/tenant-change.component';
-import { TenantChangeDialogComponent } from './tenant/tenant-change-dialog.component';
+import { TenantFormComponent } from './ui/tenant/tenant-form.component'
+import { TenantChangeComponent } from './ui/tenant/tenant-change.component';
+import { TenantChangeDialogComponent } from './ui/tenant/tenant-change-dialog.component';
 
 @NgModule({
     imports: [
@@ -42,8 +48,8 @@ import { TenantChangeDialogComponent } from './tenant/tenant-change-dialog.compo
         AccountRoutingModule,
         SharedModule,
         ModalModule.forChild(),
-        StoreModule.forFeature('auth', authReducer),
-        EffectsModule.forFeature([ AuthEffects ])
+        StoreModule.forFeature('account', accountReducer),
+        EffectsModule.forFeature([ AccountEffects ])
     ],
     declarations: [
         AccountComponent,
@@ -53,6 +59,7 @@ import { TenantChangeDialogComponent } from './tenant/tenant-change-dialog.compo
         AccountHeaderComponent,
         AccountFooterComponent,
         // tenant
+        TenantFormComponent,
         TenantChangeComponent,
         TenantChangeDialogComponent,
     ],
