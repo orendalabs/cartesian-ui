@@ -1,11 +1,18 @@
 import { Injectable, Injector } from '@angular/core';
 import { PlatformLocation, registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { environment } from '../environments/environment';
+import { AppConstants, UiService } from '@cartesian-ui/ng-axis';
+import { SessionService } from '@shared/services';
+import { actions } from "@app/account/store";
+import { User } from "@app/account/models";
+import {
+  State
+} from '@app/app.store';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-import { AppConstants } from '@cartesian-ui/ng-axis';
-import { AppSessionService } from '@shared/services';
-import { environment } from '../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +21,14 @@ export class AppInitializerService {
   constructor(
     private _injector: Injector,
     private _platformLocation: PlatformLocation,
-    private _httpClient: HttpClient
+    private _httpClient: HttpClient,
+    private _uiService: UiService,
+    private _store: Store<State>
   ) { }
 
   init(): () => Promise<boolean> {
     return () => {
-      axis.ui.setBusy();
+      this._uiService.setBusy();
       return new Promise<boolean>((resolve, reject) => {
         AppConstants.appBaseHref = this.getBaseHref();
         const appBaseUrl = this.getDocumentOrigin() + AppConstants.appBaseHref;
@@ -36,13 +45,17 @@ export class AppInitializerService {
 
           // Diversion #2:
           // Rule: As redux principle, NgRx Store should be only source of truth, i.e data should flow from store only.
-          // Exception: app session is exception to that as well, AppSessionService holds session data, and it hydrated directly through api.
+          // Exception: app session is exception to that as well, SessionService holds session data, and it hydrated directly through api.
 
-            // do not use constructor injection for AppSessionService
-            const appSessionService = this._injector.get(AppSessionService);
-            appSessionService.init().then(
-              (result) => {
-                axis.ui.clearBusy();
+            // do not use constructor injection for SessionService
+            const sessionService = this._injector.get(SessionService);
+            sessionService.init().then(
+              (user: User) => {
+                this._uiService.clearBusy();
+                // TODO: Maintain Session state, for login user
+                // I thing that user and tenant property is not required for account state
+                // also no need to save auth token
+                // this._store.dispatch(actions.addAuthenticatedUserAction({user}))
                 if (this.shouldLoadLocale()) {
                   const angularLocale = this.convertAxisLocaleToAngularLocale(
                     axis.localization.currentLanguage.name
@@ -50,17 +63,16 @@ export class AppInitializerService {
                   import(`@angular/common/locales/${angularLocale}.js`).then(
                     (module) => {
                       registerLocaleData(module.default);
-                      resolve(result);
+                      resolve(true);
                     },
                     reject
                   );
                 } else {
-                  resolve(result);
+                  resolve(true);
                 }
               },
               (err) => {
-                axis.ui.clearBusy();
-                //reject(err);
+                this._uiService.clearBusy();
                 resolve()
               }
             );
