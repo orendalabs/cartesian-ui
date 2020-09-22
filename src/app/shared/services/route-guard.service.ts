@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PermissionCheckerService } from '@cartesian-ui/ng-axis';
-import { SessionService } from './app-session.service';
+import { SessionService } from './session.service';
 
 import {
     CanActivate, Router,
@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 
 @Injectable()
-export class AppRouteGuard implements CanActivate, CanActivateChild {
+export class RouteGuard implements CanActivate, CanActivateChild {
 
     constructor(
         private _permissionChecker: PermissionCheckerService,
