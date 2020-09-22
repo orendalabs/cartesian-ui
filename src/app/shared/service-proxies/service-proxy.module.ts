@@ -13,7 +13,7 @@ import * as ApiServiceProxies from './service-proxies';
         ApiServiceProxies.TokenAuthServiceProxy,
         ApiServiceProxies.AccountServiceProxy,
         ApiServiceProxies.ConfigurationServiceProxy,
-        { provide: HTTP_INTERCEPTORS, useClass: AxisHttpInterceptor, multi: true }
+        // { provide: HTTP_INTERCEPTORS, useClass: AxisHttpInterceptor, multi: true }
     ]
 })
 export class ServiceProxyModule { }
