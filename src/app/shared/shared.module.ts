@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { LayoutStoreService } from './layout';
-import { AppPaginationControlsComponent, AppValidationSummaryComponent, AppModalHeaderComponent, AppModalFooterComponent } from './layout/components';
-import { AppSessionService, AppUrlService, AppRouteGuard } from './services';
+import { LayoutStoreService } from './ui';
+import { AppPaginationControlsComponent, AppValidationSummaryComponent, AppModalHeaderComponent, AppModalFooterComponent } from './ui/components';
+import { SessionService, RouteGuard } from './services';
 import { BusyDirective,EqualValidator } from './directives';
 import { LocalizePipe } from './pipes';
 
@@ -38,9 +38,9 @@ export class SharedModule {
         return {
             ngModule: SharedModule,
             providers: [
-                AppSessionService,
-                AppUrlService,
-                AppRouteGuard,
+                SessionService,
+                // UrlService,
+                RouteGuard,
                 LayoutStoreService
             ]
         };
