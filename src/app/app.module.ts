@@ -11,9 +11,7 @@ import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
 import { AppInitializerService } from './app-initializer.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-// Store
-import { reducer as settingReducer }  from '@app/setting';
+import { AppSandbox } from "./app.sandbox";
 
 // Third Party
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -49,7 +47,7 @@ export function getCurrentLanguage(): string {
     TabsModule.forRoot(),
     HttpServiceModule.forRoot(),
 
-    StoreModule.forRoot({ setting: settingReducer }),
+    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot()
   ],
@@ -64,6 +62,7 @@ export function getCurrentLanguage(): string {
       multi: true,
     },
     {provide: LOCALE_ID, useFactory: getCurrentLanguage },
+    AppSandbox
   ],
   bootstrap: [AppComponent],
 })
