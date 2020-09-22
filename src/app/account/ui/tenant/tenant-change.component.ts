@@ -1,14 +1,15 @@
 ﻿import { Component, OnInit, Injector } from '@angular/core';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 import { TenantChangeDialogComponent } from './tenant-change-dialog.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import {combineAll} from "@node_modules/rxjs/internal/operators";
 
 @Component({
   selector: 'tenant-change',
   templateUrl: './tenant-change.component.html'
 })
 export class TenantChangeComponent extends BaseComponent implements OnInit {
-  tenancyName = '';
+
   name = '';
 
   constructor(injector: Injector, private _modalService: BsModalService) {
@@ -16,12 +17,11 @@ export class TenantChangeComponent extends BaseComponent implements OnInit {
   }
 
   get isMultiTenancyEnabled(): boolean {
-    return axis.multiTenancy.isEnabled;
+    return this.multiTenancy.isEnabled;
   }
 
   ngOnInit() {
     if (this.appSession.tenant) {
-      this.tenancyName = this.appSession.tenant.tenancyName;
       this.name = this.appSession.tenant.name;
     }
   }
@@ -29,7 +29,7 @@ export class TenantChangeComponent extends BaseComponent implements OnInit {
   showChangeModal(): void {
     const modal = this._modalService.show(TenantChangeDialogComponent);
     if (this.appSession.tenant) {
-      modal.content.tenancyName = this.appSession.tenant.tenancyName;
+      modal.content.name = this.appSession.tenant.name;
     }
   }
 }

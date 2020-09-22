@@ -5,10 +5,11 @@ import {
   Injector,
   Renderer2
 } from '@angular/core';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 
 @Component({
   templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class AccountComponent extends BaseComponent implements OnInit {
@@ -17,7 +18,7 @@ export class AccountComponent extends BaseComponent implements OnInit {
   }
 
   showTenantChange(): boolean {
-    return axis.multiTenancy.isEnabled;
+    return this.multiTenancy.isEnabled;
   }
 
   ngOnInit(): void {

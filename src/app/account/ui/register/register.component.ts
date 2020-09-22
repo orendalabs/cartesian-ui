@@ -1,14 +1,14 @@
 import { Component, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 import {
   AccountServiceProxy,
   RegisterInput,
   RegisterOutput
 } from '@shared/service-proxies/service-proxies';
 import { accountModuleAnimation } from '@shared/animations';
-import { AccountService } from '../shared/services/account.service';
+import { AuthService } from '../../shared';
 
 @Component({
   templateUrl: './register.component.html',
@@ -22,7 +22,7 @@ export class RegisterComponent extends BaseComponent {
     injector: Injector,
     private _accountService: AccountServiceProxy,
     private _router: Router,
-    private authService: AccountService
+    private authService: AuthService
   ) {
     super(injector);
   }

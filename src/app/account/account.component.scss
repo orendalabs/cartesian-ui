@@ -1,4 +1,10 @@
-﻿.content.account-forms {
+﻿app-account {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content.account-forms {
     margin-top: 10px;
 }
 

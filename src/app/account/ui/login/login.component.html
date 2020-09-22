@@ -79,7 +79,7 @@
                       <button
                         type="submit"
                         class="btn btn-primary px-4"
-                        [disabled]="!loginForm.form.valid || submitting"
+                        [disabled]="!loginForm.form.valid || (_sandbox.loginLoading$ | async) || (_sandbox.authFailed$ | async)"
                       >
                         {{ "Login" | localize }}
                       </button>

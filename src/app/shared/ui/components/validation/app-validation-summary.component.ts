@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 import { AxisValidationError } from './app-validation.api';
 
 @Component({

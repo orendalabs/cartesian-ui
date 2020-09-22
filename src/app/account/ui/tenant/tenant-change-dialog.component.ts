@@ -1,20 +1,20 @@
 import { Component, Injector } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 import { AccountServiceProxy } from '@shared/service-proxies/service-proxies';
-import { AppTenantAvailabilityState } from '@shared/app.enums';
 import {
-  IsTenantAvailableInput,
-  IsTenantAvailableOutput
-} from '@shared/service-proxies/service-proxies';
+  AppTenantAvailabilityState,
+  IsTenantAvailableForm,
+  IsTenantAvailableResponse
+} from "@app/account/models";
 
 @Component({
   templateUrl: './tenant-change-dialog.component.html'
 })
 export class TenantChangeDialogComponent extends BaseComponent {
   saving = false;
-  tenancyName = '';
+  name   = '';
 
   constructor(
     injector: Injector,
@@ -25,15 +25,15 @@ export class TenantChangeDialogComponent extends BaseComponent {
   }
 
   save(): void {
-    if (!this.tenancyName) {
-      axis.multiTenancy.setTenantIdCookie(undefined);
+    if (!this.name) {
+      this.multiTenancy.setTenantId(undefined);
       this.bsModalRef.hide();
       location.reload();
       return;
     }
 
-    const input = new IsTenantAvailableInput();
-    input.tenancyName = this.tenancyName;
+    const input = new IsTenantAvailableForm();
+    input.name = this.name;
 
     this.saving = true;
     this._accountService
@@ -43,18 +43,18 @@ export class TenantChangeDialogComponent extends BaseComponent {
           this.saving = false;
         })
       )
-      .subscribe((result: IsTenantAvailableOutput) => {
+      .subscribe((result: IsTenantAvailableResponse) => {
         switch (result.state) {
           case AppTenantAvailabilityState.Available:
-            axis.multiTenancy.setTenantIdCookie(result.tenantId);
+            this.multiTenancy.setTenantId(result.tenantId);
             location.reload();
             return;
           case AppTenantAvailabilityState.InActive:
-            this.message.warn(this.l('TenantIsNotActive', this.tenancyName));
+            this.message.warn(this.l('TenantIsNotActive', this.name));
             break;
           case AppTenantAvailabilityState.NotFound:
             this.message.warn(
-              this.l('ThereIsNoTenantDefinedWithName{0}', this.tenancyName)
+              this.l('ThereIsNoTenantDefinedWithName{0}', this.name)
             );
             break;
         }

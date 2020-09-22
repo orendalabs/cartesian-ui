@@ -1,4 +1,54 @@
-﻿.social-icons {
+﻿//** variables
+$background: #f5f6fa;
+$text: #9c9c9c;
+$input-bg-color: #fff;
+$input-text-color: #a3a3a3;
+$button-bg-color: #7f8ff4;
+$button-text-color: #fff;
+
+.card.bg-primary {
+  background-color: $button-bg-color !important;
+}
+
+//** button
+.btn {
+  display: inline-block;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  border: 0;
+  outline: 0;
+  padding: 0;
+  transition: all 200ms ease-in;
+  cursor: pointer;
+
+  &-primary {
+    background: $button-bg-color !important;
+    color: $button-text-color !important;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1) !important;
+    border-radius: 2px !important;
+    padding: 12px 36px !important;
+
+    &:hover {
+      background: darken($button-bg-color, 4%) !important;
+    }
+
+    &:active {
+      background: $button-bg-color !important;
+      box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, .2) !important;
+    }
+  }
+
+  &--inside {
+    margin-left: -105px;
+  }
+}
+
+.btn.btn-link {
+  color: $button-bg-color !important;
+}
+
+.social-icons {
     padding-left: 0px;
 
     li {

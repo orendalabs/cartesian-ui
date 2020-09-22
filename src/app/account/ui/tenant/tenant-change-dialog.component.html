@@ -10,16 +10,16 @@
   ></app-modal-header>
   <div class="modal-body">
     <div class="form-group row">
-      <label class="col-md-3 col-form-label" for="tenancyName">
-        {{ "TenancyName" | localize }}
+      <label class="col-md-3 col-form-label" for="name">
+        {{ "Name" | localize }}
       </label>
       <div class="col-md-9">
         <input
           type="text"
           class="form-control"
-          id="tenancyName"
-          name="tenancyName"
-          [(ngModel)]="tenancyName"
+          id="name"
+          name="name"
+          [(ngModel)]="name"
           maxlength="64"
         />
       </div>

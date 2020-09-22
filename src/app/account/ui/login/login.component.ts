@@ -1,20 +1,21 @@
 import { Component, ChangeDetectionStrategy, Injector, OnInit } from '@angular/core';
-import { BaseComponent } from '@shared/layout';
+import { BaseComponent } from '@shared/ui';
 import { accountModuleAnimation } from '@shared/animations';
-import { AccountSandbox } from '../account.sandbox';
-import { LoginForm } from '@app/account/shared/models';
+import { AccountSandbox } from '../../account.sandbox';
+import { LoginForm } from '../../models';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-account',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   animations: [accountModuleAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent extends BaseComponent implements OnInit {
-  submitting = false;
-  form: LoginForm = null;
 
-  constructor( injector: Injector, private _sandbox: AccountSandbox ) {
+  form: LoginForm;
+
+  constructor( injector: Injector, public _sandbox: AccountSandbox ) {
     super(injector);
   }
 
@@ -38,6 +39,5 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   login(): void {
     this._sandbox.login(this.form);
-    this.submitting = true;
   }
 }
