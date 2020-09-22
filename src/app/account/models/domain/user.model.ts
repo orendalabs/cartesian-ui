@@ -1,4 +1,4 @@
-export interface IUserModel {
+export interface IUser {
   id: string | undefined;
   name: string | undefined;
   nickname: string | undefined;
@@ -9,7 +9,7 @@ export interface IUserModel {
   logged: boolean | undefined;
 }
 
-export class User implements IUserModel {
+export class User implements IUser {
 
   public id: string;
   public name: string;
@@ -20,30 +20,54 @@ export class User implements IUserModel {
   public gender: string;
   public logged: boolean;
 
-  constructor(user?: any) {
-    this.id         = user ? user.id : '';
-    this.name       = user ? user.name : '';
-    this.nickname   = user ? user.nickname : '';
-    this.birth      = user ? user.birth : '';
-    this.confirmed  = user ? user.confirmed : '';
-    this.gender     = user ? user.gender : '';
-    this.email      = user ? user.email : '';
-    this.logged     = (user && this.email) ? true : false;
+  constructor(data?: IUser) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
   }
 
-  /**
-   * Saves user into local storage
-   *
-   * @param user
-   */
-  public save(): void {
-    localStorage.setItem('loggedUser', JSON.stringify(this));
+  init(data?: any) {
+    if (data) {
+      this.id         = data ? data.id : '';
+      this.name       = data ? data.name : '';
+      this.nickname   = data ? data.nickname : '';
+      this.birth      = data ? data.birth : '';
+      this.confirmed  = data ? data.confirmed : '';
+      this.gender     = data ? data.gender : '';
+      this.email      = data ? data.email : '';
+      this.logged     = (data && this.email) ? true : false;
+    }
   }
 
-  /**
-   * Removes user from local storage
-   */
-  public remove(): void {
-    localStorage.setItem('loggedUser', null);
+  static fromJS(data: any): User {
+    data = typeof data === 'object' ? data : {};
+    let result = new User();
+    result.init(data);
+    return result;
   }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data["id"]        = this.id;
+    data["name"]      = this.name;
+    data["nickname"]  = this.nickname;
+    data["birth"]     = this.birth;
+    data["confirmed"] = this.confirmed;
+    data["gender"]    = this.gender;
+    data["email"]     = this.email;
+    data["logged"]    = this.logged;
+
+    return data;
+  }
+
+  clone(): User {
+    const json = this.toJSON();
+    let result = new User();
+    result.init(json);
+    return result;
+  }
+
 }
