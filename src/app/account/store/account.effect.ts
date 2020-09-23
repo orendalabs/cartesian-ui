@@ -21,13 +21,13 @@ export class AccountEffects {
   /**
    * Login effect
    */
-  doLogin$ = createEffect(() => this.actions$.pipe(
-    ofType(fromAccountActions.doLoginAction),
+  doAuthenticate$ = createEffect(() => this.actions$.pipe(
+    ofType(fromAccountActions.doAuthenticateAction),
     map((action) => action.loginForm),
     switchMap(loginForm => {
       return this.accountHttpService.login(loginForm).pipe(
-        map(token => fromAccountActions.doLoginSuccessAction({ authToken: new AuthToken(token)})),
-        catchError(error => of(fromAccountActions.doLoginFailAction()))
+        map(token => fromAccountActions.doAuthenticateSuccessAction({ authToken: new AuthToken(token)})),
+        catchError(error => of(fromAccountActions.doAuthenticateFailAction()))
       )
     })
   ));

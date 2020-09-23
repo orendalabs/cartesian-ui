@@ -38,6 +38,6 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   login(): void {
-    this._sandbox.login(this.form);
+    this._sandbox.authenticate(this.form);
   }
 }

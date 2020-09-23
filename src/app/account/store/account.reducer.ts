@@ -23,7 +23,7 @@ const INITIAL_STATE: AccountState = {
 const createAccountReducers = createReducer(
   INITIAL_STATE,
   on(
-    fromAccountActions.doLoginAction,
+    fromAccountActions.doAuthenticateAction,
     fromAccountActions.fetchAuthenticatedTenant,
     fromAccountActions.fetchAuthenticatedUser,
     fromAccountActions.doRegisterAction,
@@ -37,7 +37,7 @@ const createAccountReducers = createReducer(
     }
   ),
   on(
-    fromAccountActions.doLoginSuccessAction,
+    fromAccountActions.doAuthenticateSuccessAction,
     (state, { authToken}) => {
       return Object.assign({}, state, {
         loaded:  true,
@@ -109,7 +109,7 @@ const createAccountReducers = createReducer(
     }
   ),
   on(
-    fromAccountActions.doLoginFailAction,
+    fromAccountActions.doAuthenticateFailAction,
     fromAccountActions.fetchAuthenticatedUserFail,
     fromAccountActions.fetchAuthenticatedTenantFail,
     fromAccountActions.doLogoutFailAction,
