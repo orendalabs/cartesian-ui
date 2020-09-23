@@ -47,8 +47,8 @@ export class AccountSandbox extends Sandbox {
    *
    * @param form
    */
-  public login(form: LoginForm): void {
-    this.store.dispatch(actions.doLoginAction( { loginForm: form }));
+  public authenticate(form: LoginForm): void {
+    this.store.dispatch(actions.doAuthenticateAction( { loginForm: form }));
   }
 
   /**
