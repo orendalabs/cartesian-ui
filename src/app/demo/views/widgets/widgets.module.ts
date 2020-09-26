@@ -6,11 +6,7 @@ import { WidgetsComponent } from './widgets.component';
 import { WidgetsRoutingModule } from './widgets-routing.module';
 
 @NgModule({
-  imports: [
-    WidgetsRoutingModule,
-    ChartsModule,
-    BsDropdownModule
-  ],
-  declarations: [ WidgetsComponent ]
+  imports: [WidgetsRoutingModule, ChartsModule, BsDropdownModule],
+  declarations: [WidgetsComponent],
 })
-export class WidgetsModule { }
+export class WidgetsModule {}

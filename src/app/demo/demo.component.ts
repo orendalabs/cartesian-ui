@@ -3,11 +3,10 @@ import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   templateUrl: './demo.component.html',
-  styleUrls: ['./demo.component.css']
+  styleUrls: ['./demo.component.css'],
 })
-
 export class DemoComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {

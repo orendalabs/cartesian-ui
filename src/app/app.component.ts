@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { AppSandbox } from "./app.sandbox";
+import { AppSandbox } from './app.sandbox';
 
 @Component({
-    selector: 'app-root',
-    template: `<router-outlet></router-outlet>`,
-    providers: [AppSandbox]
+  selector: 'app-root',
+  template: `<router-outlet></router-outlet>`,
+  providers: [AppSandbox],
 })
-export class AppComponent {
-
-}
+export class AppComponent {}

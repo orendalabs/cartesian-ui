@@ -4,7 +4,7 @@ import {
   Injector,
   Renderer2,
   ElementRef,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { BaseComponent } from '@shared/ui';
@@ -12,10 +12,11 @@ import { AxisValidationError } from './app-validation.api';
 
 @Component({
   selector: 'app-validation-summary',
-  templateUrl: './app-validation-summary.component.html'
+  templateUrl: './app-validation-summary.component.html',
 })
-export class AppValidationSummaryComponent extends BaseComponent implements OnInit {
-
+export class AppValidationSummaryComponent
+  extends BaseComponent
+  implements OnInit {
   defaultValidationErrors: Partial<AxisValidationError>[] = [
     { name: 'required', localizationKey: 'ThisFieldIsRequired' },
     {
@@ -42,7 +43,7 @@ export class AppValidationSummaryComponent extends BaseComponent implements OnIn
       localizationKey: 'PairsDoNotMatch',
     },
   ];
-  validationErrors = <AxisValidationError[]>this.defaultValidationErrors;
+  validationErrors = this.defaultValidationErrors as AxisValidationError[];
 
   @Input() control: AbstractControl;
   @Input() controlEl: ElementRef;
@@ -60,7 +61,7 @@ export class AppValidationSummaryComponent extends BaseComponent implements OnIn
               customValidationError.name === defaultValidationError.name
           )
       );
-      this.validationErrors = <AxisValidationError[]>[...defaults, ...val];
+      this.validationErrors = [...defaults, ...val] as AxisValidationError[];
     }
   }
 

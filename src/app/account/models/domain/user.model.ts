@@ -10,7 +10,15 @@ export interface IUser {
 }
 
 export class User implements IUser {
-
+  constructor(data?: IUser) {
+    if (data) {
+      for (const property in data) {
+        if (data.hasOwnProperty(property)) {
+          (this as any)[property] = (data as any)[property];
+        }
+      }
+    }
+  }
   public id: string;
   public name: string;
   public nickname: string;
@@ -20,54 +28,44 @@ export class User implements IUser {
   public gender: string;
   public logged: boolean;
 
-  constructor(data?: IUser) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(data?: any) {
-    if (data) {
-      this.id         = data ? data.id : '';
-      this.name       = data ? data.name : '';
-      this.nickname   = data ? data.nickname : '';
-      this.birth      = data ? data.birth : '';
-      this.confirmed  = data ? data.confirmed : '';
-      this.gender     = data ? data.gender : '';
-      this.email      = data ? data.email : '';
-      this.logged     = (data && this.email) ? true : false;
-    }
-  }
-
   static fromJS(data: any): User {
     data = typeof data === 'object' ? data : {};
-    let result = new User();
+    const result = new User();
     result.init(data);
     return result;
   }
 
+  init(data?: any) {
+    if (data) {
+      this.id = data ? data.id : '';
+      this.name = data ? data.name : '';
+      this.nickname = data ? data.nickname : '';
+      this.birth = data ? data.birth : '';
+      this.confirmed = data ? data.confirmed : '';
+      this.gender = data ? data.gender : '';
+      this.email = data ? data.email : '';
+      this.logged = data && this.email ? true : false;
+    }
+  }
+
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
-    data["id"]        = this.id;
-    data["name"]      = this.name;
-    data["nickname"]  = this.nickname;
-    data["birth"]     = this.birth;
-    data["confirmed"] = this.confirmed;
-    data["gender"]    = this.gender;
-    data["email"]     = this.email;
-    data["logged"]    = this.logged;
+    data.id = this.id;
+    data.name = this.name;
+    data.nickname = this.nickname;
+    data.birth = this.birth;
+    data.confirmed = this.confirmed;
+    data.gender = this.gender;
+    data.email = this.email;
+    data.logged = this.logged;
 
     return data;
   }
 
   clone(): User {
     const json = this.toJSON();
-    let result = new User();
+    const result = new User();
     result.init(json);
     return result;
   }
-
 }

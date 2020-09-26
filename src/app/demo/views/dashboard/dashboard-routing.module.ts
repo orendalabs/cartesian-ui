@@ -8,13 +8,13 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     data: {
-      title: 'Dashboard'
-    }
-  }
+      title: 'Dashboard',
+    },
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class DashboardRoutingModule {}

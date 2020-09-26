@@ -3,14 +3,20 @@
     <div class="card-header">
       Bootstrap Popover
       <div class="card-header-actions">
-        <a href="https://valor-software.com/ngx-bootstrap/#/popover" target="_blank">
+        <a
+          href="https://valor-software.com/ngx-bootstrap/#/popover"
+          target="_blank"
+        >
           <small className="text-muted">docs</small>
         </a>
       </div>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-primary"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+      <button
+        type="button"
+        class="btn btn-primary"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+      >
         Live demo
       </button>
     </div>
@@ -21,38 +27,53 @@
       <small>positioning</small>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-default btn-secondary"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on top"
-              placement="top">
+      <button
+        type="button"
+        class="btn btn-default btn-secondary"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        popoverTitle="Popover on top"
+        placement="top"
+      >
         Popover on top
       </button>
 
-      <button type="button" class="btn btn-default btn-secondary"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on right"
-              placement="right">
+      <button
+        type="button"
+        class="btn btn-default btn-secondary"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        popoverTitle="Popover on right"
+        placement="right"
+      >
         Popover on right
       </button>
 
-      <button type="button" class="btn btn-default btn-secondary"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover auto"
-              placement="auto">
+      <button
+        type="button"
+        class="btn btn-default btn-secondary"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        popoverTitle="Popover auto"
+        placement="auto"
+      >
         Popover auto
       </button>
 
-      <button type="button" class="btn btn-default btn-secondary"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on left"
-              placement="left">
+      <button
+        type="button"
+        class="btn btn-default btn-secondary"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        popoverTitle="Popover on left"
+        placement="left"
+      >
         Popover on left
       </button>
 
-      <button type="button" class="btn btn-default btn-secondary"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Popover on bottom"
-              placement="bottom">
+      <button
+        type="button"
+        class="btn btn-default btn-secondary"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        popoverTitle="Popover on bottom"
+        placement="bottom"
+      >
         Popover on bottom
       </button>
     </div>
@@ -63,10 +84,13 @@
       <small><code>focus</code> trigger</small>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-success"
-              popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-              popoverTitle="Dismissible popover"
-              triggers="focus">
+      <button
+        type="button"
+        class="btn btn-success"
+        popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+        popoverTitle="Dismissible popover"
+        triggers="focus"
+      >
         Dismissible popover
       </button>
     </div>
@@ -77,14 +101,22 @@
       <small>dynamic content</small>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-info"
-              [popover]="content" [popoverTitle]="title">
+      <button
+        type="button"
+        class="btn btn-info"
+        [popover]="content"
+        [popoverTitle]="title"
+      >
         Simple binding
       </button>
 
-      <ng-template #popTemplate>Just another: {{content}}</ng-template>
-      <button type="button" class="btn btn-warning"
-              [popover]="popTemplate" popoverTitle="Template ref content inside">
+      <ng-template #popTemplate>Just another: {{ content }}</ng-template>
+      <button
+        type="button"
+        class="btn btn-warning"
+        [popover]="popTemplate"
+        popoverTitle="Template ref content inside"
+      >
         TemplateRef binding
       </button>
     </div>
@@ -95,11 +127,16 @@
       <small>dynamic HTML</small>
     </div>
     <div class="card-body">
-      <ng-template #popTemplateHtml>Here we go:
+      <ng-template #popTemplateHtml
+        >Here we go:
         <div [innerHtml]="html"></div>
       </ng-template>
-      <button type="button" class="btn btn-success"
-              [popover]="popTemplateHtml" popoverTitle="Dynamic html inside">
+      <button
+        type="button"
+        class="btn btn-success"
+        [popover]="popTemplateHtml"
+        popoverTitle="Dynamic html inside"
+      >
         Show me popover with html
       </button>
     </div>
@@ -110,15 +147,21 @@
       <small>append to <code>body</code></small>
     </div>
     <div class="card-body">
-      <div class="row panel" style="position: relative; overflow: hidden;">
+      <div class="row panel" style="position: relative; overflow: hidden">
         <div class="card-body panel-body">
-          <button type="button" class="btn btn-danger"
-                  popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+          <button
+            type="button"
+            class="btn btn-danger"
+            popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+          >
             Default popover
           </button>
-          <button type="button" class="btn btn-success"
-                  popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
-                  container="body">
+          <button
+            type="button"
+            class="btn btn-success"
+            popover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+            container="body"
+          >
             Popover appended to body
           </button>
         </div>
@@ -131,9 +174,12 @@
       <small>custom triggers</small>
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-info"
-              popover="I will hide on blur"
-              triggers="mouseenter:mouseleave">
+      <button
+        type="button"
+        class="btn btn-info"
+        popover="I will hide on blur"
+        triggers="mouseenter:mouseleave"
+      >
         Hover over me!
       </button>
     </div>
@@ -145,9 +191,12 @@
     </div>
     <div class="card-body">
       <p>
-        <span popover="Hello there! I was triggered manually"
-              triggers="" #pop="bs-popover">
-        This text has attached popover
+        <span
+          popover="Hello there! I was triggered manually"
+          triggers=""
+          #pop="bs-popover"
+        >
+          This text has attached popover
         </span>
       </p>
       <button type="button" class="btn btn-success" (click)="pop.show()">

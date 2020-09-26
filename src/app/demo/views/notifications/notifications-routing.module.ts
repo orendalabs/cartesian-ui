@@ -9,40 +9,40 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Notifications'
+      title: 'Notifications',
     },
     children: [
       {
         path: '',
-        redirectTo: 'alerts'
+        redirectTo: 'alerts',
       },
       {
         path: 'alerts',
         component: AlertsComponent,
         data: {
-          title: 'Alerts'
-        }
+          title: 'Alerts',
+        },
       },
       {
         path: 'badges',
         component: BadgesComponent,
         data: {
-          title: 'Badges'
-        }
+          title: 'Badges',
+        },
       },
       {
         path: 'modals',
         component: ModalsComponent,
         data: {
-          title: 'Modals'
-        }
-      }
-    ]
-  }
+          title: 'Modals',
+        },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class NotificationsRoutingModule {}

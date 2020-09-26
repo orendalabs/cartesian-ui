@@ -1,56 +1,61 @@
-import * as moment from "@node_modules/moment";
+import * as moment from '@node_modules/moment';
 
 export interface IApplication {
   version: string | undefined;
   releaseDate: moment.Moment | undefined;
-  features: { [key: string]: boolean; } | undefined;
+  features: { [key: string]: boolean } | undefined;
 }
 
-
 export class Application implements IApplication {
-  version: string | undefined;
-  releaseDate: moment.Moment;
-  features: { [key: string]: boolean; } | undefined;
-
   constructor(data?: IApplication) {
     if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
+      for (const property in data) {
+        if (data.hasOwnProperty(property)) {
+          (this as any)[property] = (data as any)[property];
+        }
       }
     }
+  }
+  version: string | undefined;
+  releaseDate: moment.Moment;
+  features: { [key: string]: boolean } | undefined;
+
+  static fromJS(data: any): Application {
+    data = typeof data === 'object' ? data : {};
+    const result = new Application();
+    result.init(data);
+    return result;
   }
 
   init(data?: any) {
     if (data) {
-      this.version = data["version"];
-      this.releaseDate = data["releaseDate"] ? moment(data["releaseDate"].toString()) : <any>undefined;
-      if (data["features"]) {
+      this.version = data.version;
+      this.releaseDate = data.releaseDate
+        ? moment(data.releaseDate.toString())
+        : (undefined as any);
+      if (data.features) {
         this.features = {} as any;
-        for (let key in data["features"]) {
-          if (data["features"].hasOwnProperty(key))
-            this.features[key] = data["features"][key];
+        for (const key in data.features) {
+          if (data.features.hasOwnProperty(key)) {
+            this.features[key] = data.features[key];
+          }
         }
       }
     }
   }
 
-  static fromJS(data: any): Application {
-    data = typeof data === 'object' ? data : {};
-    let result = new Application();
-    result.init(data);
-    return result;
-  }
-
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
-    data["version"] = this.version;
-    data["releaseDate"] = this.releaseDate ? this.releaseDate.toISOString() : <any>undefined;
+    data.version = this.version;
+    data.releaseDate = this.releaseDate
+      ? this.releaseDate.toISOString()
+      : (undefined as any);
     if (this.features) {
-      data["features"] = {};
-      for (let key in this.features) {
-        if (this.features.hasOwnProperty(key))
-          data["features"][key] = this.features[key];
+      data.features = {};
+      for (const key in this.features) {
+        if (this.features.hasOwnProperty(key)) {
+          data.features[key] = this.features[key];
+        }
       }
     }
     return data;
@@ -58,7 +63,7 @@ export class Application implements IApplication {
 
   clone(): Application {
     const json = this.toJSON();
-    let result = new Application();
+    const result = new Application();
     result.init(json);
     return result;
   }

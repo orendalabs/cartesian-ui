@@ -5,14 +5,11 @@ import { Store } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { AppConstants, UiService } from '@cartesian-ui/ng-axis';
 import { SessionService } from '@shared/services';
-import { actions } from "@app/account/store";
-import { User } from "@app/account/models";
-import {
-  State
-} from '@app/app.store';
+import { actions } from '@app/account/store';
+import { User } from '@app/account/models';
+import { State } from '@app/app.store';
 import * as moment from 'moment';
 import * as _ from 'lodash';
-
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +21,7 @@ export class AppInitializerService {
     private _httpClient: HttpClient,
     private _uiService: UiService,
     private _store: Store<State>
-  ) { }
+  ) {}
 
   init(): () => Promise<boolean> {
     return () => {
@@ -47,37 +44,36 @@ export class AppInitializerService {
           // Rule: As redux principle, NgRx Store should be only source of truth, i.e data should flow from store only.
           // Exception: app session is exception to that as well, SessionService holds session data, and it hydrated directly through api.
 
-            // do not use constructor injection for SessionService
-            const sessionService = this._injector.get(SessionService);
-            sessionService.init().then(
-              (user: User) => {
-                this._uiService.clearBusy();
-                // TODO: Maintain Session state, for login user
-                // I thing that user and tenant property is not required for account state
-                // also no need to save auth token
-                // this._store.dispatch(actions.addAuthenticatedUserAction({user}))
-                if (this.shouldLoadLocale()) {
-                  const angularLocale = this.convertAxisLocaleToAngularLocale(
-                    axis.localization.currentLanguage.name
-                  );
-                  import(`@angular/common/locales/${angularLocale}.js`).then(
-                    (module) => {
-                      registerLocaleData(module.default);
-                      resolve(true);
-                    },
-                    reject
-                  );
-                } else {
-                  resolve(true);
-                }
-              },
-              (err) => {
-                this._uiService.clearBusy();
-                resolve()
+          // do not use constructor injection for SessionService
+          const sessionService = this._injector.get(SessionService);
+          sessionService.init().then(
+            (user: User) => {
+              this._uiService.clearBusy();
+              // TODO: Maintain Session state, for login user
+              // I thing that user and tenant property is not required for account state
+              // also no need to save auth token
+              // this._store.dispatch(actions.addAuthenticatedUserAction({user}))
+              if (this.shouldLoadLocale()) {
+                const angularLocale = this.convertAxisLocaleToAngularLocale(
+                  axis.localization.currentLanguage.name
+                );
+                import(`@angular/common/locales/${angularLocale}.js`).then(
+                  (module) => {
+                    registerLocaleData(module.default);
+                    resolve(true);
+                  },
+                  reject
+                );
+              } else {
+                resolve(true);
               }
-            );
+            },
+            (err) => {
+              this._uiService.clearBusy();
+              resolve();
+            }
+          );
           // });
-
         });
       });
     };
@@ -100,7 +96,6 @@ export class AppInitializerService {
   }
 
   private getUserConfiguration(callback: () => void): void {
-
     // ----------------------------------------------------------
     //   TODO: Policy for Axis Object Holding User Configuration
     // ----------------------------------------------------------
@@ -117,12 +112,11 @@ export class AppInitializerService {
 
     const requestHeaders = {
       'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
-      //'.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
+      // '.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
     };
 
-
     if (token) {
-      requestHeaders['Authorization'] = `Bearer ${token}`;
+      requestHeaders.Authorization = `Bearer ${token}`;
     }
 
     this._httpClient
@@ -183,9 +177,11 @@ export class AppInitializerService {
       return locale;
     }
 
-    const localeMapings = _.filter(AppConstants.localeMappings, { from: locale });
+    const localeMapings = _.filter(AppConstants.localeMappings, {
+      from: locale,
+    });
     if (localeMapings && localeMapings.length) {
-      return localeMapings[0]['to'];
+      return localeMapings[0].to;
     }
 
     return locale;

@@ -20,81 +20,81 @@ export interface IIsTenantAvailableResponse {
 }
 
 export class IsTenantAvailableForm implements IIsTenantAvailableForm {
-  name: string | undefined;
-
   constructor(data?: IIsTenantAvailableForm) {
     if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
+      for (const property in data) {
+        if (data.hasOwnProperty(property)) {
+          (this as any)[property] = (data as any)[property];
+        }
       }
     }
   }
-
-  init(data?: any) {
-    if (data) {
-      this.name = data["name"];
-    }
-  }
+  name: string | undefined;
 
   static fromJS(data: any): IsTenantAvailableForm {
     data = typeof data === 'object' ? data : {};
-    let result = new IsTenantAvailableForm();
+    const result = new IsTenantAvailableForm();
     result.init(data);
     return result;
   }
 
+  init(data?: any) {
+    if (data) {
+      this.name = data.name;
+    }
+  }
+
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
-    data["name"] = this.name;
+    data.name = this.name;
     return data;
   }
 
   clone(): IsTenantAvailableForm {
     const json = this.toJSON();
-    let result = new IsTenantAvailableForm();
+    const result = new IsTenantAvailableForm();
     result.init(json);
     return result;
   }
 }
 
 export class IsTenantAvailableResponse implements IIsTenantAvailableResponse {
-  state: TenantAvailabilityState;
-  tenantId: string | undefined;
-
   constructor(data?: IIsTenantAvailableResponse) {
     if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
+      for (const property in data) {
+        if (data.hasOwnProperty(property)) {
+          (this as any)[property] = (data as any)[property];
+        }
       }
     }
   }
-
-  init(data?: any) {
-    if (data) {
-      this.state = data["state"];
-      this.tenantId = data["tenantId"];
-    }
-  }
+  state: TenantAvailabilityState;
+  tenantId: string | undefined;
 
   static fromJS(data: any): IsTenantAvailableResponse {
     data = typeof data === 'object' ? data : {};
-    let result = new IsTenantAvailableResponse();
+    const result = new IsTenantAvailableResponse();
     result.init(data);
     return result;
   }
 
+  init(data?: any) {
+    if (data) {
+      this.state = data.state;
+      this.tenantId = data.tenantId;
+    }
+  }
+
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
-    data["state"] = this.state;
-    data["tenantId"] = this.tenantId;
+    data.state = this.state;
+    data.tenantId = this.tenantId;
     return data;
   }
 
   clone(): IsTenantAvailableResponse {
     const json = this.toJSON();
-    let result = new IsTenantAvailableResponse();
+    const result = new IsTenantAvailableResponse();
     result.init(json);
     return result;
   }

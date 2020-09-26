@@ -4,14 +4,14 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
 } from '@angular/core';
 import { BaseComponent } from '@shared/ui';
 
 @Component({
   selector: 'app-modal-footer',
   templateUrl: './app-modal-footer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppModalFooterComponent extends BaseComponent {
   @Input() cancelLabel = this.l('Cancel');
@@ -19,7 +19,7 @@ export class AppModalFooterComponent extends BaseComponent {
   @Input() saveLabel = this.l('Save');
   @Input() saveDisabled: boolean;
 
-  @Output() onCancelClick = new EventEmitter<number>();
+  @Output() cancelClick = new EventEmitter<number>();
 
   constructor(injector: Injector) {
     super(injector);

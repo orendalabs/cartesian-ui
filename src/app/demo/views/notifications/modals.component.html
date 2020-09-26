@@ -7,43 +7,98 @@
         </div>
         <div class="card-body">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" (click)="myModal.show()">
+          <button
+            type="button"
+            class="btn btn-secondary mr-1"
+            data-toggle="modal"
+            (click)="myModal.show()"
+          >
             Launch demo modal
           </button>
-          <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" (click)="largeModal.show()">
+          <button
+            type="button"
+            class="btn btn-secondary mr-1"
+            data-toggle="modal"
+            (click)="largeModal.show()"
+          >
             Launch large modal
           </button>
-          <button type="button" class="btn btn-secondary mr-1" data-toggle="modal" (click)="smallModal.show()">
+          <button
+            type="button"
+            class="btn btn-secondary mr-1"
+            data-toggle="modal"
+            (click)="smallModal.show()"
+          >
             Launch small modal
           </button>
-          <hr>
-          <button type="button" class="btn btn-primary mr-1" data-toggle="modal" (click)="primaryModal.show()">
+          <hr />
+          <button
+            type="button"
+            class="btn btn-primary mr-1"
+            data-toggle="modal"
+            (click)="primaryModal.show()"
+          >
             Primary modal
           </button>
-          <button type="button" class="btn btn-success mr-1" data-toggle="modal" (click)="successModal.show()">
+          <button
+            type="button"
+            class="btn btn-success mr-1"
+            data-toggle="modal"
+            (click)="successModal.show()"
+          >
             Success modal
           </button>
-          <button type="button" class="btn btn-warning mr-1" data-toggle="modal" (click)="warningModal.show()">
+          <button
+            type="button"
+            class="btn btn-warning mr-1"
+            data-toggle="modal"
+            (click)="warningModal.show()"
+          >
             Warning modal
           </button>
-          <button type="button" class="btn btn-danger mr-1" data-toggle="modal" (click)="dangerModal.show()">
+          <button
+            type="button"
+            class="btn btn-danger mr-1"
+            data-toggle="modal"
+            (click)="dangerModal.show()"
+          >
             Danger modal
           </button>
-          <button type="button" class="btn btn-info mr-1" data-toggle="modal" (click)="infoModal.show()">
+          <button
+            type="button"
+            class="btn btn-info mr-1"
+            data-toggle="modal"
+            (click)="infoModal.show()"
+          >
             Info modal
           </button>
         </div>
       </div>
-    </div><!--/.col-->
-  </div><!--/.row-->
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
 </div>
 
-<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #myModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="myModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -51,19 +106,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="myModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="myModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-<div bsModal #largeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #largeModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="largeModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="largeModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -71,19 +148,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="largeModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="largeModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-<div bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #smallModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="smallModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="smallModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -91,20 +190,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="smallModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-
-<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #primaryModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-primary" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="primaryModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -112,20 +232,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="primaryModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-
-<div bsModal #successModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #successModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-success" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="successModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -133,20 +274,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="successModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-success">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-
-<div bsModal #warningModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #warningModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-warning" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="warningModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="warningModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -154,19 +316,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="warningModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="warningModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-warning">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-<div bsModal #dangerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #dangerModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-danger" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="dangerModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="dangerModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -174,19 +358,41 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="dangerModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="dangerModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-danger">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-<div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  bsModal
+  #infoModal="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-info" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modal title</h4>
-        <button type="button" class="close" (click)="infoModal.hide()" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          (click)="infoModal.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -194,9 +400,18 @@
         <p>One fine body&hellip;</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="infoModal.hide()">Close</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="infoModal.hide()"
+        >
+          Close
+        </button>
         <button type="button" class="btn btn-info">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, Injector, OnInit } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Injector,
+  OnInit,
+} from '@angular/core';
 import { BaseComponent } from '@shared/ui';
 import { accountModuleAnimation } from '@shared/animations';
 import { AccountSandbox } from '../../account.sandbox';
@@ -9,22 +14,21 @@ import { LoginForm } from '../../models';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   animations: [accountModuleAnimation()],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends BaseComponent implements OnInit {
-
   form: LoginForm;
 
-  constructor( injector: Injector, public _sandbox: AccountSandbox ) {
+  constructor(injector: Injector, public _sandbox: AccountSandbox) {
     super(injector);
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.form = new LoginForm();
   }
 
   get multiTenancySideIsTeanant(): boolean {
-    //return this._sessionService.tenantId > 0;
+    // return this._sessionService.tenantId > 0;
     return false;
     // TODO: Check Is mutlti tenancy available, provide option to select/change/enter tenant Id
   }
@@ -34,7 +38,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
     //   return true; // false
     // }
     return true;
-    //TODO: If self registeration is allowed or not
+    // TODO: If self registeration is allowed or not
   }
 
   login(): void {

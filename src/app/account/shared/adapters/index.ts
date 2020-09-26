@@ -1,1 +1,1 @@
-export * from './account.adapter'
+export * from './account.adapter';

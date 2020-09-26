@@ -4,19 +4,19 @@ import {
   Output,
   EventEmitter,
   ChangeDetectionStrategy,
-  Injector
+  Injector,
 } from '@angular/core';
 import { BaseComponent } from '@shared/ui';
 
 @Component({
   selector: 'app-modal-header',
   templateUrl: './app-modal-header.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppModalHeaderComponent extends BaseComponent {
   @Input() title: string;
 
-  @Output() onCloseClick = new EventEmitter<number>();
+  @Output() closeClick = new EventEmitter<number>();
 
   constructor(injector: Injector) {
     super(injector);

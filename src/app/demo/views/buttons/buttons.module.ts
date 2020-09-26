@@ -19,12 +19,8 @@ import { ButtonsRoutingModule } from './buttons-routing.module';
     CommonModule,
     ButtonsRoutingModule,
     BsDropdownModule.forRoot(),
-    FormsModule
+    FormsModule,
   ],
-  declarations: [
-    ButtonsComponent,
-    DropdownsComponent,
-    BrandButtonsComponent
-  ]
+  declarations: [ButtonsComponent, DropdownsComponent, BrandButtonsComponent],
 })
-export class ButtonsModule { }
+export class ButtonsModule {}

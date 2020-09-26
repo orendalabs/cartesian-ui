@@ -3,14 +3,14 @@ import {
   OnInit,
   ViewEncapsulation,
   Injector,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 import { BaseComponent } from '@shared/ui';
 
 @Component({
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AccountComponent extends BaseComponent implements OnInit {
   constructor(injector: Injector, private renderer: Renderer2) {
