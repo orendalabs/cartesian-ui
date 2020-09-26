@@ -2,7 +2,12 @@ import { Injectable, Injector } from '@angular/core';
 import { PlatformLocation, registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { AppConstants, UiService, MultiTenancyService, TokenService } from '@cartesian-ui/ng-axis';
+import {
+  AppConstants,
+  UiService,
+  MultiTenancyService,
+  TokenService,
+} from '@cartesian-ui/ng-axis';
 import { SessionService } from '@shared/services';
 import { User } from '@app/account/models';
 import * as moment from 'moment';
@@ -102,22 +107,26 @@ export class AppInitializerService {
     // these values will have no impact on state, and these are supposed to be remain constant through application live cycle,
     // so these will not be required to part of state.
 
-    const cookieLangValue = axis.utils.getCookieValue('Axis.Localization.CultureName');
+    const cookieLangValue = axis.utils.getCookieValue(
+      'Axis.Localization.CultureName'
+    );
     const token = this._tokenService.getToken();
     const tenantId = this._multiTenancyService.getTenantId();
 
     const requestHeaders = {};
 
-    if(cookieLangValue) {
-      requestHeaders['.Axis.Culture'] = `c=${cookieLangValue}|uic=${cookieLangValue}`;
+    if (cookieLangValue) {
+      requestHeaders[
+        '.Axis.Culture'
+      ] = `c=${cookieLangValue}|uic=${cookieLangValue}`;
     }
 
-    if(tenantId) {
+    if (tenantId) {
       requestHeaders['Axis.TenantId'] = `${tenantId}`;
     }
 
     if (token) {
-      requestHeaders["Authorization"] = `Bearer ${token}`;
+      requestHeaders['Authorization'] = `Bearer ${token}`;
     }
 
     this._httpClient

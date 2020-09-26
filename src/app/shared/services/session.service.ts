@@ -28,12 +28,12 @@ export class SessionService {
 
     const requestHeaders = {};
 
-    if(tenantId) {
+    if (tenantId) {
       requestHeaders['Axis.TenantId'] = `${tenantId}`;
     }
 
     if (token) {
-      requestHeaders["Authorization"] = `Bearer ${token}`;
+      requestHeaders['Authorization'] = `Bearer ${token}`;
     }
 
     return new Promise<any>((resolve, reject) => {
