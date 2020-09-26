@@ -20,6 +20,7 @@ const bootstrap = () => {
  */
 
 if (environment.hmr) {
+  // tslint:disable:no-string-literal
   if (module['hot']) {
     hmrBootstrap(module, bootstrap); // HMR enabled bootstrap
   } else {

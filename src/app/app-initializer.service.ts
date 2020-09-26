@@ -98,6 +98,7 @@ export class AppInitializerService {
       });
   }
 
+  // tslint:disable:no-string-literal
   private getUserConfiguration(callback: () => void): void {
     // ----------------------------------------------------------
     //   TODO: Policy for Axis Object Holding User Configuration
@@ -108,7 +109,7 @@ export class AppInitializerService {
     // so these will not be required to part of state.
 
     const cookieLangValue = axis.utils.getCookieValue(
-      'Axis.Localization.CultureName'
+      `Axis.Localization.CultureName`
     );
     const token = this._tokenService.getToken();
     const tenantId = this._multiTenancyService.getTenantId();
@@ -117,16 +118,16 @@ export class AppInitializerService {
 
     if (cookieLangValue) {
       requestHeaders[
-        '.Axis.Culture'
+        `.Axis.Culture`
       ] = `c=${cookieLangValue}|uic=${cookieLangValue}`;
     }
 
     if (tenantId) {
-      requestHeaders['Axis.TenantId'] = `${tenantId}`;
+      requestHeaders[`Axis.TenantId`] = `${tenantId}`;
     }
 
     if (token) {
-      requestHeaders['Authorization'] = `Bearer ${token}`;
+      requestHeaders[`Authorization`] = `Bearer ${token}`;
     }
 
     this._httpClient
