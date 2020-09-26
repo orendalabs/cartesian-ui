@@ -13,7 +13,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format:write --satged && ng lint --fix"
+      "pre-commit": "npm run format:write --satged && ng lint"
     }
   },
   "private": true,

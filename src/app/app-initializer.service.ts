@@ -1,13 +1,10 @@
 import { Injectable, Injector } from '@angular/core';
 import { PlatformLocation, registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Store } from '@ngrx/store';
 import { environment } from '../environments/environment';
-import { AppConstants, UiService } from '@cartesian-ui/ng-axis';
+import { AppConstants, UiService, MultiTenancyService, TokenService } from '@cartesian-ui/ng-axis';
 import { SessionService } from '@shared/services';
-import { actions } from '@app/account/store';
 import { User } from '@app/account/models';
-import { State } from '@app/app.store';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -20,7 +17,8 @@ export class AppInitializerService {
     private _platformLocation: PlatformLocation,
     private _httpClient: HttpClient,
     private _uiService: UiService,
-    private _store: Store<State>
+    private _tokenService: TokenService,
+    private _multiTenancyService: MultiTenancyService
   ) {}
 
   init(): () => Promise<boolean> {
@@ -104,19 +102,22 @@ export class AppInitializerService {
     // these values will have no impact on state, and these are supposed to be remain constant through application live cycle,
     // so these will not be required to part of state.
 
-    // const cookieLangValue = axis.utils.getCookieValue(
-    //   'Axis.Localization.CultureName'
-    // );
+    const cookieLangValue = axis.utils.getCookieValue('Axis.Localization.CultureName');
+    const token = this._tokenService.getToken();
+    const tenantId = this._multiTenancyService.getTenantId();
 
-    const token = axis.auth.getToken();
+    const requestHeaders = {};
 
-    const requestHeaders = {
-      'Axis.TenantId': `${axis.multiTenancy.getTenantIdCookie()}`,
-      // '.AspNetCore.Culture': `c=${cookieLangValue}|uic=${cookieLangValue}`,
-    };
+    if(cookieLangValue) {
+      requestHeaders['.Axis.Culture'] = `c=${cookieLangValue}|uic=${cookieLangValue}`;
+    }
+
+    if(tenantId) {
+      requestHeaders['Axis.TenantId'] = `${tenantId}`;
+    }
 
     if (token) {
-      requestHeaders.Authorization = `Bearer ${token}`;
+      requestHeaders["Authorization"] = `Bearer ${token}`;
     }
 
     this._httpClient
