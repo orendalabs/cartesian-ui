@@ -1,5 +1,5 @@
 ﻿<div [@routerTransition]>
-  <h4 class="text-center mb-3">{{ "Register" | localize }}</h4>
+  <h4 class="text-center mb-3">{{ 'Register' | localize }}</h4>
   <form autocomplete="off" #registerForm="ngForm" (ngSubmit)="save()">
     <div class="form-group">
       <div class="input-group">
@@ -130,7 +130,7 @@
           [disabled]="saving"
           [routerLink]="['../login']"
         >
-          <i class="fa fa-arrow-circle-left"></i> {{ "Back" | localize }}
+          <i class="fa fa-arrow-circle-left"></i> {{ 'Back' | localize }}
         </button>
       </div>
       <div class="col-4">
@@ -139,7 +139,7 @@
           class="btn btn-primary btn-block"
           [disabled]="!registerForm.form.valid || saving"
         >
-          {{ "Register" | localize }}
+          {{ 'Register' | localize }}
         </button>
       </div>
     </div>

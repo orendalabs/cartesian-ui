@@ -3,16 +3,17 @@ import { DOCUMENT } from '@angular/common';
 import { getStyle, rgbToHex } from '@coreui/coreui/dist/js/coreui-utilities';
 
 @Component({
-  templateUrl: 'colors.component.html'
+  templateUrl: 'colors.component.html',
 })
 export class ColorsComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private _document: any) {}
 
   public themeColors(): void {
-    Array.from(this._document.querySelectorAll('.theme-color')).forEach((el: HTMLElement) => {
-      const background = getStyle('background-color', el);
-      const table = this._document.createElement('table');
-      table.innerHTML = `
+    Array.from(this._document.querySelectorAll('.theme-color')).forEach(
+      (el: HTMLElement) => {
+        const background = getStyle('background-color', el);
+        const table = this._document.createElement('table');
+        table.innerHTML = `
         <table class="w-100">
           <tr>
             <td class="text-muted">HEX:</td>
@@ -24,8 +25,9 @@ export class ColorsComponent implements OnInit {
           </tr>
         </table>
       `;
-      el.parentNode.appendChild(table);
-    });
+        el.parentNode.appendChild(table);
+      }
+    );
   }
 
   ngOnInit(): void {

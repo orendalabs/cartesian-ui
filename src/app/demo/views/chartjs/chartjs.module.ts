@@ -5,10 +5,7 @@ import { ChartJSComponent } from './chartjs.component';
 import { ChartJSRoutingModule } from './chartjs-routing.module';
 
 @NgModule({
-  imports: [
-    ChartJSRoutingModule,
-    ChartsModule
-  ],
-  declarations: [ ChartJSComponent ]
+  imports: [ChartJSRoutingModule, ChartsModule],
+  declarations: [ChartJSComponent],
 })
-export class ChartJSModule { }
+export class ChartJSModule {}

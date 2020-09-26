@@ -8,12 +8,12 @@ import { SimpleLineIconsComponent } from './simple-line-icons.component';
 import { IconsRoutingModule } from './icons-routing.module';
 
 @NgModule({
-  imports: [ IconsRoutingModule ],
+  imports: [IconsRoutingModule],
   declarations: [
     CoreUIIconsComponent,
     FlagsComponent,
     FontAwesomeComponent,
-    SimpleLineIconsComponent
-  ]
+    SimpleLineIconsComponent,
+  ],
 })
-export class IconsModule { }
+export class IconsModule {}

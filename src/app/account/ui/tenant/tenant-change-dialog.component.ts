@@ -6,15 +6,15 @@ import { AccountServiceProxy } from '@shared/service-proxies/service-proxies';
 import {
   AppTenantAvailabilityState,
   IsTenantAvailableForm,
-  IsTenantAvailableResponse
-} from "@app/account/models";
+  IsTenantAvailableResponse,
+} from '@app/account/models';
 
 @Component({
-  templateUrl: './tenant-change-dialog.component.html'
+  templateUrl: './tenant-change-dialog.component.html',
 })
 export class TenantChangeDialogComponent extends BaseComponent {
   saving = false;
-  name   = '';
+  name = '';
 
   constructor(
     injector: Injector,

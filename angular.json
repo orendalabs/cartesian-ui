@@ -231,11 +231,11 @@
   "defaultProject": "cartesian-ui",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "",
       "style": "css"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": ""
     }
   }
 }

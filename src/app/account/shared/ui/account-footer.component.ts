@@ -4,7 +4,7 @@ import { BaseComponent } from '@shared/ui';
 @Component({
   selector: 'account-footer',
   templateUrl: './account-footer.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountFooterComponent extends BaseComponent {
   currentYear: number;
@@ -14,7 +14,7 @@ export class AccountFooterComponent extends BaseComponent {
     super(injector);
 
     this.currentYear = new Date().getFullYear();
-    this.versionText = ""
+    this.versionText = '';
     //   this.appSession.application.version +
     //   ' [' +
     //   this.appSession.application.releaseDate.format('YYYYDDMM') +

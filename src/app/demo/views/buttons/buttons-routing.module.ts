@@ -9,40 +9,40 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Buttons'
+      title: 'Buttons',
     },
     children: [
       {
         path: '',
-        redirectTo: 'buttons'
+        redirectTo: 'buttons',
       },
       {
         path: 'buttons',
         component: ButtonsComponent,
         data: {
-          title: 'Buttons'
-        }
+          title: 'Buttons',
+        },
       },
       {
         path: 'dropdowns',
         component: DropdownsComponent,
         data: {
-          title: 'Dropdowns'
-        }
+          title: 'Dropdowns',
+        },
       },
       {
         path: 'brand-buttons',
         component: BrandButtonsComponent,
         data: {
-          title: 'Brand buttons'
-        }
-      }
-    ]
-  }
+          title: 'Brand buttons',
+        },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ButtonsRoutingModule {}

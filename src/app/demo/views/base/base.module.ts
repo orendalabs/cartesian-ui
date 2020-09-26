@@ -60,7 +60,7 @@ import { BaseRoutingModule } from './base-routing.module';
     PaginationModule.forRoot(),
     PopoverModule.forRoot(),
     ProgressbarModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
   ],
   declarations: [
     CardsComponent,
@@ -74,7 +74,7 @@ import { BaseRoutingModule } from './base-routing.module';
     PopoversComponent,
     ProgressComponent,
     TooltipsComponent,
-    NavbarsComponent
-  ]
+    NavbarsComponent,
+  ],
 })
-export class BaseModule { }
+export class BaseModule {}

@@ -7,25 +7,9 @@ import { State } from '@app/app.store';
 
 @Injectable()
 export class AppSandbox extends Sandbox {
-
-  constructor( protected store: Store<State>, protected injector: Injector ) {
+  constructor(protected store: Store<State>, protected injector: Injector) {
     super(injector);
   }
-
-  /**
-   * Fetch Session User
-   *
-   * @param form
-   */
-  public fetchAuthenticatedUser(): void {}
-
-  /**
-   * Fetch Session Tenant
-   *
-   * @param form
-   */
-  public fetchAuthenticatedTenant(id: string): void {}
-
 
   /**
    * Sets up default language for the application. Uses browser default language.

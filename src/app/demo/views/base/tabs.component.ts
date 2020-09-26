@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  templateUrl: 'tabs.component.html'
+  templateUrl: 'tabs.component.html',
 })
 export class TabsComponent {
-
-  constructor() { }
-
+  constructor() {}
 }

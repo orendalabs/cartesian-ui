@@ -2,10 +2,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-pagination-controls',
-  templateUrl: './app-pagination-controls.component.html'
+  templateUrl: './app-pagination-controls.component.html',
 })
 export class AppPaginationControlsComponent {
-
   @Input() id: string;
   @Input() maxSize = 7;
   @Input() previousLabel = 'Previous';
@@ -23,13 +22,13 @@ export class AppPaginationControlsComponent {
     return this._directionLinks;
   }
   set directionLinks(value: boolean) {
-    this._directionLinks = !!value && <any>value !== 'false';
+    this._directionLinks = !!value && (value as any) !== 'false';
   }
   @Input()
   get autoHide(): boolean {
     return this._autoHide;
   }
   set autoHide(value: boolean) {
-    this._autoHide = !!value && <any>value !== 'false';
+    this._autoHide = !!value && (value as any) !== 'false';
   }
 }

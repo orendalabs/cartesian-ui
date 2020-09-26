@@ -10,47 +10,47 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Icons'
+      title: 'Icons',
     },
     children: [
       {
         path: '',
-        redirectTo: 'coreui-icons'
+        redirectTo: 'coreui-icons',
       },
       {
         path: 'coreui-icons',
         component: CoreUIIconsComponent,
         data: {
-          title: 'CoreUI Icons'
-        }
+          title: 'CoreUI Icons',
+        },
       },
       {
         path: 'flags',
         component: FlagsComponent,
         data: {
-          title: 'Flags'
-        }
+          title: 'Flags',
+        },
       },
       {
         path: 'font-awesome',
         component: FontAwesomeComponent,
         data: {
-          title: 'Font Awesome'
-        }
+          title: 'Font Awesome',
+        },
       },
       {
         path: 'simple-line-icons',
         component: SimpleLineIconsComponent,
         data: {
-          title: 'Simple Line Icons'
-        }
-      }
-    ]
-  }
+          title: 'Simple Line Icons',
+        },
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class IconsRoutingModule {}
