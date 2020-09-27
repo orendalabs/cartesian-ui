@@ -62,9 +62,9 @@ export class AlertsComponent {
 
   index = 0;
   messages = [
-    'You successfully read this important alert message.',
-    'Now this text is different from what it was before. Go ahead and click the button one more time',
-    "Well done! Click reset button and you'll see the first message",
+    `You successfully read this important alert message.`,
+    `Now this text is different from what it was before. Go ahead and click the button one more time`,
+    `Well done! Click reset button and you'll see the first message`,
   ];
 
   alertsDismiss: any = [];
