@@ -12,6 +12,7 @@ if (environment.production) {
 }
 
 const bootstrap = () => {
+  console.log('🚀 Bootstrapping ...');
   return platformBrowserDynamic().bootstrapModule(AppModule);
 };
 
@@ -20,13 +21,16 @@ const bootstrap = () => {
  */
 
 if (environment.hmr) {
+  console.log('✅ Client-side HMR Enabled!');
   // tslint:disable:no-string-literal
   if (module['hot']) {
+    console.log('🔥▶ HRM Bootstrap!');
     hmrBootstrap(module, bootstrap); // HMR enabled bootstrap
   } else {
     console.error('HMR is not enabled for webpack-dev-server!');
     console.log('Are you using the --hmr flag for ng serve?');
   }
 } else {
-  bootstrap(); // Regular bootstrap
+  console.log('▶ Regular Bootstrap!');
+  bootstrap();
 }

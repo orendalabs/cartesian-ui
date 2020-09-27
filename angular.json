@@ -19,10 +19,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/scss/style.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -39,9 +36,7 @@
               "src/scss/core.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "./node_modules"
-              ]
+              "includePaths": ["./node_modules"]
             },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -69,10 +64,7 @@
               "node_modules/@cartesian-ui/js-axis/axis.message.swal.min.js",
               "node_modules/@cartesian-ui/js-axis/axis.notification.swal.min.js"
             ],
-            "allowedCommonJsDependencies": [
-              "lodash",
-              "chart.js"
-            ]
+            "allowedCommonJsDependencies": ["lodash", "chart.js"]
           },
           "configurations": {
             "production": {
@@ -129,7 +121,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "cartesian-ui:build",
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "hmrWarning": false
           },
           "configurations": {
             "production": {
@@ -153,10 +146,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/scss/style.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -173,9 +163,7 @@
               "src/scss/core.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "./node_modules"
-              ]
+              "includePaths": ["./node_modules"]
             },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -209,9 +197,7 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
@@ -227,7 +213,8 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "cartesian-ui",
   "schematics": {
     "@schematics/angular:component": {
