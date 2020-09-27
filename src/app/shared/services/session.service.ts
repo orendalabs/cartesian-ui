@@ -22,18 +22,19 @@ export class SessionService {
     private _multiTenancyService: MultiTenancyService
   ) {}
 
+  // tslint:disable:no-string-literal
   init(): Promise<any> {
     const token = this._tokenService.getToken();
     const tenantId = this._multiTenancyService.getTenantId();
 
     const requestHeaders = {};
 
-    if (token) {
-      requestHeaders.Authorization = `Bearer ${token}`;
-    }
-
     if (tenantId) {
       requestHeaders['Axis.TenantId'] = `${tenantId}`;
+    }
+
+    if (token) {
+      requestHeaders['Authorization'] = `Bearer ${token}`;
     }
 
     return new Promise<any>((resolve, reject) => {

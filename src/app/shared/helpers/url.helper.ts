@@ -9,7 +9,7 @@ export class UrlHelper {
       .replace(/(^\?)/, '')
       .split('&')
       .map(
-        function(n) {
+        function (n) {
           return (n = n.split('=')), (this[n[0]] = n[1]), this;
         }.bind({})
       )[0];
