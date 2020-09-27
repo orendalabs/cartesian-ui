@@ -37,7 +37,7 @@ export class AlertsComponent {
     },
     {
       type: 'info',
-      msg: `This alert needs your attention, but it is not super important.`,
+      msg: `This alert needs your attention, but it's not super important.`,
     },
     {
       type: 'danger',
