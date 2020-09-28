@@ -6,7 +6,7 @@ import {
   ChangeDetectionStrategy,
   Injector,
 } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 
 @Component({
   selector: 'app-modal-footer',

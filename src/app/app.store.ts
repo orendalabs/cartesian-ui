@@ -3,7 +3,7 @@ import {
   createFeatureSelector,
   MemoizedSelector,
 } from '@ngrx/store';
-import { AuthToken, Tenant, User } from '@app/account/models';
+import { AuthToken, Tenant, AuthUser } from '@app/account/models';
 import { AccountState } from '@app/account/store';
 
 export interface State {
@@ -35,7 +35,7 @@ export const getAuthToken: MemoizedSelector<object, AuthToken> = createSelector(
 );
 export const getAuthenticatedUser: MemoizedSelector<
   object,
-  User
+  AuthUser
 > = createSelector(getAccountState, (state: AccountState) => state.user);
 export const getAuthenticatedTenant: MemoizedSelector<
   object,

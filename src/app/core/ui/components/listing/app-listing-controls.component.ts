@@ -1,5 +1,5 @@
 import { Injector, OnInit } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 import {
   ChangeDetectionStrategy,
   Component,

@@ -6,13 +6,13 @@ import {
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Application } from '@shared/models';
-import { User, Tenant } from '@app/account/models';
+import { AuthUser, Tenant } from '@app/account/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
-  private _user: User;
+  private _user: AuthUser;
   private _tenant: Tenant;
   private _application: Application;
 
@@ -44,7 +44,7 @@ export class SessionService {
         .then(
           (result: any) => {
             // this._application = result.application;
-            this._user = new User(convertObjectKeysToCamel(result.data));
+            this._user = new AuthUser(convertObjectKeysToCamel(result.data));
             // this._tenant = result.tenant;
             resolve(this._user);
           },
@@ -59,7 +59,7 @@ export class SessionService {
     return this._application;
   }
 
-  get user(): User {
+  get user(): AuthUser {
     return this._user;
   }
 
