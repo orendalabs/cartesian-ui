@@ -4,7 +4,7 @@ import {
   Injector,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 import * as _ from 'lodash';
 
 @Component({

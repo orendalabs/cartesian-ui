@@ -1,12 +1,12 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { AuthToken, Tenant, User } from '../models';
+import { AuthToken, Tenant, AuthUser } from '../models';
 import * as fromAccountActions from './account.action';
 
 export interface AccountState {
   loading: boolean;
   loaded: boolean;
   failed: boolean;
-  user: User;
+  user: AuthUser;
   tenant: Tenant;
   authenticated: { status: boolean; token: AuthToken };
 }
@@ -15,7 +15,7 @@ const INITIAL_STATE: AccountState = {
   loading: false,
   loaded: false,
   failed: false,
-  user: new User(),
+  user: new AuthUser(),
   tenant: new Tenant(),
   authenticated: { status: false, token: new AuthToken() },
 };
@@ -23,11 +23,11 @@ const INITIAL_STATE: AccountState = {
 const createAccountReducers = createReducer(
   INITIAL_STATE,
   on(
-    fromAccountActions.doAuthenticateAction,
-    fromAccountActions.fetchAuthenticatedTenant,
-    fromAccountActions.fetchAuthenticatedUser,
-    fromAccountActions.doRegisterAction,
-    fromAccountActions.doLogoutAction,
+    fromAccountActions.doAuthenticate,
+    fromAccountActions.doFetchAuthenticatedTenant,
+    fromAccountActions.doFetchAuthenticatedUser,
+    fromAccountActions.doRegister,
+    fromAccountActions.doLogout,
     (state) => {
       return Object.assign({}, state, {
         loading: true,
@@ -36,7 +36,7 @@ const createAccountReducers = createReducer(
       });
     }
   ),
-  on(fromAccountActions.doAuthenticateSuccessAction, (state, { authToken }) => {
+  on(fromAccountActions.doAuthenticateSuccess, (state, { authToken }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -44,7 +44,7 @@ const createAccountReducers = createReducer(
       authenticated: { status: true, token: authToken },
     });
   }),
-  on(fromAccountActions.doRegisterSuccessAction, (state, { user }) => {
+  on(fromAccountActions.doRegisterSuccess, (state, { user }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -53,7 +53,7 @@ const createAccountReducers = createReducer(
     });
   }),
   on(
-    fromAccountActions.fetchAuthenticatedTenantSuccess,
+    fromAccountActions.doFetchAuthenticatedTenantSuccess,
     (state, { tenant }) => {
       return Object.assign({}, state, {
         loaded: true,
@@ -63,7 +63,7 @@ const createAccountReducers = createReducer(
       });
     }
   ),
-  on(fromAccountActions.fetchAuthenticatedUserSuccess, (state, { user }) => {
+  on(fromAccountActions.doFetchAuthenticatedUserSuccess, (state, { user }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -71,7 +71,7 @@ const createAccountReducers = createReducer(
       user,
     });
   }),
-  on(fromAccountActions.addAuthenticatedUserAction, (state, { user }) => {
+  on(fromAccountActions.doAddAuthenticatedUser, (state, { user }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -79,7 +79,7 @@ const createAccountReducers = createReducer(
       user,
     });
   }),
-  on(fromAccountActions.addAuthenticatedTenantAction, (state, { tenant }) => {
+  on(fromAccountActions.doAddAuthenticatedTenant, (state, { tenant }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -87,20 +87,20 @@ const createAccountReducers = createReducer(
       tenant,
     });
   }),
-  on(fromAccountActions.doLogoutSuccessAction, (state) => {
+  on(fromAccountActions.doLogoutSuccess, (state) => {
     return Object.assign({}, state, INITIAL_STATE);
   }),
   on(
-    fromAccountActions.doAuthenticateFailAction,
-    fromAccountActions.fetchAuthenticatedUserFail,
-    fromAccountActions.fetchAuthenticatedTenantFail,
-    fromAccountActions.doLogoutFailAction,
-    fromAccountActions.doRegisterFailAction,
+    fromAccountActions.doAuthenticateFail,
+    fromAccountActions.doFetchAuthenticatedUserFail,
+    fromAccountActions.doFetchAuthenticatedTenantFail,
+    fromAccountActions.doLogoutFail,
+    fromAccountActions.doRegisterFail,
     (state) => {
       return Object.assign({}, INITIAL_STATE, { failed: true });
     }
   ),
-  on(fromAccountActions.addAuthTokenAction, (state, { authToken }) => {
+  on(fromAccountActions.doAddAuthToken, (state, { authToken }) => {
     return Object.assign({}, state, { token: authToken });
   })
 );

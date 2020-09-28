@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 import { AccountServiceProxy } from '@shared/service-proxies/service-proxies';
 import {
   AppTenantAvailabilityState,

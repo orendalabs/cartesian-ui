@@ -1,5 +1,5 @@
 import { Injector, Pipe, PipeTransform } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 
 @Pipe({
   name: 'localize',

@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IAuthUser {
   id: string | undefined;
   name: string | undefined;
   nickname: string | undefined;
@@ -9,8 +9,8 @@ export interface IUser {
   logged: boolean | undefined;
 }
 
-export class User implements IUser {
-  constructor(data?: IUser) {
+export class AuthUser implements IAuthUser {
+  constructor(data?: IAuthUser) {
     if (data) {
       for (const property in data) {
         if (data.hasOwnProperty(property)) {
@@ -28,9 +28,9 @@ export class User implements IUser {
   public gender: string;
   public logged: boolean;
 
-  static fromJS(data: any): User {
+  static fromJS(data: any): AuthUser {
     data = typeof data === 'object' ? data : {};
-    const result = new User();
+    const result = new AuthUser();
     result.init(data);
     return result;
   }
@@ -62,9 +62,9 @@ export class User implements IUser {
     return data;
   }
 
-  clone(): User {
+  clone(): AuthUser {
     const json = this.toJSON();
-    const result = new User();
+    const result = new AuthUser();
     result.init(json);
     return result;
   }

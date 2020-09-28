@@ -1,8 +1,7 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 import { TenantChangeDialogComponent } from './tenant-change-dialog.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
-import { combineAll } from '@node_modules/rxjs/internal/operators';
 
 @Component({
   selector: 'tenant-change',

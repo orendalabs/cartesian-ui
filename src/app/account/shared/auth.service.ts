@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AppConstants } from '@cartesian-ui/ng-axis';
 import { TokenService, LogService, UtilsService } from '@cartesian-ui/ng-axis';
 import { UrlHelper } from '@shared/helpers/url.helper';
-import { AuthToken, LoginForm } from '../../models';
+import { AuthToken, LoginForm } from '../models';
 
 @Injectable()
 export class AuthService {

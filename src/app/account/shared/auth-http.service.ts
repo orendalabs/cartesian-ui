@@ -8,8 +8,8 @@ import {
   DefaultHeaders,
   Adapter,
 } from '@cartesian-ui/ng-axis';
-import { IsTenantAvailableForm, LoginForm, RegisterForm } from '../../models';
-import { AccountAdapter } from '../adapters/account.adapter';
+import { IsTenantAvailableForm, LoginForm, RegisterForm } from '../models';
+import { AccountAdapter } from './account.adapter';
 
 @Injectable()
 @DefaultHeaders({
@@ -20,7 +20,7 @@ export class AuthHttpService extends HttpService {
   /**
    * Submits login form to the server
    *
-   * @param LoginForm form User login form
+   * @param LoginForm form AuthUser login form
    */
   @POST('/clients/web/admin/login')
   @Adapter(AccountAdapter.accountAdapter)
@@ -41,7 +41,7 @@ export class AuthHttpService extends HttpService {
   /**
    * Submits register form to the server
    *
-   * @param RegisterForm form User registration form
+   * @param RegisterForm form AuthUser registration form
    */
   @POST('/account/register')
   @Adapter(AccountAdapter.userAdapter)
