@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RouteGuard } from '@shared/services';
+import { DefaultLayoutComponent } from '@app/core/ui/components';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/demo', pathMatch: 'full' },
   {
     path: 'account',
     loadChildren: () =>
@@ -16,6 +16,28 @@ const routes: Routes = [
       import('@app/demo/demo.module').then((m) => m.DemoModule), // Lazy load account module
     canActivate: [RouteGuard],
     data: { preload: true },
+  },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    canActivate: [RouteGuard],
+    data: {
+      title: 'Home',
+    },
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('@app/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
+    ],
   },
 ];
 
