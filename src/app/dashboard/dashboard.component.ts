@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { BaseComponent } from '@app/core/ui';
+import { WhereItem, RequestCriteria } from '@cartesian-ui/ng-axis';
 
 @Component({
   templateUrl: 'dashboard.component.html',
