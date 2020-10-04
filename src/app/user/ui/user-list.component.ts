@@ -15,7 +15,7 @@ export class UserListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     // TODO: try to make RequestCriteria Inject able,
     // also keep in mind as request criteria depends on search from, we may want different instance in very component
-    let criteria = new RequestCriteria<SearchUserForm>(new SearchUserForm());
+    const criteria = new RequestCriteria<SearchUserForm>(new SearchUserForm());
     criteria.search.name.value = 'Admin';
     criteria.search.email.value = 'admin@admin.com';
     // console.log(criteria.build().toString());

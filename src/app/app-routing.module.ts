@@ -37,6 +37,11 @@ const routes: Routes = [
             (m) => m.DashboardModule
           ),
       },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('@app/user/user.module').then((m) => m.UserModule),
+      },
     ],
   },
 ];
