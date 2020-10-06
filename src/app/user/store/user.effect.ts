@@ -27,7 +27,7 @@ export class UserEffects {
         return this.userHttpService.users(requestCriteria).pipe(
           map((users) =>
             fromUserActions.doFetchUsersSuccess({
-              users: users,
+              users,
             })
           ),
           catchError((error) => of(fromUserActions.doFetchUsersFail()))

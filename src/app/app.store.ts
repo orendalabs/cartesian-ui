@@ -5,18 +5,20 @@ import {
 } from '@ngrx/store';
 import { AuthToken, Tenant, AuthUser } from '@app/account/models';
 import { AccountState } from '@app/account/store';
+import { UserState } from '@app/user/store';
 
 export interface State {
   account: AccountState;
+  user: UserState;
 }
 
+// tslint:disable:max-line-length
 /**
  * Auth store functions
  */
 export const getAccountState = createFeatureSelector<State, AccountState>(
   'account'
 );
-
 export const getAuthLoaded: MemoizedSelector<object, boolean> = createSelector(
   getAccountState,
   (state: AccountState) => state.loaded
