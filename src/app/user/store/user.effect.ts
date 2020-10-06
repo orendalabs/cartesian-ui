@@ -22,11 +22,12 @@ export class UserEffects {
   fetchUsers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromUserActions.doFetchUsers),
-      switchMap(() => {
-        return this.userHttpService.user().pipe(
-          map((user) =>
+      map((action) => action.requestCriteria),
+      switchMap((requestCriteria) => {
+        return this.userHttpService.users(requestCriteria).pipe(
+          map((users) =>
             fromUserActions.doFetchUsersSuccess({
-              user: new User(user),
+              users: users,
             })
           ),
           catchError((error) => of(fromUserActions.doFetchUsersFail()))

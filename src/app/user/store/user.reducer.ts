@@ -6,96 +6,50 @@ export interface UserState {
   loading: boolean;
   loaded: boolean;
   failed: boolean;
-  users: User[];
+  list: User[];
+  selected: User | null;
 }
 
 const INITIAL_STATE: UserState = {
   loading: false,
   loaded: false,
   failed: false,
-  users: [],
+  list: [],
+  selected: null,
 };
 
 const createUserReducers = createReducer(
   INITIAL_STATE,
-  on(
-    fromUserActions.doAuthenticateAction,
-    fromUserActions.fetchAuthenticatedTenant,
-    fromUserActions.fetchAuthenticatedUser,
-    fromUserActions.doRegisterAction,
-    fromUserActions.doLogoutAction,
-    (state) => {
-      return Object.assign({}, state, {
-        loading: true,
-        loaded: false,
-        failed: false,
-      });
-    }
-  ),
-  on(fromUserActions.doAuthenticateSuccessAction, (state, { authToken }) => {
+  on(fromUserActions.doFetchUsers, fromUserActions.doFetchUser, (state) => {
+    return Object.assign({}, state, {
+      loading: true,
+      loaded: false,
+      failed: false,
+    });
+  }),
+  on(fromUserActions.doFetchUsersSuccess, (state, { users }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
       failed: false,
-      authenticated: { status: true, token: authToken },
+      list: users,
     });
   }),
-  on(fromUserActions.doRegisterSuccessAction, (state, { user }) => {
+  on(fromUserActions.doFetchUserSuccess, (state, { user }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
       failed: false,
-      user,
+      selected: user,
     });
-  }),
-  on(fromUserActions.fetchAuthenticatedTenantSuccess, (state, { tenant }) => {
-    return Object.assign({}, state, {
-      loaded: true,
-      loading: false,
-      failed: false,
-      tenant,
-    });
-  }),
-  on(fromUserActions.fetchAuthenticatedUserSuccess, (state, { user }) => {
-    return Object.assign({}, state, {
-      loaded: true,
-      loading: false,
-      failed: false,
-      user,
-    });
-  }),
-  on(fromUserActions.addAuthenticatedUserAction, (state, { user }) => {
-    return Object.assign({}, state, {
-      loaded: true,
-      loading: false,
-      failed: false,
-      user,
-    });
-  }),
-  on(fromUserActions.addAuthenticatedTenantAction, (state, { tenant }) => {
-    return Object.assign({}, state, {
-      loaded: true,
-      loading: false,
-      failed: false,
-      tenant,
-    });
-  }),
-  on(fromUserActions.doLogoutSuccessAction, (state) => {
-    return Object.assign({}, state, INITIAL_STATE);
   }),
   on(
-    fromUserActions.doAuthenticateFailAction,
-    fromUserActions.fetchAuthenticatedUserFail,
-    fromUserActions.fetchAuthenticatedTenantFail,
-    fromUserActions.doLogoutFailAction,
-    fromUserActions.doRegisterFailAction,
+    fromUserActions.doFetchUsersFail,
+    fromUserActions.doFetchUserFail,
     (state) => {
       return Object.assign({}, INITIAL_STATE, { failed: true });
     }
-  ),
-  on(fromUserActions.addAuthTokenAction, (state, { authToken }) => {
-    return Object.assign({}, state, { token: authToken });
-  })
+  )
 );
 
 export function reducer(state: UserState | undefined, action: Action) {

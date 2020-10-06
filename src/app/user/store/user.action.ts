@@ -1,31 +1,31 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from '../models';
-import { type } from '@cartesian-ui/ng-axis';
+import { type, RequestCriteria } from '@cartesian-ui/ng-axis';
 
 /**
- * Fetch User Actions
+ * Fetch Users Actions
  */
 export const doFetchUsers = createAction(
   type('[User] Do Fetch Users'),
-  props<{ searchForm: SearchForm }>()
+  props<{ requestCriteria: RequestCriteria<any> }>()
 );
 export const doFetchUsersSuccess = createAction(
   type('[User] Do Fetch Users Success'),
-  props<{ user: User }>()
+  props<{ users: User[] }>()
 );
 export const doFetchUsersFail = createAction(
   type('[User] Do Fetch Users Fail')
 );
 
 /**
- * Add User Actions
+ * Fetch User Actions
  */
-export const doAddUser = createAction(
-  type('[User] Do Add User'),
-  props<{ registerForm: RegisterForm }>()
+export const doFetchUser = createAction(
+  type('[User] Do Fetch User'),
+  props<{ id: string }>()
 );
-export const doAddUserSuccess = createAction(
-  type('[User] Do Add User Success'),
+export const doFetchUserSuccess = createAction(
+  type('[User] Do Fetch User Success'),
   props<{ user: User }>()
 );
-export const doAddUserFail = createAction(type('[User] Do Add User Fail'));
+export const doFetchUserFail = createAction(type('[User] Do Fetch User Fail'));
