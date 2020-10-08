@@ -8,20 +8,23 @@ import { Sandbox } from '@app/core/base.sandbox';
 import { AuthUser, LoginForm, RegisterForm } from './models';
 import { AuthService } from './shared';
 import { actions } from './store';
-import {
-  State,
-  getAuthenticated,
-  getAuthLoading,
-  getAuthLoaded,
-  getAuthFailed,
-} from '@app/app.store';
+import { selectors as fromAccountSelectors } from '@app/account/store';
+import { State } from '@app/app.store';
 
 @Injectable()
 export class AccountSandbox extends Sandbox {
-  public isAuthenticated$ = this.store.pipe(select(getAuthenticated));
-  public loginLoading$ = this.store.pipe(select(getAuthLoading));
-  public loginLoaded$ = this.store.pipe(select(getAuthLoaded));
-  public authFailed$ = this.store.pipe(select(getAuthFailed));
+  public isAuthenticated$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthenticated)
+  );
+  public loginLoading$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoading)
+  );
+  public loginLoaded$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoaded)
+  );
+  public authFailed$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthFailed)
+  );
 
   private subscriptions: Array<Subscription> = [];
 
