@@ -10,9 +10,17 @@ import { actions } from './store';
 import { State } from '@app/app.store';
 import { UserHttpService } from '@app/user/shared';
 import { SearchUserForm } from './models/form/search-user.model';
+import { selectors as fromUserSelectors } from './store';
 
 @Injectable()
 export class UserSandbox extends Sandbox {
+  public userLoading$ = this.store.pipe(
+    select(fromUserSelectors.getUserLoading)
+  );
+  public userLoaded$ = this.store.pipe(select(fromUserSelectors.getUserLoaded));
+  public userFailed$ = this.store.pipe(select(fromUserSelectors.getUserFailed));
+  public userList$ = this.store.pipe(select(fromUserSelectors.getUserList));
+
   private subscriptions: Array<Subscription> = [];
 
   constructor(
@@ -32,7 +40,7 @@ export class UserSandbox extends Sandbox {
    * @param LoginForm form AuthUser login form
    */
   public fetchUsers(criteria: RequestCriteria<SearchUserForm>): void {
-    this.httpService.users(criteria).subscribe();
+    this.store.dispatch(actions.doFetchUsers({ requestCriteria: criteria }));
   }
 
   /**
