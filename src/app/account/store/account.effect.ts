@@ -4,7 +4,7 @@ import { map, mergeMap, switchMap, catchError } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect, createEffect, ofType } from '@ngrx/effects';
 import { State } from '@app/app.store';
-import { AuthToken, Tenant, User } from '../models';
+import { AuthToken, Tenant, AuthUser } from '../models';
 import { AuthHttpService } from '../shared';
 import * as fromAccountActions from './account.action';
 
@@ -21,38 +21,36 @@ export class AccountEffects {
    */
   doAuthenticate$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAccountActions.doAuthenticateAction),
+      ofType(fromAccountActions.doAuthenticate),
       map((action) => action.loginForm),
       switchMap((loginForm) => {
         return this.accountHttpService.login(loginForm).pipe(
           map((token) =>
-            fromAccountActions.doAuthenticateSuccessAction({
+            fromAccountActions.doAuthenticateSuccess({
               authToken: new AuthToken(token),
             })
           ),
-          catchError((error) =>
-            of(fromAccountActions.doAuthenticateFailAction())
-          )
+          catchError((error) => of(fromAccountActions.doAuthenticateFail()))
         );
       })
     )
   );
 
   /**
-   * Fetch User effect
+   * Fetch AuthUser effect
    */
   fetchAuthenticatedUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAccountActions.fetchAuthenticatedUser),
+      ofType(fromAccountActions.doFetchAuthenticatedUser),
       switchMap(() => {
         return this.accountHttpService.fetchUser().pipe(
           map((user) =>
-            fromAccountActions.fetchAuthenticatedUserSuccess({
-              user: new User(user),
+            fromAccountActions.doFetchAuthenticatedUserSuccess({
+              user: new AuthUser(user),
             })
           ),
           catchError((error) =>
-            of(fromAccountActions.fetchAuthenticatedUserFail())
+            of(fromAccountActions.doFetchAuthenticatedUserFail())
           )
         );
       })
@@ -60,20 +58,20 @@ export class AccountEffects {
   );
 
   /**
-   * Fetch User effect
+   * Fetch AuthUser effect
    */
   fetchAuthenticatedTenant$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAccountActions.fetchAuthenticatedTenant),
+      ofType(fromAccountActions.doFetchAuthenticatedTenant),
       switchMap(() => {
         return this.accountHttpService.fetchUser().pipe(
           map((tenant) =>
-            fromAccountActions.fetchAuthenticatedTenantSuccess({
+            fromAccountActions.doFetchAuthenticatedTenantSuccess({
               tenant: new Tenant(tenant),
             })
           ),
           catchError((error) =>
-            of(fromAccountActions.fetchAuthenticatedTenantFail())
+            of(fromAccountActions.doFetchAuthenticatedTenantFail())
           )
         );
       })
@@ -85,14 +83,14 @@ export class AccountEffects {
    */
   doRegister$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAccountActions.doRegisterAction),
+      ofType(fromAccountActions.doRegister),
       map((action) => action.registerForm),
       switchMap((registerForm) => {
         return this.accountHttpService.register(registerForm).pipe(
           map((user) =>
-            fromAccountActions.doRegisterSuccessAction({ user: new User(user) })
+            fromAccountActions.doRegisterSuccess({ user: new AuthUser(user) })
           ),
-          catchError((error) => of(fromAccountActions.doRegisterFailAction()))
+          catchError((error) => of(fromAccountActions.doRegisterFail()))
         );
       })
     )
@@ -103,11 +101,11 @@ export class AccountEffects {
    */
   doLogout$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(fromAccountActions.doLogoutAction),
+      ofType(fromAccountActions.doLogout),
       switchMap(() => {
         return this.accountHttpService.logout().pipe(
-          map(() => fromAccountActions.doLogoutSuccessAction()),
-          catchError((error) => of(fromAccountActions.doLogoutFailAction()))
+          map(() => fromAccountActions.doLogoutSuccess()),
+          catchError((error) => of(fromAccountActions.doLogoutFail()))
         );
       })
     )

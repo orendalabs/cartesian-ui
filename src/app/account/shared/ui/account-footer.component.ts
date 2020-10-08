@@ -1,5 +1,5 @@
 import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 
 @Component({
   selector: 'account-footer',

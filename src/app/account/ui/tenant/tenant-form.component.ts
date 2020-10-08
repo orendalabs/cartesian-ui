@@ -4,8 +4,8 @@ import {
   Injector,
   OnInit,
 } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
-import { accountModuleAnimation } from '@shared/animations';
+import { BaseComponent } from '@app/core/ui';
+import { accountModuleAnimation } from '@app/core/animations';
 import { AccountSandbox } from '../../account.sandbox';
 
 @Component({

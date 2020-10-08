@@ -4,24 +4,27 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ValidationService } from '@cartesian-ui/ng-axis';
-import { Sandbox } from '@shared/base.sandbox';
-import { User, LoginForm, RegisterForm } from './models';
+import { Sandbox } from '@app/core/base.sandbox';
+import { AuthUser, LoginForm, RegisterForm } from './models';
 import { AuthService } from './shared';
 import { actions } from './store';
-import {
-  State,
-  getAuthenticated,
-  getAuthLoading,
-  getAuthLoaded,
-  getAuthFailed,
-} from '@app/app.store';
+import { selectors as fromAccountSelectors } from '@app/account/store';
+import { State } from '@app/app.store';
 
 @Injectable()
 export class AccountSandbox extends Sandbox {
-  public isAuthenticated$ = this.store.pipe(select(getAuthenticated));
-  public loginLoading$ = this.store.pipe(select(getAuthLoading));
-  public loginLoaded$ = this.store.pipe(select(getAuthLoaded));
-  public authFailed$ = this.store.pipe(select(getAuthFailed));
+  public isAuthenticated$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthenticated)
+  );
+  public loginLoading$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoading)
+  );
+  public loginLoaded$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoaded)
+  );
+  public authFailed$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthFailed)
+  );
 
   private subscriptions: Array<Subscription> = [];
 
@@ -39,20 +42,20 @@ export class AccountSandbox extends Sandbox {
   /**
    * Dispatches login action
    *
-   * @param LoginForm form User login form
+   * @param LoginForm form AuthUser login form
    */
   public authenticate(form: LoginForm): void {
-    this.store.dispatch(actions.doAuthenticateAction({ loginForm: form }));
+    this.store.dispatch(actions.doAuthenticate({ loginForm: form }));
   }
 
   /**
    * Dispatches register action
    *
-   * @param RegisterForm form User registration form
+   * @param RegisterForm form AuthUser registration form
    */
   public register(form: any): void {
     this.store.dispatch(
-      actions.doRegisterAction({ registerForm: new RegisterForm(form) })
+      actions.doRegister({ registerForm: new RegisterForm(form) })
     );
   }
 
@@ -82,10 +85,10 @@ export class AccountSandbox extends Sandbox {
               (logged) => {
                 if (logged) {
                   this._sessionService.init().then(
-                    (user: User) => {
+                    (user: AuthUser) => {
                       if (user) {
                         this.store.dispatch(
-                          actions.addAuthenticatedUserAction({ user })
+                          actions.doAddAuthenticatedUser({ user })
                         );
                         this._router.navigate(['/demo']);
                       }

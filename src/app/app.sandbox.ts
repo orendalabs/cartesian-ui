@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { Sandbox } from '@shared/base.sandbox';
+import { Sandbox } from '@app/core/base.sandbox';
 import { Store, select } from '@ngrx/store';
 import { State } from '@app/app.store';
 // import { TranslateService } from 'ng2-translate';

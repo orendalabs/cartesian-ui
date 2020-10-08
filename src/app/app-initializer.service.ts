@@ -9,7 +9,7 @@ import {
   TokenService,
 } from '@cartesian-ui/ng-axis';
 import { SessionService } from '@shared/services';
-import { User } from '@app/account/models';
+import { AuthUser } from '@app/account/models';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
@@ -50,12 +50,12 @@ export class AppInitializerService {
           // do not use constructor injection for SessionService
           const sessionService = this._injector.get(SessionService);
           sessionService.init().then(
-            (user: User) => {
+            (user: AuthUser) => {
               this._uiService.clearBusy();
               // TODO: Maintain Session state, for login user
               // I thing that user and tenant property is not required for account state
               // also no need to save auth token
-              // this._store.dispatch(actions.addAuthenticatedUserAction({user}))
+              // this._store.dispatch(actions.doAddAuthenticatedUser({user}))
               if (this.shouldLoadLocale()) {
                 const angularLocale = this.convertAxisLocaleToAngularLocale(
                   axis.localization.currentLanguage.name
@@ -101,7 +101,7 @@ export class AppInitializerService {
   // tslint:disable:no-string-literal
   private getUserConfiguration(callback: () => void): void {
     // ----------------------------------------------------------
-    //   TODO: Policy for Axis Object Holding User Configuration
+    //   TODO: Policy for Axis Object Holding AuthUser Configuration
     // ----------------------------------------------------------
     // Global `axis` javascript object
     // getUserConfiguration: these configurations will remain part of the global axis object, and not be included in app state, because

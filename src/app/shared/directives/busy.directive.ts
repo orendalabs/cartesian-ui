@@ -1,10 +1,11 @@
 import { Directive, ElementRef, Input } from '@angular/core';
+import { UiService } from '@cartesian-ui/ng-axis';
 
 @Directive({
   selector: '[busy]',
 })
 export class BusyDirective {
-  constructor(private _element: ElementRef) {}
+  constructor(private _element: ElementRef, private _uiService: UiService) {}
 
   @Input() set busy(isBusy: boolean) {
     this.refreshState(isBusy);
@@ -16,9 +17,9 @@ export class BusyDirective {
     }
 
     if (isBusy) {
-      axis.ui.setBusy(this._element.nativeElement);
+      this._uiService.setBusy(this._element.nativeElement);
     } else {
-      axis.ui.clearBusy(this._element.nativeElement);
+      this._uiService.clearBusy(this._element.nativeElement);
     }
   }
 }

@@ -1,13 +1,13 @@
 import { Component, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 import {
   AccountServiceProxy,
   RegisterInput,
   RegisterOutput,
 } from '@shared/service-proxies/service-proxies';
-import { accountModuleAnimation } from '@shared/animations';
+import { accountModuleAnimation } from '@app/core/animations';
 import { AuthService } from '../../shared';
 
 @Component({

@@ -8,6 +8,7 @@ import {
   HttpServiceModule,
   AxisHttpInterceptor,
 } from '@cartesian-ui/ng-axis';
+import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@shared/shared.module';
 import { ServiceProxyModule } from '@shared/service-proxies/service-proxy.module';
 import { API_BASE_URL } from '@shared/service-proxies/service-proxies';
@@ -42,15 +43,15 @@ export function getCurrentLanguage(): string {
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ModalModule.forRoot(),
+    HttpServiceModule.forRoot(),
+    CoreModule.forRoot(),
     SharedModule.forRoot(),
     ServiceProxyModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    CollapseModule.forRoot(),
-    TabsModule.forRoot(),
-    HttpServiceModule.forRoot(),
-
+    ModalModule.forRoot(),
+    // BsDropdownModule.forRoot(),
+    // CollapseModule.forRoot(),
+    // TabsModule.forRoot(),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),

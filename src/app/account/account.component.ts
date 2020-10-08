@@ -5,7 +5,7 @@ import {
   Injector,
   Renderer2,
 } from '@angular/core';
-import { BaseComponent } from '@shared/ui';
+import { BaseComponent } from '@app/core/ui';
 
 @Component({
   templateUrl: './account.component.html',
