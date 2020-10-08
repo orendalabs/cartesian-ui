@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "format:test": "prettier --list-difference \"src/app/**/*.{ts,html,md,scss,json}\"",
+    "format:test": "prettier  --list-different \"src/app/**/*.{ts,html,md,scss,json}\"",
     "format:write": "prettier --write  \"src/app/**/*.{ts,html,md,scss,json}\" "
   },
   "husky": {
