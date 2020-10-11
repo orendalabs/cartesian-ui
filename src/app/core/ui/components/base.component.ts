@@ -1,6 +1,7 @@
 import { Injector, ElementRef } from '@angular/core';
-import { AppConstants } from '@cartesian-ui/ng-axis';
+import { Subscription } from 'rxjs';
 import {
+  AppConstants,
   LocalizationService,
   PermissionCheckerService,
   FeatureCheckerService,
@@ -8,6 +9,7 @@ import {
   SettingService,
   MessageService,
   MultiTenancyService,
+  UiService,
 } from '@cartesian-ui/ng-axis';
 
 import { SessionService } from '@shared/services/session.service';
@@ -20,17 +22,20 @@ export abstract class BaseComponent {
   permission: PermissionCheckerService;
   feature: FeatureCheckerService;
   notify: NotifyService;
+  ui: UiService;
   setting: SettingService;
   message: MessageService;
   multiTenancy: MultiTenancyService;
   appSession: SessionService;
   elementRef: ElementRef;
+  subscriptions: Array<Subscription> = [];
 
   constructor(injector: Injector) {
     this.localization = injector.get(LocalizationService);
     this.permission = injector.get(PermissionCheckerService);
     this.feature = injector.get(FeatureCheckerService);
     this.notify = injector.get(NotifyService);
+    this.ui = injector.get(UiService);
     this.setting = injector.get(SettingService);
     this.message = injector.get(MessageService);
     this.multiTenancy = injector.get(MultiTenancyService);
