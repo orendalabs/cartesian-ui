@@ -1,46 +1,45 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { RequestCriteria, ValidationService } from '@cartesian-ui/ng-axis';
+import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Sandbox } from '@app/core/base.sandbox';
-import { User } from './models';
-import { actions } from './store';
-import { State } from '@app/app.store';
-import { UserHttpService } from '@app/user/shared';
 import { SearchUserForm } from './models/form/search-user.model';
-import { selectors as fromUserSelectors } from './store';
+import { UserState, userActions, userSelectors } from './store';
 
 @Injectable()
 export class UserSandbox extends Sandbox {
-  public userLoading$ = this.store.pipe(
-    select(fromUserSelectors.getUserLoading)
-  );
-  public userLoaded$ = this.store.pipe(select(fromUserSelectors.getUserLoaded));
-  public userFailed$ = this.store.pipe(select(fromUserSelectors.getUserFailed));
-  public userList$ = this.store.pipe(select(fromUserSelectors.getUserList));
+  public usersLoading$ = this.store.pipe(select(userSelectors.getUsersLoading));
+  public usersLoaded$ = this.store.pipe(select(userSelectors.getUsersLoaded));
+  public usersFailed$ = this.store.pipe(select(userSelectors.getUsersFailed));
+  public users$ = this.store.pipe(select(userSelectors.getUsersList));
+  public usersMeta$ = this.store.pipe(select(userSelectors.getUsersMeta));
+
+  public userLoading$ = this.store.pipe(select(userSelectors.getUserLoading));
+  public userLoaded$ = this.store.pipe(select(userSelectors.getUserLoaded));
+  public userFailed$ = this.store.pipe(select(userSelectors.getUserFailed));
+  public user$ = this.store.pipe(select(userSelectors.getUserDetail));
 
   private subscriptions: Array<Subscription> = [];
 
   constructor(
-    protected store: Store<State>,
+    protected store: Store<UserState>,
     private _router: Router,
-    public validationService: ValidationService,
-    protected httpService: UserHttpService,
     protected injector: Injector
   ) {
     super(injector);
-    this.registerAuthEvents();
+    this.registerUserEvents();
   }
 
   /**
-   * Dispatches login action
+   * Dispatches fetch users action
    *
-   * @param LoginForm form AuthUser login form
+   * @param RequestCriteria<SearchUserForm> form to get user list
    */
   public fetchUsers(criteria: RequestCriteria<SearchUserForm>): void {
-    this.store.dispatch(actions.doFetchUsers({ requestCriteria: criteria }));
+    this.store.dispatch(
+      userActions.doFetchUsers({ requestCriteria: criteria })
+    );
   }
 
   /**
@@ -53,7 +52,7 @@ export class UserSandbox extends Sandbox {
   /**
    * Registers events
    */
-  private registerAuthEvents(): void {
+  private registerUserEvents(): void {
     // Subscribes to login success event and redirects user to home page
     this.subscriptions.push();
   }

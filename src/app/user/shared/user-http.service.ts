@@ -25,7 +25,7 @@ export class UserHttpService extends HttpService {
    * @param SearchForm form to filter api response
    */
   @GET('/users')
-  @Adapter(UserAdapter.userAdapter)
+  // @Adapter(UserAdapter.userAdapter)
   public users(
     @Criteria criteria: RequestCriteria<SearchUserForm>
   ): Observable<any> {
