@@ -1,24 +1,27 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { UserListingState } from './user.state';
-import * as fromUserActions from './user.action';
+import * as userActions from './user.action';
 
 const INITIAL_STATE: UserListingState = {
   loading: false,
   loaded: false,
   failed: false,
-  data: [],
+  data: {
+    data: [],
+    meta: null,
+  },
 };
 
 const createUserListingReducers = createReducer(
   INITIAL_STATE,
-  on(fromUserActions.doFetchUsers, (state) => {
+  on(userActions.doFetchUsers, (state) => {
     return Object.assign({}, state, {
       loading: true,
       loaded: false,
       failed: false,
     });
   }),
-  on(fromUserActions.doFetchUsersSuccess, (state, { users }) => {
+  on(userActions.doFetchUsersSuccess, (state, { users }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -26,8 +29,8 @@ const createUserListingReducers = createReducer(
       data: users,
     });
   }),
-  on(fromUserActions.doFetchUsersFail,(state) => {
-      return Object.assign({}, INITIAL_STATE, { failed: true });
+  on(userActions.doFetchUsersFail, (state) => {
+    return Object.assign({}, INITIAL_STATE, { failed: true });
   })
 );
 
