@@ -10,7 +10,7 @@ export abstract class ListingControlsComponent<
   criteria: RequestCriteria<TSearchFormModel>;
   data: Array<TDataModel>;
   pagination: IPaginationModel;
-  isTableLoading: boolean = false;
+  isTableLoading = false;
 
   constructor(injector: Injector) {
     super(injector);
