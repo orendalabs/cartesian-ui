@@ -1,6 +1,14 @@
-import * as actions from './user.action';
+import { UserState } from './user.state';
 import { UserEffects } from './user.effect';
-import { UserState, reducer } from './user.reducer';
-import * as selectors from './user.selector';
+import { userFeatureKey, userReducers } from './user.reducer';
+import * as userActions from './user.action';
+import * as userSelectors from './user.selector';
 
-export { actions, UserState, UserEffects, reducer, selectors };
+export {
+  UserState,
+  userActions,
+  userFeatureKey,
+  userReducers,
+  userSelectors,
+  UserEffects,
+};

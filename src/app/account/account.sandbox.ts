@@ -90,7 +90,7 @@ export class AccountSandbox extends Sandbox {
                         this.store.dispatch(
                           actions.doAddAuthenticatedUser({ user })
                         );
-                        this._router.navigate(['/demo']);
+                        this._router.navigate(['/']);
                       }
                     },
                     (err: HttpErrorResponse) => {}

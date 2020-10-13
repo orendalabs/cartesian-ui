@@ -52,7 +52,71 @@
             <!--/.col-->
           </div>
           <!--/.row-->
+
           <br />
+
+          <div class="row dt" #dtContainer>
+            <div class="col-sm-12">
+              <ngx-datatable
+                class="material striped"
+                [rows]="data"
+                [columns]="[
+                  { name: 'name' },
+                  { name: 'gender' },
+                  { name: 'email' }
+                ]"
+                [columnMode]="'standard'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="43"
+                [externalPaging]="true"
+                [count]="pagination.total"
+                [offset]="getOffsetFromPagination()"
+                [limit]="pagination.per_page"
+                (page)="setPage($event)"
+              >
+                <ngx-datatable-column
+                  name="Name"
+                  [flexGrow]="3"
+                  [minWidth]="200"
+                >
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{ value }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column
+                  name="Email"
+                  [flexGrow]="3"
+                  [minWidth]="200"
+                >
+                  <ng-template let-value="value" ngx-datatable-cell-template>
+                    {{ value }}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Gender" [flexGrow]="1">
+                  <ng-template
+                    let-column="column"
+                    let-sort="sortFn"
+                    ngx-datatable-header-template
+                  >
+                    <span class="mobile-hidden">{{ column.name }} </span>
+                  </ng-template>
+                  <ng-template
+                    let-row="row"
+                    let-value="value"
+                    ngx-datatable-cell-template
+                  >
+                    <span class="mobile-hidden">{{ value }}</span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+            </div>
+          </div>
+
+          <br />
+
           <table
             class="table table-responsive-sm table-hover table-outline mb-0"
           >
@@ -350,6 +414,60 @@
                 </td>
                 <td>
                   <div>Friderik Dávid</div>
+                  <div class="small text-muted">
+                    <span>New</span> | Registered: Jan 1, 2015
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i
+                    class="flag-icon flag-icon-pl h4 mb-0"
+                    title="pl"
+                    id="pl"
+                  ></i>
+                </td>
+                <td>
+                  <div class="clearfix">
+                    <div class="float-left">
+                      <strong>43%</strong>
+                    </div>
+                    <div class="float-right">
+                      <small class="text-muted"
+                        >Jun 11, 2015 - Jul 10, 2015</small
+                      >
+                    </div>
+                  </div>
+                  <div class="progress progress-xs">
+                    <div
+                      class="progress-bar bg-success"
+                      role="progressbar"
+                      style="width: 43%"
+                      aria-valuenow="43"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    ></div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  <i class="fa fa-cc-amex" style="font-size: 24px"></i>
+                </td>
+                <td>
+                  <div class="small text-muted">Last login</div>
+                  <strong>Yesterday</strong>
+                </td>
+              </tr>
+              <tr *ngFor="let user of _sandbox.users$ | async">
+                <td class="text-center">
+                  <div class="avatar">
+                    <img
+                      src="assets/img/avatars/6.jpg"
+                      class="img-avatar"
+                      alt="admin@bootstrapmaster.com"
+                    />
+                    <span class="avatar-status badge-danger"></span>
+                  </div>
+                </td>
+                <td>
+                  <div>{{ user.name }}</div>
                   <div class="small text-muted">
                     <span>New</span> | Registered: Jan 1, 2015
                   </div>
