@@ -34,4 +34,21 @@ export const navItems: INavData[] = [
   {
     divider: true,
   },
+  {
+    name: 'Settings',
+    url: '/settings',
+    icon: 'icon-settings',
+    children: [
+      {
+        name: 'List',
+        url: '/settings',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Add',
+        url: '/settings/create',
+        icon: 'icon-plus',
+      },
+    ],
+  },
 ];
