@@ -53,9 +53,9 @@ export class AccountSandbox extends Sandbox {
    *
    * @param RegisterForm form AuthUser registration form
    */
-  public register(form: any): void {
+  public register(form: RegisterForm): void {
     this.store.dispatch(
-      actions.doRegister({ registerForm: new RegisterForm(form) })
+      actions.doRegister({ registerForm: form })
     );
   }
 
