@@ -20,7 +20,7 @@ import { FormHelper } from '../helpers/form.helper';
 export class LoginComponent extends BaseComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, FormHelper.emailValidator()]),
-    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     remember: new FormControl(false)
   })
 
