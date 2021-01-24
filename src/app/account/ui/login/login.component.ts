@@ -14,7 +14,6 @@ import { FormHelper } from '../helpers/form.helper';
 @Component({
   selector: 'app-account',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
   animations: [accountModuleAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
