@@ -1,0 +1,23 @@
+<form novalidate autocomplete="off" [formGroup]='formGroup' (ngSubmit)='create()'>
+    <div class="row">
+        <div class="col-md-4 text-center mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    Create a Setting
+                </div>
+                <div class="card-body p-2">
+                    <div class="form-group">
+                        <input formControlName='key' class="form-control" placeholder="key" />
+                        <input formControlName='value' class="form-control mt-2" placeholder="value" />
+                        <label *ngIf='formGroup.dirty && formGroup.touched && formGroup.invalid'
+                            class='text-danger text-right'>Both the fields are required.</label>
+                        <button type="submit" name="" id="" class="btn btn-primary btn-block mt-2"
+                            [disabled]='formGroup.invalid'>
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
