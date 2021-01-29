@@ -42,6 +42,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('@app/user/user.module').then((m) => m.UserModule),
       },
+      {
+        path: 'authorization',
+        loadChildren: () =>
+          import('@app/authorization/authorization.module').then((m) => m.AuthorizationModule),
+      },
     ],
   },
 ];
