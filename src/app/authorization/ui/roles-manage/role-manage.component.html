@@ -1,0 +1,49 @@
+
+    <div class="animated fadeIn row">
+        <div class="col-md-4 text-center mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    Assign a Role
+                </div>
+                <form novalidate autocomplete="off" [formGroup]='assignFormGroup' (ngSubmit)='assign()' class="card-body p-2">
+                    <div *ngIf='roles.length > 0; else viewLoadingRoles' class="form-group">
+                        <input formControlName='userId' class="form-control" placeholder='User id...'/>
+                        <select formControlName='roleId' class="form-control mt-2">
+                            <option disabled selected hidden value=''>Select Role...</option>
+                            <option *ngFor='let role of roles' value='{{role.id}}'>{{role.name}} - {{role.display_name}}</option>
+                        </select>
+                        <label *ngIf='assignFormGroup.dirty && assignFormGroup.touched && assignFormGroup.invalid'
+                            class='text-danger text-right'>All the fields are required.</label>
+                        <button type="submit" class="btn btn-primary btn-block mt-2"
+                            [disabled]='assignFormGroup.invalid'>
+                            Assign
+                        </button>
+                    </div>
+                    <ng-template #viewLoadingRoles><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></ng-template>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 text-center mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    Revoke a Role
+                </div>
+                <form novalidate autocomplete="off" [formGroup]='revokeFormGroup' (ngSubmit)='revoke()' class="card-body p-2">
+                    <div *ngIf='roles.length > 0; else viewLoadingRoles' class="form-group">
+                        <input formControlName='userId' class="form-control" placeholder='User id...'/>
+                        <select formControlName='roleId' class="form-control mt-2">
+                            <option disabled selected hidden value=''>Select Role...</option>
+                            <option *ngFor='let role of roles' value='{{role.id}}'>{{role.name}} - {{role.display_name}}</option>
+                        </select>
+                        <label *ngIf='revokeFormGroup.dirty && revokeFormGroup.touched && revokeFormGroup.invalid'
+                            class='text-danger text-right'>All the fields are required.</label>
+                        <button type="submit" class="btn btn-danger btn-block mt-2"
+                            [disabled]='revokeFormGroup.invalid'>
+                            Revoke
+                        </button>
+                    </div>
+                    <ng-template #viewLoadingRoles><i class="fa fa-spin fa-circle-o-notch" aria-hidden="true"></i></ng-template>
+                </form>
+            </div>
+        </div>
+    </div>
