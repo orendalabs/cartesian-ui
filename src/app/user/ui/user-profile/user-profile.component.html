@@ -1,0 +1,24 @@
+<div class="animated fadeIn row">
+    <div class="col-lg-6 text-center mx-auto">
+        <div class="card">
+            <div class="card-header">
+                Profile
+            </div>
+            <div class="card-body">
+                <div *ngIf='user; else viewLoadingUser'>
+                    <h1>
+                        <b>{{user.name}}</b>
+                    </h1>
+                    <div class='text-muted'>
+                        <i class='fa fa-envelope'></i> {{user.email}}<br />
+                        <i class='fa' [ngClass]='user.gender == "male"? "fa-male": "fa-female"'></i>
+                        {{user.gender}}<br />
+                        <i class='fa fa-birthday-cake'></i> {{user.birth}}<br />
+                        <hr />
+                    </div>
+                </div>
+                <ng-template #viewLoadingUser><i class='fa fa-spin fa-circle-o-notch'></i></ng-template>
+            </div>
+        </div>
+    </div>
+</div>
