@@ -14,14 +14,18 @@ const INITIAL_STATE: UserListingState = {
 
 const createUserListingReducers = createReducer(
   INITIAL_STATE,
-  on(userActions.doFetchUsers, (state) => {
+  on(userActions.doFetchUsers,
+    userActions.doFetchAdmins,
+    userActions.doFetchClients, (state) => {
     return Object.assign({}, state, {
       loading: true,
       loaded: false,
       failed: false,
     });
   }),
-  on(userActions.doFetchUsersSuccess, (state, { users }) => {
+  on(userActions.doFetchUsersSuccess,
+    userActions.doFetchAdminsSuccess,
+    userActions.doFetchClientsSuccess, (state, { users }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -29,7 +33,9 @@ const createUserListingReducers = createReducer(
       data: users,
     });
   }),
-  on(userActions.doFetchUsersFail, (state) => {
+  on(userActions.doFetchUsersFail,
+    userActions.doFetchAdminsFail,
+    userActions.doFetchClientsFail, (state) => {
     return Object.assign({}, INITIAL_STATE, { failed: true });
   })
 );

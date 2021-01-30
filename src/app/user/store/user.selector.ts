@@ -29,6 +29,11 @@ export const getUserDetail: MemoizedSelector<object, object> = createSelector(
   (state: UserState) => state.detail.data
 );
 
+export const getProfile: MemoizedSelector<object, object> = createSelector(
+  getUserState,
+  (state: UserState) => state.detail.data
+);
+
 export const getUsersLoading: MemoizedSelector<
   object,
   boolean

@@ -11,14 +11,20 @@ const INITIAL_STATE: UserDetailState = {
 
 const createUserDetailReducers = createReducer(
   INITIAL_STATE,
-  on(userActions.doFetchUser, (state) => {
+  on(userActions.doFetchUser,
+    userActions.doFetchAuthenticatedUser,
+    userActions.doCreateUser,
+    userActions.doUpdateUser, (state) => {
     return Object.assign({}, state, {
       loading: true,
       loaded: false,
       failed: false,
     });
   }),
-  on(userActions.doFetchUserSuccess, (state, { user }) => {
+  on(userActions.doFetchUserSuccess,
+    userActions.doFetchAuthenticatedUserSuccess,
+    userActions.doCreateUserSuccess,
+    userActions.doUpdateUserSuccess, (state, { user }) => {
     return Object.assign({}, state, {
       loaded: true,
       loading: false,
@@ -26,7 +32,10 @@ const createUserDetailReducers = createReducer(
       data: user,
     });
   }),
-  on(userActions.doFetchUserFail, (state) => {
+  on(userActions.doFetchUserFail, 
+    userActions.doFetchAuthenticatedUserFail,
+    userActions.doCreateUserFail,
+    userActions.doUpdateUserFail, (state) => {
     return Object.assign({}, INITIAL_STATE, { failed: true });
   })
 );
