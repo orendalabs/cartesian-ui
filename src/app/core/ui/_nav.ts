@@ -2,17 +2,11 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW',
-    },
-  },
-  {
     title: true,
     name: 'Authorization',
+  },
+  {
+    divider: true,
   },
   {
     name: 'User',
@@ -32,6 +26,42 @@ export const navItems: INavData[] = [
     ],
   },
   {
-    divider: true,
+    name: 'Roles',
+    url: '/authorization/roles',
+    icon: 'icon-people',
+    children: [
+      {
+        name: 'List',
+        url: '/authorization/roles/list',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Create',
+        url: '/authorization/roles/create',
+        icon: 'icon-plus',
+      },
+      {
+        name: 'Manage',
+        url: '/authorization/roles/manage',
+        icon: 'icon-wrench',
+      },
+    ]
+  },
+  {
+    name: 'Permissions',
+    url: '/authorization/permissions',
+    icon: 'icon-check',
+    children: [
+      {
+        name: 'List',
+        url: '/authorization/permissions/list',
+        icon: 'icon-list',
+      },
+      {
+        name: 'Assign',
+        url: '/authorization/permissions/assign',
+        icon: 'icon-link',
+      },
+    ]
   },
 ];
