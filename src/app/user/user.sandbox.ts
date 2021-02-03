@@ -80,6 +80,18 @@ export class UserSandbox extends Sandbox {
   }
 
   /**
+   * Dispatches fetch user action with a request criteria
+   *
+   * @param id ID of the user to fetch
+   * @param criteria Request Criteria
+   */
+  public fetchFilteredUserById(id: string, criteria: RequestCriteria<SearchUserForm>): void {
+    this.store.dispatch(
+      userActions.doFetchUser({ id: id, criteria: criteria })
+    );
+  }
+
+  /**
    * Dispatches delete user action
    *
    * @param id ID of the user to delete
