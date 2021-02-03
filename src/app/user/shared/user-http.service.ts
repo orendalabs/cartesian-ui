@@ -73,6 +73,18 @@ export class UserHttpService extends HttpService {
   }
 
   /**
+   * Fetch user details based on a criteria
+   *
+   * @param id Id of the user to fetch
+   * @param criteria Request Criteria to filter response
+   */
+  @GET('/users/{id}')
+  @Adapter(UserAdapter.userAdapter)
+  public filteredUser(@Path("id") id: string, @Criteria criteria: RequestCriteria<SearchUserForm>): Observable<any> {
+    return null;
+  }
+
+  /**
    * Create admin user
    *
    * @param data Data of the user to create
