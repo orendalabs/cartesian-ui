@@ -12,6 +12,7 @@ import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { SearchUserForm } from '../../models/form/search-user.model';
 import { UserSandbox } from '../../user.sandbox';
 import { User } from '../../models';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'user-list.component.html',
@@ -24,8 +25,10 @@ export class UserListComponent
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   selected = "all";
+  selectedItemIds: Array<string> = []
+  checkedBoxes = [];
 
-  constructor(injector: Injector, public _sandbox: UserSandbox) {
+  constructor(injector: Injector, public _sandbox: UserSandbox, protected router: Router) {
     super(injector);
   }
 
@@ -40,24 +43,43 @@ export class UserListComponent
     this.reloadTable();
   }
 
+  onDropDownChange(event) {
+    const el = event.target;
+    this.selected = el.value;
+    el.blur();
+    this.list();
+  }
+
   protected list(): void {
-    console.log(this.dtContainer);
+    this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     switch(this.selected) {
-      case 'all':
-        this._sandbox.fetchUsers(this.criteria);
-        break;
       case 'admins':
         this._sandbox.fetchAdmins(this.criteria);
         break;
       case 'clients':
         this._sandbox.fetchClients(this.criteria);
         break;
+      default:
+        this._sandbox.fetchUsers(this.criteria);
+        break;
     }
   }
 
-  protected delete() {}
+  delete() {
+    if (this.selectedItemIds.length > 0) {
+      // do deletion stuff
+    }
+  }
+
+  // Add to ListingControlsComponent
+  edit() {
+    const url = 'edit';
+    if (this.selectedItemIds.length > 0) {
+      this.router.navigate([this.router.url, url, this.selectedItemIds[0]])
+    }
+  }
 
   protected registerEvents(): void {
     this.subscriptions.push(
@@ -80,18 +102,30 @@ export class UserListComponent
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  onClickAll() {
-    this.selected = "all";
-    this.list();
+  // Checkbox handling functions
+  onListItemCheckBoxChange(event, id) {
+    if (event.target.checked) {
+      this.onCheckItem(event.target, id);
+      this.checkedBoxes.push(event.target);
+    } else {
+      this.onUncheckItem(event.target, id);
+    }
   }
 
-  onClickAdmins() {
-    this.selected = "admins";
-    this.list();
+  onCheckItem(checkBox: any, id: string) {
+    this.selectedItemIds.push(id);
+    this.checkedBoxes.push(checkBox);
   }
 
-  onClickClients() {
-    this.selected = "clients";
-    this.list();
+  onUncheckItem(checkBox: any, id: string) {
+    const itemIndex = this.selectedItemIds.indexOf(id);
+    const boxIndex = this.checkedBoxes.indexOf(checkBox);
+    this.selectedItemIds.splice(itemIndex, 1);
+    this.checkedBoxes.splice(boxIndex, 1)
+  }
+
+  resetCheckBoxes() {
+    this.selectedItemIds = [];
+    this.checkedBoxes.forEach((checkBox) => checkBox.checked = false)
   }
 }

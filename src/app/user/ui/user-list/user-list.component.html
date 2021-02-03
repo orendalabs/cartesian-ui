@@ -54,75 +54,53 @@
           <!--/.row-->
 
           <br />
-
-          <div class='row mx-auto my-2'>
-            <div class='p-2 rounded ' [ngClass]='selected == "all"? "bg-primary": ""' (click)='onClickAll()'>All users</div>
-            <div class='p-2 rounded ml-2' [ngClass]='selected == "admins"? "bg-primary": ""' (click)='onClickAdmins()'>Admins</div>
-            <div class='p-2 rounded ml-2' [ngClass]='selected == "clients"? "bg-primary": ""' (click)='onClickClients()'>Clients</div>
+          <div class='row my-2 mx-auto'>
+            <select class='form-control col-sm-3' (change)='onDropDownChange($event)'>
+              <option value='all' selected [disabled]='selected != "admins" && selected != "clients"'>All users</option>
+              <option value='admins' [disabled]='selected == "admins"'>Admins</option>
+              <option value='clients' [disabled]='selected == "clients"'>Clients</option>
+            </select>
+            <div class='col-sm-6 ml-auto'>
+              <button class='float-right btn btn-success ml-2' routerLink='create'>
+                <i class='fa fa-plus'></i> Create user
+              </button>
+              <button class='float-right btn btn-primary ml-2' [disabled]='selectedItemIds.length != 1' (click)='edit()'>
+                <i class='fa fa-edit'></i> Edit user
+              </button>
+            </div>
           </div>
           <div class="row dt" #dtContainer>
             <div class="col-sm-12">
-              <ngx-datatable
-                class="material striped"
-                [rows]="data"
-                [columns]="[
-                  { id: 'id'},
+              <ngx-datatable class="material striped" [rows]="data" [columns]="[
+                  { name: 'Select'},
                   { name: 'name' },
                   { name: 'gender' },
                   { name: 'email' }
-                ]"
-                [columnMode]="'force'"
-                [headerHeight]="50"
-                [footerHeight]="50"
-                [rowHeight]="43"
-                [externalPaging]="true"
-                [count]="pagination.total"
-                [offset]="getOffsetFromPagination()"
-                [limit]="pagination.per_page"
-                (page)="setPage($event)"
-              >
-                <ngx-datatable-column
-                  name="Id"
-                  [flexGrow]="3"
-                  [minWidth]="200"
-                >
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                    <a routerLink='{{ value }}'>{{ value }}</a>
+                ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43"
+                [externalPaging]="true" [count]="pagination.total" [offset]="getOffsetFromPagination()"
+                [limit]="pagination.per_page" (page)="setPage($event)">
+                <ngx-datatable-column name="Select" [flexGrow]="3" [minWidth]="200">
+                  <ng-template let-value="row.id" ngx-datatable-cell-template>
+                    <input type='checkbox' (change)='onListItemCheckBoxChange($event, value)' [checked]='false'>
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column
-                  name="Name"
-                  [flexGrow]="3"
-                  [minWidth]="200"
-                >
+                <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
                   <ng-template let-value="value" ngx-datatable-cell-template>
                     {{ value }}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column
-                  name="Email"
-                  [flexGrow]="3"
-                  [minWidth]="200"
-                >
+                <ngx-datatable-column name="Email" [flexGrow]="3" [minWidth]="200">
                   <ng-template let-value="value" ngx-datatable-cell-template>
                     {{ value }}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <ngx-datatable-column name="Gender" [flexGrow]="1">
-                  <ng-template
-                    let-column="column"
-                    let-sort="sortFn"
-                    ngx-datatable-header-template
-                  >
+                  <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
                     <span class="mobile-hidden">{{ column.name }} </span>
                   </ng-template>
-                  <ng-template
-                    let-row="row"
-                    let-value="value"
-                    ngx-datatable-cell-template
-                  >
+                  <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
                     <span class="mobile-hidden">{{ value }}</span>
                   </ng-template>
                 </ngx-datatable-column>
@@ -132,9 +110,7 @@
 
           <br />
 
-          <table
-            class="table table-responsive-sm table-hover table-outline mb-0"
-          >
+          <table class="table table-responsive-sm table-hover table-outline mb-0">
             <thead class="thead-light">
               <tr>
                 <th class="text-center"><i class="icon-people"></i></th>
@@ -149,11 +125,7 @@
               <tr>
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/1.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/1.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-success"></span>
                   </div>
                 </td>
@@ -164,11 +136,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-us h4 mb-0"
-                    title="us"
-                    id="us"
-                  ></i>
+                  <i class="flag-icon flag-icon-us h4 mb-0" title="us" id="us"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -176,20 +144,12 @@
                       <strong>50%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 50%"
-                      aria-valuenow="50"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
@@ -203,11 +163,7 @@
               <tr>
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/2.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/2.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-danger"></span>
                   </div>
                 </td>
@@ -218,11 +174,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-br h4 mb-0"
-                    title="br"
-                    id="br"
-                  ></i>
+                  <i class="flag-icon flag-icon-br h4 mb-0" title="br" id="br"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -230,20 +182,12 @@
                       <strong>10%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 10%"
-                      aria-valuenow="10"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="10"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
@@ -257,11 +201,7 @@
               <tr>
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/3.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/3.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-warning"></span>
                   </div>
                 </td>
@@ -272,11 +212,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-in h4 mb-0"
-                    title="in"
-                    id="in"
-                  ></i>
+                  <i class="flag-icon flag-icon-in h4 mb-0" title="in" id="in"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -284,20 +220,12 @@
                       <strong>74%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-warning"
-                      role="progressbar"
-                      style="width: 74%"
-                      aria-valuenow="74"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: 74%" aria-valuenow="74"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
@@ -311,11 +239,7 @@
               <tr>
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/4.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/4.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-secondary"></span>
                   </div>
                 </td>
@@ -326,11 +250,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-fr h4 mb-0"
-                    title="fr"
-                    id="fr"
-                  ></i>
+                  <i class="flag-icon flag-icon-fr h4 mb-0" title="fr" id="fr"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -338,20 +258,12 @@
                       <strong>98%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-danger"
-                      role="progressbar"
-                      style="width: 98%"
-                      aria-valuenow="98"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: 98%" aria-valuenow="98"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
@@ -365,11 +277,7 @@
               <tr>
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/5.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/5.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-success"></span>
                   </div>
                 </td>
@@ -380,11 +288,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-es h4 mb-0"
-                    title="es"
-                    id="es"
-                  ></i>
+                  <i class="flag-icon flag-icon-es h4 mb-0" title="es" id="es"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -392,20 +296,12 @@
                       <strong>22%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-info"
-                      role="progressbar"
-                      style="width: 22%"
-                      aria-valuenow="22"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 22%" aria-valuenow="22"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
@@ -419,11 +315,7 @@
               <tr>
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/6.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-danger"></span>
                   </div>
                 </td>
@@ -434,11 +326,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-pl h4 mb-0"
-                    title="pl"
-                    id="pl"
-                  ></i>
+                  <i class="flag-icon flag-icon-pl h4 mb-0" title="pl" id="pl"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -446,20 +334,12 @@
                       <strong>43%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 43%"
-                      aria-valuenow="43"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 43%" aria-valuenow="43"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
@@ -473,11 +353,7 @@
               <tr *ngFor="let user of _sandbox.users$ | async">
                 <td class="text-center">
                   <div class="avatar">
-                    <img
-                      src="assets/img/avatars/6.jpg"
-                      class="img-avatar"
-                      alt="admin@bootstrapmaster.com"
-                    />
+                    <img src="assets/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com" />
                     <span class="avatar-status badge-danger"></span>
                   </div>
                 </td>
@@ -488,11 +364,7 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  <i
-                    class="flag-icon flag-icon-pl h4 mb-0"
-                    title="pl"
-                    id="pl"
-                  ></i>
+                  <i class="flag-icon flag-icon-pl h4 mb-0" title="pl" id="pl"></i>
                 </td>
                 <td>
                   <div class="clearfix">
@@ -500,20 +372,12 @@
                       <strong>43%</strong>
                     </div>
                     <div class="float-right">
-                      <small class="text-muted"
-                        >Jun 11, 2015 - Jul 10, 2015</small
-                      >
+                      <small class="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
                     </div>
                   </div>
                   <div class="progress progress-xs">
-                    <div
-                      class="progress-bar bg-success"
-                      role="progressbar"
-                      style="width: 43%"
-                      aria-valuenow="43"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    ></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 43%" aria-valuenow="43"
+                      aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </td>
                 <td class="text-center">
