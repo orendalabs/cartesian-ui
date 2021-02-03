@@ -81,13 +81,14 @@ export class UserEffects {
   fetchUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.doFetchUser),
-      map((action) => action.id),
-      switchMap((id) => {
-        return this.userHttpService.user(id).pipe(
+      map((action) => Object.assign({}, {id: action.id, criteria: action.criteria})),
+      switchMap((object) => {
+        const res = object.criteria ? this.userHttpService.filteredUser(object.id, object.criteria) : this.userHttpService.user(object.id);
+        return res.pipe(
           map((user) =>
             userActions.doFetchUserSuccess({
               user: user.data,
-            })
+            }) 
           ),
           catchError((error) => of(userActions.doFetchUserFail()))
         );
