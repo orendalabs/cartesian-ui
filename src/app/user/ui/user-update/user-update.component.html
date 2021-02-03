@@ -1,31 +1,89 @@
 <form novalidate autocomplete="off" [formGroup]='formGroup' (ngSubmit)='update()'>
     <div class="animated fadeIn row">
-        <div class="col-md-4 text-center mx-auto">
+        <div class="col-md-6 text-center mx-auto">
             <div class="card">
                 <div class="card-header">
-                    Update user detail
+                    Update User Detail
                 </div>
                 <div class="card-body p-2">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    <div *ngIf='user; else viewLoadingUser'>
+                        <div>
+                            <a class='text-muted h3' routerLink='/users/{{userId}}'>@{{user.name}}</a>
+                            <p></p>
                         </div>
-                        <input formControlName='name' class="form-control" [ngClass]='getFormClasses("name")'
-                            placeholder="Name..." />
-                        <div class='invalid-feedback'>Invalid name</div>
-                    </div>
-                    <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        <div class='m-2'>
+                            <span class='p-2 m-2 rounded'
+                                [ngClass]='currentTab == "user"? "bg-secondary" : "text-primary cursor-pointer"'
+                                (click)='switchTab("user")'>
+                                Edit User
+                            </span>
+                            <span class='p-2 m-2 rounded'
+                                [ngClass]='currentTab == "roles"? "bg-secondary" : "text-primary cursor-pointer"'
+                                (click)='switchTab("roles")'>
+                                Edit Roles
+                            </span>
                         </div>
-                        <input formControlName='password' type='password' class="form-control"
-                            [ngClass]='getFormClasses("password")' placeholder="Password..." />
-                        <div class='invalid-feedback'>Invalid password</div>
+                        <div *ngIf='currentTab == "user"; else rolesTab'>
+                            <div class='col-lg-6 mx-auto mt-4 animated fadeIn'>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                    <input formControlName='name' class="form-control"
+                                        [ngClass]='getFormClasses("name")' placeholder="New Name..." />
+                                    <div class='invalid-feedback'>Invalid name</div>
+                                </div>
+                                <div class="input-group mt-2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                    </div>
+                                    <input formControlName='password' type='password' class="form-control"
+                                        [ngClass]='getFormClasses("password")' placeholder="New Password..." />
+                                    <div class='invalid-feedback'>Invalid password</div>
+                                </div>
+                                <button type="submit" name="" id="" class="btn btn-primary btn-block mt-3"
+                                    [disabled]='formGroup.invalid'>
+                                    Create
+                                </button>
+                            </div>
+                        </div>
+                        <ng-template #rolesTab>
+                            <div class='col-lg-8 mx-auto mt-4 animated fadeIn text-left'
+                                *ngIf='roles; else viewLoadingRoles'>
+                                <b>Roles List:</b>
+                                <br />
+                                <div class='row mx-auto' *ngIf='user.roles && user.roles.length > 0; else viewNoRoles'>
+                                    <span *ngFor='let role of user.roles; let i = index' class='badge badge-light m-1'>
+                                        {{role.name}} <span class='text-light badge badge-danger' (click)='removeRole(i)'>
+                                            <i class='fa fa-times cursor-pointer'></i>
+                                        </span>
+                                    </span>
+                                </div>
+                                <ng-template #viewNoRoles>
+                                    <div class='badge badge-light m-1'>
+                                        No Roles...
+                                    </div>
+                                </ng-template>
+                                <br/>
+                                <b>Add a role:</b>
+                                <br />
+                                <form class='form-group form-inline mx-auto'>
+                                    <input [formControl]="roleNameControl" [typeahead]="roleNamesTypeahead" [isAnimated]="true"
+                                    [ngClass]='roleNameControl.valid? "is-valid": (roleNameControl.touched && roleNameControl.dirty ? "is-invalid" : "")'
+                                    class="form-control w-75 ml-auto" >
+                                    <button class='btn btn-success mr-auto ml-1' (click)='addRole()' [disabled]='roleNameControl.invalid'>
+                                        <i class='fa fa-plus'></i>
+                                    </button>
+                                    <div class='invalid-feedback'>Invalid role value!</div>
+                                </form>
+                                <button class='btn btn-primary btn-block' (click)='sync()'>
+                                    <i class='fa fa-save'></i> Save Changes
+                                </button>
+                            </div>
+                            <ng-template #viewLoadingRoles><i class='fa fa-spin fa-circle-o-notch'></i></ng-template>
+                        </ng-template>
                     </div>
-                    <button type="submit" name="" id="" class="btn btn-primary btn-block mt-3"
-                        [disabled]='formGroup.invalid'>
-                        Create
-                    </button>
+                    <ng-template #viewLoadingUser><i class='fa fa-spin fa-circle-o-notch'></i></ng-template>
                 </div>
             </div>
         </div>
