@@ -3,6 +3,8 @@ import { User } from '../models';
 import { type, RequestCriteria } from '@cartesian-ui/ng-axis';
 import { AdminUserCreateForm } from '../models/form/admin-user.model';
 import { EditUserForm } from '../models/form/edit-user.model';
+import { SearchUserForm } from '../models/form/search-user.model';
+import { Role } from '@app/authorization/models/role.model';
 
 /**
  * Fetch Users Actions
@@ -54,7 +56,7 @@ export const doFetchClientsFail = createAction(
  */
 export const doFetchUser = createAction(
   type('[User] Do Fetch User'),
-  props<{ id: string }>()
+  props<{ id: string, criteria?: RequestCriteria<SearchUserForm> }>()
 );
 export const doFetchUserSuccess = createAction(
   type('[User] Do Fetch User Success'),
