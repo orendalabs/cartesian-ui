@@ -1,3 +1,5 @@
+import { Role } from "@app/authorization/models/role.model";
+
 export interface IUser {
   id: string | undefined;
   name: string | undefined;
@@ -27,6 +29,7 @@ export class User implements IUser {
   public email: string;
   public gender: string;
   public logged: boolean;
+  public roles: Role[];
 
   static fromJS(data: any): User {
     data = typeof data === 'object' ? data : {};
@@ -45,6 +48,7 @@ export class User implements IUser {
       this.gender = data ? data.gender : '';
       this.email = data ? data.email : '';
       this.logged = data && this.email ? true : false;
+      this.roles = data.roles ? Object.values(data.roles.data) : [];
     }
   }
 
