@@ -43,7 +43,7 @@ const routes: Routes = [
         component: UserUpdateComponent,
         pathMatch: "full",
         data: {
-          title: 'Create User',
+          title: 'Edit User',
         },
       },
       {
