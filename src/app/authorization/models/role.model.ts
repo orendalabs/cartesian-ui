@@ -26,10 +26,34 @@ export class Role {
     }
   }
 
+  /**
+   * 
+   * @param roleId Id of the role to find
+   * @param roles List of roles to look in
+   * @returns Role object matching the given Id
+   */
   static getRoleById = (roleId: string, roles: Role[] = []): Role => {
     let role: Role;
     roles.every((r: Role) => {
       if (r.id === roleId) {
+        role = r;
+        return false;
+      }
+      return true;
+    });
+    return role;
+  };
+
+  /**
+   * 
+   * @param roleId Name of the role to find
+   * @param roles List of roles to look in
+   * @returns Role object matching the given name
+   */
+  static getRoleByName = (roleName: string, roles: Role[] = []): Role => {
+    let role: Role;
+    roles.every((r: Role) => {
+      if (r.name === roleName) {
         role = r;
         return false;
       }
