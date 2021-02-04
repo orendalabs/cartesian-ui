@@ -1,0 +1,36 @@
+<div class="animated fadeIn row">
+  <div class="col-lg-6 text-center mx-auto">
+    <div class="card">
+      <div class="card-header">Role Detail</div>
+      <div class="card-body">
+        <div *ngIf="role; else viewLoadingRole">
+          <h1>
+            <b>{{ role.name }}</b>
+          </h1>
+          <div class="text-muted">
+            {{ role.description }}
+          </div>
+          <div class="text-left mt-3">
+            <span class="badge">Permissions: </span>
+            <span
+              class="badge badge-light m-1"
+              *ngFor="let perm of role.permissions.data"
+            >
+              {{ perm.name }}
+            </span>
+          </div>
+          <hr />
+          <button
+            class="float-right btn btn-danger"
+            (click)="deleteRole(role.id)"
+          >
+            <i class="fa fa-trash"></i> Delete Role
+          </button>
+        </div>
+        <ng-template #viewLoadingRole
+          ><i class="fa fa-spin fa-circle-o-notch"></i
+        ></ng-template>
+      </div>
+    </div>
+  </div>
+</div>

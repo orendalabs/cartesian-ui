@@ -1,0 +1,40 @@
+<div class="animated fadeIn row">
+  <div class="col-md-4 text-center mx-auto">
+    <div class="card">
+      <div class="card-header">Create a Role</div>
+      <form
+        novalidate
+        autocomplete="off"
+        [formGroup]="formGroup"
+        (ngSubmit)="create()"
+        class="card-body p-2"
+      >
+        <div class="form-group">
+          <input
+            formControlName="name"
+            class="form-control"
+            placeholder="Name"
+          />
+          <textarea
+            formControlName="description"
+            class="form-control mt-2"
+            placeholder="Description..."
+          >
+          </textarea>
+          <input
+            formControlName="displayName"
+            class="form-control mt-2"
+            placeholder="Display Name... "
+          />
+          <button
+            type="submit"
+            class="btn btn-primary btn-block mt-4"
+            [disabled]="formGroup.invalid"
+          >
+            <i class="fa fa-plus"></i> Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
