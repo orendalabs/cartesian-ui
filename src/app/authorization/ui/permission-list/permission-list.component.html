@@ -1,29 +1,40 @@
 <div class="animated fadeIn row dt" #dtContainer>
-    <div class="col-sm-12">
-        <ngx-datatable class="material striped" [rows]="data" [columns]="[
-          { id: 'id'},
-          { name: 'name' },
-          { description: 'description' }
-        ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43" [externalPaging]="true"
-            [count]="pagination.total" [offset]="getOffsetFromPagination()" [limit]="pagination.per_page"
-            (page)="setPage($event)">
-            <ngx-datatable-column name="Id" [flexGrow]="3" [minWidth]="200">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    <a routerLink='/authorization/permissions/{{value}}'>{{ value }}</a>
-                </ng-template>
-            </ngx-datatable-column>
+  <div class="col-sm-12">
+    <ngx-datatable
+      class="material striped"
+      [rows]="data"
+      [columns]="[
+        { id: 'id' },
+        { name: 'name' },
+        { description: 'description' }
+      ]"
+      [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="43"
+      [externalPaging]="true"
+      [count]="pagination.total"
+      [offset]="getOffsetFromPagination()"
+      [limit]="pagination.per_page"
+      (page)="setPage($event)"
+    >
+      <ngx-datatable-column name="Id" [flexGrow]="3" [minWidth]="200">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          <a routerLink="/authorization/permissions/{{ value }}">{{ value }}</a>
+        </ng-template>
+      </ngx-datatable-column>
 
-            <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    {{ value }}
-                </ng-template>
-            </ngx-datatable-column>
+      <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+        </ng-template>
+      </ngx-datatable-column>
 
-            <ngx-datatable-column name="Description" [flexGrow]="3" [minWidth]="200">
-                <ng-template let-value="value" ngx-datatable-cell-template>
-                    {{ value }}
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
-    </div>
+      <ngx-datatable-column name="Description" [flexGrow]="3" [minWidth]="200">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{ value }}
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
 </div>

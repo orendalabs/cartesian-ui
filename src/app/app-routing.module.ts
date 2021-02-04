@@ -45,7 +45,9 @@ const routes: Routes = [
       {
         path: 'authorization',
         loadChildren: () =>
-          import('@app/authorization/authorization.module').then((m) => m.AuthorizationModule),
+          import('@app/authorization/authorization.module').then(
+            (m) => m.AuthorizationModule
+          ),
       },
     ],
   },
