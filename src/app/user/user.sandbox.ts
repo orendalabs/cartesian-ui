@@ -9,6 +9,8 @@ import { UserState, userActions, userSelectors } from './store';
 import { getAuthToken } from '../account/store/account.selector';
 import { AdminUserCreateForm } from './models/form/admin-user.model';
 import { EditUserForm } from './models/form/edit-user.model';
+import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
+import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 
 @Injectable()
 export class UserSandbox extends Sandbox {
@@ -23,6 +25,8 @@ export class UserSandbox extends Sandbox {
   public userFailed$ = this.store.pipe(select(userSelectors.getUserFailed));
   public user$ = this.store.pipe(select(userSelectors.getUserDetail));
   public profile$ = this.store.pipe(select(userSelectors.getProfile));
+
+  public rolesFetchData$ = this.store.pipe(select(userSelectors.getRolesFetchData))
 
   private subscriptions: Array<Subscription> = [];
 
@@ -121,6 +125,20 @@ export class UserSandbox extends Sandbox {
    */
   public fetchProfile(token: string): void {
     this.store.dispatch(userActions.doFetchAuthenticatedUser({ token }));
+  }
+
+    /**
+   * Dispatches fetch roles action
+   */
+  public fetchRoles(criteria: RequestCriteria<SearchRoleForm>): void {
+    this.store.dispatch(userActions.doFetchRoles({requestCriteria: criteria}));
+  }
+
+  /**
+   * Dispatches sync roles on user action
+   */
+  public syncRolesOnUser(form: ManageRoleForm): void {
+    this.store.dispatch(userActions.doSyncRoles({ roleForm: form }));
   }
 
   /**
