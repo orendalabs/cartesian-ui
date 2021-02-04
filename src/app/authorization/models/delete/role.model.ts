@@ -1,3 +1,3 @@
 export interface RoleDeleteForm {
-    id: number;
+  id: number;
 }

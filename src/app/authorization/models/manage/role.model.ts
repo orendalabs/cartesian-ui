@@ -1,11 +1,11 @@
 export class ManageRoleForm {
-    user_id: string;
-    roles_ids: string[];
+  userId: string;
+  rolesIds: string[];
 
-    constructor(roleForm?: ManageRoleForm) {
-        if (roleForm) {
-            this.user_id = roleForm.user_id;
-            this.roles_ids = roleForm.roles_ids;
-        }
+  constructor(roleForm?: ManageRoleForm) {
+    if (roleForm) {
+      this.userId = roleForm.userId;
+      this.rolesIds = roleForm.rolesIds;
     }
+  }
 }

@@ -1,5 +1,5 @@
 export interface CreateRoleForm {
-    name: string;
-    description: string;
-    display_name: string;
+  name: string;
+  description: string;
+  display_name: string;
 }

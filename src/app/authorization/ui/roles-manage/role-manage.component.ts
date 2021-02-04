@@ -9,61 +9,61 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'role-manage',
-  templateUrl: './role-manage.component.html'
+  templateUrl: './role-manage.component.html',
 })
 export class RoleManageComponent implements OnInit {
-
-  subscriptions: Subscription[] = []
+  subscriptions: Subscription[] = [];
   roles: Array<Role>;
   assignFormGroup = new FormGroup({
     userId: new FormControl('', Validators.required),
-    roleId: new FormControl('', Validators.required)
+    roleId: new FormControl('', Validators.required),
   });
 
   revokeFormGroup = new FormGroup({
     userId: new FormControl('', Validators.required),
-    roleId: new FormControl('', Validators.required)
+    roleId: new FormControl('', Validators.required),
   });
 
   constructor(public _sandbox: AuthorizationSandbox) {
-    this.registerEvents()
+    this.registerEvents();
     this.loadRoles();
   }
 
   loadRoles() {
-    this._sandbox.fetchRoles(new RequestCriteria(new SearchRoleForm));
+    this._sandbox.fetchRoles(new RequestCriteria(new SearchRoleForm()));
   }
 
   registerEvents() {
     this.subscriptions.push(
-      this._sandbox.rolesFetchData$.subscribe((roles: Role[]) => this.roles = roles)
-    )
+      this._sandbox.rolesFetchData$.subscribe(
+        (roles: Role[]) => (this.roles = roles)
+      )
+    );
   }
 
   unregisterEvents() {
-    this.subscriptions.forEach(sub => {
+    this.subscriptions.forEach((sub) => {
       sub.unsubscribe();
-    })
+    });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   assign() {
     if (this.assignFormGroup.valid) {
-      let form = new ManageRoleForm();
-      form.user_id = this.assignFormGroup.controls['userId'].value;
-      form.roles_ids = [this.assignFormGroup.controls['roleId'].value];
+      const form = new ManageRoleForm();
+      form.user_id = this.assignFormGroup.controls.userId.value;
+      form.roles_ids = [this.assignFormGroup.controls.roleId.value];
       this._sandbox.assignRole(form);
     }
   }
 
   revoke() {
     if (this.revokeFormGroup.valid) {
-      let form = new ManageRoleForm();
-      form.user_id = this.revokeFormGroup.controls['userId'].value;
-      form.roles_ids = [this.revokeFormGroup.controls['roleId'].value];
+      const form = new ManageRoleForm();
+      form.user_id = this.revokeFormGroup.controls.userId.value;
+      form.roles_ids = [this.revokeFormGroup.controls.roleId.value];
       this._sandbox.revokeRole(form);
     }
   }
-
 }

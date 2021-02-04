@@ -14,7 +14,7 @@ const routes: Routes = [
     path: '',
     component: AuthorizationComponent,
     data: {
-      title: "Authorization"
+      title: 'Authorization',
     },
     children: [
       {
@@ -31,29 +31,29 @@ const routes: Routes = [
         path: 'roles/manage',
         component: RoleManageComponent,
         data: {
-          title: "Manage Roles",
-        }
+          title: 'Manage Roles',
+        },
       },
       {
         path: 'roles/create',
         component: RoleCreateComponent,
         data: {
-          title: "Create Roles",
-        }
+          title: 'Create Roles',
+        },
       },
       {
         path: 'roles/list',
         component: RoleListComponent,
         data: {
-          title: "Roles List"
-        }
+          title: 'Roles List',
+        },
       },
       {
         path: 'roles/:id',
         component: RoleDetailComponent,
         data: {
-          title: "Role Detail"
-        }
+          title: 'Role Detail',
+        },
       },
       {
         path: 'permissions',
@@ -64,36 +64,30 @@ const routes: Routes = [
         path: 'permissions/list',
         component: PermissionListComponent,
         data: {
-          title: "Permissions List"
-        }
+          title: 'Permissions List',
+        },
       },
       {
         path: 'permissions/assign',
         component: PermissionAttachComponent,
         data: {
-          title: "Assign Permissions"
-        }
+          title: 'Assign Permissions',
+        },
       },
       {
         path: 'permissions/:id',
         component: PermissionDetailComponent,
         data: {
-          title: "Permission Detail"
-        }
-      }
-    ]
-  }
-]
+          title: 'Permission Detail',
+        },
+      },
+    ],
+  },
+];
 
 @NgModule({
-  declarations: [
-
-  ],
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule,
-  ]
+  declarations: [],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class AuthorizationRoutingModule { }
+export class AuthorizationRoutingModule {}

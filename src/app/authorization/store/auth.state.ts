@@ -1,5 +1,5 @@
-import { Permission } from "../models/permission.model";
-import { Role } from "../models/role.model";
+import { Permission } from '../models/permission.model';
+import { Role } from '../models/role.model';
 
 export interface RoleDetailState {
   loading: boolean;
@@ -36,8 +36,8 @@ export interface PermissionListingState {
 }
 
 export interface AuthorizationState {
-  roleListing: RoleListingState,
-  roleDetail: RoleDetailState,
-  permissionListing: PermissionListingState,
-  permissionDetail: PermissionDetailState,
+  roleListing: RoleListingState;
+  roleDetail: RoleDetailState;
+  permissionListing: PermissionListingState;
+  permissionDetail: PermissionDetailState;
 }

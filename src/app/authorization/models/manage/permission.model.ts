@@ -1,11 +1,11 @@
 export class ManagePermissionForm {
-    role_id: string;
-    permissions_ids: string[];
+  roleId: string;
+  permissionsIds: string[];
 
-    constructor(permissionForm?: ManagePermissionForm) {
-        if (permissionForm) {
-            this.role_id = permissionForm.role_id;
-            this.permissions_ids = permissionForm.permissions_ids;
-        }
+  constructor(permissionForm?: ManagePermissionForm) {
+    if (permissionForm) {
+      this.roleId = permissionForm.roleId;
+      this.permissionsIds = permissionForm.permissionsIds;
     }
+  }
 }

@@ -1,15 +1,22 @@
-export class Permission {
-    id: string;
-    name: string;
-    description: string;
-    display_name: string;
+export interface IPermission {
+  id: string | undefined;
+  name: string | undefined;
+  description: string | undefined;
+  displayName: string | undefined;
+}
 
-    constructor(role?: Permission) {
-        if (role) {
-            this.id = role.id;
-            this.name = role.name;
-            this.description = role.description;
-            this.display_name = role.display_name;
-        }
+export class Permission implements IPermission {
+  public id: string;
+  public name: string;
+  public description: string;
+  public displayName: string;
+
+  constructor(permission?: IPermission) {
+    if (permission) {
+      this.id = permission.id;
+      this.name = permission.name;
+      this.description = permission.description;
+      this.displayName = permission.displayName;
     }
+  }
 }

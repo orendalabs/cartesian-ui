@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
 import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 import { Role } from '@app/authorization/models/role.model';
@@ -9,58 +16,52 @@ import { RequestCriteria } from '@cartesian-ui/ng-axis';
   selector: 'role-list',
   templateUrl: './role-list.component.html',
 })
-export class RoleListComponent extends ListingControlsComponent<Role, SearchRoleForm>
-implements OnInit, AfterViewInit {
-@ViewChild('dtContainer') dtContainer: ElementRef;
+export class RoleListComponent
+  extends ListingControlsComponent<Role, SearchRoleForm>
+  implements OnInit, AfterViewInit {
+  @ViewChild('dtContainer') dtContainer: ElementRef;
 
-constructor(
-  protected _sandbox: AuthorizationSandbox,
-  injector: Injector
-) {
-  super(injector);
-}
+  constructor(protected _sandbox: AuthorizationSandbox, injector: Injector) {
+    super(injector);
+  }
 
-registerEvents() {
-  this.subscriptions.push(
-    this._sandbox.rolesFetchData$.subscribe(
-      (data: Role[]) => {
+  registerEvents() {
+    this.subscriptions.push(
+      this._sandbox.rolesFetchData$.subscribe((data: Role[]) => {
         this.data = data;
         this.ui.clearBusy();
         this.isTableLoading = false;
       })
-  )
-  this.subscriptions.push(
-    this._sandbox.rolesFetchMeta$.subscribe(
-      (meta: any) => {
+    );
+    this.subscriptions.push(
+      this._sandbox.rolesFetchMeta$.subscribe((meta: any) => {
         if (meta) {
           this.pagination = meta ? meta.pagination : null;
         }
       })
-  )
-}
+    );
+  }
 
-unregisterEvents() {
-  this.subscriptions.forEach((sub) => sub.unsubscribe())
-}
+  unregisterEvents() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
-ngOnInit(): void {
-  this.criteria = new RequestCriteria<SearchRoleForm>(
-    new SearchRoleForm()
-  ).limit(2);
-  this.registerEvents();
-}
+  ngOnInit(): void {
+    this.criteria = new RequestCriteria<SearchRoleForm>(
+      new SearchRoleForm()
+    ).limit(2);
+    this.registerEvents();
+  }
 
-ngAfterViewInit(): void {
-  this.reloadTable();
-}
+  ngAfterViewInit(): void {
+    this.reloadTable();
+  }
 
-protected list(): void {
-  this.ui.setBusy(this.dtContainer.nativeElement);
-  this.isTableLoading = true;
-  this._sandbox.fetchRoles(this.criteria);
-}
+  protected list(): void {
+    this.ui.setBusy(this.dtContainer.nativeElement);
+    this.isTableLoading = true;
+    this._sandbox.fetchRoles(this.criteria);
+  }
 
-protected delete() { }
-
-
+  protected delete() {}
 }

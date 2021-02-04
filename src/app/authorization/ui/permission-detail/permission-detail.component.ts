@@ -9,33 +9,32 @@ import { Subscription } from 'rxjs';
   templateUrl: './permission-detail.component.html',
 })
 export class PermissionDetailComponent implements OnInit {
-
   permission: Permission = null;
   subscriptions: Subscription[] = [];
 
-  constructor(protected _sandbox: AuthorizationSandbox,
-    protected route: ActivatedRoute) {
-      this.registerEvents();
+  constructor(
+    protected _sandbox: AuthorizationSandbox,
+    protected route: ActivatedRoute
+  ) {
+    this.registerEvents();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   registerEvents() {
     this.subscriptions.push(
       this.route.params.subscribe((params) => {
         this.fetchPerm(params.id);
       })
-    )
+    );
     this.subscriptions.push(
       this._sandbox.permissionFetchData$.subscribe((data: Permission) => {
         this.permission = data;
       })
-    )
+    );
   }
 
   fetchPerm = (id: string) => {
     this._sandbox.fetchPermissionById(id);
-  }
-
+  };
 }

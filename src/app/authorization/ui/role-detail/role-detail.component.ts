@@ -9,15 +9,15 @@ import { Subscription } from 'rxjs';
   templateUrl: './role-detail.component.html',
 })
 export class RoleDetailComponent implements OnInit {
-
   roleId: string;
   role;
 
-  subscriptions: Subscription[] = []
+  subscriptions: Subscription[] = [];
 
-  constructor(protected route: ActivatedRoute,
+  constructor(
+    protected route: ActivatedRoute,
     protected _sandbox: AuthorizationSandbox
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.registerEvents();
@@ -29,18 +29,20 @@ export class RoleDetailComponent implements OnInit {
       this.route.params.subscribe((params) => {
         this.roleId = params.id;
       })
-    )
+    );
     this.subscriptions.push(
       this._sandbox.roleFetchData$.subscribe((role: Role) => {
         this.role = role;
       })
-    )
+    );
   }
 
   deleteRole = (id: string) => {
-    const confirmation = confirm("Are you sure you want to delete the role with ID: " + id);
+    const confirmation = confirm(
+      'Are you sure you want to delete the role with ID: ' + id
+    );
     if (confirmation) {
       this._sandbox.deleteRoleById(id);
     }
-  }
+  };
 }
