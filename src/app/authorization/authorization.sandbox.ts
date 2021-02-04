@@ -61,6 +61,10 @@ export class AuthorizationSandbox extends Sandbox {
     this.store.dispatch(roleActions.doDeleteRole({ id }));
   };
 
+  syncRolesOnUser(form: ManageRoleForm) {
+    this.store.dispatch(roleActions.doSyncRole({ roleForm: form }))
+  }
+
   attachPermissions = (permissionForm: ManagePermissionForm): void => {
     this.store.dispatch(
       permissionActions.doAttachPermission({ permForm: permissionForm })
