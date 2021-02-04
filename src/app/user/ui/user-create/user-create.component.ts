@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormHelper } from '@app/account/ui/helpers/form.helper';
+import { FormHelper } from '@shared/helpers';
 import { AdminUserCreateForm } from '@app/user/models/form/admin-user.model';
 import { UserSandbox } from '@app/user/user.sandbox';
 

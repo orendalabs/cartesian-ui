@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FormHelper } from '@app/account/ui/helpers/form.helper';
+import { FormHelper } from '@shared/helpers';
 import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
 import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
