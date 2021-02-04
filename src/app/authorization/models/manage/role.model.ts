@@ -9,3 +9,15 @@ export class ManageRoleForm {
     }
   }
 }
+
+export class ManageRoleFormData {
+  user_id: string;
+  roles_ids: string[];
+
+  constructor(form?: ManageRoleForm) {
+    if (form) {
+      this.user_id = form.userId,
+      this.roles_ids = form.rolesIds
+    }
+  }
+}
