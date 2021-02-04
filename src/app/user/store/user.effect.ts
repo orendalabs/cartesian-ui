@@ -6,6 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { State } from '@app/app.store';
 import { UserHttpService } from '../shared';
 import * as userActions from './user.action';
+import { ManageRoleForm, ManageRoleFormData } from '@app/authorization/models/manage/role.model';
 
 @Injectable()
 export class UserEffects {
@@ -177,6 +178,34 @@ export class UserEffects {
           catchError((error) => of(userActions.doDeleteUserFail()))
         );
       })
+    )
+  );
+
+  doSyncRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.doSyncRoles),
+      map((action) => action.roleForm),
+      switchMap((roleForm) =>
+        this.userHttpService.syncRole(new ManageRoleFormData(roleForm)).pipe(
+          map((role) => userActions.doSyncRolesSuccess(role)),
+          catchError((error) => of(userActions.doSyncRolesFail(error)))
+        )
+      )
+    )
+  );
+
+  doFetchRoles$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.doFetchRoles),
+      map((action) => action.requestCriteria),
+      switchMap((criteria) =>
+        this.userHttpService.fetchRoles(criteria).pipe(
+          map((results) =>
+            userActions.doFetchRolesSuccess({ roles: results })
+          ),
+          catchError((error) => of(userActions.doFetchRolesFail(error)))
+        )
+      )
     )
   );
 }

@@ -5,6 +5,8 @@ import { AdminUserCreateForm } from '../models/form/admin-user.model';
 import { EditUserForm } from '../models/form/edit-user.model';
 import { SearchUserForm } from '../models/form/search-user.model';
 import { Role } from '@app/authorization/models/role.model';
+import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
+import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
 
 /**
  * Fetch Users Actions
@@ -122,4 +124,37 @@ export const doFetchAuthenticatedUserSuccess = createAction(
 );
 export const doFetchAuthenticatedUserFail = createAction(
   type('[User] Do Fetch Authenticated Fail')
+);
+
+
+/**
+ * Fetch Roles Actions
+ */
+export const doFetchRoles = createAction(
+  type('[User] Do Fetch Roles'),
+  props<{ requestCriteria: RequestCriteria<SearchRoleForm> }>()
+);
+export const doFetchRolesSuccess = createAction(
+  type('[User] Do Fetch Roles Success'),
+  props<{ roles: Role[] }>()
+);
+export const doFetchRolesFail = createAction(
+  type('[User] Do Fetch Roles Fail'),
+  props<{ error: any }>()
+);
+
+/**
+ * Fetch Roles Actions
+ */
+export const doSyncRoles = createAction(
+  type('[User] Do Sync Roles'),
+  props<{ roleForm: ManageRoleForm }>()
+);
+export const doSyncRolesSuccess = createAction(
+  type('[User] Do Sync Roles Success'),
+  props<{ role: Role }>()
+);
+export const doSyncRolesFail = createAction(
+  type('[User] Do Sync Roles Fail'),
+  props<{ error: any }>()
 );

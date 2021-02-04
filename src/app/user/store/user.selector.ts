@@ -6,6 +6,7 @@ import {
 } from '@ngrx/store';
 import { UserState } from './user.state';
 import { userFeatureKey } from './user.reducer';
+import { AuthorizationState } from '@app/authorization/store/auth.state';
 
 export const getUserState = createFeatureSelector<UserState>(userFeatureKey);
 
@@ -53,8 +54,16 @@ export const getUsersList: MemoizedSelector<object, object> = createSelector(
   getUserState,
   (state: UserState) => state.listing.data.data
 );
+
 export const getUsersMeta: MemoizedSelector<object, object> = createSelector(
   getUserState,
   (state: UserState) => state.listing.data.meta
 );
-/* tslint:enable:max-line-length */
+
+export const getRolesFetchData: MemoizedSelector<
+  object,
+  object
+> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.data.data
+);
