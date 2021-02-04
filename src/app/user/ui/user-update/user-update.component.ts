@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormHelper } from '@shared/helpers';
-import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
 import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
 import { Role } from '@app/authorization/models/role.model';
@@ -45,7 +44,6 @@ export class UserUpdateComponent implements OnInit {
 
   constructor(
     protected _sandbox: UserSandbox,
-    protected _authorizationSandbox: AuthorizationSandbox,
     protected route: ActivatedRoute
   ) {}
 
@@ -72,7 +70,7 @@ export class UserUpdateComponent implements OnInit {
       })
     );
     this.subscriptions.push(
-      this._authorizationSandbox.rolesFetchData$.subscribe((roles: Role[]) => {
+      this._sandbox.rolesFetchData$.subscribe((roles: Role[]) => {
         this.roles = roles;
         this.roleNamesTypeahead = roles.map((role) => role.name);
         if (this.user) {
@@ -91,7 +89,7 @@ export class UserUpdateComponent implements OnInit {
   }
 
   fetchRoles() {
-    this._authorizationSandbox.fetchRoles(this.roleCriteria);
+    this._sandbox.fetchRoles(this.roleCriteria);
   }
 
   sync() {
@@ -100,7 +98,7 @@ export class UserUpdateComponent implements OnInit {
       userId: this.userId,
       rolesIds: roles,
     });
-    this._authorizationSandbox.syncRolesOnUser(form);
+    this._sandbox.syncRolesOnUser(form);
   }
 
   update() {
