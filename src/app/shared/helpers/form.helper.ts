@@ -54,8 +54,8 @@ export class FormHelper {
      */
     static inValidator(values: any[]): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
-            for(let val in values) {
-                if (val == control.value) {
+            for(let i = 0;i < values.length; i++) {
+                if (values[i] == control.value) {
                     return null;
                 }
             }
@@ -70,8 +70,8 @@ export class FormHelper {
      */
     static notInValidator(values: any[]): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
-            for(let val in values) {
-                if (val != control.value) {
+            for(let i = 0;i < values.length; i++) {
+                if (values[i] != control.value) {
                     return null;
                 }
             }
