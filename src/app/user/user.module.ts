@@ -34,7 +34,14 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     StoreModule.forFeature(userFeatureKey, userReducers),
     EffectsModule.forFeature([UserEffects]),
   ],
-  declarations: [UserComponent, UserListComponent, UserDetailComponent, UserProfileComponent, UserCreateComponent, UserUpdateComponent],
+  declarations: [
+    UserComponent,
+    UserListComponent,
+    UserDetailComponent,
+    UserProfileComponent,
+    UserCreateComponent,
+    UserUpdateComponent,
+  ],
   providers: [
     UserHttpService,
     UserSandbox,

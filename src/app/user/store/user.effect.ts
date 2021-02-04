@@ -24,7 +24,7 @@ export class UserEffects {
       map((action) => action.requestCriteria),
       switchMap((criteria) => {
         return this.userHttpService.users(criteria).pipe(
-          map((users) => 
+          map((users) =>
             userActions.doFetchUsersSuccess({
               users,
             })
@@ -44,7 +44,7 @@ export class UserEffects {
       map((action) => action.requestCriteria),
       switchMap((criteria) => {
         return this.userHttpService.admins(criteria).pipe(
-          map((users) => 
+          map((users) =>
             userActions.doFetchAdminsSuccess({
               users,
             })
@@ -64,7 +64,7 @@ export class UserEffects {
       map((action) => action.requestCriteria),
       switchMap((criteria) => {
         return this.userHttpService.clients(criteria).pipe(
-          map((users) => 
+          map((users) =>
             userActions.doFetchClientsSuccess({
               users,
             })
@@ -81,14 +81,18 @@ export class UserEffects {
   fetchUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.doFetchUser),
-      map((action) => Object.assign({}, {id: action.id, criteria: action.criteria})),
+      map((action) =>
+        Object.assign({}, { id: action.id, criteria: action.criteria })
+      ),
       switchMap((object) => {
-        const res = object.criteria ? this.userHttpService.filteredUser(object.id, object.criteria) : this.userHttpService.user(object.id);
+        const res = object.criteria
+          ? this.userHttpService.filteredUser(object.id, object.criteria)
+          : this.userHttpService.user(object.id);
         return res.pipe(
           map((user) =>
             userActions.doFetchUserSuccess({
               user: user.data,
-            }) 
+            })
           ),
           catchError((error) => of(userActions.doFetchUserFail()))
         );
@@ -99,21 +103,21 @@ export class UserEffects {
   /**
    * Fetch Authenticated User effect
    */
-  fetchAuthenticatedUser$ = createEffect(() => 
-  this.actions$.pipe(
-    ofType(userActions.doFetchAuthenticatedUser),
-    map((action) => action.token),
-    switchMap((token) => {
-      return this.userHttpService.profile(token).pipe(
-        map((user) =>
-          userActions.doFetchAuthenticatedUserSuccess({
-            user: user.data,
-          })
-        ),
-        catchError((error) => of(userActions.doFetchAuthenticatedUserFail()))
-      );
-    })
-  )
+  fetchAuthenticatedUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.doFetchAuthenticatedUser),
+      map((action) => action.token),
+      switchMap((token) => {
+        return this.userHttpService.profile(token).pipe(
+          map((user) =>
+            userActions.doFetchAuthenticatedUserSuccess({
+              user: user.data,
+            })
+          ),
+          catchError((error) => of(userActions.doFetchAuthenticatedUserFail()))
+        );
+      })
+    )
   );
 
   /**
@@ -142,7 +146,7 @@ export class UserEffects {
   updateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.doUpdateUser),
-      map((action) => Object.assign({}, {id: action.id, form: action.form})),
+      map((action) => Object.assign({}, { id: action.id, form: action.form })),
       switchMap((data) => {
         return this.userHttpService.updateUser(data.id, data.form).pipe(
           map((user) =>

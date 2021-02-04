@@ -17,7 +17,7 @@ const routes: Routes = [
       {
         path: '',
         component: UserListComponent,
-        pathMatch: "full",
+        pathMatch: 'full',
         data: {
           title: 'Users',
         },
@@ -25,7 +25,7 @@ const routes: Routes = [
       {
         path: 'profile',
         component: UserProfileComponent,
-        pathMatch: "full",
+        pathMatch: 'full',
         data: {
           title: 'Profile',
         },
@@ -33,7 +33,7 @@ const routes: Routes = [
       {
         path: 'create',
         component: UserCreateComponent,
-        pathMatch: "full",
+        pathMatch: 'full',
         data: {
           title: 'Create User',
         },
@@ -41,7 +41,7 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: UserUpdateComponent,
-        pathMatch: "full",
+        pathMatch: 'full',
         data: {
           title: 'Edit User',
         },

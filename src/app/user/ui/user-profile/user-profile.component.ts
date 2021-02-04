@@ -7,11 +7,10 @@ import { Subscription } from 'rxjs';
   templateUrl: './user-profile.component.html',
 })
 export class UserProfileComponent implements OnInit {
-
   token;
   user;
 
-  subscriptions: Array<Subscription> = []
+  subscriptions: Array<Subscription> = [];
   constructor(protected _sandbox: UserSandbox) {
     this.registerEvents();
     this._sandbox.fetchProfile(this.token);
@@ -19,13 +18,11 @@ export class UserProfileComponent implements OnInit {
 
   registerEvents() {
     this.subscriptions.push(
-      this._sandbox.token$.subscribe((token) => this.token = token)
+      this._sandbox.token$.subscribe((token) => (this.token = token))
     );
     this.subscriptions.push(
-      this._sandbox.profile$.subscribe((user) => this.user = user)
-    )
+      this._sandbox.profile$.subscribe((user) => (this.user = user))
+    );
   }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

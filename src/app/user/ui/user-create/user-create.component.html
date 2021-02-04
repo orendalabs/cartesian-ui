@@ -1,42 +1,65 @@
-<form novalidate autocomplete="off" [formGroup]='formGroup' (ngSubmit)='create()'>
-    <div class="animated fadeIn row">
-        <div class="col-md-4 text-center mx-auto">
-            <div class="card">
-                <div class="card-header">
-                    Create an Admin
-                </div>
-                <div class="card-body p-2">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        <input formControlName='name' class="form-control" [ngClass]='getFormClasses("name")'
-                            placeholder="Name..." />
-                        <div class='invalid-feedback'>Invalid name</div>
-                    </div>
-
-                    <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-envelope"></i></span>
-                        </div>
-                        <input formControlName='email' class="form-control" [ngClass]='getFormClasses("email")'
-                            placeholder="Email..." />
-                        <div class='invalid-feedback'>Invalid email</div>
-                    </div>
-                    <div class="input-group mt-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-key"></i></span>
-                        </div>
-                        <input formControlName='password' type='password' class="form-control"
-                            [ngClass]='getFormClasses("password")' placeholder="Password..." />
-                        <div class='invalid-feedback'>Invalid password</div>
-                    </div>
-                    <button type="submit" name="" id="" class="btn btn-primary btn-block mt-3"
-                        [disabled]='formGroup.invalid'>
-                        Create
-                    </button>
-                </div>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="formGroup"
+  (ngSubmit)="create()"
+>
+  <div class="animated fadeIn row">
+    <div class="col-md-4 text-center mx-auto">
+      <div class="card">
+        <div class="card-header">Create an Admin</div>
+        <div class="card-body p-2">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-user"></i></span>
             </div>
+            <input
+              formControlName="name"
+              class="form-control"
+              [ngClass]="getFormClasses('name')"
+              placeholder="Name..."
+            />
+            <div class="invalid-feedback">Invalid name</div>
+          </div>
+
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fa fa-envelope"></i
+              ></span>
+            </div>
+            <input
+              formControlName="email"
+              class="form-control"
+              [ngClass]="getFormClasses('email')"
+              placeholder="Email..."
+            />
+            <div class="invalid-feedback">Invalid email</div>
+          </div>
+          <div class="input-group mt-2">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-key"></i></span>
+            </div>
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              [ngClass]="getFormClasses('password')"
+              placeholder="Password..."
+            />
+            <div class="invalid-feedback">Invalid password</div>
+          </div>
+          <button
+            type="submit"
+            name=""
+            id=""
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="formGroup.invalid"
+          >
+            Create
+          </button>
         </div>
+      </div>
     </div>
+  </div>
 </form>

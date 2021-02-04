@@ -12,11 +12,12 @@ export class UserDetailComponent implements OnInit {
   userId: string;
   user;
 
-  subscriptions: Subscription[] = []
+  subscriptions: Subscription[] = [];
 
-  constructor(protected route: ActivatedRoute,
+  constructor(
+    protected route: ActivatedRoute,
     protected _sandbox: UserSandbox
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.registerEvents();
@@ -28,19 +29,20 @@ export class UserDetailComponent implements OnInit {
       this.route.params.subscribe((params) => {
         this.userId = params.id;
       })
-    )
+    );
     this.subscriptions.push(
       this._sandbox.user$.subscribe((user: User) => {
         this.user = user;
       })
-    )
+    );
   }
 
   deleteUser = (id: string) => {
-    const confirmation = confirm("Are you sure you want to delete the User with ID: " + id);
+    const confirmation = confirm(
+      'Are you sure you want to delete the User with ID: ' + id
+    );
     if (confirmation) {
       this._sandbox.deleteUserById(id);
     }
-  }
-
+  };
 }

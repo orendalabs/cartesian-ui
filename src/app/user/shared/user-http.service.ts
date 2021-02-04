@@ -68,7 +68,7 @@ export class UserHttpService extends HttpService {
    */
   @GET('/users/{id}')
   @Adapter(UserAdapter.userAdapter)
-  public user(@Path("id") id: string): Observable<any> {
+  public user(@Path('id') id: string): Observable<any> {
     return null;
   }
 
@@ -80,7 +80,10 @@ export class UserHttpService extends HttpService {
    */
   @GET('/users/{id}')
   @Adapter(UserAdapter.userAdapter)
-  public filteredUser(@Path("id") id: string, @Criteria criteria: RequestCriteria<SearchUserForm>): Observable<any> {
+  public filteredUser(
+    @Path('id') id: string,
+    @Criteria criteria: RequestCriteria<SearchUserForm>
+  ): Observable<any> {
     return null;
   }
 
@@ -101,7 +104,10 @@ export class UserHttpService extends HttpService {
    * @param data data of the user to update
    */
   @PUT('/users/{id}')
-  public updateUser(@Path("id") id: string, @Body form: EditUserForm): Observable<any> {
+  public updateUser(
+    @Path('id') id: string,
+    @Body form: EditUserForm
+  ): Observable<any> {
     return null;
   }
 
@@ -112,7 +118,7 @@ export class UserHttpService extends HttpService {
    */
   @DELETE('/users/{id}')
   @Adapter(UserAdapter.userAdapter)
-  public deleteUserById(@Path("id") id: string): Observable<any> {
+  public deleteUserById(@Path('id') id: string): Observable<any> {
     return null;
   }
 

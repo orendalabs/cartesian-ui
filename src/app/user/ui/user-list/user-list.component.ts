@@ -24,11 +24,15 @@ export class UserListComponent
   implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
-  selected = "all";
-  selectedItemIds: Array<string> = []
+  selected = 'all';
+  selectedItemIds: Array<string> = [];
   checkedBoxes = [];
 
-  constructor(injector: Injector, public _sandbox: UserSandbox, protected router: Router) {
+  constructor(
+    injector: Injector,
+    public _sandbox: UserSandbox,
+    protected router: Router
+  ) {
     super(injector);
   }
 
@@ -54,7 +58,7 @@ export class UserListComponent
     this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
-    switch(this.selected) {
+    switch (this.selected) {
       case 'admins':
         this._sandbox.fetchAdmins(this.criteria);
         break;
@@ -77,7 +81,7 @@ export class UserListComponent
   edit() {
     const url = 'edit';
     if (this.selectedItemIds.length > 0) {
-      this.router.navigate([this.router.url, url, this.selectedItemIds[0]])
+      this.router.navigate([this.router.url, url, this.selectedItemIds[0]]);
     }
   }
 
@@ -121,11 +125,11 @@ export class UserListComponent
     const itemIndex = this.selectedItemIds.indexOf(id);
     const boxIndex = this.checkedBoxes.indexOf(checkBox);
     this.selectedItemIds.splice(itemIndex, 1);
-    this.checkedBoxes.splice(boxIndex, 1)
+    this.checkedBoxes.splice(boxIndex, 1);
   }
 
   resetCheckBoxes() {
     this.selectedItemIds = [];
-    this.checkedBoxes.forEach((checkBox) => checkBox.checked = false)
+    this.checkedBoxes.forEach((checkBox) => (checkBox.checked = false));
   }
 }

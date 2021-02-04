@@ -1,4 +1,4 @@
-import { Role } from "@app/authorization/models/role.model";
+import { Role } from '@app/authorization/models/role.model';
 
 export interface IUser {
   id: string | undefined;

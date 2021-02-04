@@ -14,30 +14,39 @@ const INITIAL_STATE: UserListingState = {
 
 const createUserListingReducers = createReducer(
   INITIAL_STATE,
-  on(userActions.doFetchUsers,
+  on(
+    userActions.doFetchUsers,
     userActions.doFetchAdmins,
-    userActions.doFetchClients, (state) => {
-    return Object.assign({}, state, {
-      loading: true,
-      loaded: false,
-      failed: false,
-    });
-  }),
-  on(userActions.doFetchUsersSuccess,
+    userActions.doFetchClients,
+    (state) => {
+      return Object.assign({}, state, {
+        loading: true,
+        loaded: false,
+        failed: false,
+      });
+    }
+  ),
+  on(
+    userActions.doFetchUsersSuccess,
     userActions.doFetchAdminsSuccess,
-    userActions.doFetchClientsSuccess, (state, { users }) => {
-    return Object.assign({}, state, {
-      loaded: true,
-      loading: false,
-      failed: false,
-      data: users,
-    });
-  }),
-  on(userActions.doFetchUsersFail,
+    userActions.doFetchClientsSuccess,
+    (state, { users }) => {
+      return Object.assign({}, state, {
+        loaded: true,
+        loading: false,
+        failed: false,
+        data: users,
+      });
+    }
+  ),
+  on(
+    userActions.doFetchUsersFail,
     userActions.doFetchAdminsFail,
-    userActions.doFetchClientsFail, (state) => {
-    return Object.assign({}, INITIAL_STATE, { failed: true });
-  })
+    userActions.doFetchClientsFail,
+    (state) => {
+      return Object.assign({}, INITIAL_STATE, { failed: true });
+    }
+  )
 );
 
 export function reducer(state: UserListingState | undefined, action: Action) {

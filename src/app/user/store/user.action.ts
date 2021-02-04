@@ -56,7 +56,7 @@ export const doFetchClientsFail = createAction(
  */
 export const doFetchUser = createAction(
   type('[User] Do Fetch User'),
-  props<{ id: string, criteria?: RequestCriteria<SearchUserForm> }>()
+  props<{ id: string; criteria?: RequestCriteria<SearchUserForm> }>()
 );
 export const doFetchUserSuccess = createAction(
   type('[User] Do Fetch User Success'),
@@ -75,21 +75,24 @@ export const doCreateUserSuccess = createAction(
   type('[User] Do Create User Success'),
   props<{ user: User }>()
 );
-export const doCreateUserFail = createAction(type('[User] Do Create User Fail'));
+export const doCreateUserFail = createAction(
+  type('[User] Do Create User Fail')
+);
 
 /**
  * Update User Actions
  */
 export const doUpdateUser = createAction(
   type('[User] Do Update User'),
-  props<{ id: string, form: EditUserForm }>()
+  props<{ id: string; form: EditUserForm }>()
 );
 export const doUpdateUserSuccess = createAction(
   type('[User] Do Update User Success'),
   props<{ user: User }>()
 );
-export const doUpdateUserFail = createAction(type('[User] Do Update User Fail'));
-
+export const doUpdateUserFail = createAction(
+  type('[User] Do Update User Fail')
+);
 
 /**
  * Delete User Actions
@@ -102,7 +105,9 @@ export const doDeleteUserSuccess = createAction(
   type('[User] Do Delete User Success'),
   props<{ user: User }>()
 );
-export const doDeleteUserFail = createAction(type('[User] Do Delete User Fail'));
+export const doDeleteUserFail = createAction(
+  type('[User] Do Delete User Fail')
+);
 
 /**
  * Fetch User Profile Actions
@@ -115,5 +120,6 @@ export const doFetchAuthenticatedUserSuccess = createAction(
   type('[User] Do Fetch Authenticated User Success'),
   props<{ user: User }>()
 );
-export const doFetchAuthenticatedUserFail = createAction(type('[User] Do Fetch Authenticated Fail'));
-
+export const doFetchAuthenticatedUserFail = createAction(
+  type('[User] Do Fetch Authenticated Fail')
+);

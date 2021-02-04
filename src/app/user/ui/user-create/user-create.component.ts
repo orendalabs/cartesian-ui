@@ -9,23 +9,27 @@ import { UserSandbox } from '@app/user/user.sandbox';
   templateUrl: './user-create.component.html',
 })
 export class UserCreateComponent implements OnInit {
-
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, FormHelper.emailValidator()]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
-  })
-  constructor(protected _sandbox: UserSandbox) { }
+    email: new FormControl('', [
+      Validators.required,
+      FormHelper.emailValidator(),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+  });
+  constructor(protected _sandbox: UserSandbox) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   create() {
     if (this.formGroup.valid) {
       const form = new AdminUserCreateForm({
-        name: this.formGroup.controls['name'].value,
-        email: this.formGroup.controls['email'].value,
-        password: this.formGroup.controls['password'].value
+        name: this.formGroup.controls.name.value,
+        email: this.formGroup.controls.email.value,
+        password: this.formGroup.controls.password.value,
       });
       this._sandbox.createUser(form);
     }
@@ -34,10 +38,9 @@ export class UserCreateComponent implements OnInit {
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
     if (control.valid) {
-      return 'is-valid'
+      return 'is-valid';
     } else if (control.dirty && control.touched) {
-      return 'is-invalid'
+      return 'is-invalid';
     }
   }
-
 }

@@ -22,25 +22,33 @@ import { Subscription } from 'rxjs';
 export class UserUpdateComponent implements OnInit {
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)])
-  })
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+  });
 
-  roleCriteria = new RequestCriteria<SearchRoleForm>(new SearchRoleForm())
-  userCriteria = new RequestCriteria<SearchUserForm>(new SearchUserForm())
-  subscriptions: Array<Subscription> = []
+  roleCriteria = new RequestCriteria<SearchRoleForm>(new SearchRoleForm());
+  userCriteria = new RequestCriteria<SearchUserForm>(new SearchUserForm());
+  subscriptions: Array<Subscription> = [];
 
   userId: string;
   user: User;
   roles: Role[];
   roleNamesTypeahead: string[] = [];
 
-  roleNameControl = new FormControl('', [Validators.required, FormHelper.inValidator(this.roleNamesTypeahead)])
+  roleNameControl = new FormControl('', [
+    Validators.required,
+    FormHelper.inValidator(this.roleNamesTypeahead),
+  ]);
 
-  currentTab: 'user' | 'roles' = 'user'
+  currentTab: 'user' | 'roles' = 'user';
 
-  constructor(protected _sandbox: UserSandbox,
+  constructor(
+    protected _sandbox: UserSandbox,
     protected _authorizationSandbox: AuthorizationSandbox,
-    protected route: ActivatedRoute) { }
+    protected route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.registerEvents();
@@ -53,52 +61,54 @@ export class UserUpdateComponent implements OnInit {
       this.route.params.subscribe((params) => {
         this.userId = params.id;
       })
-    )
+    );
     this.subscriptions.push(
       this._sandbox.user$.subscribe((user: User) => {
         if (user) {
           this.user = User.fromJS(user);
-          if (this.roleNamesTypeahead) 
+          if (this.roleNamesTypeahead) {
             this.resetValidators();
+          }
         }
       })
-    )
+    );
     this.subscriptions.push(
       this._authorizationSandbox.rolesFetchData$.subscribe((roles: Role[]) => {
         this.roles = roles;
         this.roleNamesTypeahead = roles.map((role) => role.name);
-        if (this.user)
+        if (this.user) {
           this.resetValidators();
+        }
       })
-    )
+    );
   }
 
-  //TODO: find out a way to attach ?include=roles to the url through request criteria
+  // TODO: find out a way to attach ?include=roles to the url through request criteria
   fetchUser() {
-    this._sandbox.fetchFilteredUserById(this.userId, 
-      this.userCriteria.with("roles")
-      .limit(1)
+    this._sandbox.fetchFilteredUserById(
+      this.userId,
+      this.userCriteria.with('roles').limit(1)
     );
   }
 
   fetchRoles() {
-    this._authorizationSandbox.fetchRoles(this.roleCriteria)
+    this._authorizationSandbox.fetchRoles(this.roleCriteria);
   }
 
   sync() {
-    const roles = this.user.roles.map((role) => role.id)
-    let form = new ManageRoleForm({
+    const roles = this.user.roles.map((role) => role.id);
+    const form = new ManageRoleForm({
       user_id: this.userId,
-      roles_ids: roles
-    })
-    this._authorizationSandbox.syncRolesOnUser(form)
+      roles_ids: roles,
+    });
+    this._authorizationSandbox.syncRolesOnUser(form);
   }
 
   update() {
     if (this.formGroup.valid) {
       const form = new EditUserForm({
-        name: this.formGroup.controls['name'].value,
-        password: this.formGroup.controls['password'].value
+        name: this.formGroup.controls.name.value,
+        password: this.formGroup.controls.password.value,
       });
       this._sandbox.updateUser(this.userId, form);
     }
@@ -107,9 +117,9 @@ export class UserUpdateComponent implements OnInit {
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
     if (control.valid) {
-      return 'is-valid'
+      return 'is-valid';
     } else if (control.dirty && control.touched) {
-      return 'is-invalid'
+      return 'is-invalid';
     }
   }
 
@@ -121,7 +131,7 @@ export class UserUpdateComponent implements OnInit {
     if (this.roleNameControl.valid) {
       this.user.roles.push(
         Role.getRoleByName(this.roleNameControl.value, this.roles)
-      )
+      );
       this.roleNameControl.reset();
       this.resetValidators();
     }
@@ -135,7 +145,7 @@ export class UserUpdateComponent implements OnInit {
     this.roleNameControl.setValidators([
       Validators.required,
       FormHelper.inValidator(this.roleNamesTypeahead),
-      FormHelper.notInValidator(this.user.roles.map((role) => role.name))
+      FormHelper.notInValidator(this.user.roles.map((role) => role.name)),
     ]);
   }
 }
