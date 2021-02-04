@@ -52,8 +52,8 @@ export class RoleManageComponent implements OnInit {
   assign() {
     if (this.assignFormGroup.valid) {
       const form = new ManageRoleForm();
-      form.user_id = this.assignFormGroup.controls.userId.value;
-      form.roles_ids = [this.assignFormGroup.controls.roleId.value];
+      form.userId = this.assignFormGroup.controls.userId.value;
+      form.rolesIds = [this.assignFormGroup.controls.roleId.value];
       this._sandbox.assignRole(form);
     }
   }
@@ -61,8 +61,8 @@ export class RoleManageComponent implements OnInit {
   revoke() {
     if (this.revokeFormGroup.valid) {
       const form = new ManageRoleForm();
-      form.user_id = this.revokeFormGroup.controls.userId.value;
-      form.roles_ids = [this.revokeFormGroup.controls.roleId.value];
+      form.userId = this.revokeFormGroup.controls.userId.value;
+      form.rolesIds = [this.revokeFormGroup.controls.roleId.value];
       this._sandbox.revokeRole(form);
     }
   }

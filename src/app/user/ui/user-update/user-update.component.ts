@@ -98,8 +98,8 @@ export class UserUpdateComponent implements OnInit {
   sync() {
     const roles = this.user.roles.map((role) => role.id);
     const form = new ManageRoleForm({
-      user_id: this.userId,
-      roles_ids: roles,
+      userId: this.userId,
+      rolesIds: roles,
     });
     this._authorizationSandbox.syncRolesOnUser(form);
   }
