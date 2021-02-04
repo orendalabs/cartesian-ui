@@ -17,6 +17,7 @@ import { UserAdapter } from './user.adapter';
 import { SearchUserForm } from '../models/form/search-user.model';
 import { AdminUserCreateForm } from '../models/form/admin-user.model';
 import { EditUserForm } from '../models/form/edit-user.model';
+import { ManageRoleForm, ManageRoleFormData } from '@app/authorization/models/manage/role.model';
 
 @Injectable()
 @DefaultHeaders({
@@ -128,6 +129,16 @@ export class UserHttpService extends HttpService {
    */
   @GET('/user/profile')
   public profile(@Body token: string): Observable<any> {
+    return null;
+  }
+
+  @POST('/roles/sync')
+  public syncRole(@Body form: ManageRoleFormData): Observable<any> {
+    return null;
+  }
+
+  @GET('/roles')
+  public fetchRoles(@Criteria criteria: RequestCriteria<any>): Observable<any> {
     return null;
   }
 }
