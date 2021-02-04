@@ -11,7 +11,6 @@ import { EditUserForm } from '@app/user/models/form/edit-user.model';
 import { SearchUserForm } from '@app/user/models/form/search-user.model';
 import { UserSandbox } from '@app/user/user.sandbox';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
-import { isObject } from 'lodash';
 import { Subscription } from 'rxjs';
 
 @Component({
