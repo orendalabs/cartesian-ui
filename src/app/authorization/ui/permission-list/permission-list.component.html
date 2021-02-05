@@ -1,10 +1,15 @@
 <div class="animated fadeIn row dt" #dtContainer>
+  <div class="col-sm-12 ml-auto my-2">
+    <button class="float-right btn btn-success ml-2" routerLink="assign">
+      <i class="fa fa-plus"></i> Assign permissions
+    </button>
+  </div>
   <div class="col-sm-12">
     <ngx-datatable
       class="material striped"
       [rows]="data"
       [columns]="[
-        { id: 'id' },
+        { select: 'select'},
         { name: 'name' },
         { description: 'description' }
       ]"
@@ -18,9 +23,9 @@
       [limit]="pagination.per_page"
       (page)="setPage($event)"
     >
-      <ngx-datatable-column name="Id" [flexGrow]="3" [minWidth]="200">
-        <ng-template let-value="value" ngx-datatable-cell-template>
-          <a routerLink="/authorization/permissions/{{ value }}">{{ value }}</a>
+      <ngx-datatable-column name="Select" [flexGrow]="3" [minWidth]="200">
+        <ng-template let-value="row.id" ngx-datatable-cell-template>
+          <input type='checkbox' (change)='onListItemCheckBoxChange($event, value)'>
         </ng-template>
       </ngx-datatable-column>
 

@@ -58,6 +58,7 @@ export class PermissionListComponent
   }
 
   protected list(): void {
+    this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     this._sandbox.fetchPermissions(this.criteria);
