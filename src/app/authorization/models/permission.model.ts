@@ -19,4 +19,22 @@ export class Permission implements IPermission {
       this.displayName = permission.displayName;
     }
   }
+
+  /**
+   * 
+   * @param permName Name of the permission to find
+   * @param perms List of permissions to look in
+   * @returns Permission object matching the given name
+   */
+  static getPermissionByName = (permName: string, perms: Permission[] = []): Permission => {
+    let perm: Permission;
+    perms.every((p: Permission) => {
+      if (p.name == permName) {
+        perm = p;
+        return false;
+      }
+      return true;
+    });
+    return perm;
+  };
 }
