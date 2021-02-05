@@ -88,4 +88,8 @@ export class AuthorizationSandbox extends Sandbox {
   fetchPermissionById = (id: string) => {
     this.store.dispatch(permissionActions.doFetchPermission({ id }));
   };
+
+  syncPermissionsOnRole(form: ManagePermissionForm) {
+    this.store.dispatch(permissionActions.doSyncPermissions({ permForm: form }))
+  }
 }
