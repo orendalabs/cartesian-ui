@@ -127,8 +127,8 @@
                   [flexGrow]="3"
                   [minWidth]="200"
                 >
-                  <ng-template let-value="value" ngx-datatable-cell-template>
-                    {{ value }}
+                  <ng-template let-value="value" let-row='row' ngx-datatable-cell-template>
+                    <a routerLink='edit/{{row.id}}'>@{{ value }}</a>
                   </ng-template>
                 </ngx-datatable-column>
 
