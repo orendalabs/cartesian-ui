@@ -54,12 +54,8 @@ export class FormHelper {
      */
     static inValidator(values: any[]): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
-            for(let i = 0;i < values.length; i++) {
-                if (values[i] == control.value) {
-                    return null;
-                }
-            }
-            return { value: { value: "Invalid value." } };
+            const valid = values.indexOf(control.value) != -1;
+            return valid? null : { value: { value: "Invalid value." } };
         };
     }
 
@@ -70,12 +66,8 @@ export class FormHelper {
      */
     static notInValidator(values: any[]): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } | null => {
-            for(let i = 0;i < values.length; i++) {
-                if (values[i] != control.value) {
-                    return null;
-                }
-            }
-            return { value: { value: "Invalid value." } };
+            const valid = values.indexOf(control.value) == -1;
+            return valid? null : { value: { value: "Invalid value." } };
         };
     }
 
