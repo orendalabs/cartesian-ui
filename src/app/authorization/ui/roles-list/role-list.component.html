@@ -16,7 +16,7 @@
       ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43" [externalPaging]="true"
       [count]="pagination.total" [offset]="getOffsetFromPagination()" [limit]="pagination.per_page"
       (page)="setPage($event)">
-      <ngx-datatable-column name="Select" [flexGrow]="3" [minWidth]="200">
+      <ngx-datatable-column name="" [flexGrow]="3" [maxWidth]="40" [sortable]="false">
         <ng-template let-value="row.id" ngx-datatable-cell-template>
           <input type='checkbox' (change)='onListItemCheckBoxChange($event, value)'>
         </ng-template>
