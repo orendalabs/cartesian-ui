@@ -46,7 +46,7 @@ export class Role {
 
   /**
    * 
-   * @param roleId Name of the role to find
+   * @param roleName Name of the role to find
    * @param roles List of roles to look in
    * @returns Role object matching the given name
    */
