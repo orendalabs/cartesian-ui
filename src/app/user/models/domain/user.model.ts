@@ -31,7 +31,7 @@ export class User implements IUser {
   public logged: boolean;
   public roles: Role[];
 
-  static fromJS(data: any): User {
+  static fromJSON(data: any): User {
     data = typeof data === 'object' ? data : {};
     const result = new User();
     result.init(data);
