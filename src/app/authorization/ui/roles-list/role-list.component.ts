@@ -58,10 +58,11 @@ export class RoleListComponent
   }
 
   protected list(): void {
+    this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     this._sandbox.fetchRoles(this.criteria);
   }
-
+  
   protected delete() {}
 }
