@@ -19,13 +19,15 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'roles/list',
+        redirectTo: 'roles',
         pathMatch: 'full',
       },
       {
         path: 'roles',
-        redirectTo: 'roles/list',
-        pathMatch: 'full',
+        component: RoleListComponent,
+        data: {
+          title: 'Roles List',
+        },
       },
       {
         path: 'roles/manage',
@@ -42,13 +44,6 @@ const routes: Routes = [
         },
       },
       {
-        path: 'roles/list',
-        component: RoleListComponent,
-        data: {
-          title: 'Roles List',
-        },
-      },
-      {
         path: 'roles/:id',
         component: RoleDetailComponent,
         data: {
@@ -57,11 +52,6 @@ const routes: Routes = [
       },
       {
         path: 'permissions',
-        redirectTo: 'permissions/list',
-        pathMatch: 'full',
-      },
-      {
-        path: 'permissions/list',
         component: PermissionListComponent,
         data: {
           title: 'Permissions List',
