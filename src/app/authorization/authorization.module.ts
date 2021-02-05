@@ -17,6 +17,7 @@ import { PermissionListComponent } from './ui/permission-list/permission-list.co
 import { RoleDetailComponent } from './ui/role-detail/role-detail.component';
 import { RoleCreateComponent } from './ui/role-create/role-create.component';
 import { PermissionDetailComponent } from './ui/permission-detail/permission-detail.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PermissionDetailComponent } from './ui/permission-detail/permission-det
     AuthorizationRoutingModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    TypeaheadModule,
     FormsModule,
     StoreModule.forFeature(authFeatureKey, authReducers),
     EffectsModule.forFeature([AuthEffects]),
