@@ -11,13 +11,14 @@ import { SearchUserForm } from '@app/user/models/form/search-user.model';
 import { UserSandbox } from '@app/user/user.sandbox';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
+import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
 
 @Component({
   selector: 'user-update',
   templateUrl: './user-update.component.html',
   styleUrls: ['./user-update.component.scss'],
 })
-export class UserUpdateComponent implements OnInit {
+export class UserUpdateComponent extends TypeaheadItemListHelper<Role> implements OnInit {
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     password: new FormControl('', [
@@ -32,20 +33,19 @@ export class UserUpdateComponent implements OnInit {
 
   userId: string;
   user: User;
-  roles: Role[];
-  roleNamesTypeahead: string[] = [];
-
-  roleNameControl = new FormControl('', [
-    Validators.required,
-    FormHelper.inValidator(this.roleNamesTypeahead),
-  ]);
 
   currentTab: 'user' | 'roles' = 'user';
 
   constructor(
     protected _sandbox: UserSandbox,
     protected route: ActivatedRoute
-  ) {}
+  ) {
+    super();
+    this.control = new FormControl('', [
+      Validators.required,
+      FormHelper.inValidator(this.typeaheadData),
+    ]);
+  }
 
   ngOnInit(): void {
     this.registerEvents();
@@ -60,10 +60,15 @@ export class UserUpdateComponent implements OnInit {
       })
     );
     this.subscriptions.push(
-      this._sandbox.user$.subscribe((user: User) => {
+      this._sandbox.user$.subscribe((user: any) => {
         if (user) {
-          this.user = User.fromJS(user);
-          if (this.roleNamesTypeahead) {
+          this.user = User.fromJSON(user);
+          let roles = [];
+          for (let i in user.roles.data) {
+            roles.push(user.roles.data[i])
+          }
+          this.addedItems = roles;
+          if (this.typeaheadData) {
             this.resetValidators();
           }
         }
@@ -71,8 +76,8 @@ export class UserUpdateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.rolesFetchData$.subscribe((roles: Role[]) => {
-        this.roles = roles;
-        this.roleNamesTypeahead = roles.map((role) => role.name);
+        this.items = roles;
+        this.typeaheadData = roles.map((role) => role.name);
         if (this.user) {
           this.resetValidators();
         }
@@ -80,7 +85,6 @@ export class UserUpdateComponent implements OnInit {
     );
   }
 
-  // TODO: find out a way to attach ?include=roles to the url through request criteria
   fetchUser() {
     this._sandbox.fetchFilteredUserById(
       this.userId,
@@ -93,7 +97,7 @@ export class UserUpdateComponent implements OnInit {
   }
 
   sync() {
-    const roles = this.user.roles.map((role) => role.id);
+    const roles = this.addedItems.map((role) => role.id);
     const form = new ManageRoleForm({
       userId: this.userId,
       rolesIds: roles,
@@ -125,24 +129,10 @@ export class UserUpdateComponent implements OnInit {
   }
 
   addRole() {
-    if (this.roleNameControl.valid) {
-      this.user.roles.push(
-        Role.getRoleByName(this.roleNameControl.value, this.roles)
-      );
-      this.roleNameControl.reset();
-      this.resetValidators();
-    }
+    this.addItem(Role.getRoleByName(this.control.value, this.items));
   }
 
   removeRole(index: number) {
-    this.user.roles.splice(index, 1);
-  }
-
-  resetValidators() {
-    this.roleNameControl.setValidators([
-      Validators.required,
-      FormHelper.inValidator(this.roleNamesTypeahead),
-      FormHelper.notInValidator(this.user.roles.map((role) => role.name)),
-    ]);
+    this.removeItem(index);
   }
 }

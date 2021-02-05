@@ -85,16 +85,16 @@
             <ng-template #rolesTab>
               <div
                 class="col-lg-8 mx-auto mt-4 animated fadeIn text-left"
-                *ngIf="roles; else viewLoadingRoles"
+                *ngIf="items; else viewLoadingRoles"
               >
                 <b>Roles List:</b>
                 <br />
                 <div
                   class="row mx-auto"
-                  *ngIf="user.roles && user.roles.length > 0; else viewNoRoles"
+                  *ngIf="addedItems && addedItems.length > 0; else viewNoRoles"
                 >
                   <span
-                    *ngFor="let role of user.roles; let i = index"
+                    *ngFor="let role of addedItems; let i = index"
                     class="badge badge-light m-1"
                   >
                     {{ role.name }}
@@ -114,13 +114,13 @@
                 <br />
                 <form class="form-group form-inline mx-auto">
                   <input
-                    [formControl]="roleNameControl"
-                    [typeahead]="roleNamesTypeahead"
+                    [formControl]="control"
+                    [typeahead]="typeaheadData"
                     [isAnimated]="true"
                     [ngClass]="
-                      roleNameControl.valid
+                      control.valid
                         ? 'is-valid'
-                        : roleNameControl.touched && roleNameControl.dirty
+                        : control.touched && control.dirty
                         ? 'is-invalid'
                         : ''
                     "
@@ -129,7 +129,7 @@
                   <button
                     class="btn btn-success mr-auto ml-1"
                     (click)="addRole()"
-                    [disabled]="roleNameControl.invalid"
+                    [disabled]="control.invalid"
                   >
                     <i class="fa fa-plus"></i>
                   </button>
