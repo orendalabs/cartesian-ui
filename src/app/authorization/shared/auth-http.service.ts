@@ -67,9 +67,7 @@ export class AuthHttpService extends HttpService {
   }
 
   @GET('/permissions')
-  public fetchPermissions(
-    @Body criteria: RequestCriteria<any>
-  ): Observable<any> {
+  public fetchPermissions(@Criteria criteria: RequestCriteria<any>): Observable<any> {
     return null;
   }
 
