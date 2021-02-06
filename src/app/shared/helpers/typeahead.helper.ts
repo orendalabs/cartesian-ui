@@ -52,5 +52,6 @@ export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
       FormHelper.notInValidator(this.addedItems.map((item) => item[this.validationPropertyName])),
     ]
     this.control.setValidators(v);
+    this.control.updateValueAndValidity();
   }
 }
