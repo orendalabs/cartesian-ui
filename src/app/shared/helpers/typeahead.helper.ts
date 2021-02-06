@@ -8,8 +8,11 @@ export class TypeaheadHelper {
 
 export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
 
+  /** List of all items. */
   items: ItemType[] = [];
+  /** List of added items. */
   addedItems: ItemType[] = [];
+  /** Property used for validation of `control.value`. */
   private validationPropertyName: string = 'name';
 
   /**
