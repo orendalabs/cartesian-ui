@@ -32,7 +32,7 @@ export class Role {
    * @param roles List of roles to look in
    * @returns Role object matching the given Id
    */
-  static getRoleById = (roleId: string, roles: Role[] = []): Role => {
+  static getRoleById = (roleId: string, roles: Role[]): Role => {
     let role: Role;
     roles.every((r: Role) => {
       if (r.id === roleId) {
@@ -50,7 +50,7 @@ export class Role {
    * @param roles List of roles to look in
    * @returns Role object matching the given name
    */
-  static getRoleByName = (roleName: string, roles: Role[] = []): Role => {
+  static getRoleByName = (roleName: string, roles: Role[]): Role => {
     let role: Role;
     roles.every((r: Role) => {
       if (r.name === roleName) {
