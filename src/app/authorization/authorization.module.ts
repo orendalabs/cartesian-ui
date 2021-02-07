@@ -18,6 +18,7 @@ import { RoleDetailComponent } from './ui/role-detail/role-detail.component';
 import { RoleCreateComponent } from './ui/role-create/role-create.component';
 import { PermissionDetailComponent } from './ui/permission-detail/permission-detail.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { RoleDetailPermissionsComponent } from './ui/role-detail/role-detail-permissions/role-detail-permissions.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     RoleDetailComponent,
     RoleManageComponent,
     PermissionDetailComponent,
+    RoleDetailPermissionsComponent,
   ],
   imports: [
     CommonModule,
