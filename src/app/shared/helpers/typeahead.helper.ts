@@ -26,11 +26,11 @@ export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
 
   /**
    * 
-   * @param item Item to add to list
+   * @param item Item to add to list of added items
    */
   addItem(item: ItemType) {
     if (this.control.valid) {
-      this.addedItems.push(item);
+      this.addedItems = this.addedItems.concat(item);
       this.control.reset();
       this.resetValidators();
     }
@@ -38,7 +38,7 @@ export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
 
   /**
    * 
-   * @param item Item to remove from list
+   * @param item Item to remove from list of added items
    */
   removeItem(index: number) {
     this.addedItems.splice(index, 1);
