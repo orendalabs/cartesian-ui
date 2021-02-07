@@ -148,7 +148,7 @@ export class AuthEffects {
       ofType(fromPermissionActions.doSyncPermissions),
       map((action) => action.permForm),
       switchMap((permForm) =>
-        this.roleHttpService.detachPermission(permForm).pipe(
+        this.roleHttpService.syncPermissions(permForm).pipe(
           map(() => fromPermissionActions.doSyncPermissionsSuccess()),
           catchError((error) =>
             of(fromPermissionActions.doSyncPermissionsFail(error))
