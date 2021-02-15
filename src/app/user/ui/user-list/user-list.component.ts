@@ -13,10 +13,10 @@ import { SearchUserForm } from '../../models/form/search-user.model';
 import { UserSandbox } from '../../user.sandbox';
 import { User } from '../../models';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: 'user-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [],
 })
 export class UserListComponent
@@ -25,6 +25,7 @@ export class UserListComponent
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   selected = 'all';
+  searchModel = '';
 
   constructor(
     injector: Injector,
@@ -52,12 +53,18 @@ export class UserListComponent
     this.list();
   }
 
+  search() {
+    this.list();
+  }
+
   protected list(): void {
     this.resetCheckBoxes();
+    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
+    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     switch (this.selected) {
-      case 'admins':
+      case 'admins':  
         this._sandbox.fetchAdmins(this.criteria);
         break;
       case 'clients':
