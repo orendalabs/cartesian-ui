@@ -1,6 +1,5 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   Injector,
   OnInit,
   AfterViewInit,
@@ -13,8 +12,6 @@ import { SearchUserForm } from '../../models/form/search-user.model';
 import { UserSandbox } from '../../user.sandbox';
 import { User } from '../../models';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-
 @Component({
   templateUrl: 'user-list.component.html',
   providers: [],
@@ -54,13 +51,14 @@ export class UserListComponent
   }
 
   search() {
+    this.setPage(1);
+    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
+    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
     this.list();
   }
 
   protected list(): void {
     this.resetCheckBoxes();
-    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
-    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     switch (this.selected) {
