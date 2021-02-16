@@ -20,6 +20,7 @@ export class PermissionListComponent
   extends ListingControlsComponent<Permission, SearchPermissionForm>
   implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
+  searchModel = ''
 
   constructor(protected _sandbox: AuthorizationSandbox, injector: Injector) {
     super(injector);
@@ -55,6 +56,13 @@ export class PermissionListComponent
 
   ngAfterViewInit(): void {
     this.reloadTable();
+  }
+  
+  search() {
+    this.setPage(1);
+    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
+    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
+    this.list();
   }
 
   protected list(): void {

@@ -1,6 +1,14 @@
 <div class="animated fadeIn row dt" #dtContainer>
-  <div class="col-sm-12 ml-auto my-2">
-    <button class="float-right btn btn-success ml-2" routerLink="assign">
+  <div class="col-sm-12 mx-auto row">
+    <form class='col-md-3 input-group my-2'>
+      <input type="text" class="form-control" placeholder='Search...' [(ngModel)]='searchModel' />
+      <div class="input-group-append">
+        <button class="input-group-text cursor-pointer btn-light" (click)='search()'>
+          <span class="fas fa-search"></span>
+        </button>
+      </div>
+    </form>
+    <button class="col-md-3 btn btn-success ml-auto my-2" routerLink="assign">
       <i class="fa fa-plus"></i> Assign permissions
     </button>
   </div>
