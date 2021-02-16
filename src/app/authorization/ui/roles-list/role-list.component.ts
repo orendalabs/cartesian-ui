@@ -20,6 +20,7 @@ export class RoleListComponent
   extends ListingControlsComponent<Role, SearchRoleForm>
   implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
+  searchModel = '';
 
   constructor(protected _sandbox: AuthorizationSandbox, injector: Injector) {
     super(injector);
@@ -55,6 +56,13 @@ export class RoleListComponent
 
   ngAfterViewInit(): void {
     this.reloadTable();
+  }
+
+  search() {
+    this.setPage(1);
+    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
+    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
+    this.list();
   }
 
   protected list(): void {
