@@ -17,7 +17,7 @@ import { UserAdapter } from './user.adapter';
 import { SearchUserForm } from '../models/form/search-user.model';
 import { AdminUserCreateForm } from '../models/form/admin-user.model';
 import { EditUserForm } from '../models/form/edit-user.model';
-import { ManageRoleForm, ManageRoleFormData } from '@app/authorization/models/manage/role.model';
+import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
 
 @Injectable()
 @DefaultHeaders({
@@ -133,7 +133,7 @@ export class UserHttpService extends HttpService {
   }
 
   @POST('/roles/sync')
-  public syncRole(@Body form: ManageRoleFormData): Observable<any> {
+  public syncRole(@Body form): Observable<any> {
     return null;
   }
 

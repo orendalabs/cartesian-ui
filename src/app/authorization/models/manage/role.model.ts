@@ -8,16 +8,11 @@ export class ManageRoleForm {
       this.rolesIds = roleForm.rolesIds;
     }
   }
-}
 
-export class ManageRoleFormData {
-  user_id: string;
-  roles_ids: string[];
-
-  constructor(form?: ManageRoleForm) {
-    if (form) {
-      this.user_id = form.userId,
-      this.roles_ids = form.rolesIds
+  static toJSON(form: ManageRoleForm) {
+    return {
+      user_id: form.userId,
+      roles_ids: form.rolesIds
     }
   }
 }

@@ -6,7 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { State } from '@app/app.store';
 import { UserHttpService } from '../shared';
 import * as userActions from './user.action';
-import { ManageRoleForm, ManageRoleFormData } from '@app/authorization/models/manage/role.model';
+import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
 
 @Injectable()
 export class UserEffects {
@@ -186,7 +186,7 @@ export class UserEffects {
       ofType(userActions.doSyncRoles),
       map((action) => action.roleForm),
       switchMap((roleForm) =>
-        this.userHttpService.syncRole(new ManageRoleFormData(roleForm)).pipe(
+        this.userHttpService.syncRole(ManageRoleForm.toJSON(roleForm)).pipe(
           map((role) => userActions.doSyncRolesSuccess(role)),
           catchError((error) => of(userActions.doSyncRolesFail(error)))
         )
