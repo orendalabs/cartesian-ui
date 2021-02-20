@@ -32,3 +32,19 @@ form label {
   text-transform: uppercase;
   background: #fff;
 }
+
+.tab-set {
+  display: flex;
+  flex-flow: row;
+  font-weight: 100;
+  color: #888;
+  border-bottom: 1px solid #ddd;
+  .tab {
+    padding: 1em;
+    cursor: pointer;
+  }
+  .tab.active {
+    color: #444;
+    background: #ddd;
+  }
+}

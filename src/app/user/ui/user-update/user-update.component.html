@@ -16,24 +16,24 @@
               >
               <p></p>
             </div>
-            <div class="m-2">
+            <div class="tab-set">
               <span
-                class="p-2 m-2 rounded"
+                class="tab"
                 [ngClass]="
                   currentTab == 'user'
-                    ? 'bg-secondary'
-                    : 'text-primary cursor-pointer'
+                    ? 'active'
+                    : ''
                 "
                 (click)="switchTab('user')"
               >
                 Edit User
               </span>
               <span
-                class="p-2 m-2 rounded"
+                class="tab"
                 [ngClass]="
                   currentTab == 'roles'
-                    ? 'bg-secondary'
-                    : 'text-primary cursor-pointer'
+                    ? 'active'
+                    : ''
                 "
                 (click)="switchTab('roles')"
               >
