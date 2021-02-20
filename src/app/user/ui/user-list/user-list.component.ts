@@ -22,6 +22,7 @@ export class UserListComponent
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   selected = 'all';
+  selectedUsers: User[] = [];
   searchModel = '';
 
   constructor(
@@ -58,7 +59,6 @@ export class UserListComponent
   }
 
   protected list(): void {
-    this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     switch (this.selected) {
@@ -75,15 +75,15 @@ export class UserListComponent
   }
 
   delete() {
-    if (this.selectedItemIds.length > 0) {
+    if (this.selectedUsers.length > 0) {
       // do deletion stuff
     }
   }
 
   edit() {
     const url = 'edit';
-    if (this.selectedItemIds.length > 0) {
-      this.router.navigate([this.router.url, url, this.selectedItemIds[0]]);
+    if (this.selectedUsers.length > 0) {
+      this.router.navigate([this.router.url, url, this.selectedUsers[0].id]);
     }
   }
 
@@ -106,5 +106,14 @@ export class UserListComponent
 
   protected unregisterEvents(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  onSelect({ selected }) {
+    this.selectedUsers.splice(0, this.selectedUsers.length);
+    this.selectedUsers.push(...selected);
+  }
+
+  onActivate(event) {
+
   }
 }

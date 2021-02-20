@@ -11,7 +11,7 @@ import { RoleDetailComponent } from '../role-detail.component';
 })
 export class RoleDetailPermissionsComponent extends ListingControlsComponent<Permission, SearchPermissionForm> implements OnInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
-
+  selectedPermissions: Permission[] = [];
   constructor(protected _sandbox: AuthorizationSandbox,
     private injector: Injector) {
     super(injector);
@@ -32,20 +32,18 @@ export class RoleDetailPermissionsComponent extends ListingControlsComponent<Per
   }
 
   protected list(): void {
-    this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
   }
 
   protected delete(): void {
-    if (this.selectedItemIds.length > 0) {
+    if (this.selectedPermissions.length > 0) {
       let deletions = 0;
       this.parent.addedItems = this.data.filter((perm) => {
-        const res = this.selectedItemIds.indexOf(perm.id) == -1
+        const res = this.selectedPermissions.indexOf(perm) == -1
         if (!res) deletions += 1;
         return res;
       })
-      this.resetCheckBoxes();
       this.parent.resetValidators();
     }
   }
@@ -54,4 +52,12 @@ export class RoleDetailPermissionsComponent extends ListingControlsComponent<Per
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
+  onSelect({ selected }) {
+    this.selectedPermissions.splice(0, this.selectedPermissions.length);
+    this.selectedPermissions.push(...selected);
+  }
+
+  onActivate(event) {
+
+  }
 }

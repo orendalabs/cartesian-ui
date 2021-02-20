@@ -22,7 +22,17 @@
         { description: 'description' }
       ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43" [externalPaging]="true"
         [count]="pagination.total" [offset]="getOffsetFromPagination()" [limit]="pagination.per_page"
-        (page)="setPage($event)">
+        [selected]="selectedPermissions" [selectionType]="'checkbox'" (activate)="onActivate($event)" 
+        (select)="onSelect($event)" (page)="setPage($event)">
+            <ngx-datatable-column
+            [width]="30"
+            [sortable]="false"
+            [canAutoResize]="false"
+            [draggable]="false"
+            [resizeable]="false"
+            [headerCheckboxable]="true"
+            [checkboxable]="true"
+          ></ngx-datatable-column>
 
         <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
           <ng-template let-value="value" ngx-datatable-cell-template>

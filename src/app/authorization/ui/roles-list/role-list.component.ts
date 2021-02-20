@@ -21,6 +21,7 @@ export class RoleListComponent
   implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
   searchModel = '';
+  selectedRoles: Role[] = [];
 
   constructor(protected _sandbox: AuthorizationSandbox, injector: Injector) {
     super(injector);
@@ -66,11 +67,20 @@ export class RoleListComponent
   }
 
   protected list(): void {
-    this.resetCheckBoxes();
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     this._sandbox.fetchRoles(this.criteria);
   }
   
   delete() {}
+
+  
+  onSelect({ selected }) {
+    this.selectedRoles.splice(0, this.selectedRoles.length);
+    this.selectedRoles.push(...selected);
+  }
+
+  onActivate(event) {
+
+  }
 }

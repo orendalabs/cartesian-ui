@@ -1,6 +1,6 @@
 <div #dtContainer>
   <div class='col-sm-12 my-2 row'>
-    <button class='ml-auto btn btn-danger' [disabled]='selectedItemIds.length < 1'
+    <button class='ml-auto btn btn-danger' [disabled]='selectedPermissions.length < 1'
       (click)='revokePermissions()'>
       <i class='fa fa-chain-broken'></i> Revoke
     </button>
@@ -9,12 +9,18 @@
         { select: 'select'},
         { name: 'name' },
         { description: 'description' }
-      ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43">
-    <ngx-datatable-column name=" " [flexGrow]="3" [maxWidth]="40" [sortable]="false">
-      <ng-template let-value="row.id" ngx-datatable-cell-template>
-        <input type='checkbox' (change)='onListItemCheckBoxChange($event, value)'>
-      </ng-template>
-    </ngx-datatable-column>
+      ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43"
+      [selected]="selectedPermissions" [selectionType]="'checkbox'" (activate)="onActivate($event)" 
+      (select)="onSelect($event)" (page)="setPage($event)">
+      <ngx-datatable-column
+      [width]="30"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [draggable]="false"
+      [resizeable]="false"
+      [headerCheckboxable]="true"
+      [checkboxable]="true"
+    ></ngx-datatable-column>
 
     <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
       <ng-template let-value="value" ngx-datatable-cell-template>
