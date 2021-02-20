@@ -8,11 +8,6 @@
         </button>
       </div>
     </form>
-    <div class='col-md-3 ml-auto row flex-row-reverse'>
-      <button class="btn btn-primary my-2" routerLink="assign">
-        <i class="fa fa-plus"></i> Assign permissions
-      </button>
-    </div>
   </div>
   <div class='row mx-auto'>
     <p class='h3 text-muted text-light ml-auto'>Total: {{pagination.total}}</p>
@@ -23,17 +18,11 @@
     </div>
     <div class='card-body p-0'>
       <ngx-datatable class="material striped" [rows]="data" [columns]="[
-        { select: 'select'},
         { name: 'name' },
         { description: 'description' }
       ]" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="43" [externalPaging]="true"
         [count]="pagination.total" [offset]="getOffsetFromPagination()" [limit]="pagination.per_page"
         (page)="setPage($event)">
-        <ngx-datatable-column name="☑" [flexGrow]="3" [maxWidth]="40" [sortable]="false">
-          <ng-template let-value="row.id" ngx-datatable-cell-template>
-            <input type='checkbox' (change)='onListItemCheckBoxChange($event, value)'>
-          </ng-template>
-        </ngx-datatable-column>
 
         <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
           <ng-template let-value="value" ngx-datatable-cell-template>
