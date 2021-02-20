@@ -22,6 +22,9 @@ export class RoleDetailComponent extends TypeaheadItemListHelper<Permission> imp
 
   roleId: string;
   role;
+  loaded;
+  loading;
+  failed;
 
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(new SearchPermissionForm())
 
@@ -65,6 +68,21 @@ export class RoleDetailComponent extends TypeaheadItemListHelper<Permission> imp
         if (this.role) {
           this.resetValidators();
         }
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.roleLoading$.subscribe((loading) => {
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.roleLoaded$.subscribe((loaded) => {
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.roleFailed$.subscribe((failed) => {
+        this.failed = failed;
       })
     );
   }

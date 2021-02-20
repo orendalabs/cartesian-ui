@@ -1,9 +1,9 @@
 <div class="animated fadeIn row" #dtContainer>
-  <div class="col-sm-12 text-center mx-auto">
+  <div class="col-md-6 text-center mx-auto">
     <div class="card">
       <div class="card-header">Role Detail</div>
       <div class="card-body">
-        <div *ngIf="role; else viewLoadingRole">
+        <div *ngIf="loaded">
           <h1>
             <b>{{ role.name }}</b>
           </h1>
@@ -42,7 +42,12 @@
             <i class="fa fa-save"></i> Save Changes
           </button>
         </div>
-        <ng-template #viewLoadingRole><i class="fa fa-spin fa-circle-o-notch"></i></ng-template>
+        <div *ngIf="loading">
+          <i class="fa fa-spin fa-circle-o-notch"></i>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
       </div>
     </div>
   </div>

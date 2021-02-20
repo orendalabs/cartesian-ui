@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BaseComponent } from '@app/core/ui';
 import { User } from '@app/user/models';
 import { UserSandbox } from '@app/user/user.sandbox';
 import { Subscription } from 'rxjs';
@@ -8,16 +9,21 @@ import { Subscription } from 'rxjs';
   selector: 'user-detail',
   templateUrl: './user-detail.component.html',
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent extends BaseComponent implements OnInit {
   userId: string;
   user;
-
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
   subscriptions: Subscription[] = [];
 
   constructor(
     protected route: ActivatedRoute,
-    protected _sandbox: UserSandbox
-  ) {}
+    protected _sandbox: UserSandbox,
+    protected injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
     this.registerEvents();
@@ -33,6 +39,21 @@ export class UserDetailComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.user$.subscribe((user: User) => {
         this.user = user;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.userLoading$.subscribe((loading) => {
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.userLoaded$.subscribe((loaded) => {
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.userFailed$.subscribe((failed) => {
+        this.failed = failed;
       })
     );
   }
