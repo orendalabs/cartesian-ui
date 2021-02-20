@@ -17,21 +17,18 @@ import { CreateRoleForm } from './models/create/role.model';
 @Injectable()
 export class AuthorizationSandbox extends Sandbox {
   roleFetchData$ = this.store.pipe(select(selectors.getRoleFetchData));
+  roleLoading$ = this.store.pipe(select(selectors.getRoleLoading));
+  roleLoaded$ = this.store.pipe(select(selectors.getRoleLoaded));
+  roleFailed$ = this.store.pipe(select(selectors.getRoleFailed));
   rolesFetchData$ = this.store.pipe(select(selectors.getRolesFetchData));
-
   rolesFetchMeta$ = this.store.pipe(select(selectors.getRolesFetchMeta));
 
-  permissionFetchData$ = this.store.pipe(
-    select(selectors.getPermissionFetchData)
-  );
-
-  permissionsFetchData$ = this.store.pipe(
-    select(selectors.getPermissionsFetchData)
-  );
-
-  permissionsFetchMeta$ = this.store.pipe(
-    select(selectors.getPermissionsFetchMeta)
-  );
+  permissionFetchData$ = this.store.pipe(select(selectors.getPermissionFetchData));
+  permissionLoading$ = this.store.pipe(select(selectors.getPermissionLoading));
+  permissionLoaded$ = this.store.pipe(select(selectors.getPermissionLoaded));
+  permissionFailed$ = this.store.pipe(select(selectors.getPermissionFailed));
+  permissionsFetchData$ = this.store.pipe(select(selectors.getPermissionsFetchData));
+  permissionsFetchMeta$ = this.store.pipe(select(selectors.getPermissionsFetchMeta));
 
   constructor(protected store: Store<State>, protected injector: Injector) {
     super(injector);
