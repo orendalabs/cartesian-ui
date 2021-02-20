@@ -64,8 +64,10 @@ export class UserUpdateComponent extends TypeaheadItemListHelper<Role> implement
         if (user) {
           this.user = User.fromJSON(user);
           let roles = [];
-          for (let i in user.roles.data) {
-            roles.push(user.roles.data[i])
+          if (user.roles) {
+            for (let i in user.roles.data) {
+              roles.push(user.roles.data[i])
+            }
           }
           this.addedItems = roles;
           if (this.typeaheadData) {
