@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthorizationComponent } from './authorization.component';
 import { RoleListComponent } from './ui/roles-list/role-list.component';
-import { RoleManageComponent } from './ui/roles-manage/role-manage.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
@@ -26,7 +25,6 @@ import { RoleDetailPermissionsComponent } from './ui/role-detail/role-detail-per
     RoleCreateComponent,
     PermissionListComponent,
     RoleDetailComponent,
-    RoleManageComponent,
     PermissionDetailComponent,
     RoleDetailPermissionsComponent,
   ],

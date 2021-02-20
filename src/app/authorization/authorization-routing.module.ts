@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthorizationComponent } from './authorization.component';
-import { RoleManageComponent } from './ui/roles-manage/role-manage.component';
 import { RoleListComponent } from './ui/roles-list/role-list.component';
 import { PermissionListComponent } from './ui/permission-list/permission-list.component';
 import { RoleDetailComponent } from './ui/role-detail/role-detail.component';
@@ -26,13 +25,6 @@ const routes: Routes = [
         component: RoleListComponent,
         data: {
           title: 'Roles List',
-        },
-      },
-      {
-        path: 'roles/manage',
-        component: RoleManageComponent,
-        data: {
-          title: 'Manage Roles',
         },
       },
       {
