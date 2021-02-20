@@ -72,5 +72,5 @@ export class RoleListComponent
     this._sandbox.fetchRoles(this.criteria);
   }
   
-  protected delete() {}
+  delete() {}
 }
