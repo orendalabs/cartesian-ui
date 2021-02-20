@@ -3,3 +3,17 @@
 @import '~@swimlane/ngx-datatable/themes/material.scss';
 @import '@swimlane/ngx-datatable/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
+@import './datatable.style.scss';
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.text-light {
+  font-weight: 100;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
