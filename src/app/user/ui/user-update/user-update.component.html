@@ -42,6 +42,9 @@
             </div>
             <div *ngIf="currentTab == 'user'; else rolesTab">
               <div class="col-lg-6 mx-auto mt-4 animated fadeIn">
+                <label>
+                  Name
+                </label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text"
@@ -55,8 +58,11 @@
                     placeholder="New Name..."
                   />
                   <div class="invalid-feedback">Invalid name</div>
-                </div>
-                <div class="input-group mt-2">
+                </div>                
+                <label class='mt-2'>
+                  Password
+                </label>
+                <div class="input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text"
                       ><i class="fa fa-key"></i
