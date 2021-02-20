@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthorizationComponent } from './authorization.component';
 import { RoleManageComponent } from './ui/roles-manage/role-manage.component';
 import { RoleListComponent } from './ui/roles-list/role-list.component';
-import { PermissionAttachComponent } from './ui/permission-assign/permission-attach.component';
 import { PermissionListComponent } from './ui/permission-list/permission-list.component';
 import { RoleDetailComponent } from './ui/role-detail/role-detail.component';
 import { RoleCreateComponent } from './ui/role-create/role-create.component';
@@ -55,13 +54,6 @@ const routes: Routes = [
         component: PermissionListComponent,
         data: {
           title: 'Permissions List',
-        },
-      },
-      {
-        path: 'permissions/assign',
-        component: PermissionAttachComponent,
-        data: {
-          title: 'Assign Permissions',
         },
       },
       {

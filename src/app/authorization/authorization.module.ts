@@ -12,7 +12,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/auth.effect';
 import { AuthHttpService } from './shared/auth-http.service';
 import { AuthorizationSandbox } from './authorization.sandbox';
-import { PermissionAttachComponent } from './ui/permission-assign/permission-attach.component';
 import { PermissionListComponent } from './ui/permission-list/permission-list.component';
 import { RoleDetailComponent } from './ui/role-detail/role-detail.component';
 import { RoleCreateComponent } from './ui/role-create/role-create.component';
@@ -25,7 +24,6 @@ import { RoleDetailPermissionsComponent } from './ui/role-detail/role-detail-per
     AuthorizationComponent,
     RoleListComponent,
     RoleCreateComponent,
-    PermissionAttachComponent,
     PermissionListComponent,
     RoleDetailComponent,
     RoleManageComponent,
