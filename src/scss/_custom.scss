@@ -3,48 +3,19 @@
 @import '~@swimlane/ngx-datatable/themes/material.scss';
 @import '@swimlane/ngx-datatable/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
-@import './datatable.style.scss';
+@import '_datatable.scss';
+@import '_tabs.scss';
+@import '_cards.scss';
+
+body {
+  background-color: $cartesian-light;
+}
 
 .cursor-pointer {
   cursor: pointer;
 }
 
-.text-light {
-  font-weight: 100;
-}
-
-.text-upper {
-  text-transform: uppercase;
-}
-
-.card-header {
-  text-align: left;
+b,
+strong {
   font-weight: bold;
-  text-transform: uppercase;
-  background: #fff;
-  border: none;
-}
-
-form label {
-  color: #666;
-  text-align: left;
-  font-weight: bold;
-  text-transform: uppercase;
-  background: #fff;
-}
-
-.tab-set {
-  display: flex;
-  flex-flow: row;
-  font-weight: 100;
-  color: #888;
-  border-bottom: 1px solid #ddd;
-  .tab {
-    padding: 1em;
-    cursor: pointer;
-  }
-  .tab.active {
-    color: #444;
-    background: #ddd;
-  }
 }

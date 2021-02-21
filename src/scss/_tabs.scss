@@ -1,0 +1,19 @@
+.nav-tabs {
+  border-bottom: 1px solid $cartesian-dark;
+}
+
+.nav-tabs .nav-link {
+  border: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.nav-tabs .nav-link.active {
+  background: $cartesian-dark !important;
+}
+
+.tab-content {
+  margin-top: -1px;
+  background: transparent;
+  border: none;
+}
