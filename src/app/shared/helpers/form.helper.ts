@@ -108,9 +108,9 @@ export class FormHelper {
       );
     } else if (key === 'maxlength') {
       return (
-        "This field can't have more than " +
+        `This field can't have more than ` +
         e[key].requiredLength +
-        ' characters.'
+        `characters.`
       );
     } else {
       return e[key].value;
