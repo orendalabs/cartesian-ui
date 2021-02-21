@@ -61,8 +61,11 @@ export class RoleListComponent
 
   search() {
     this.setPage(1);
-    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
-    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
+    if (this.searchModel) {
+      this.criteria.where('name', 'like', this.searchModel);
+    } else {
+      this.criteria.where('name', 'like', '');
+    } // TODO: Remove where
     this.list();
   }
 
@@ -71,16 +74,13 @@ export class RoleListComponent
     this.isTableLoading = true;
     this._sandbox.fetchRoles(this.criteria);
   }
-  
+
   delete() {}
 
-  
   onSelect({ selected }) {
     this.selectedRoles.splice(0, this.selectedRoles.length);
     this.selectedRoles.push(...selected);
   }
 
-  onActivate(event) {
-
-  }
+  onActivate(event) {}
 }

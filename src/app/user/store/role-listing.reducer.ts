@@ -1,6 +1,6 @@
 import { RoleListingState } from '@app/authorization/store/auth.state';
 import { Action, createReducer, on } from '@ngrx/store';
-import * as userActions from './user.action'
+import * as userActions from './user.action';
 
 const INITIAL_STATE: RoleListingState = {
   loading: false,

@@ -14,6 +14,6 @@ export class CreateRoleForm {
       name: form.name,
       description: form.description,
       display_name: form.displayName,
-    }
+    };
   }
 }

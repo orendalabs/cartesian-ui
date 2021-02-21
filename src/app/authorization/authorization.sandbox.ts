@@ -23,12 +23,18 @@ export class AuthorizationSandbox extends Sandbox {
   rolesFetchData$ = this.store.pipe(select(selectors.getRolesFetchData));
   rolesFetchMeta$ = this.store.pipe(select(selectors.getRolesFetchMeta));
 
-  permissionFetchData$ = this.store.pipe(select(selectors.getPermissionFetchData));
+  permissionFetchData$ = this.store.pipe(
+    select(selectors.getPermissionFetchData)
+  );
   permissionLoading$ = this.store.pipe(select(selectors.getPermissionLoading));
   permissionLoaded$ = this.store.pipe(select(selectors.getPermissionLoaded));
   permissionFailed$ = this.store.pipe(select(selectors.getPermissionFailed));
-  permissionsFetchData$ = this.store.pipe(select(selectors.getPermissionsFetchData));
-  permissionsFetchMeta$ = this.store.pipe(select(selectors.getPermissionsFetchMeta));
+  permissionsFetchData$ = this.store.pipe(
+    select(selectors.getPermissionsFetchData)
+  );
+  permissionsFetchMeta$ = this.store.pipe(
+    select(selectors.getPermissionsFetchMeta)
+  );
 
   constructor(protected store: Store<State>, protected injector: Injector) {
     super(injector);
@@ -59,7 +65,7 @@ export class AuthorizationSandbox extends Sandbox {
   };
 
   syncRolesOnUser(form: ManageRoleForm) {
-    this.store.dispatch(roleActions.doSyncRole({ roleForm: form }))
+    this.store.dispatch(roleActions.doSyncRole({ roleForm: form }));
   }
 
   attachPermissions = (permissionForm: ManagePermissionForm): void => {
@@ -87,6 +93,8 @@ export class AuthorizationSandbox extends Sandbox {
   };
 
   syncPermissionsOnRole(form: ManagePermissionForm) {
-    this.store.dispatch(permissionActions.doSyncPermissions({ permForm: form }))
+    this.store.dispatch(
+      permissionActions.doSyncPermissions({ permForm: form })
+    );
   }
 }

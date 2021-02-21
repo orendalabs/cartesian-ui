@@ -58,11 +58,14 @@ export class PermissionListComponent
   ngAfterViewInit(): void {
     this.reloadTable();
   }
-  
+
   search() {
     this.setPage(1);
-    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
-    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
+    if (this.searchModel) {
+      this.criteria.where('name', 'like', this.searchModel);
+    } else {
+      this.criteria.where('name', 'like', '');
+    } // TODO: Remove where
     this.list();
   }
 
@@ -79,7 +82,5 @@ export class PermissionListComponent
     this.selectedPermissions.push(...selected);
   }
 
-  onActivate(event) {
-
-  }
+  onActivate(event) {}
 }

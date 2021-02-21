@@ -26,7 +26,9 @@ export class UserSandbox extends Sandbox {
   public user$ = this.store.pipe(select(userSelectors.getUserDetail));
   public profile$ = this.store.pipe(select(userSelectors.getProfile));
 
-  public rolesFetchData$ = this.store.pipe(select(userSelectors.getRolesFetchData))
+  public rolesFetchData$ = this.store.pipe(
+    select(userSelectors.getRolesFetchData)
+  );
 
   private subscriptions: Array<Subscription> = [];
 
@@ -127,11 +129,13 @@ export class UserSandbox extends Sandbox {
     this.store.dispatch(userActions.doFetchAuthenticatedUser({ token }));
   }
 
-    /**
+  /**
    * Dispatches fetch roles action
    */
   public fetchRoles(criteria: RequestCriteria<SearchRoleForm>): void {
-    this.store.dispatch(userActions.doFetchRoles({requestCriteria: criteria}));
+    this.store.dispatch(
+      userActions.doFetchRoles({ requestCriteria: criteria })
+    );
   }
 
   /**

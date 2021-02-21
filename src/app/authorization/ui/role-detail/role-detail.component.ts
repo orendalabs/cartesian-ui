@@ -1,4 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
@@ -17,7 +25,9 @@ import { Subscription } from 'rxjs';
   selector: 'role-detail',
   templateUrl: './role-detail.component.html',
 })
-export class RoleDetailComponent extends TypeaheadItemListHelper<Permission> implements OnInit {
+export class RoleDetailComponent
+  extends TypeaheadItemListHelper<Permission>
+  implements OnInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   roleId: string;
@@ -26,15 +36,18 @@ export class RoleDetailComponent extends TypeaheadItemListHelper<Permission> imp
   loading;
   failed;
 
-  permissionCriteria = new RequestCriteria<SearchPermissionForm>(new SearchPermissionForm())
+  permissionCriteria = new RequestCriteria<SearchPermissionForm>(
+    new SearchPermissionForm()
+  );
 
   subscriptions: Subscription[] = [];
 
   constructor(
     protected route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    protected _sandbox: AuthorizationSandbox) {
-    super()
+    protected _sandbox: AuthorizationSandbox
+  ) {
+    super();
     this.control = new FormControl('', [
       Validators.required,
       FormHelper.inValidator(this.typeaheadData),
@@ -107,11 +120,11 @@ export class RoleDetailComponent extends TypeaheadItemListHelper<Permission> imp
   }
 
   sync() {
-    const permsIds = this.addedItems.map((perm) => perm.id)
+    const permsIds = this.addedItems.map((perm) => perm.id);
     const form: ManagePermissionForm = {
       roleId: this.roleId,
-      permissionsIds: permsIds
-    }
+      permissionsIds: permsIds,
+    };
     this._sandbox.syncPermissionsOnRole(form);
   }
 

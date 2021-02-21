@@ -53,8 +53,11 @@ export class UserListComponent
 
   search() {
     this.setPage(1);
-    if (this.searchModel) this.criteria.where('name', 'like', this.searchModel);
-    else this.criteria.where('name', 'like', ''); // TODO: Remove where 
+    if (this.searchModel) {
+      this.criteria.where('name', 'like', this.searchModel);
+    } else {
+      this.criteria.where('name', 'like', '');
+    } // TODO: Remove where
     this.list();
   }
 
@@ -62,7 +65,7 @@ export class UserListComponent
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
     switch (this.selected) {
-      case 'admins':  
+      case 'admins':
         this._sandbox.fetchAdmins(this.criteria);
         break;
       case 'clients':
@@ -113,7 +116,5 @@ export class UserListComponent
     this.selectedUsers.push(...selected);
   }
 
-  onActivate(event) {
-
-  }
+  onActivate(event) {}
 }

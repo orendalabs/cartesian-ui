@@ -18,7 +18,9 @@ import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
   templateUrl: './user-update.component.html',
   styleUrls: ['./user-update.component.scss'],
 })
-export class UserUpdateComponent extends TypeaheadItemListHelper<Role> implements OnInit {
+export class UserUpdateComponent
+  extends TypeaheadItemListHelper<Role>
+  implements OnInit {
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     password: new FormControl('', [
@@ -63,10 +65,12 @@ export class UserUpdateComponent extends TypeaheadItemListHelper<Role> implement
       this._sandbox.user$.subscribe((user: any) => {
         if (user) {
           this.user = User.fromJSON(user);
-          let roles = [];
+          const roles = [];
           if (user.roles) {
-            for (let i in user.roles.data) {
-              roles.push(user.roles.data[i])
+            for (const i in user.roles.data) {
+              if (user.roles.data.hasOwnProperty(i)) {
+                roles.push(user.roles.data[i]);
+              }
             }
           }
           this.addedItems = roles;

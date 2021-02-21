@@ -1,5 +1,5 @@
-import { FormControl, ValidatorFn, Validators } from "@angular/forms";
-import { FormHelper } from "./form.helper";
+import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { FormHelper } from './form.helper';
 
 export class TypeaheadHelper {
   typeaheadData: string[] = [];
@@ -7,25 +7,24 @@ export class TypeaheadHelper {
 }
 
 export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
-
   /** List of all items. */
   items: ItemType[] = [];
   /** List of added items. */
   addedItems: ItemType[] = [];
   /** Property used for validation of `control.value`. */
-  private validationPropertyName: string = 'name';
+  private validationPropertyName = 'name';
 
   /**
-   * 
+   *
    * @param validationPropertyName Name of the property used for data validation. Defaults to `name`.
    */
-  constructor(validationPropertyName = "name") {
+  constructor(validationPropertyName = 'name') {
     super();
     this.validationPropertyName = validationPropertyName;
   }
 
   /**
-   * 
+   *
    * @param item Item to add to list of added items
    */
   addItem(item: ItemType) {
@@ -37,7 +36,7 @@ export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
   }
 
   /**
-   * 
+   *
    * @param item Item to remove from list of added items
    */
   removeItem(index: number) {
@@ -49,11 +48,15 @@ export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
    * @param validators Array of custom validators
    */
   resetValidators(validators?: ValidatorFn[]) {
-    const v = validators ? validators : [
-      Validators.required,
-      FormHelper.inValidator(this.typeaheadData),
-      FormHelper.notInValidator(this.addedItems.map((item) => item[this.validationPropertyName])),
-    ]
+    const v = validators
+      ? validators
+      : [
+          Validators.required,
+          FormHelper.inValidator(this.typeaheadData),
+          FormHelper.notInValidator(
+            this.addedItems.map((item) => item[this.validationPropertyName])
+          ),
+        ];
     this.control.setValidators(v);
     this.control.updateValueAndValidity();
   }

@@ -21,15 +21,18 @@ export class Permission implements IPermission {
   }
 
   /**
-   * 
+   *
    * @param permId ID of the permission to find
    * @param perms List of permissions to look in
    * @returns Permission object matching the given ID
    */
-  static getPermissionById = (permId: string, perms: Permission[]): Permission => {
+  static getPermissionById = (
+    permId: string,
+    perms: Permission[]
+  ): Permission => {
     let perm: Permission;
     perms.every((p: Permission) => {
-      if (p.id == permId) {
+      if (p.id === permId) {
         perm = p;
         return false;
       }
@@ -39,15 +42,18 @@ export class Permission implements IPermission {
   };
 
   /**
-   * 
+   *
    * @param permName Name of the permission to find
    * @param perms List of permissions to look in
    * @returns Permission object matching the given name
    */
-  static getPermissionByName = (permName: string, perms: Permission[]): Permission => {
+  static getPermissionByName = (
+    permName: string,
+    perms: Permission[]
+  ): Permission => {
     let perm: Permission;
     perms.every((p: Permission) => {
-      if (p.name == permName) {
+      if (p.name === permName) {
         perm = p;
         return false;
       }

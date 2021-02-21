@@ -12,15 +12,6 @@ export interface IUser {
 }
 
 export class User implements IUser {
-  constructor(data?: IUser) {
-    if (data) {
-      for (const property in data) {
-        if (data.hasOwnProperty(property)) {
-          (this as any)[property] = (data as any)[property];
-        }
-      }
-    }
-  }
   public id: string;
   public name: string;
   public nickname: string;
@@ -30,6 +21,16 @@ export class User implements IUser {
   public gender: string;
   public logged: boolean;
   public roles: Role[];
+
+  constructor(data?: IUser) {
+    if (data) {
+      for (const property in data) {
+        if (data.hasOwnProperty(property)) {
+          (this as any)[property] = (data as any)[property];
+        }
+      }
+    }
+  }
 
   static fromJSON(data: any): User {
     data = typeof data === 'object' ? data : {};

@@ -126,7 +126,6 @@ export const doFetchAuthenticatedUserFail = createAction(
   type('[User] Do Fetch Authenticated Fail')
 );
 
-
 /**
  * Fetch Roles Actions
  */

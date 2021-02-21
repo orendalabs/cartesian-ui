@@ -12,7 +12,7 @@ export class ManagePermissionForm {
   static toJSON(form: ManagePermissionForm) {
     return {
       role_id: form.roleId,
-      permissions_ids: form.permissionsIds
-    }
+      permissions_ids: form.permissionsIds,
+    };
   }
 }
