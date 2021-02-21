@@ -5,14 +5,14 @@
   (ngSubmit)="create()"
 >
   <div class="animated fadeIn row">
-    <div class="col-md-4 text-center mx-auto">
+    <div class="col-md-4">
       <div class="card">
-        <div class="card-header">Create an Admin</div>
+        <div class="card-header">
+          <strong>Create an Admin</strong>
+        </div>
         <div class="card-body p-2">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-user"></i></span>
-            </div>
+          <div>
+            <label>Name</label>
             <input
               formControlName="name"
               class="form-control"
@@ -21,13 +21,8 @@
             />
             <div class="invalid-feedback">Invalid name</div>
           </div>
-
-          <div class="input-group mt-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text"
-                ><i class="fa fa-envelope"></i
-              ></span>
-            </div>
+          <div class="mt-2">
+            <label>Email</label>
             <input
               formControlName="email"
               class="form-control"
@@ -36,10 +31,8 @@
             />
             <div class="invalid-feedback">Invalid email</div>
           </div>
-          <div class="input-group mt-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-key"></i></span>
-            </div>
+          <div class="mt-2">
+            <label>Password</label>
             <input
               formControlName="password"
               type="password"

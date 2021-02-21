@@ -87,9 +87,9 @@
                   <strong>Add Role </strong>
                 </div>
                 <div class="card-body">
-                  <form class="form-group form-inline mx-auto">
-                    <div class="form-group required">
-                      <label>Select Role</label>
+                  <label>Select Role</label>
+                  <form class="form-group form-inline">
+                    <div class="required">
                       <input
                         [formControl]="control"
                         [typeahead]="typeaheadData"
@@ -101,7 +101,7 @@
                             ? 'is-invalid'
                             : ''
                         "
-                        class="form-control w-75 ml-auto"
+                        class="form-control ml-auto"
                       />
                     </div>
                     <button

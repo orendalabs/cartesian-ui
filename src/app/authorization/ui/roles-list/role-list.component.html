@@ -1,32 +1,37 @@
 <div class="animated fadeIn dt" #dtContainer>
-  <div class="row mx-auto my-2">
-    <form class='col-md-6 input-group my-2'>
-      <input type="text" class="form-control" placeholder='Search...' [(ngModel)]='searchModel' />
-      <div class="input-group-append">
-        <button class="input-group-text cursor-pointer btn-light" (click)='search()'>
-          <span class="fas fa-search"></span>
-        </button>
-      </div>
-    </form>
-    <div class="col-md-6 ml-auto my-2 row flex-row-reverse">
-      <button class="btn btn-primary ml-2" routerLink="create">
-        <i class="fa fa-plus"></i> Create role
-      </button>
+  <div class="row">
+    <div class="col-md-3">
+      <form class='input-group'>
+        <input type="text" class="form-control" placeholder='Search...' [(ngModel)]='searchModel' />
+        <div class="input-group-append">
+          <button class="input-group-text cursor-pointer btn-light" (click)='search()'>
+            <span class="fas fa-search"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-right">
       <button class="btn btn-danger ml-2"
         [disabled]="selectedRoles.length == 0" (click)="delete()">
-        <i class="fa fa-trash"></i> Delete roles
+        <i class="fa fa-trash"></i> Delete
+      </button>
+      <button class="btn btn-primary ml-2" routerLink="create">
+        <i class="fa fa-plus"></i> Create
       </button>
     </div>
   </div>
-  <div class='row mx-auto'>
-    <p class='h3 text-muted text-light ml-auto'>Total: {{pagination.total}}</p>
+  <div class='row'>
+    <div class="col-md-12 my-2">
+      <span class='pull-right'>Total: {{pagination.total}}</span>
+    </div>
   </div>
   <div class='card'>
     <div class='card-header'>
-      Roles
+      <strong>ROLES</strong>
     </div>
     <div class='card-body p-0'>
-      <ngx-datatable class="material striped" [rows]="data" [columns]="[
+      <ngx-datatable class="material" [rows]="data" [columns]="[
         { select: 'select' },
         { name: 'name' },
         { description: 'description' },
@@ -47,7 +52,7 @@
 
         <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
           <ng-template let-value="value" let-row='row' ngx-datatable-cell-template>
-            <a routerLink='{{row.id}}'>@{{ value }}</a>
+            <a routerLink='{{row.id}}'>{{ value }}</a>
           </ng-template>
         </ngx-datatable-column>
 

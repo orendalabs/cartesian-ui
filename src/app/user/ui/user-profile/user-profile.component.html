@@ -1,26 +1,30 @@
 <div class="animated fadeIn row">
-  <div class="col-lg-6 text-center mx-auto">
+  <div class="col-lg-6">
     <div class="card">
-      <div class="card-header">Profile</div>
+      <div class="card-header">
+        <strong>Profile</strong>
+      </div>
       <div class="card-body">
-        <div *ngIf="user; else viewLoadingUser">
-          <h1>
+        <div *ngIf="user">
+          <p>
             <b>{{ user.name }}</b>
-          </h1>
-          <div class="text-muted">
-            <i class="fa fa-envelope"></i> {{ user.email }}<br />
-            <i
-              class="fa"
-              [ngClass]="user.gender == 'male' ? 'fa-male' : 'fa-female'"
-            ></i>
-            {{ user.gender }}<br />
-            <i class="fa fa-birthday-cake"></i> {{ user.birth }}<br />
-            <hr />
+          </p>
+          <div class="text-muted row my-2">
+            <div class="col-md-4 d-inline-block">
+              <i class="fa fa-envelope"></i> {{ user.email }}<br />
+            </div>
+            <div class="col-md-4 d-inline-block" *ngIf="user.gender">
+              <i
+                class="fa"
+                [ngClass]="user.gender == 'male' ? 'fa-male' : 'fa-female'"
+              ></i>
+              {{ user.gender }}
+            </div>
+            <div class="col-md-4 d-inline-block" *ngIf="user.birth">
+              <i class="fa fa-birthday-cake"></i> {{ user.birth }}<br />
+            </div>
           </div>
         </div>
-        <ng-template #viewLoadingUser
-          ><i class="fa fa-spin fa-circle-o-notch"></i
-        ></ng-template>
       </div>
     </div>
   </div>

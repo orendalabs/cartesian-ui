@@ -1,8 +1,10 @@
 <div class="animated fadeIn row" #dtContainer>
-  <div class="col-md-6 text-center mx-auto">
+  <div class="col-lg-3">
     <div class="card">
-      <div class="card-header">Role Detail</div>
-      <div class="card-body">
+      <div class="card-header">
+        <strong>Role Details</strong>
+      </div>
+      <div class="card-body text-center">
         <div *ngIf="loaded">
           <h1>
             <b>{{ role.name }}</b>
@@ -10,21 +12,41 @@
           <div class="text-muted">
             {{ role.description }}
           </div>
-          <div class='row'>
-            <button class="ml-auto btn btn-danger" (click)="deleteRole(role.id)">
+          <div class='row my-2'>
+            <button class="mx-auto btn btn-danger" (click)="deleteRole(role.id)">
               <i class="fa fa-trash"></i> Delete Role
             </button>
           </div>
-
-          <hr />
-
-          <h3>Manage Permissions</h3>
-
-          <role-detail-permissions [perms]='addedItems' [parent]='this'></role-detail-permissions>
-
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Role permissions</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <role-detail-permissions 
+            [perms]='addedItems' 
+            [parent]='this'>
+          </role-detail-permissions>
           <br class='mt-5' />
-          <b>Add a permission:</b>
-          <br />
+          <button class="btn btn-primary btn-block" (click)="sync()">
+            <i class="fa fa-save"></i> Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-header">
+        <strong>Add Permission</strong>
+      </div>
+      <div class="card-body">
+        <label>Select Permission</label>
           <form class="form-group form-inline mx-auto">
             <input [formControl]="control" [typeahead]="typeaheadData" [isAnimated]="true" [ngClass]="
                       control.valid
@@ -38,16 +60,6 @@
             </button>
             <div class="invalid-feedback">Invalid permission value!</div>
           </form>
-          <button class="btn btn-primary btn-block" (click)="sync()">
-            <i class="fa fa-save"></i> Save Changes
-          </button>
-        </div>
-        <div *ngIf="loading">
-          <i class="fa fa-spin fa-circle-o-notch"></i>
-        </div>
-        <div *ngIf="failed" class="text-danger">
-          <i class="fa fa-times"></i> Loading failed!
-        </div>
       </div>
     </div>
   </div>
