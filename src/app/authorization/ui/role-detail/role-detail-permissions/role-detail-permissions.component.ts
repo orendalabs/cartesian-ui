@@ -58,7 +58,7 @@ export class RoleDetailPermissionsComponent
         }
         return res;
       });
-      this.selectedPermissions = []
+      this.selectedPermissions = [];
       this.parent.resetValidators();
     }
   }

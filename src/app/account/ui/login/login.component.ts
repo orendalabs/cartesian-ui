@@ -58,10 +58,10 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   login(): void {
     if (this.formGroup.valid) {
-      let form = new LoginForm();
-      form.email = this.formGroup.controls['email'].value;
-      form.password = this.formGroup.controls['password'].value;
-      //form.remember = this.formGroup.controls['remember'].value;
+      const form = new LoginForm();
+      form.email = this.formGroup.controls.email.value;
+      form.password = this.formGroup.controls.password.value;
+      // form.remember = this.formGroup.controls['remember'].value;
       this._sandbox.authenticate(form);
     }
   }

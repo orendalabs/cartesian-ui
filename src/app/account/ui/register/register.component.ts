@@ -61,17 +61,17 @@ export class RegisterComponent extends BaseComponent {
   save(): void {
     if (this.formGroup.valid) {
       this.saving = true;
-      let form = new RegisterForm();
-      form.email = this.formGroup.controls['email'].value;
-      form.name = this.formGroup.controls['name'].value;
-      form.password = this.formGroup.controls['password'].value;
-      form.gender = this.formGroup.controls['gender'].value;
-      form.birth = this.formGroup.controls['dob'].value;
+      const form = new RegisterForm();
+      form.email = this.formGroup.controls.email.value;
+      form.name = this.formGroup.controls.name.value;
+      form.password = this.formGroup.controls.password.value;
+      form.gender = this.formGroup.controls.gender.value;
+      form.birth = this.formGroup.controls.dob.value;
       this._sandbox.register(form);
     }
 
-    //this.saving = true;
-    //this._accountService
+    // this.saving = true;
+    // this._accountService
     //  .register(this.model)
     //  .pipe(
     //    finalize(() => {
@@ -92,7 +92,7 @@ export class RegisterComponent extends BaseComponent {
     // this.authService.authenticate(() => {
     //   this.saving = false;
     // });
-    //});
+    // });
   }
 
   getFormClasses = (e: AbstractControl): string => {
