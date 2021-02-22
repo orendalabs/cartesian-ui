@@ -103,12 +103,18 @@ export class UserUpdateComponent
   }
 
   sync() {
-    const roles = this.addedItems.map((role) => role.id);
+    const roleIds = this.addedItems.map((role) => role.id);
+    const roleNames = this.addedItems.map((role) => role.name);
     const form = new ManageRoleForm({
       userId: this.userId,
-      rolesIds: roles,
+      rolesIds: roleIds,
     });
-    this._sandbox.syncRolesOnUser(form);
+    const message = this.addedItems.length == 0 ? 
+      "Are you sure you want to remove all roles?" : 
+      "Are you sure you want to save the following roles?\n\t- " + roleNames.join("\n\t- ");
+    if (confirm(message)) {
+      this._sandbox.syncRolesOnUser(form);
+    }
   }
 
   update() {

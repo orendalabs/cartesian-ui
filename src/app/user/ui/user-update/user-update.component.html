@@ -55,29 +55,10 @@
                   <strong>User Roles </strong>
                 </div>
                 <div class="card-body">
-                  <div
-                    class="row mx-auto"
-                    *ngIf="
-                      addedItems && addedItems.length > 0;
-                      else viewNoRoles
-                    "
-                  >
-                    <span
-                      *ngFor="let role of addedItems; let i = index"
-                      class="badge badge-light m-1"
-                    >
-                      {{ role.name }}
-                      <span
-                        class="text-light badge badge-danger"
-                        (click)="removeRole(i)"
-                      >
-                        <i class="fa fa-times cursor-pointer"></i>
-                      </span>
-                    </span>
-                  </div>
-                  <ng-template #viewNoRoles>
-                    <div class="badge badge-light m-1">No Roles...</div>
-                  </ng-template>
+                  <user-update-roles 
+                  [parent]="this" 
+                  [roles]="addedItems">
+                </user-update-roles>
                 </div>
               </div>
             </div>
