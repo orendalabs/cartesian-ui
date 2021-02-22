@@ -1,4 +1,4 @@
-﻿<div class="app-body" [@routerTransition]>
+﻿<div class="app-body app-account" [@routerTransition]>
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
@@ -6,46 +6,95 @@
           <div class="card-group">
             <div class="card p-4">
               <div class="card-body">
-                <form novalidate autocomplete="off" [formGroup]="formGroup" (ngSubmit)="login()">
+                <form
+                  novalidate
+                  autocomplete="off"
+                  [formGroup]="formGroup"
+                  (ngSubmit)="login()"
+                >
                   <h1>{{ 'Login' | localize }}</h1>
                   <p class="text-muted">Sign In to your account</p>
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-user"></i></span>
+                      <span class="input-group-text"
+                        ><i class="icon-user"></i
+                      ></span>
                     </div>
-                    <input type="text" [ngClass]='getFormClasses(formGroup.controls["email"])'
-                      name="userNameOrEmailAddress" formControlName='email'
-                      [placeholder]="'Username or Email' | localize" required maxlength="256" #emailEl />
+                    <input
+                      type="text"
+                      [ngClass]="getFormClasses(formGroup.controls['email'])"
+                      name="userNameOrEmailAddress"
+                      formControlName="email"
+                      [placeholder]="'Username or Email' | localize"
+                      required
+                      maxlength="256"
+                      #emailEl
+                    />
                   </div>
                   <div
-                    *ngIf='formGroup.controls["email"].touched && formGroup.controls["email"].dirty && !formGroup.controls["email"].valid'
-                    class="text-danger text-right mb-3">
-                    <span *ngIf='formGroup.controls["email"].errors.required; else emailPatternError'>Please enter an
-                      email!</span>
+                    *ngIf="
+                      formGroup.controls['email'].touched &&
+                      formGroup.controls['email'].dirty &&
+                      !formGroup.controls['email'].valid
+                    "
+                    class="text-danger text-right mb-3"
+                  >
+                    <span
+                      *ngIf="
+                        formGroup.controls['email'].errors.required;
+                        else emailPatternError
+                      "
+                      >Please enter an email!</span
+                    >
                     <ng-template #emailPatternError>Invalid email!</ng-template>
                   </div>
                   <div class="input-group mt-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                      <span class="input-group-text"
+                        ><i class="icon-lock"></i
+                      ></span>
                     </div>
-                    <input type="password" [ngClass]='getFormClasses(formGroup.controls["password"])' name="password"
-                      formControlName='password' [placeholder]="'Password' | localize" required maxlength="32"
-                      #passwordEl />
+                    <input
+                      type="password"
+                      [ngClass]="getFormClasses(formGroup.controls['password'])"
+                      name="password"
+                      formControlName="password"
+                      [placeholder]="'Password' | localize"
+                      required
+                      maxlength="32"
+                      #passwordEl
+                    />
                   </div>
                   <div
-                    *ngIf='formGroup.controls["password"].touched && formGroup.controls["password"].dirty && !formGroup.controls["password"].valid'
-                    class="text-danger text-right">
-                    <span *ngIf='formGroup.controls["password"].errors.required; else passLengthError'>Please enter a
-                      password!</span>
-                    <ng-template #passLengthError>Password must be at least 6 characters long!</ng-template>
+                    *ngIf="
+                      formGroup.controls['password'].touched &&
+                      formGroup.controls['password'].dirty &&
+                      !formGroup.controls['password'].valid
+                    "
+                    class="text-danger text-right"
+                  >
+                    <span
+                      *ngIf="
+                        formGroup.controls['password'].errors.required;
+                        else passLengthError
+                      "
+                      >Please enter a password!</span
+                    >
+                    <ng-template #passLengthError
+                      >Password must be at least 6 characters long!</ng-template
+                    >
                   </div>
                   <div class="row mt-4">
                     <div class="col-6">
-                      <button type="submit" class="btn btn-primary px-4" [disabled]="
+                      <button
+                        type="submit"
+                        class="btn btn-primary px-4"
+                        [disabled]="
                           !formGroup.valid ||
                           (_sandbox.loginLoading$ | async) ||
                           (_sandbox.authFailed$ | async)
-                        ">
+                        "
+                      >
                         {{ 'Login' | localize }}
                       </button>
                     </div>
@@ -58,7 +107,10 @@
                 </form>
               </div>
             </div>
-            <div class="card text-white bg-primary py-5 d-md-down-none" style="width: 44%">
+            <div
+              class="card text-white bg-primary py-5 d-md-down-none"
+              style="width: 44%"
+            >
               <div class="card-body text-center">
                 <div *ngIf="isSelfRegistrationAllowed">
                   <h2>Sign up</h2>

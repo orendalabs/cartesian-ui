@@ -8,8 +8,14 @@ import { BaseComponent } from '@app/core/ui';
 import { accountModuleAnimation } from '@app/core/animations';
 import { AccountSandbox } from '../../account.sandbox';
 import { LoginForm } from '../../models';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms'
-import { FormHelper } from '../helpers/form.helper';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { FormHelper } from '@shared/helpers/form.helper';
 
 @Component({
   selector: 'app-account',
@@ -19,18 +25,22 @@ import { FormHelper } from '../helpers/form.helper';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
   formGroup: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, FormHelper.emailValidator()]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    remember: new FormControl(false)
-  })
+    email: new FormControl('', [
+      Validators.required,
+      FormHelper.emailValidator(),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
+    remember: new FormControl(false),
+  });
 
   constructor(injector: Injector, public _sandbox: AccountSandbox) {
     super(injector);
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   get multiTenancySideIsTeanant(): boolean {
     // return this._sessionService.tenantId > 0;
@@ -58,5 +68,5 @@ export class LoginComponent extends BaseComponent implements OnInit {
 
   getFormClasses = (e: AbstractControl): string => {
     return FormHelper.getFormClasses(e);
-  }
+  };
 }

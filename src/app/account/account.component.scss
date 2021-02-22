@@ -6,107 +6,106 @@ $input-text-color: #a3a3a3;
 $button-bg-color: #7f8ff4;
 $button-text-color: #fff;
 
-.card.bg-primary {
-  background-color: $button-bg-color !important;
-}
-
-//** button
-.btn {
-  display: inline-block;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  border: 0;
-  outline: 0;
-  padding: 0;
-  transition: all 200ms ease-in;
-  cursor: pointer;
-
-  &-primary {
-    background: $button-bg-color !important;
-    color: $button-text-color !important;
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
-    border-radius: 2px !important;
-    padding: 12px 36px !important;
-
-    &:hover {
-      background: darken($button-bg-color, 4%) !important;
-    }
-
-    &:active {
-      background: $button-bg-color !important;
-      box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2) !important;
-    }
-  }
-
-  &--inside {
-    margin-left: -105px;
-  }
-}
-
-.btn.btn-link {
-  color: $button-bg-color !important;
-}
-
-.social-icons {
-  padding-left: 0px;
-
-  li {
-    display: inline-block;
-    margin-right: 5px;
-
-    a {
-      width: 40px;
-    }
-  }
-}
-
-mat-form-field {
-  width: 100%;
-}
-mat-checkbox {
-  padding-bottom: 5px;
-}
-
-
 app-account {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
 
-.form-danger {
-  background-color: #dc354511;
-  border: 1px solid #ee8ad4;
-}
+  .card.bg-primary {
+    background-color: $button-bg-color !important;
+  }
 
-.form-danger:focus {
-  background-color: #dc354511;
-  border: 1px solid #ee8ad4;
-  box-shadow: 0 0 0 0.2rem #dc354511;
-}
-
-.form-success {
-  background-color: #28a74511;
-  border: 1px solid #d4ee8a;
-}
-
-.form-success:focus {
-  background-color: #28a74511;
-  border: 1px solid #d4ee8a;
-  box-shadow: 0 0 0 0.2rem #28a74511;
-}
-
-.content.account-forms {
-  margin-top: 10px;
-}
-
-.content.tenant-change-box {
-  padding: 16px 16px 0px 16px;
-  margin: 120px auto 0px auto;
-  max-width: 400px;
-
-  a {
+  .btn {
+    display: inline-block;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    transition: all 200ms ease-in;
     cursor: pointer;
+
+    &-primary {
+      background: $button-bg-color !important;
+      color: $button-text-color !important;
+      box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1) !important;
+      border-radius: 2px !important;
+      padding: 12px 36px !important;
+
+      &:hover {
+        background: darken($button-bg-color, 4%) !important;
+      }
+
+      &:active {
+        background: $button-bg-color !important;
+        box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2) !important;
+      }
+    }
+
+    &--inside {
+      margin-left: -105px;
+    }
+  }
+
+  .btn.btn-link {
+    color: $button-bg-color !important;
+  }
+
+  .social-icons {
+    padding-left: 0px;
+
+    li {
+      display: inline-block;
+      margin-right: 5px;
+
+      a {
+        width: 40px;
+      }
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-checkbox {
+    padding-bottom: 5px;
+  }
+
+  .form-danger {
+    background-color: #dc354511;
+    border: 1px solid #ee8ad4;
+  }
+
+  .form-danger:focus {
+    background-color: #dc354511;
+    border: 1px solid #ee8ad4;
+    box-shadow: 0 0 0 0.2rem #dc354511;
+  }
+
+  .form-success {
+    background-color: #28a74511;
+    border: 1px solid #d4ee8a;
+  }
+
+  .form-success:focus {
+    background-color: #28a74511;
+    border: 1px solid #d4ee8a;
+    box-shadow: 0 0 0 0.2rem #28a74511;
+  }
+
+  .content.account-forms {
+    margin-top: 10px;
+  }
+
+  .content.tenant-change-box {
+    padding: 16px 16px 0px 16px;
+    margin: 120px auto 0px auto;
+    max-width: 400px;
+
+    a {
+      cursor: pointer;
+    }
   }
 }

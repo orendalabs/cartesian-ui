@@ -1,16 +1,17 @@
-﻿<div class="app-body" style="height: 100vh" [@routerTransition]>
+﻿<div class="app-body app-account" style="height: 100vh" [@routerTransition]>
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
         <div class="col-md-8 mx-auto">
           <div class="card-group">
             <div class="card text-white bg-primary py-5 d-md-down-none">
-              <div class="card-body text-center d-flex flex-column justify-content-center">
+              <div
+                class="card-body text-center d-flex flex-column justify-content-center"
+              >
                 <h2>Sign in!</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua.
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
                 <p class="mb-1">
                   <a [routerLink]="['../login']">
@@ -23,31 +24,58 @@
             </div>
             <div class="card p-4">
               <div class="card-body">
-                <form autocomplete="off" novalidate [formGroup]='formGroup' (ngSubmit)="save()">
+                <form
+                  autocomplete="off"
+                  novalidate
+                  [formGroup]="formGroup"
+                  (ngSubmit)="save()"
+                >
                   <h1>{{ 'Register' | localize }}</h1>
                   <p class="text-muted">Create a new account</p>
-                  <div class="form-group" *ngIf='formGroup.controls["email"]; let emailControl'>
+                  <div
+                    class="form-group"
+                    *ngIf="formGroup.controls['email']; let emailControl"
+                  >
                     <div class="input-group">
-                      <input type="email" class="form-control" name="emailAddress" formControlName='email'
-                        [ngClass]='getFormClasses(emailControl)' placeholder="{{ 'EmailAddress' | localize }}" required
-                        maxlength="256" />
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="emailAddress"
+                        formControlName="email"
+                        [ngClass]="getFormClasses(emailControl)"
+                        placeholder="{{ 'EmailAddress' | localize }}"
+                        required
+                        maxlength="256"
+                      />
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-envelope"></span>
                         </div>
                       </div>
                     </div>
-                    <div *ngIf='emailControl.touched && emailControl.dirty && emailControl.invalid'
-                      class="text-danger text-right mb-3">
-                      <span *ngIf='emailControl.errors'>
+                    <div
+                      *ngIf="
+                        emailControl.touched &&
+                        emailControl.dirty &&
+                        emailControl.invalid
+                      "
+                      class="text-danger text-right mb-3"
+                    >
+                      <span *ngIf="emailControl.errors">
                         {{ getError(emailControl.errors) }}
                       </span>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="input-group">
-                      <input type="text" class="form-control" name="name" placeholder=" {{ 'Name' | localize }}"
-                        formControlName='name' [ngClass]='getFormClasses(formGroup.controls["name"])' />
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        placeholder=" {{ 'Name' | localize }}"
+                        formControlName="name"
+                        [ngClass]="getFormClasses(formGroup.controls['name'])"
+                      />
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-user"></span>
@@ -55,28 +83,53 @@
                       </div>
                     </div>
                   </div>
-                  <div class="form-group" *ngIf='formGroup.controls["password"]; let passControl'>
+                  <div
+                    class="form-group"
+                    *ngIf="formGroup.controls['password']; let passControl"
+                  >
                     <div class="input-group">
-                      <input type="password" class="form-control" name="password"
-                        placeholder="{{ 'Password' | localize }}" [ngClass]='getFormClasses(passControl)'
-                        name="password" formControlName='password' />
+                      <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        placeholder="{{ 'Password' | localize }}"
+                        [ngClass]="getFormClasses(passControl)"
+                        name="password"
+                        formControlName="password"
+                      />
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-lock"></span>
                         </div>
                       </div>
                     </div>
-                    <div *ngIf='passControl.touched && passControl.dirty && passControl.invalid'
-                      class="text-danger text-right">
-                      <span *ngIf='passControl.errors'>
+                    <div
+                      *ngIf="
+                        passControl.touched &&
+                        passControl.dirty &&
+                        passControl.invalid
+                      "
+                      class="text-danger text-right"
+                    >
+                      <span *ngIf="passControl.errors">
                         {{ getError(passControl.errors) }}
                       </span>
                     </div>
                   </div>
-                  <div class="form-group" *ngIf='formGroup.controls["gender"]; let genderControl'>
+                  <div
+                    class="form-group"
+                    *ngIf="formGroup.controls['gender']; let genderControl"
+                  >
                     <div class="input-group">
-                      <select type="text" class="form-control" name="gender" required maxlength="64"
-                        formControlName='gender' [ngClass]='getFormClasses(genderControl)'>
+                      <select
+                        type="text"
+                        class="form-control"
+                        name="gender"
+                        required
+                        maxlength="64"
+                        formControlName="gender"
+                        [ngClass]="getFormClasses(genderControl)"
+                      >
                         <option selected disabled hidden>Gender...</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -87,33 +140,58 @@
                         </div>
                       </div>
                     </div>
-                    <div *ngIf='genderControl.touched && genderControl.dirty && genderControl.invalid'
-                      class="text-danger text-right">
-                      <span *ngIf='genderControl.errors'>
+                    <div
+                      *ngIf="
+                        genderControl.touched &&
+                        genderControl.dirty &&
+                        genderControl.invalid
+                      "
+                      class="text-danger text-right"
+                    >
+                      <span *ngIf="genderControl.errors">
                         {{ getError(genderControl.errors) }}
                       </span>
                     </div>
                   </div>
-                  <div class="form-group" *ngIf='formGroup.controls["dob"]; let dobControl'>
+                  <div
+                    class="form-group"
+                    *ngIf="formGroup.controls['dob']; let dobControl"
+                  >
                     <div class="input-group">
-                      <input type="date" class="form-control" name="birth" placeholder="{{ 'Birth Date' | localize }}"
-                        formControlName='dob' [ngClass]='getFormClasses(dobControl)' />
+                      <input
+                        type="date"
+                        class="form-control"
+                        name="birth"
+                        placeholder="{{ 'Birth Date' | localize }}"
+                        formControlName="dob"
+                        [ngClass]="getFormClasses(dobControl)"
+                      />
                       <div class="input-group-append">
                         <div class="input-group-text">
                           <span class="fas fa-calendar"></span>
                         </div>
                       </div>
                     </div>
-                    <div *ngIf='dobControl.touched && dobControl.dirty && dobControl.invalid'
-                      class="text-danger text-right">
-                      <span *ngIf='dobControl.errors'>
+                    <div
+                      *ngIf="
+                        dobControl.touched &&
+                        dobControl.dirty &&
+                        dobControl.invalid
+                      "
+                      class="text-danger text-right"
+                    >
+                      <span *ngIf="dobControl.errors">
                         {{ getError(dobControl.errors) }}
                       </span>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-6 ml-auto">
-                      <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid || saving">
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="!formGroup.valid || saving"
+                      >
                         {{ 'Register' | localize }}
                       </button>
                     </div>

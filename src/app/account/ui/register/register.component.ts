@@ -11,23 +11,41 @@ import { accountModuleAnimation } from '@app/core/animations';
 import { AuthService } from '../../shared';
 
 import { AccountSandbox } from '../../account.sandbox';
-import { RegisterForm } from '../../models/form/register.model'
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormHelper } from '../helpers/form.helper';
+import { RegisterForm } from '../../models/form/register.model';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { FormHelper } from '@shared/helpers/form.helper';
 
 @Component({
+  selector: 'app-account',
   templateUrl: './register.component.html',
   animations: [accountModuleAnimation()],
 })
 export class RegisterComponent extends BaseComponent {
   formGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, FormHelper.emailValidator()]),
+    email: new FormControl('', [
+      Validators.required,
+      FormHelper.emailValidator(),
+    ]),
     name: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    gender: new FormControl('Gender...', [Validators.required, FormHelper.genderValidator()]),
-    dob: new FormControl('', [Validators.required, FormHelper.dateFormatValidator(), FormHelper.dobValidator(12)])
-  }
-  )
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
+    gender: new FormControl('Gender...', [
+      Validators.required,
+      FormHelper.genderValidator(),
+    ]),
+    dob: new FormControl('', [
+      Validators.required,
+      FormHelper.dateFormatValidator(),
+      FormHelper.dobValidator(12),
+    ]),
+  });
   saving = false;
 
   constructor(
@@ -41,7 +59,6 @@ export class RegisterComponent extends BaseComponent {
   }
 
   save(): void {
-
     if (this.formGroup.valid) {
       this.saving = true;
       let form = new RegisterForm();
@@ -80,9 +97,9 @@ export class RegisterComponent extends BaseComponent {
 
   getFormClasses = (e: AbstractControl): string => {
     return FormHelper.getFormClasses(e);
-  }
+  };
 
   getError = (e: any): string => {
     return FormHelper.getErrorMessage(e);
-  }
+  };
 }
