@@ -20,6 +20,8 @@ export class PermissionListComponent
   extends ListingControlsComponent<Permission, SearchPermissionForm>
   implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
+  searchModel = '';
+  selectedPermissions: Permission[] = [];
 
   constructor(protected _sandbox: AuthorizationSandbox, injector: Injector) {
     super(injector);
@@ -57,6 +59,16 @@ export class PermissionListComponent
     this.reloadTable();
   }
 
+  search() {
+    this.setPage(1);
+    if (this.searchModel) {
+      this.criteria.where('name', 'like', this.searchModel);
+    } else {
+      this.criteria.where('name', 'like', '');
+    } // TODO: Remove where
+    this.list();
+  }
+
   protected list(): void {
     this.ui.setBusy(this.dtContainer.nativeElement);
     this.isTableLoading = true;
@@ -64,4 +76,11 @@ export class PermissionListComponent
   }
 
   protected delete() {}
+
+  onSelect({ selected }) {
+    this.selectedPermissions.splice(0, this.selectedPermissions.length);
+    this.selectedPermissions.push(...selected);
+  }
+
+  onActivate(event) {}
 }

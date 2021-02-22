@@ -3,3 +3,19 @@
 @import '~@swimlane/ngx-datatable/themes/material.scss';
 @import '@swimlane/ngx-datatable/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/assets/icons.css';
+@import '_datatable.scss';
+@import '_tabs.scss';
+@import '_cards.scss';
+
+body {
+  background-color: $cartesian-light;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+b,
+strong {
+  font-weight: bold;
+}

@@ -28,7 +28,7 @@ export class AuthHttpService extends HttpService {
    * @param form The form to be submitted as body
    */
   @POST('/roles/assign')
-  public assignRole(@Body form: ManageRoleForm): Observable<any> {
+  public assignRole(@Body form): Observable<any> {
     return null;
   }
 
@@ -37,12 +37,12 @@ export class AuthHttpService extends HttpService {
    * @param form The form to be submitted as body
    */
   @POST('/roles/revoke')
-  public revokeRole(@Body form: ManageRoleForm): Observable<any> {
+  public revokeRole(@Body form): Observable<any> {
     return null;
   }
 
   @POST('/roles/sync')
-  public syncRole(@Body form: ManageRoleForm): Observable<any> {
+  public syncRole(@Body form): Observable<any> {
     return null;
   }
 
@@ -57,7 +57,7 @@ export class AuthHttpService extends HttpService {
   }
 
   @POST('/roles')
-  public createRole(@Body form: CreateRoleForm): Observable<any> {
+  public createRole(@Body form): Observable<any> {
     return null;
   }
 
@@ -67,9 +67,7 @@ export class AuthHttpService extends HttpService {
   }
 
   @GET('/permissions')
-  public fetchPermissions(
-    @Body criteria: RequestCriteria<any>
-  ): Observable<any> {
+  public fetchPermissions(@Criteria criteria: RequestCriteria<any>): Observable<any> {
     return null;
   }
 
@@ -79,17 +77,17 @@ export class AuthHttpService extends HttpService {
   }
 
   @POST('/permissions/attach')
-  public attachPermission(@Body form: ManagePermissionForm): Observable<any> {
+  public attachPermission(@Body form): Observable<any> {
     return null;
   }
 
   @POST('/permissions/detach')
-  public detachPermission(@Body form: ManagePermissionForm): Observable<any> {
+  public detachPermission(@Body form): Observable<any> {
     return null;
   }
 
   @POST('/permissions/sync')
-  public syncPermissions(@Body form: ManagePermissionForm): Observable<any> {
+  public syncPermissions(@Body form): Observable<any> {
     return null;
   }
 }

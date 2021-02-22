@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthorizationComponent } from './authorization.component';
-import { RoleManageComponent } from './ui/roles-manage/role-manage.component';
 import { RoleListComponent } from './ui/roles-list/role-list.component';
-import { PermissionAttachComponent } from './ui/permission-assign/permission-attach.component';
 import { PermissionListComponent } from './ui/permission-list/permission-list.component';
 import { RoleDetailComponent } from './ui/role-detail/role-detail.component';
 import { RoleCreateComponent } from './ui/role-create/role-create.component';
@@ -19,19 +17,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'roles/list',
+        redirectTo: 'roles',
         pathMatch: 'full',
       },
       {
         path: 'roles',
-        redirectTo: 'roles/list',
-        pathMatch: 'full',
-      },
-      {
-        path: 'roles/manage',
-        component: RoleManageComponent,
+        component: RoleListComponent,
         data: {
-          title: 'Manage Roles',
+          title: 'Roles List',
         },
       },
       {
@@ -39,13 +32,6 @@ const routes: Routes = [
         component: RoleCreateComponent,
         data: {
           title: 'Create Roles',
-        },
-      },
-      {
-        path: 'roles/list',
-        component: RoleListComponent,
-        data: {
-          title: 'Roles List',
         },
       },
       {
@@ -57,21 +43,9 @@ const routes: Routes = [
       },
       {
         path: 'permissions',
-        redirectTo: 'permissions/list',
-        pathMatch: 'full',
-      },
-      {
-        path: 'permissions/list',
         component: PermissionListComponent,
         data: {
           title: 'Permissions List',
-        },
-      },
-      {
-        path: 'permissions/assign',
-        component: PermissionAttachComponent,
-        data: {
-          title: 'Assign Permissions',
         },
       },
       {

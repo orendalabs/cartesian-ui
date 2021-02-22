@@ -11,24 +11,42 @@ const INITIAL_STATE: UserDetailState = {
 
 const createUserDetailReducers = createReducer(
   INITIAL_STATE,
-  on(userActions.doFetchUser, (state) => {
-    return Object.assign({}, state, {
-      loading: true,
-      loaded: false,
-      failed: false,
-    });
-  }),
-  on(userActions.doFetchUserSuccess, (state, { user }) => {
-    return Object.assign({}, state, {
-      loaded: true,
-      loading: false,
-      failed: false,
-      data: user,
-    });
-  }),
-  on(userActions.doFetchUserFail, (state) => {
-    return Object.assign({}, INITIAL_STATE, { failed: true });
-  })
+  on(
+    userActions.doFetchUser,
+    userActions.doFetchAuthenticatedUser,
+    userActions.doCreateUser,
+    userActions.doUpdateUser,
+    (state) => {
+      return Object.assign({}, state, {
+        loading: true,
+        loaded: false,
+        failed: false,
+      });
+    }
+  ),
+  on(
+    userActions.doFetchUserSuccess,
+    userActions.doFetchAuthenticatedUserSuccess,
+    userActions.doCreateUserSuccess,
+    userActions.doUpdateUserSuccess,
+    (state, { user }) => {
+      return Object.assign({}, state, {
+        loaded: true,
+        loading: false,
+        failed: false,
+        data: user,
+      });
+    }
+  ),
+  on(
+    userActions.doFetchUserFail,
+    userActions.doFetchAuthenticatedUserFail,
+    userActions.doCreateUserFail,
+    userActions.doUpdateUserFail,
+    (state) => {
+      return Object.assign({}, INITIAL_STATE, { failed: true });
+    }
+  )
 );
 
 export function reducer(state: UserDetailState | undefined, action: Action) {

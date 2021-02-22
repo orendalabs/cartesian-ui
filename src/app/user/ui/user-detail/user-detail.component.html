@@ -1,0 +1,55 @@
+<div class="animated fadeIn row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>User Detail</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <div>
+            <img
+              class="mr-2"
+              width="96"
+              height="96"
+              src="assets/img/avatars/default.png"
+            />
+            <b>{{ user.name }}</b>
+          </div>
+          <div class="text-muted row my-2">
+            <div class="col-md-4 d-inline-block">
+              <i class="fa fa-envelope"></i> {{ user.email }}<br />
+            </div>
+            <div class="col-md-4 d-inline-block" *ngIf="user.gender">
+              <i
+                class="fa"
+                [ngClass]="user.gender == 'male' ? 'fa-male' : 'fa-female'"
+              ></i>
+              {{ user.gender }}
+            </div>
+            <div class="col-md-4 d-inline-block" *ngIf="user.birth">
+              <i class="fa fa-birthday-cake"></i> {{ user.birth }}<br />
+            </div>
+          </div>
+          <div>
+            <hr />
+            <button
+              class="float-right btn btn-primary ml-2"
+              routerLink="/users/edit/{{ user.id }}"
+            >
+              <i class="fa fa-edit"></i> Edit user
+            </button>
+            <button
+              class="float-right btn btn-danger"
+              (click)="deleteUser(user.id)"
+            >
+              <i class="fa fa-trash"></i> Delete user
+            </button>
+          </div>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

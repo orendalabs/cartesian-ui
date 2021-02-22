@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-header">Permission Detail</div>
       <div class="card-body">
-        <div *ngIf="permission; else viewLoadingPermission">
+        <div *ngIf="loaded">
           <h1>
             <b>{{ permission.name }}</b>
           </h1>
@@ -11,9 +11,12 @@
             {{ permission.description }}
           </div>
         </div>
-        <ng-template #viewLoadingPermission
-          ><i class="fa fa-spin fa-circle-o-notch"></i
-        ></ng-template>
+        <div *ngIf="loading">
+          <i class="fa fa-spin fa-circle-o-notch"></i>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
       </div>
     </div>
   </div>

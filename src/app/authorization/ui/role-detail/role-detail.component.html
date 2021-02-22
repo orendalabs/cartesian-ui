@@ -1,35 +1,65 @@
-<div class="animated fadeIn row">
-  <div class="col-lg-6 text-center mx-auto">
+<div class="animated fadeIn row" #dtContainer>
+  <div class="col-lg-3">
     <div class="card">
-      <div class="card-header">Role Detail</div>
-      <div class="card-body">
-        <div *ngIf="role; else viewLoadingRole">
+      <div class="card-header">
+        <strong>Role Details</strong>
+      </div>
+      <div class="card-body text-center">
+        <div *ngIf="loaded">
           <h1>
             <b>{{ role.name }}</b>
           </h1>
           <div class="text-muted">
             {{ role.description }}
           </div>
-          <div class="text-left mt-3">
-            <span class="badge">Permissions: </span>
-            <span
-              class="badge badge-light m-1"
-              *ngFor="let perm of role.permissions.data"
-            >
-              {{ perm.name }}
-            </span>
+          <div class='row my-2'>
+            <button class="mx-auto btn btn-danger" (click)="deleteRole(role.id)">
+              <i class="fa fa-trash"></i> Delete Role
+            </button>
           </div>
-          <hr />
-          <button
-            class="float-right btn btn-danger"
-            (click)="deleteRole(role.id)"
-          >
-            <i class="fa fa-trash"></i> Delete Role
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Role permissions</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <role-detail-permissions 
+            [perms]='addedItems' 
+            [parent]='this'>
+          </role-detail-permissions>
+          <br class='mt-5' />
+          <button class="btn btn-primary btn-block" (click)="sync()">
+            <i class="fa fa-save"></i> Save Changes
           </button>
         </div>
-        <ng-template #viewLoadingRole
-          ><i class="fa fa-spin fa-circle-o-notch"></i
-        ></ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-header">
+        <strong>Add Permission</strong>
+      </div>
+      <div class="card-body">
+        <label>Select Permission</label>
+          <form class="form-group form-inline mx-auto">
+            <input [formControl]="control" [typeahead]="typeaheadData" [isAnimated]="true" [ngClass]="
+                      control.valid
+                        ? 'is-valid'
+                        : control.touched && control.dirty
+                        ? 'is-invalid'
+                        : ''
+                    " class="form-control w-75 ml-auto" />
+            <button class="btn btn-success mr-auto ml-1" (click)="addPermission()" [disabled]="control.invalid">
+              <i class="fa fa-plus"></i>
+            </button>
+            <div class="invalid-feedback">Invalid permission value!</div>
+          </form>
       </div>
     </div>
   </div>

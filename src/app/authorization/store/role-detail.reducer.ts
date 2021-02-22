@@ -49,6 +49,7 @@ const createRoleReducers = createReducer(
     fromRoleActions.doAssignRoleFail,
     fromRoleActions.doDeleteRoleFail,
     fromRoleActions.doCreateRoleFail,
+    fromRoleActions.doFetchRoleFail,
     (state) =>
       Object.assign({}, INITIAL_STATE, {
         failed: true,

@@ -1,4 +1,4 @@
-import { ElementRef, Injector, ViewChild } from '@angular/core';
+import { Injector } from '@angular/core';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { BaseComponent } from './base.component';
 import { IPaginationModel } from '../../models';
@@ -6,7 +6,7 @@ import { IPaginationModel } from '../../models';
 export abstract class ListingControlsComponent<
   TDataModel,
   TSearchFormModel
-> extends BaseComponent {
+  > extends BaseComponent {
   criteria: RequestCriteria<TSearchFormModel>;
   data: Array<TDataModel>;
   pagination: IPaginationModel;

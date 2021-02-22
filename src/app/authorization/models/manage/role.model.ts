@@ -8,4 +8,11 @@ export class ManageRoleForm {
       this.rolesIds = roleForm.rolesIds;
     }
   }
+
+  static toJSON(form: ManageRoleForm) {
+    return {
+      user_id: form.userId,
+      roles_ids: form.rolesIds,
+    };
+  }
 }

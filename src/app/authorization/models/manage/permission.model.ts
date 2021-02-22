@@ -8,4 +8,11 @@ export class ManagePermissionForm {
       this.permissionsIds = permissionForm.permissionsIds;
     }
   }
+
+  static toJSON(form: ManagePermissionForm) {
+    return {
+      role_id: form.roleId,
+      permissions_ids: form.permissionsIds,
+    };
+  }
 }

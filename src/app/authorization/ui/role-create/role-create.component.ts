@@ -22,7 +22,7 @@ export class RoleCreateComponent implements OnInit {
       const form: CreateRoleForm = {
         name: this.formGroup.controls.name.value,
         description: this.formGroup.controls.description.value,
-        display_name: this.formGroup.controls.displayName.value,
+        displayName: this.formGroup.controls.displayName.value,
       };
       console.log(form);
       this._sandbox.createRole(form);

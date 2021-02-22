@@ -1,7 +1,9 @@
 <div class="animated fadeIn row">
-  <div class="col-md-4 text-center mx-auto">
+  <div class="col-md-4">
     <div class="card">
-      <div class="card-header">Create a Role</div>
+      <div class="card-header">
+        <strong>Create a Role</strong>
+      </div>
       <form
         novalidate
         autocomplete="off"
@@ -10,20 +12,23 @@
         class="card-body p-2"
       >
         <div class="form-group">
+          <label>Name</label>
           <input
             formControlName="name"
             class="form-control"
             placeholder="Name"
           />
+          <label class="mt-2">Description</label>
           <textarea
             formControlName="description"
-            class="form-control mt-2"
+            class="form-control"
             placeholder="Description..."
           >
           </textarea>
+          <label class="mt-2">Display Name</label>
           <input
             formControlName="displayName"
-            class="form-control mt-2"
+            class="form-control"
             placeholder="Display Name... "
           />
           <button

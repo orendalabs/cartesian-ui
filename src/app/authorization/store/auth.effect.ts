@@ -7,6 +7,9 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { AuthHttpService } from '../shared/auth-http.service';
 import * as fromRoleActions from './role.action';
 import * as fromPermissionActions from './permission.action';
+import { ManageRoleForm } from '../models/manage/role.model';
+import { CreateRoleForm } from '../models/create/role.model';
+import { ManagePermissionForm } from '../models/manage/permission.model';
 
 @Injectable()
 export class AuthEffects {
@@ -21,7 +24,7 @@ export class AuthEffects {
       ofType(fromRoleActions.doAssignRole),
       map((action) => action.roleForm),
       switchMap((roleForm) =>
-        this.roleHttpService.assignRole(roleForm).pipe(
+        this.roleHttpService.assignRole(ManageRoleForm.toJSON(roleForm)).pipe(
           map(() => fromRoleActions.doAssignRoleSuccess()),
           catchError((error) => of(fromRoleActions.doAssignRoleFail(error)))
         )
@@ -34,7 +37,7 @@ export class AuthEffects {
       ofType(fromRoleActions.doRevokeRole),
       map((action) => action.roleForm),
       switchMap((roleForm) =>
-        this.roleHttpService.revokeRole(roleForm).pipe(
+        this.roleHttpService.revokeRole(ManageRoleForm.toJSON(roleForm)).pipe(
           map(() => fromRoleActions.doRevokeRoleSuccess()),
           catchError((error) => of(fromRoleActions.doRevokeRoleFail(error)))
         )
@@ -47,7 +50,7 @@ export class AuthEffects {
       ofType(fromRoleActions.doSyncRole),
       map((action) => action.roleForm),
       switchMap((roleForm) =>
-        this.roleHttpService.syncRole(roleForm).pipe(
+        this.roleHttpService.syncRole(ManageRoleForm.toJSON(roleForm)).pipe(
           map(() => fromRoleActions.doSyncRoleSuccess()),
           catchError((error) => of(fromRoleActions.doSyncRoleFail(error)))
         )
@@ -90,7 +93,7 @@ export class AuthEffects {
       ofType(fromRoleActions.doCreateRole),
       map((action) => action.form),
       switchMap((form) =>
-        this.roleHttpService.createRole(form).pipe(
+        this.roleHttpService.createRole(CreateRoleForm.toJSON(form)).pipe(
           map((result) =>
             fromRoleActions.doCreateRoleSuccess({ role: result.data })
           ),
@@ -118,7 +121,7 @@ export class AuthEffects {
       ofType(fromPermissionActions.doAttachPermission),
       map((action) => action.permForm),
       switchMap((permForm) =>
-        this.roleHttpService.attachPermission(permForm).pipe(
+        this.roleHttpService.attachPermission(ManagePermissionForm.toJSON(permForm)).pipe(
           map(() => fromPermissionActions.doAttachPermissionSuccess()),
           catchError((error) =>
             of(fromPermissionActions.doAttachPermissionFail(error))
@@ -133,7 +136,7 @@ export class AuthEffects {
       ofType(fromPermissionActions.doDetachPermission),
       map((action) => action.permForm),
       switchMap((permForm) =>
-        this.roleHttpService.detachPermission(permForm).pipe(
+        this.roleHttpService.detachPermission(ManagePermissionForm.toJSON(permForm)).pipe(
           map(() => fromPermissionActions.doDetachPermissionSuccess()),
           catchError((error) =>
             of(fromPermissionActions.doDetachPermissionFail(error))
@@ -148,7 +151,7 @@ export class AuthEffects {
       ofType(fromPermissionActions.doSyncPermissions),
       map((action) => action.permForm),
       switchMap((permForm) =>
-        this.roleHttpService.detachPermission(permForm).pipe(
+        this.roleHttpService.syncPermissions(ManagePermissionForm.toJSON(permForm)).pipe(
           map(() => fromPermissionActions.doSyncPermissionsSuccess()),
           catchError((error) =>
             of(fromPermissionActions.doSyncPermissionsFail(error))

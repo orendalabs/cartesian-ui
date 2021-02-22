@@ -11,6 +11,10 @@ import { Subscription } from 'rxjs';
 export class PermissionDetailComponent implements OnInit {
   permission: Permission = null;
   subscriptions: Subscription[] = [];
+  
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
 
   constructor(
     protected _sandbox: AuthorizationSandbox,
@@ -30,6 +34,21 @@ export class PermissionDetailComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.permissionFetchData$.subscribe((data: Permission) => {
         this.permission = data;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionLoading$.subscribe((loading) => {
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionLoaded$.subscribe((loaded) => {
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionFailed$.subscribe((failed) => {
+        this.failed = failed;
       })
     );
   }
