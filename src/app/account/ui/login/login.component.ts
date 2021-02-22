@@ -8,23 +8,28 @@ import { BaseComponent } from '@app/core/ui';
 import { accountModuleAnimation } from '@app/core/animations';
 import { AccountSandbox } from '../../account.sandbox';
 import { LoginForm } from '../../models';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms'
+import { FormHelper } from '../helpers/form.helper';
 
 @Component({
   selector: 'app-account',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
   animations: [accountModuleAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends BaseComponent implements OnInit {
-  form: LoginForm;
+  formGroup: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, FormHelper.emailValidator()]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    remember: new FormControl(false)
+  })
 
   constructor(injector: Injector, public _sandbox: AccountSandbox) {
     super(injector);
   }
 
   ngOnInit() {
-    this.form = new LoginForm();
+
   }
 
   get multiTenancySideIsTeanant(): boolean {
@@ -42,6 +47,16 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   login(): void {
-    this._sandbox.authenticate(this.form);
+    if (this.formGroup.valid) {
+      let form = new LoginForm();
+      form.email = this.formGroup.controls['email'].value;
+      form.password = this.formGroup.controls['password'].value;
+      //form.remember = this.formGroup.controls['remember'].value;
+      this._sandbox.authenticate(form);
+    }
+  }
+
+  getFormClasses = (e: AbstractControl): string => {
+    return FormHelper.getFormClasses(e);
   }
 }
