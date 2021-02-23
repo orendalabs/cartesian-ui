@@ -7,7 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
-import { Permission } from '@app/authorization/models/permission.model';
 import { Role } from '@app/authorization/models/role.model';
 import { ListingControlsComponent } from '@app/core/ui';
 import { UserSandbox } from '@app/user/user.sandbox';
@@ -21,17 +20,19 @@ export class UserUpdateRolesComponent
   extends ListingControlsComponent<Role, SearchRoleForm>
   implements OnInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
-  selectedRoles: Permission[] = [];
+
+  @Input() parent: UserUpdateComponent;
+  @Input() set roles(r: Role[]) {
+    this.data = r;
+  }
+  
+  selectedRoles: Role[] = [];
+
   constructor(
     protected _sandbox: UserSandbox,
     private injector: Injector
   ) {
     super(injector);
-  }
-
-  @Input() parent: UserUpdateComponent;
-  @Input() set roles(r: Role[]) {
-    this.data = r;
   }
 
   ngOnInit(): void {}

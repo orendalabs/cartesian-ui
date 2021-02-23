@@ -1,10 +1,4 @@
 <div class="row" #dtContainer>
-  <div class="col-sm-12 my-2">
-    <button class="btn btn-danger pull-right" [disabled]="selectedRoles.length < 1"
-      (click)="revokeRoles()">
-      <i class="fa fa-chain-broken"></i> Revoke
-    </button>
-  </div>
   <div class="col-sm-12">
     <ngx-datatable class="material" [rows]="data" [columns]="[
           { name: 'name' },

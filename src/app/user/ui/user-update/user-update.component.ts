@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormHelper } from '@shared/helpers';
@@ -21,6 +21,8 @@ import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
 export class UserUpdateComponent
   extends TypeaheadItemListHelper<Role>
   implements OnInit {
+  @ViewChild("userRolesComponent") userRolesComponent: ElementRef;
+
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     password: new FormControl('', [
@@ -35,8 +37,6 @@ export class UserUpdateComponent
 
   userId: string;
   user: User;
-
-  currentTab: 'user' | 'roles' = 'user';
 
   constructor(
     protected _sandbox: UserSandbox,
@@ -103,6 +103,31 @@ export class UserUpdateComponent
   }
 
   sync() {
+    const shouldUpdateRoles = this.isRoleListChanged();
+    const shouldUpdateUser = this.isUserDataChanged();
+    if (shouldUpdateRoles && shouldUpdateUser) {
+      if (this.formGroup.valid) {
+        this.updateRoles();
+        this.update();
+        alert("Updating User and Roles");
+      } else {
+        alert("User details are invalid");
+      }
+    }
+    else if (shouldUpdateRoles) {
+      this.updateRoles();
+      alert("Updating Roles");
+    }
+    else if (shouldUpdateUser) {
+      this.update();
+      alert("Updating User");
+    }
+    else {
+      alert("No changes to update");
+    }
+  }
+
+  updateRoles() {
     const roleIds = this.addedItems.map((role) => role.id);
     const roleNames = this.addedItems.map((role) => role.name);
     const form = new ManageRoleForm({
@@ -116,7 +141,6 @@ export class UserUpdateComponent
       this._sandbox.syncRolesOnUser(form);
     }
   }
-
   update() {
     if (this.formGroup.valid) {
       const form = new EditUserForm({
@@ -129,15 +153,14 @@ export class UserUpdateComponent
 
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
+    if(control.value == "") {
+      return '';
+    }
     if (control.valid) {
       return 'is-valid';
     } else if (control.dirty && control.touched) {
       return 'is-invalid';
     }
-  }
-
-  switchTab(to) {
-    this.currentTab = to;
   }
 
   addRole() {
@@ -146,5 +169,25 @@ export class UserUpdateComponent
 
   removeRole(index: number) {
     this.removeItem(index);
+  }
+
+  isRoleListChanged(): boolean {
+    if (this.user.roles.length != this.addedItems.length) {
+      return true;
+    }
+    this.user.roles.forEach((role) => {
+      if (!this.addedItems.find((item) => item.id == role.id)) {
+        return true;
+      }
+    });
+    return false;
+  }
+
+  isUserDataChanged(): boolean {
+    if (this.formGroup.controls["name"].value == "" && 
+        this.formGroup.controls["password"].value == "") {
+          return false;
+        }
+    else return true;
   }
 }
