@@ -10,11 +10,18 @@ import { LocationEffects, locationFeatureKey, locationReducers } from './store';
 import { LocationHttpService } from './shared';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule } from '@angular/forms';
+import { CityCreateComponent } from './ui/city/city-create/city-create.component';
+import { LocationListComponent } from './ui/location/location-list/location-list.component';
+import { LocationCreateComponent } from './ui/location/location-create/location-create.component';
+import { CountryListComponent } from './ui/country/country-list/country-list.component';
+import { CountryCreateComponent } from './ui/country/country-create/country-create.component';
+import { StateListComponent } from './ui/state/state-list/state-list.component';
+import { StateCreateComponent } from './ui/state/state-create/state-create.component';
 
 
 
 @NgModule({
-  declarations: [LocationComponent, CityListComponent],
+  declarations: [LocationComponent, CityListComponent, CityCreateComponent, LocationListComponent, LocationCreateComponent, CountryListComponent, CountryCreateComponent, StateListComponent, StateCreateComponent],
   imports: [
     CommonModule,
     LocationRoutingModule,
