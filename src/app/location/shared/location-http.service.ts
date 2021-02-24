@@ -52,6 +52,17 @@ export class LocationHttpService extends HttpService {
   public fetchCity(@Path('id') id: string): Observable<any> {
     return null;
   }
+
+  /**
+   * Create city
+   *
+   * @param form form containing data of city
+   */
+  @POST('/cities')
+  @Adapter(LocationAdapter.locationAdapter)
+  public createCity(@Body form): Observable<any> {
+    return null;
+  }
   
   /**
    * Fetch countries list
