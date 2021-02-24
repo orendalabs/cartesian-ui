@@ -9,7 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { LocationEffects, locationFeatureKey, locationReducers } from './store';
 import { LocationHttpService } from './shared';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CityCreateComponent } from './ui/city/city-create/city-create.component';
 import { LocationListComponent } from './ui/location/location-list/location-list.component';
 import { LocationCreateComponent } from './ui/location/location-create/location-create.component';
@@ -28,7 +28,8 @@ import { StateCreateComponent } from './ui/state/state-create/state-create.compo
     StoreModule.forFeature(locationFeatureKey, locationReducers),
     EffectsModule.forFeature([LocationEffects]),
     NgxDatatableModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     LocationHttpService,
