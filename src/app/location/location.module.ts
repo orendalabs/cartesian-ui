@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LocationComponent } from './location.component';
-import { CityListComponent } from './ui/city-list/city-list.component';
+import { CityListComponent } from './ui/city/city-list/city-list.component';
 import { LocationRoutingModule } from './location-routing.module';
 import { LocationSandbox } from './location.sandbox';
 import { StoreModule } from '@ngrx/store';
