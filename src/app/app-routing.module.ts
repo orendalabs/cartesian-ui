@@ -50,7 +50,7 @@ const routes: Routes = [
           import('@app/user/user.module').then((m) => m.UserModule),
       },
       {
-        path: 'location',
+        path: 'locations',
         loadChildren: () =>
           import('@app/location/location.module').then(
             (m) => m.LocationModule
