@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 
 export class FormHelper {
@@ -73,6 +74,17 @@ export class FormHelper {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const valid = values.indexOf(control.value) === -1;
       return valid ? null : { value: { value: 'Invalid value.' } };
+    };
+  }
+
+  /**
+   *
+   * @returns true if control value is a float
+   */
+  static isFloatValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const valid = parseFloat(control.value).toString() == control.value;
+      return valid ? null : { value: { value: 'Data must be a number.' } };
     };
   }
 
