@@ -16,15 +16,15 @@
       </div>
       <div class="card-body">
           <label>Select Permission</label>
-          <form class="form-group form-inline mx-auto">
+          <form class="form-group form-inline">
             <input [formControl]="control" [typeahead]="typeaheadData" [isAnimated]="true" [ngClass]="
                       control.valid
                         ? 'is-valid'
                         : control.touched && control.dirty
                         ? 'is-invalid'
                         : ''
-                    " class="form-control w-75 ml-auto" />
-            <button class="btn btn-success mr-auto ml-1" (click)="addPermission()" [disabled]="control.invalid">
+                    " class="form-control" />
+            <button class="btn btn-success ml-1" (click)="addPermission()" [disabled]="control.invalid">
               <i class="fa fa-plus"></i>
             </button>
             <div class="invalid-feedback">Invalid permission value!</div>
