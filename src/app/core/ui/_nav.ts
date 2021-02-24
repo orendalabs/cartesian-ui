@@ -25,7 +25,29 @@ export const navItems: INavData[] = [
   },
   {
     name: 'Locations',
-    url: '/location',
-    icon: 'icon-location-pin',
+    url: '/locations',
+    icon: 'icon-map',
+    children: [
+      {
+        name: 'Cities',
+        url: '/locations/cities',
+        icon: 'icon-home',
+      },
+      {
+        name: 'Countries',
+        url: '/locations/countries',
+        icon: 'icon-flag',
+      },
+      {
+        name: 'Locations',
+        url: '/locations/list',
+        icon: 'icon-location-pin',
+      },
+      {
+        name: 'States',
+        url: '/locations/states',
+        icon: 'icon-layers',
+      },
+    ]
   },
 ];
