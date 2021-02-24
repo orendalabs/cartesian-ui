@@ -29,5 +29,35 @@ export class LocationEffects {
         )
       )
     );
-  })
+  });
+
+  fetchCity$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doFetchCity),
+      map((action) => action.id),
+      switchMap((id) => 
+        this.locationHttpService.fetchCity(id).pipe(
+          map((city) => locationActions.doFetchCitySuccess(
+            { city }
+          )),
+          catchError((error) => of(locationActions.doFetchCityFail()))
+        )
+      )
+    );
+  });
+
+  createCity$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doCreateCity),
+      map((action) => action.form),
+      switchMap((form) => 
+        this.locationHttpService.createCity(form.toJSON).pipe(
+          map((city) => locationActions.doCreateCitySuccess(
+            { city }
+          )),
+          catchError((error) => of(locationActions.doCreateCityFail()))
+        )
+      )
+    );
+  });
 }
