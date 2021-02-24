@@ -35,9 +35,20 @@ export class LocationSandbox extends Sandbox {
   fetchCities(criteria: RequestCriteria<SearchCityForm>): void {
     this.store.dispatch(
       locationActions.doFetchCities({ requestCriteria: criteria })
-    )
+    );
   }
 
+  fetchCity(id: string): void {
+    this.store.dispatch(
+      locationActions.doFetchCity({ id: id })
+    );
+  }
+
+  createCity(form: CityCreateForm): void {
+    this.store.dispatch(
+      locationActions.doCreateCity({ form: form })
+    );
+  }
   /**
    * Unsubscribe from events
    */
