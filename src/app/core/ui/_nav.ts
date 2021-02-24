@@ -23,4 +23,9 @@ export const navItems: INavData[] = [
     url: '/authorization/permissions',
     icon: 'icon-check',
   },
+  {
+    name: 'Locations',
+    url: '/location',
+    icon: 'icon-location-pin',
+  },
 ];
