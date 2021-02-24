@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { LocationEffects, locationFeatureKey, locationReducers } from './store';
 import { LocationHttpService } from './shared';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -18,6 +20,8 @@ import { LocationHttpService } from './shared';
     LocationRoutingModule,
     StoreModule.forFeature(locationFeatureKey, locationReducers),
     EffectsModule.forFeature([LocationEffects]),
+    NgxDatatableModule,
+    FormsModule
   ],
   providers: [
     LocationHttpService,
