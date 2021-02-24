@@ -22,6 +22,7 @@ export class LocationSandbox extends Sandbox {
   private subscriptions: Array<Subscription> = [];
   
   citiesData$ = this.store.pipe(select(locationSelectors.getCitiesList));
+  citiesMeta$ = this.store.pipe(select(locationSelectors.getCitiesMeta));
 
   constructor(
     protected store: Store<LocationState>,
