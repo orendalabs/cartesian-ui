@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { type, RequestCriteria } from '@cartesian-ui/ng-axis';
 import { City, Country, Location, State } from '../models/domain';
-import { CityCreateForm } from '../models/form';
+import { CityCreateForm, CountryCreateForm, LocationCreateForm, StateCreateForm } from '../models/form';
 
 /**
  * Fetch Cities Actions
@@ -79,6 +79,22 @@ export const doFetchCountryFail = createAction(
 );
 
 /**
+ * Create Country Actions
+ */
+export const doCreateCountry = createAction(
+  type('[Location] Do Create Country'),
+  props<{ form: CountryCreateForm }>()
+);
+export const doCreateCountrySuccess = createAction(
+  type('[Location] Do Create Country Success'),
+  props<{ country: Country }>()
+);
+export const doCreateCountryFail = createAction(
+  type('[Location] Do Create Country Fail')
+);
+
+
+/**
  * Fetch Locations Actions
  */
 export const doFetchLocations = createAction(
@@ -109,6 +125,21 @@ export const doFetchLocationFail = createAction(
 );
 
 /**
+ * Create Location Actions
+ */
+export const doCreateLocation = createAction(
+  type('[Location] Do Create Location'),
+  props<{ form: LocationCreateForm }>()
+);
+export const doCreateLocationSuccess = createAction(
+  type('[Location] Do Create Location Success'),
+  props<{ location: Location }>()
+);
+export const doCreateLocationFail = createAction(
+  type('[Location] Do Create Location Fail')
+);
+
+/**
  * Fetch States Actions
  */
 export const doFetchStates = createAction(
@@ -136,4 +167,19 @@ export const doFetchStateSuccess = createAction(
 );
 export const doFetchStateFail = createAction(
   type('[Location] Do Fetch State Fail')
+);
+
+/**
+ * Create State Actions
+ */
+export const doCreateState = createAction(
+  type('[Location] Do Create State'),
+  props<{ form: StateCreateForm }>()
+);
+export const doCreateStateSuccess = createAction(
+  type('[Location] Do Create State Success'),
+  props<{ state: State }>()
+);
+export const doCreateStateFail = createAction(
+  type('[Location] Do Create State Fail')
 );
