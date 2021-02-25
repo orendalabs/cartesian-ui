@@ -52,8 +52,8 @@
             [rows]="data"
             [columns]="[
               { name: 'name' },
-              { name: 'latitude' },
-              { name: 'longitude' }
+              { name: 'capital' },
+              { name: 'currency' }
             ]"
             [columnMode]="'force'"
             [headerHeight]="50"
@@ -89,13 +89,13 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Latitude" [flexGrow]="3" [minWidth]="200">
+            <ngx-datatable-column name="Capital" [flexGrow]="3" [minWidth]="200">
               <ng-template let-value="value" ngx-datatable-cell-template>
                 {{ value }}
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Longitude" [flexGrow]="1">
+            <ngx-datatable-column name="Currency" [flexGrow]="1">
               <ng-template
                 let-column="column"
                 let-sort="sortFn"
