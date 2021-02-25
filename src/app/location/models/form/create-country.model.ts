@@ -14,7 +14,6 @@ export interface ICountryCreateForm {
 
 export class CountryCreateForm implements ICountryCreateForm {
   public name: string;
-  public code: string;
   public native: string;
   public alpha2: string;
   public alpha3: string;
@@ -46,7 +45,6 @@ export class CountryCreateForm implements ICountryCreateForm {
   init(data?: any) {
     if (data) {
       this.name = data ? data.name : '';
-      this.code = data ? data.code : '';
       this.native  = data ? data.native : '';
       this.alpha2  = data ? data.alpha2 : '';
       this.alpha3  = data ? data.alpha3 : '';
@@ -63,7 +61,6 @@ export class CountryCreateForm implements ICountryCreateForm {
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
     data.name = this.name;
-    data.code = this.code;
     data.native  = this.native;
     data.alpha2  = this.alpha2;
     data.alpha3  = this.alpha3;
