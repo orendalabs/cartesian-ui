@@ -18,20 +18,22 @@ const routes: Routes = [
     data: {},
     children: [
       {
-        path: 'list',
-        component: LocationListComponent,
-        pathMatch: 'full',
+        path: 'locations',
         data: {
-          title: 'Locations',
+          title: '',
         },
-      },
-      {
-        path: 'create',
-        component: LocationCreateComponent,
-        pathMatch: 'full',
-        data: {
-          title: 'Create Location',
-        },
+        children: [
+          {
+            path: '',
+            component: LocationListComponent,
+            data: { title: 'Locations' },
+          },
+          {
+            path: 'create',
+            component: LocationCreateComponent,
+            data: { title: 'Create Location' },
+          },
+        ]
       },
       {
         path: 'cities',

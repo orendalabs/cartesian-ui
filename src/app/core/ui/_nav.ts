@@ -40,7 +40,7 @@ export const navItems: INavData[] = [
       },
       {
         name: 'Locations',
-        url: '/locations/list',
+        url: '/locations/locations',
         icon: 'icon-location-pin',
       },
       {
