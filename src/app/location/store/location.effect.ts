@@ -39,7 +39,7 @@ export class LocationEffects {
       switchMap((id) => 
         this.locationHttpService.fetchCity(id).pipe(
           map((city) => locationActions.doFetchCitySuccess(
-            { city }
+            { city: city.data }
           )),
           catchError((error) => of(locationActions.doFetchCityFail()))
         )
@@ -54,7 +54,7 @@ export class LocationEffects {
       switchMap((form) => 
         this.locationHttpService.createCity(form.toJSON).pipe(
           map((city) => locationActions.doCreateCitySuccess(
-            { city }
+            { city: city.data }
           )),
           catchError((error) => of(locationActions.doCreateCityFail()))
         )
@@ -85,7 +85,7 @@ export class LocationEffects {
       switchMap((id) => 
         this.locationHttpService.fetchCountry(id).pipe(
           map((country) => locationActions.doFetchCountrySuccess(
-            { country }
+            { country: country.data }
           )),
           catchError((error) => of(locationActions.doFetchCountryFail()))
         )
@@ -100,7 +100,7 @@ export class LocationEffects {
       switchMap((form) => 
         this.locationHttpService.createCountry(form.toJSON).pipe(
           map((country) => locationActions.doCreateCountrySuccess(
-            { country }
+            { country: country.data }
           )),
           catchError((error) => of(locationActions.doCreateCountryFail()))
         )
@@ -131,7 +131,7 @@ export class LocationEffects {
       switchMap((id) => 
         this.locationHttpService.fetchLocation(id).pipe(
           map((location) => locationActions.doFetchLocationSuccess(
-            { location }
+            { location: location.data }
           )),
           catchError((error) => of(locationActions.doFetchLocationFail()))
         )
@@ -146,7 +146,7 @@ export class LocationEffects {
       switchMap((form) => 
         this.locationHttpService.createLocation(form.toJSON).pipe(
           map((location) => locationActions.doCreateLocationSuccess(
-            { location }
+            { location: location.data }
           )),
           catchError((error) => of(locationActions.doCreateLocationFail()))
         )
@@ -177,7 +177,7 @@ export class LocationEffects {
       switchMap((id) => 
         this.locationHttpService.fetchState(id).pipe(
           map((state) => locationActions.doFetchStateSuccess(
-            { state }
+            { state: state.data }
           )),
           catchError((error) => of(locationActions.doFetchStateFail()))
         )
@@ -192,7 +192,7 @@ export class LocationEffects {
       switchMap((form) => 
         this.locationHttpService.createState(form.toJSON).pipe(
           map((state) => locationActions.doCreateStateSuccess(
-            { state }
+            { state: state.data }
           )),
           catchError((error) => of(locationActions.doCreateStateFail()))
         )
