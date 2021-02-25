@@ -58,7 +58,6 @@ export class CityListComponent extends ListingControlsComponent<City, SearchCity
         if (meta) {
           this.pagination = meta.pagination;
         }
-        console.log(meta);
       })
     );
   }
