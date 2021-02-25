@@ -14,15 +14,15 @@ import {
   PUT,
 } from '@cartesian-ui/ng-axis';
 import { LocationAdapter } from './location.adapter';
-import { 
-  SearchCityForm, 
-  SearchCountryForm, 
-  SearchLocationForm, 
-  SearchStateForm, 
-  CityCreateForm, 
-  StateCreateForm, 
-  CountryCreateForm, 
-  LocationCreateForm 
+import {
+  SearchCityForm,
+  SearchCountryForm,
+  SearchLocationForm,
+  SearchStateForm,
+  CityCreateForm,
+  StateCreateForm,
+  CountryCreateForm,
+  LocationCreateForm
 } from '../models/form/';
 
 @Injectable()
@@ -63,7 +63,7 @@ export class LocationHttpService extends HttpService {
   public createCity(@Body form): Observable<any> {
     return null;
   }
-  
+
   /**
    * Fetch countries list
    *
@@ -75,7 +75,7 @@ export class LocationHttpService extends HttpService {
     return null;
   }
 
-    
+
   /**
    * Fetch country
    *
@@ -85,7 +85,18 @@ export class LocationHttpService extends HttpService {
   @Adapter(LocationAdapter.locationAdapter)
   public fetchCountry(@Path('id') id: string): Observable<any> {
     return null;
-}
+  }
+
+  /**
+   * Create country
+   *
+   * @param form form containing data of country
+   */
+  @POST('/countries')
+  @Adapter(LocationAdapter.locationAdapter)
+  public createCountry(@Body form): Observable<any> {
+    return null;
+  }
 
   /**
    * Fetch locations list
@@ -98,7 +109,7 @@ export class LocationHttpService extends HttpService {
     return null;
   }
 
-  
+
   /**
    * Fetch location
    *
@@ -107,6 +118,17 @@ export class LocationHttpService extends HttpService {
   @GET('/locations/{id}')
   @Adapter(LocationAdapter.locationAdapter)
   public fetchLocation(@Path('id') id: string): Observable<any> {
+    return null;
+  }
+
+  /**
+   * Create location
+   *
+   * @param form form containing data of location
+   */
+  @POST('/locations')
+  @Adapter(LocationAdapter.locationAdapter)
+  public createLocation(@Body form): Observable<any> {
     return null;
   }
 
@@ -121,7 +143,6 @@ export class LocationHttpService extends HttpService {
     return null;
   }
 
-  
   /**
    * Fetch state list
    *
@@ -130,6 +151,17 @@ export class LocationHttpService extends HttpService {
   @GET('/states/{id}')
   @Adapter(LocationAdapter.locationAdapter)
   public fetchState(@Path('id') id: string): Observable<any> {
+    return null;
+  }
+  
+  /**
+   * Create state
+   *
+   * @param form form containing data of state
+   */
+  @POST('/states')
+  @Adapter(LocationAdapter.locationAdapter)
+  public createState(@Body form): Observable<any> {
     return null;
   }
 }
