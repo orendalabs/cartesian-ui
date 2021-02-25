@@ -17,11 +17,15 @@ import { CountryListComponent } from './ui/country/country-list/country-list.com
 import { CountryCreateComponent } from './ui/country/country-create/country-create.component';
 import { StateListComponent } from './ui/state/state-list/state-list.component';
 import { StateCreateComponent } from './ui/state/state-create/state-create.component';
+import { CityDetailComponent } from './ui/city/city-detail/city-detail.component';
+import { CountryDetailComponent } from './ui/country/country-detail/country-detail.component';
+import { LocationDetailComponent } from './ui/location/location-detail/location-detail.component';
+import { StateDetailComponent } from './ui/state/state-detail/state-detail.component';
 
 
 
 @NgModule({
-  declarations: [LocationComponent, CityListComponent, CityCreateComponent, LocationListComponent, LocationCreateComponent, CountryListComponent, CountryCreateComponent, StateListComponent, StateCreateComponent],
+  declarations: [LocationComponent, CityListComponent, CityCreateComponent, LocationListComponent, LocationCreateComponent, CountryListComponent, CountryCreateComponent, StateListComponent, StateCreateComponent, CityDetailComponent, CountryDetailComponent, LocationDetailComponent, StateDetailComponent],
   imports: [
     CommonModule,
     LocationRoutingModule,

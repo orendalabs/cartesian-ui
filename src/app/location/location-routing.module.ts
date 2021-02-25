@@ -2,12 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LocationComponent } from './location.component';
 import { CityCreateComponent } from './ui/city/city-create/city-create.component';
+import { CityDetailComponent } from './ui/city/city-detail/city-detail.component';
 import { CityListComponent } from './ui/city/city-list/city-list.component';
 import { CountryCreateComponent } from './ui/country/country-create/country-create.component';
+import { CountryDetailComponent } from './ui/country/country-detail/country-detail.component';
 import { CountryListComponent } from './ui/country/country-list/country-list.component';
 import { LocationCreateComponent } from './ui/location/location-create/location-create.component';
+import { LocationDetailComponent } from './ui/location/location-detail/location-detail.component';
 import { LocationListComponent } from './ui/location/location-list/location-list.component';
 import { StateCreateComponent } from './ui/state/state-create/state-create.component';
+import { StateDetailComponent } from './ui/state/state-detail/state-detail.component';
 import { StateListComponent } from './ui/state/state-list/state-list.component';
 
 
@@ -33,6 +37,11 @@ const routes: Routes = [
             component: LocationCreateComponent,
             data: { title: 'Create Location' },
           },
+          {
+            path: ':id',
+            component: LocationDetailComponent,
+            data: { title: 'Location Detail' },
+          },
         ]
       },
       {
@@ -50,6 +59,11 @@ const routes: Routes = [
             path: 'create',
             component: CityCreateComponent,
             data: { title: 'Create City' },
+          },
+          {
+            path: ':id',
+            component: CityDetailComponent,
+            data: { title: 'City Detail' },
           },
         ]
       },
@@ -69,6 +83,11 @@ const routes: Routes = [
             component: CountryCreateComponent,
             data: { title: 'Create Country' },
           },
+          {
+            path: ':id',
+            component: CountryDetailComponent,
+            data: { title: 'Country Detail' },
+          },
         ]
       },
       {
@@ -86,6 +105,11 @@ const routes: Routes = [
             path: 'create',
             component: StateCreateComponent,
             data: { title: 'Create State' },
+          },
+          {
+            path: ':id',
+            component: StateDetailComponent,
+            data: { title: 'State Detail' },
           },
         ]
       },
