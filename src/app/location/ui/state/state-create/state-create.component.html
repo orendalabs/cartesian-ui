@@ -1,1 +1,58 @@
-<p>state-create works!</p>
+
+<form
+novalidate
+autocomplete="off"
+[formGroup]="formGroup"
+(ngSubmit)="create()"
+>
+<div class="animated fadeIn row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Create a State</strong>
+      </div>
+      <div class="card-body p-2">
+        <div>
+          <label>Country ID</label>
+          <input
+            formControlName="countryId"
+            class="form-control"
+            [ngClass]="getFormClasses('countryId')"
+            placeholder="Country ID..."
+          />
+          <div class="invalid-feedback">Please enter an ID</div>
+        </div>
+        <div class="mt-2">
+          <label>Name</label>
+          <input
+            formControlName="name"
+            class="form-control"
+            [ngClass]="getFormClasses('name')"
+            placeholder="Name..."
+          />
+          <div class="invalid-feedback">Please enter a name</div>
+        </div>
+        <div class="mt-2">
+          <label>Code</label>
+          <input
+            formControlName="code"
+            class="form-control"
+            [ngClass]="getFormClasses('code')"
+            placeholder="Code..." 
+          />
+          <div class="invalid-feedback">Invalid latitude</div>
+        </div>
+        <button
+          type="submit"
+          name=""
+          id=""
+          class="btn btn-primary btn-block mt-3"
+          [disabled]="formGroup.invalid"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
