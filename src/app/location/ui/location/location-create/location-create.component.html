@@ -1,1 +1,133 @@
-<p>location-create works!</p>
+
+<form
+novalidate
+autocomplete="off"
+[formGroup]="formGroup"
+(ngSubmit)="create()"
+>
+<div class="animated fadeIn row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Create a Location</strong>
+      </div>
+      <div class="card-body p-2">
+        <div>
+          <label>Locatable Type</label>
+          <input
+            formControlName="locatableType"
+            class="form-control"
+            [ngClass]="getFormClasses('locatableType')"
+            placeholder="Locatable Type..."
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>Locatable ID</label>
+          <input
+            formControlName="locatableId"
+            class="form-control"
+            [ngClass]="getFormClasses('locatableId')"
+            placeholder="Locatable ID..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>Address Line 1</label>
+          <input
+            formControlName="addressLine1"
+            class="form-control"
+            [ngClass]="getFormClasses('addressLine1')"
+            placeholder="Address Line 2..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>Address Line 2</label>
+          <input
+            formControlName="addressLine2"
+            class="form-control"
+            [ngClass]="getFormClasses('addressLine2')"
+            placeholder="Address Line 2..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>Country ID</label>
+          <input
+            formControlName="countryId"
+            class="form-control"
+            [ngClass]="getFormClasses('countryId')"
+            placeholder="Country ID..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>State ID</label>
+          <input
+            formControlName="stateId"
+            class="form-control"
+            [ngClass]="getFormClasses('stateId')"
+            placeholder="State ID..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>City ID</label>
+          <input
+            formControlName="cityId"
+            class="form-control"
+            [ngClass]="getFormClasses('cityId')"
+            placeholder="City ID..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>Post Code</label>
+          <input
+            formControlName="postCode"
+            class="form-control"
+            [ngClass]="getFormClasses('postCode')"
+            placeholder="Post Code..." 
+          />
+          <div class="invalid-feedback">Invalid value</div>
+        </div>
+        <div class="mt-2">
+          <label>Latitude</label>
+          <input
+            formControlName="latitude"
+            class="form-control"
+            [ngClass]="getFormClasses('latitude')"
+            placeholder="Latitude..." 
+            min="-90"
+            max="90"
+          />
+          <div class="invalid-feedback">Invalid latitude</div>
+        </div>
+        <div class="mt-2">
+          <label>Longitude</label>
+          <input
+            formControlName="longitude"
+            class="form-control"
+            [ngClass]="getFormClasses('longitude')"
+            placeholder="Longitude..."
+            min="-180"
+            max="180"
+          />
+          <div class="invalid-feedback">Invalid longitude</div>
+        </div>
+
+        <button
+          type="submit"
+          name=""
+          id=""
+          class="btn btn-primary btn-block mt-3"
+          [disabled]="formGroup.invalid"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
