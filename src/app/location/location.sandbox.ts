@@ -24,18 +24,34 @@ export class LocationSandbox extends Sandbox {
   // City Observables
   citiesData$ = this.store.pipe(select(locationSelectors.getCitiesList));
   citiesMeta$ = this.store.pipe(select(locationSelectors.getCitiesMeta));
+  city$ = this.store.pipe(select(locationSelectors.getCityDetail));
+  cityLoaded$ = this.store.pipe(select(locationSelectors.getCityLoaded));
+  cityLoading$ = this.store.pipe(select(locationSelectors.getCityLoading));
+  cityFailed$ = this.store.pipe(select(locationSelectors.getCityFailed));
 
   // Country Observables
   countriesData$ = this.store.pipe(select(locationSelectors.getCountriesList));
   countriesMeta$ = this.store.pipe(select(locationSelectors.getCountriesMeta));
+  country$ = this.store.pipe(select(locationSelectors.getCountryDetail));
+  countryLoaded$ = this.store.pipe(select(locationSelectors.getCountryLoaded));
+  countryLoading$ = this.store.pipe(select(locationSelectors.getCountryLoading));
+  countryFailed$ = this.store.pipe(select(locationSelectors.getCountryFailed));
 
   // Location Observables
   locationsData$ = this.store.pipe(select(locationSelectors.getLocationsList));
   locationsMeta$ = this.store.pipe(select(locationSelectors.getLocationsMeta));
+  location$ = this.store.pipe(select(locationSelectors.getLocationDetail));
+  locationLoaded$ = this.store.pipe(select(locationSelectors.getLocationLoaded));
+  locationLoading$ = this.store.pipe(select(locationSelectors.getLocationLoading));
+  locationFailed$ = this.store.pipe(select(locationSelectors.getLocationFailed));
 
   // State Observables
   statesData$ = this.store.pipe(select(locationSelectors.getStatesList));
   statesMeta$ = this.store.pipe(select(locationSelectors.getStatesMeta));
+  state$ = this.store.pipe(select(locationSelectors.getStateDetail));
+  stateLoaded$ = this.store.pipe(select(locationSelectors.getStateLoaded));
+  stateLoading$ = this.store.pipe(select(locationSelectors.getStateLoading));
+  stateFailed$ = this.store.pipe(select(locationSelectors.getStateFailed));
 
   constructor(
     protected store: Store<LocationState>,
