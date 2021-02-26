@@ -52,7 +52,7 @@ export class LocationEffects {
       ofType(locationActions.doCreateCity),
       map((action) => action.form),
       switchMap((form) => 
-        this.locationHttpService.createCity(form.toJSON).pipe(
+        this.locationHttpService.createCity(form).pipe(
           map((city) => locationActions.doCreateCitySuccess(
             { city: city.data }
           )),
@@ -113,7 +113,7 @@ export class LocationEffects {
       ofType(locationActions.doCreateCountry),
       map((action) => action.form),
       switchMap((form) => 
-        this.locationHttpService.createCountry(form.toJSON).pipe(
+        this.locationHttpService.createCountry(form).pipe(
           map((country) => locationActions.doCreateCountrySuccess(
             { country: country.data }
           )),
@@ -174,7 +174,7 @@ export class LocationEffects {
       ofType(locationActions.doCreateLocation),
       map((action) => action.form),
       switchMap((form) => 
-        this.locationHttpService.createLocation(form.toJSON).pipe(
+        this.locationHttpService.createLocation(form).pipe(
           map((location) => locationActions.doCreateLocationSuccess(
             { location: location.data }
           )),
@@ -235,7 +235,7 @@ export class LocationEffects {
       ofType(locationActions.doCreateState),
       map((action) => action.form),
       switchMap((form) => 
-        this.locationHttpService.createState(form.toJSON).pipe(
+        this.locationHttpService.createState(form).pipe(
           map((state) => locationActions.doCreateStateSuccess(
             { state: state.data }
           )),
