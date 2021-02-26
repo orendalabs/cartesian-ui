@@ -1,1 +1,129 @@
-<p>location-detail works!</p>
+<div class="animated fadeIn row">
+  <div class="col-sm-12">
+    <button 
+      class="btn btn-primary pull-right" 
+      [disabled]="formGroup.invalid"
+      (click)="save()">
+      <i class="fa fa-save"></i> Save
+    </button>
+    <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+  </div>
+  <hr class="col-sm-12"/>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Location Detail</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <p><b>Id: </b>{{location.id}}</p>
+          <p><b>AddressLine1: </b>{{location.addressLine1}}</p>
+          <p><b>AddressLine2: </b>{{location.addressLine2}}</p>
+          <p><b>PostCode: </b>{{location.postCode}}</p>
+          <p><b>Latitude: </b>{{location.latitude</p>
+          <p><b>Longitude: </b>{{location.longitude}}</p>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Edit Location</strong>
+      </div>
+      <div class="card-body p-2">
+        <form *ngIf="loaded" [formGroup]="formGroup">
+          <div>
+            <label>Address Line 1</label>
+            <input
+              formControlName="addressLine1"
+              class="form-control"
+              [ngClass]="getFormClasses('addressLine1')"
+              placeholder="Address Line 2..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Address Line 2</label>
+            <input
+              formControlName="addressLine2"
+              class="form-control"
+              [ngClass]="getFormClasses('addressLine2')"
+              placeholder="Address Line 2..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Country ID</label>
+            <input
+              formControlName="countryId"
+              class="form-control"
+              [ngClass]="getFormClasses('countryId')"
+              placeholder="Country ID..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>State ID</label>
+            <input
+              formControlName="stateId"
+              class="form-control"
+              [ngClass]="getFormClasses('stateId')"
+              placeholder="State ID..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>City ID</label>
+            <input
+              formControlName="cityId"
+              class="form-control"
+              [ngClass]="getFormClasses('cityId')"
+              placeholder="City ID..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Post Code</label>
+            <input
+              formControlName="postCode"
+              class="form-control"
+              [ngClass]="getFormClasses('postCode')"
+              placeholder="Post Code..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Latitude</label>
+            <input
+              formControlName="latitude"
+              class="form-control"
+              [ngClass]="getFormClasses('latitude')"
+              placeholder="Latitude..." 
+              min="-90"
+              max="90"
+            />
+            <div class="invalid-feedback">Invalid latitude</div>
+          </div>
+          <div class="mt-2">
+            <label>Longitude</label>
+            <input
+              formControlName="longitude"
+              class="form-control"
+              [ngClass]="getFormClasses('longitude')"
+              placeholder="Longitude..."
+              min="-180"
+              max="180"
+            />
+            <div class="invalid-feedback">Invalid longitude</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
