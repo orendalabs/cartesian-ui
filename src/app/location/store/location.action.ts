@@ -1,7 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { type, RequestCriteria } from '@cartesian-ui/ng-axis';
 import { City, Country, Location, State } from '../models/domain';
-import { CityCreateForm, CountryCreateForm, LocationCreateForm, StateCreateForm } from '../models/form';
+import { 
+  CityCreateForm, 
+  CountryCreateForm, 
+  LocationCreateForm, 
+  StateCreateForm, 
+  CityUpdateForm, 
+  CountryUpdateForm, 
+  LocationUpdateForm, 
+  StateUpdateForm 
+} from '../models/form';
 
 /**
  * Fetch Cities Actions
@@ -49,6 +58,21 @@ export const doCreateCityFail = createAction(
 );
 
 /**
+ * Update City Actions
+ */
+export const doUpdateCity = createAction(
+  type('[Location] Do Update City'),
+  props<{ form: CityUpdateForm }>()
+);
+export const doUpdateCitySuccess = createAction(
+  type('[Location] Do Update City Success'),
+  props<{ city: City }>()
+);
+export const doUpdateCityFail = createAction(
+  type('[Location] Do Update City Fail')
+);
+
+/**
  * Fetch Countries Actions
  */
 export const doFetchCountries = createAction(
@@ -93,7 +117,20 @@ export const doCreateCountryFail = createAction(
   type('[Location] Do Create Country Fail')
 );
 
-
+/**
+ * Update Country Actions
+ */
+export const doUpdateCountry = createAction(
+  type('[Location] Do Update Country'),
+  props<{ form: CountryUpdateForm }>()
+);
+export const doUpdateCountrySuccess = createAction(
+  type('[Location] Do Update Country Success'),
+  props<{ country: Country }>()
+);
+export const doUpdateCountryFail = createAction(
+  type('[Location] Do Update Country Fail')
+);
 /**
  * Fetch Locations Actions
  */
@@ -140,6 +177,21 @@ export const doCreateLocationFail = createAction(
 );
 
 /**
+ * Update Location Actions
+ */
+export const doUpdateLocation = createAction(
+  type('[Location] Do Update Location'),
+  props<{ form: LocationUpdateForm }>()
+);
+export const doUpdateLocationSuccess = createAction(
+  type('[Location] Do Update Location Success'),
+  props<{ location: Location }>()
+);
+export const doUpdateLocationFail = createAction(
+  type('[Location] Do Update Location Fail')
+);
+
+/**
  * Fetch States Actions
  */
 export const doFetchStates = createAction(
@@ -182,4 +234,19 @@ export const doCreateStateSuccess = createAction(
 );
 export const doCreateStateFail = createAction(
   type('[Location] Do Create State Fail')
+);
+
+/**
+ * Update State Actions
+ */
+export const doUpdateState = createAction(
+  type('[Location] Do Update State'),
+  props<{ form: StateUpdateForm }>()
+);
+export const doUpdateStateSuccess = createAction(
+  type('[Location] Do Update State Success'),
+  props<{ state: State }>()
+);
+export const doUpdateStateFail = createAction(
+  type('[Location] Do Update State Fail')
 );
