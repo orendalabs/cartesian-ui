@@ -62,6 +62,21 @@ export class LocationEffects {
     );
   });
 
+  updateCity$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doUpdateCity),
+      map((action) => action.form),
+      switchMap((form) => 
+        this.locationHttpService.updateCity(form.id, form).pipe(
+          map((city) => locationActions.doUpdateCitySuccess(
+            { city: city.data }
+          )),
+          catchError((error) => of(locationActions.doUpdateCityFail()))
+        )
+      )
+    );
+  });
+
   // Country Effects
   fetchCountries$ = createEffect(() => {
     return this.actions$.pipe(
@@ -103,6 +118,21 @@ export class LocationEffects {
             { country: country.data }
           )),
           catchError((error) => of(locationActions.doCreateCountryFail()))
+        )
+      )
+    );
+  });
+
+  updateCountry$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doUpdateCountry),
+      map((action) => action.form),
+      switchMap((form) => 
+        this.locationHttpService.updateCountry(form.id, form).pipe(
+          map((country) => locationActions.doUpdateCountrySuccess(
+            { country: country.data }
+          )),
+          catchError((error) => of(locationActions.doUpdateCountryFail()))
         )
       )
     );
@@ -154,6 +184,21 @@ export class LocationEffects {
     );
   });
 
+  updateLocation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doUpdateLocation),
+      map((action) => action.form),
+      switchMap((form) => 
+        this.locationHttpService.updateLocation(form.id, form).pipe(
+          map((location) => locationActions.doUpdateLocationSuccess(
+            { location: location.data }
+          )),
+          catchError((error) => of(locationActions.doUpdateLocationFail()))
+        )
+      )
+    );
+  });
+
   // State Effects
   fetchStates$ = createEffect(() => {
     return this.actions$.pipe(
@@ -195,6 +240,21 @@ export class LocationEffects {
             { state: state.data }
           )),
           catchError((error) => of(locationActions.doCreateStateFail()))
+        )
+      )
+    );
+  });
+
+  updateState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doUpdateState),
+      map((action) => action.form),
+      switchMap((form) => 
+        this.locationHttpService.updateState(form.id, form).pipe(
+          map((state) => locationActions.doUpdateStateSuccess(
+            { state: state.data }
+          )),
+          catchError((error) => of(locationActions.doUpdateStateFail()))
         )
       )
     );
