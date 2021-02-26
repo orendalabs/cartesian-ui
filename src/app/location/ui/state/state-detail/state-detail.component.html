@@ -1,1 +1,73 @@
-<p>state-detail works!</p>
+<div class="animated fadeIn row">
+  <div class="col-sm-12">
+    <button 
+      class="btn btn-primary pull-right" 
+      [disabled]="formGroup.invalid"
+      (click)="save()">
+      <i class="fa fa-save"></i> Save
+    </button>
+    <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+  </div>
+  <hr class="col-sm-12"/>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>State Detail</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <p><b>ID: </b> {{ this.state.id }}</p>
+          <p><b>Country ID: </b> {{ this.state.countryId }}</p>
+          <p><b>Name: </b> {{ this.state.name }}</p>
+          <p><b>Code: </b> {{ this.state.code }}</p>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Edit State</strong>
+      </div>
+      <div class="card-body p-2">
+        <form *ngIf="loaded" [formGroup]="formGroup">
+          <div>
+            <label>Country ID</label>
+            <input
+              formControlName="countryId"
+              class="form-control"
+              [ngClass]="getFormClasses('countryId')"
+              placeholder="Country ID..."
+            />
+            <div class="invalid-feedback">Please enter an ID</div>
+          </div>
+          <div class="mt-2">
+            <label>Name</label>
+            <input
+              formControlName="name"
+              class="form-control"
+              [ngClass]="getFormClasses('name')"
+              placeholder="Name..."
+            />
+            <div class="invalid-feedback">Please enter a name</div>
+          </div>
+          <div class="mt-2">
+            <label>Code</label>
+            <input
+              formControlName="code"
+              class="form-control"
+              [ngClass]="getFormClasses('code')"
+              placeholder="Code..." 
+            />
+            <div class="invalid-feedback">Invalid latitude</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
