@@ -13,6 +13,8 @@ const createLocationDetailReducers = createReducer(
   INITIAL_STATE,
   on(
     locationActions.doFetchLocation,
+    locationActions.doCreateLocation,
+    locationActions.doUpdateLocation,
     (state) => {
       return Object.assign({}, state, {
         loading: true,
@@ -23,6 +25,8 @@ const createLocationDetailReducers = createReducer(
   ),
   on(
     locationActions.doFetchLocationSuccess,
+    locationActions.doCreateLocationSuccess,
+    locationActions.doUpdateLocationSuccess,
     (state, { location }) => {
       return Object.assign({}, state, {
         loaded: true,
@@ -34,6 +38,8 @@ const createLocationDetailReducers = createReducer(
   ),
   on(
     locationActions.doFetchLocationFail,
+    locationActions.doCreateLocationFail,
+    locationActions.doUpdateLocationFail,
     (state) => {
       return Object.assign({}, INITIAL_STATE, { failed: true });
     }
