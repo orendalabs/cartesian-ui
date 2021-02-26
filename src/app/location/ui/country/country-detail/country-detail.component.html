@@ -1,1 +1,160 @@
-<p>country-detail works!</p>
+<div class="animated fadeIn row">
+  <div class="col-sm-12">
+    <button 
+      class="btn btn-primary pull-right" 
+      [disabled]="formGroup.invalid"
+      (click)="save()">
+      <i class="fa fa-save"></i> Save
+    </button>
+    <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+  </div>
+  <hr class="col-sm-12"/>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Country Detail</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <p><b>Alpha2: </b>{{country.alpha2}}</p>
+          <p><b>Alpha3: </b>{{country.alpha3}}</p>
+          <p><b>Capital: </b>{{country.capital}}</p>
+          <p><b>Continent: </b>{{country.continent}}</p>
+          <p><b>Subcontinent: </b>{{country.subcontinent}}</p>
+          <p><b>Currency: </b>{{country.currency}}</p>
+          <p><b>Emoji: </b>{{country.emoji}}</p>
+          <p><b>Emoji Unicode: </b>{{country.emojiUnicode}}</p>
+          <p><b>Isd: </b>{{country.isd}}</p>
+          <p><b>Name: </b>{{country.name}}</p>
+          <p><b>Native: </b>{{country.native}}</p>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Create a Country</strong>
+      </div>
+      <div class="card-body p-2">
+        <form *ngIf="loaded" [formGroup]="formGroup">
+          <div>
+            <label>Name</label>
+            <input
+              formControlName="name"
+              class="form-control"
+              [ngClass]="getFormClasses('name')"
+              placeholder="Name..."
+            />
+            <div class="invalid-feedback">Please enter a name</div>
+          </div>
+          <div class="mt-2">
+            <label>Native</label>
+            <input
+              formControlName="native"
+              class="form-control"
+              [ngClass]="getFormClasses('native')"
+              placeholder="Native..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Alpha 2</label>
+            <input
+              formControlName="alpha2"
+              class="form-control"
+              [ngClass]="getFormClasses('alpha2')"
+              placeholder="Alpha 2..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Alpha 3</label>
+            <input
+              formControlName="alpha3"
+              class="form-control"
+              [ngClass]="getFormClasses('alpha3')"
+              placeholder="Alpha 3..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>ISD</label>
+            <input
+              formControlName="isd"
+              class="form-control"
+              [ngClass]="getFormClasses('isd')"
+              placeholder="ISD..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Capital</label>
+            <input
+              formControlName="capital"
+              class="form-control"
+              [ngClass]="getFormClasses('capital')"
+              placeholder="Capital..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Currency</label>
+            <input
+              formControlName="currency"
+              class="form-control"
+              [ngClass]="getFormClasses('currency')"
+              placeholder="Currency..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Continent</label>
+            <input
+              formControlName="continent"
+              class="form-control"
+              [ngClass]="getFormClasses('continent')"
+              placeholder="Continent..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Subcontinent</label>
+            <input
+              formControlName="subcontinent"
+              class="form-control"
+              [ngClass]="getFormClasses('subcontinent')"
+              placeholder="Subcontinent..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Emoji</label>
+            <input
+              formControlName="emoji"
+              class="form-control"
+              [ngClass]="getFormClasses('emoji')"
+              placeholder="Emoji..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+          <div class="mt-2">
+            <label>Emoji Unicode</label>
+            <input
+              formControlName="emojiUnicode"
+              class="form-control"
+              [ngClass]="getFormClasses('emojiUnicode')"
+              placeholder="Emoji Unicode..." 
+            />
+            <div class="invalid-feedback">Invalid value</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
