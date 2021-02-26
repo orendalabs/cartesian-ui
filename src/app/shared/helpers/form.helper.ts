@@ -83,7 +83,10 @@ export class FormHelper {
    */
   static isFloatValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const valid = parseFloat(control.value).toString() == control.value;
+      const regex = new RegExp(
+        String.raw`^\d+(\.\d+){0,1}$`
+      );
+      const valid = regex.test(control.value);
       return valid ? null : { value: { value: 'Data must be a number.' } };
     };
   }
