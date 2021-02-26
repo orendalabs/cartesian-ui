@@ -12,7 +12,11 @@ import {
   CityCreateForm, 
   StateCreateForm, 
   CountryCreateForm, 
-  LocationCreateForm 
+  LocationCreateForm,
+  CityUpdateForm, 
+  StateUpdateForm, 
+  CountryUpdateForm, 
+  LocationUpdateForm,
 } from './models/form/';
 import { LocationState, locationActions, locationSelectors } from './store';
 
@@ -79,6 +83,12 @@ export class LocationSandbox extends Sandbox {
       locationActions.doCreateCity({ form: form })
     );
   }
+  
+  updateCity(form: CityUpdateForm): void {
+    this.store.dispatch(
+      locationActions.doUpdateCity({ form: form })
+    );
+  }
 
   // Country Methods
   fetchCountries(criteria: RequestCriteria<SearchCountryForm>): void {
@@ -96,6 +106,12 @@ export class LocationSandbox extends Sandbox {
   createCountry(form: CountryCreateForm): void {
     this.store.dispatch(
       locationActions.doCreateCountry({ form: form })
+    );
+  }
+  
+  updateCountry(form: CountryUpdateForm): void {
+    this.store.dispatch(
+      locationActions.doUpdateCountry({ form: form })
     );
   }
 
@@ -117,6 +133,12 @@ export class LocationSandbox extends Sandbox {
       locationActions.doCreateLocation({ form: form })
     );
   }
+  
+  updateLocation(form: LocationUpdateForm): void {
+    this.store.dispatch(
+      locationActions.doUpdateLocation({ form: form })
+    );
+  }
 
   // State Methods
   fetchStates(criteria: RequestCriteria<SearchStateForm>): void {
@@ -134,6 +156,12 @@ export class LocationSandbox extends Sandbox {
   createState(form: StateCreateForm): void {
     this.store.dispatch(
       locationActions.doCreateState({ form: form })
+    );
+  }
+  
+  updateState(form: StateUpdateForm): void {
+    this.store.dispatch(
+      locationActions.doUpdateState({ form: form })
     );
   }
 
