@@ -22,7 +22,11 @@ import {
   CityCreateForm,
   StateCreateForm,
   CountryCreateForm,
-  LocationCreateForm
+  LocationCreateForm,
+  CityUpdateForm,
+  LocationUpdateForm,
+  StateUpdateForm,
+  CountryUpdateForm
 } from '../models/form/';
 
 @Injectable()
@@ -59,8 +63,17 @@ export class LocationHttpService extends HttpService {
    * @param form form containing data of city
    */
   @POST('/cities')
-  @Adapter(LocationAdapter.locationAdapter)
-  public createCity(@Body form): Observable<any> {
+  public createCity(@Body form: CityCreateForm): Observable<any> {
+    return null;
+  }
+  
+  /**
+   * Update city
+   *
+   * @param form form containing data of city
+   */
+  @PUT('/cities/{id}')
+  public updateCity(@Path('id') id: string, @Body form: CityUpdateForm): Observable<any> {
     return null;
   }
 
@@ -93,8 +106,17 @@ export class LocationHttpService extends HttpService {
    * @param form form containing data of country
    */
   @POST('/countries')
-  @Adapter(LocationAdapter.locationAdapter)
-  public createCountry(@Body form): Observable<any> {
+  public createCountry(@Body form: CountryCreateForm): Observable<any> {
+    return null;
+  }
+
+  /**
+   * Update country
+   *
+   * @param form form containing data of country
+   */
+  @PUT('/countries/{id}')
+  public updateCountry(@Path('id') id: string, @Body form: CountryUpdateForm): Observable<any> {
     return null;
   }
 
@@ -127,8 +149,17 @@ export class LocationHttpService extends HttpService {
    * @param form form containing data of location
    */
   @POST('/locations')
-  @Adapter(LocationAdapter.locationAdapter)
-  public createLocation(@Body form): Observable<any> {
+  public createLocation(@Body form: LocationCreateForm): Observable<any> {
+    return null;
+  }
+
+  /**
+   * Update location
+   *
+   * @param form form containing data of location
+   */
+  @PUT('/locations/{id}')
+  public updateLocation(@Path('id') id: string, @Body form: LocationUpdateForm): Observable<any> {
     return null;
   }
 
@@ -160,8 +191,17 @@ export class LocationHttpService extends HttpService {
    * @param form form containing data of state
    */
   @POST('/states')
-  @Adapter(LocationAdapter.locationAdapter)
-  public createState(@Body form): Observable<any> {
+  public createState(@Body form: StateCreateForm): Observable<any> {
+    return null;
+  }
+
+  /**
+   * Update state
+   *
+   * @param form form containing data of state
+   */
+  @PUT('/states/{id}')
+  public updateState(@Path('id') id: string, @Body form: StateUpdateForm): Observable<any> {
     return null;
   }
 }
