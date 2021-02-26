@@ -8,6 +8,8 @@ export interface ICountry {
   isd: string;
   capital: string;
   currency: string;
+  continent: string;
+  subcontinent: string;
   emoji: string;
   emojiUnicode: string;
 }
@@ -22,6 +24,8 @@ export class Country implements ICountry {
   public isd: string;
   public capital: string;
   public currency: string;
+  public continent: string;
+  public subcontinent: string;
   public emoji: string;
   public emojiUnicode: string;
 
@@ -53,6 +57,8 @@ export class Country implements ICountry {
       this.isd = data ? data.isd : '';
       this.capital = data ? data.capital : '';
       this.currency = data ? data.currency : '';
+      this.continent = data ? data.continent : '';
+      this.subcontinent = data ? data.subcontinent : '';
       this.emoji = data ? data.emoji : '';
       this.emojiUnicode = data ? data.emoji_unicode : '';
     }
@@ -69,6 +75,8 @@ export class Country implements ICountry {
     data.isd = this.isd;
     data.capital = this.capital;
     data.currency = this.currency;
+    data.continent = this.continent;
+    data.subcontinent = this.subcontinent;
     data.emoji = this.emoji;
     data.emoji_unicode = this.emojiUnicode;
 
