@@ -42,6 +42,22 @@ export const doFetchCityFail = createAction(
   type('[Location] Do Fetch City Fail')
 );
 
+
+/**
+ * Delete City Actions
+ */
+export const doDeleteCity = createAction(
+  type('[Location] Do Delete City'),
+  props<{ id: string }>()
+);
+export const doDeleteCitySuccess = createAction(
+  type('[Location] Do Delete City Success'),
+  props<{ city: City }>()
+);
+export const doDeleteCityFail = createAction(
+  type('[Location] Do Delete City Fail')
+);
+
 /**
  * Create City Actions
  */
@@ -100,6 +116,22 @@ export const doFetchCountrySuccess = createAction(
 );
 export const doFetchCountryFail = createAction(
   type('[Location] Do Fetch Country Fail')
+);
+
+
+/**
+ * Delete Country Actions
+ */
+export const doDeleteCountry = createAction(
+  type('[Location] Do Delete Country'),
+  props<{ id: string }>()
+);
+export const doDeleteCountrySuccess = createAction(
+  type('[Location] Do Delete Country Success'),
+  props<{ country: Country }>()
+);
+export const doDeleteCountryFail = createAction(
+  type('[Location] Do Delete Country Fail')
 );
 
 /**
@@ -161,6 +193,22 @@ export const doFetchLocationFail = createAction(
   type('[Location] Do Fetch Location Fail')
 );
 
+
+/**
+ * Delete Location Actions
+ */
+export const doDeleteLocation = createAction(
+  type('[Location] Do Delete Location'),
+  props<{ id: string }>()
+);
+export const doDeleteLocationSuccess = createAction(
+  type('[Location] Do Delete Location Success'),
+  props<{ location: Location }>()
+);
+export const doDeleteLocationFail = createAction(
+  type('[Location] Do Delete Location Fail')
+);
+
 /**
  * Create Location Actions
  */
@@ -219,6 +267,22 @@ export const doFetchStateSuccess = createAction(
 );
 export const doFetchStateFail = createAction(
   type('[Location] Do Fetch State Fail')
+);
+
+
+/**
+ * Delete State Actions
+ */
+export const doDeleteState = createAction(
+  type('[Location] Do Delete State'),
+  props<{ id: string }>()
+);
+export const doDeleteStateSuccess = createAction(
+  type('[Location] Do Delete State Success'),
+  props<{ state: State }>()
+);
+export const doDeleteStateFail = createAction(
+  type('[Location] Do Delete State Fail')
 );
 
 /**
