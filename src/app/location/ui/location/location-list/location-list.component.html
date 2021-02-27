@@ -53,7 +53,7 @@
             [columns]="[
               { name: 'postCode' },
               { name: 'addressLine1' },
-              { name: 'addressLine2' }
+              { name: 'addressLine2' } 
             ]"
             [columnMode]="'force'"
             [headerHeight]="50"
@@ -90,8 +90,8 @@
             </ngx-datatable-column>
 
             <ngx-datatable-column name="Address Line 1" [flexGrow]="3" [minWidth]="200">
-              <ng-template let-value="value" ngx-datatable-cell-template>
-                {{ value }}
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.addressLine1 }}
               </ng-template>
             </ngx-datatable-column>
 
@@ -105,10 +105,9 @@
               </ng-template>
               <ng-template
                 let-row="row"
-                let-value="value"
                 ngx-datatable-cell-template
               >
-                <span class="mobile-hidden">{{ value }}</span>
+                <span class="mobile-hidden">{{ row.addressLine2 }}</span>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
