@@ -12,7 +12,6 @@ export class CountryCreateComponent implements OnInit {
 
   formGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    code: new FormControl('', [Validators.required]),
     native: new FormControl('', [Validators.required]),
     alpha2: new FormControl('', [Validators.required]),
     alpha3: new FormControl('', [Validators.required]),
