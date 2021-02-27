@@ -77,6 +77,21 @@ export class LocationEffects {
     );
   });
 
+  deleteCity$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doDeleteCity),
+      map((action) => action.id),
+      switchMap((id) =>
+        this.locationHttpService.deleteCity(id).pipe(
+          map((city) => locationActions.doDeleteCitySuccess(
+            { city: city.data }
+          )),
+          catchError((error) => of(locationActions.doDeleteCityFail()))
+        )
+      )
+    );
+  });
+
   // Country Effects
   fetchCountries$ = createEffect(() => {
     return this.actions$.pipe(
@@ -133,6 +148,21 @@ export class LocationEffects {
             { country: country.data }
           )),
           catchError((error) => of(locationActions.doUpdateCountryFail()))
+        )
+      )
+    );
+  });
+
+  deleteCountry$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doDeleteCountry),
+      map((action) => action.id),
+      switchMap((id) =>
+        this.locationHttpService.deleteCountry(id).pipe(
+          map((country) => locationActions.doDeleteCountrySuccess(
+            { country: country.data }
+          )),
+          catchError((error) => of(locationActions.doDeleteCountryFail()))
         )
       )
     );
@@ -199,6 +229,21 @@ export class LocationEffects {
     );
   });
 
+  deleteLocation$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doDeleteLocation),
+      map((action) => action.id),
+      switchMap((id) =>
+        this.locationHttpService.deleteLocation(id).pipe(
+          map((location) => locationActions.doDeleteLocationSuccess(
+            { location: location.data }
+          )),
+          catchError((error) => of(locationActions.doDeleteLocationFail()))
+        )
+      )
+    );
+  });
+
   // State Effects
   fetchStates$ = createEffect(() => {
     return this.actions$.pipe(
@@ -255,6 +300,21 @@ export class LocationEffects {
             { state: state.data }
           )),
           catchError((error) => of(locationActions.doUpdateStateFail()))
+        )
+      )
+    );
+  });
+
+  deleteState$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(locationActions.doDeleteState),
+      map((action) => action.id),
+      switchMap((id) =>
+        this.locationHttpService.deleteState(id).pipe(
+          map((state) => locationActions.doDeleteStateSuccess(
+            { state: state.data }
+          )),
+          catchError((error) => of(locationActions.doDeleteStateFail()))
         )
       )
     );
