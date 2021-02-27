@@ -50,11 +50,7 @@ export class CountryCreateComponent implements OnInit {
 
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
-    if (control.valid) {
-      return 'is-valid';
-    } else if (control.dirty && control.touched) {
-      return 'is-invalid';
-    }
+    return FormHelper.getFormClasses(control);
   }
 
 }

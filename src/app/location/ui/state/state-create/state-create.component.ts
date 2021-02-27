@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { StateCreateForm } from '@app/location/models/form';
+import { FormHelper } from '@app/shared/helpers';
 
 @Component({
   selector: 'state-create',
@@ -33,11 +34,7 @@ export class StateCreateComponent implements OnInit {
 
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
-    if (control.valid) {
-      return 'is-valid';
-    } else if (control.dirty && control.touched) {
-      return 'is-invalid';
-    }
+    return FormHelper.getFormClasses(control);
   }
 
 }

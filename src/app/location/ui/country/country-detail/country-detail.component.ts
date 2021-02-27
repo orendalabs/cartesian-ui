@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
 import { CountryUpdateForm } from '@app/location/models/form';
+import { FormHelper } from '@app/shared/helpers';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -88,10 +89,6 @@ export class CountryDetailComponent implements OnInit {
 
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
-    if (control.valid) {
-      return 'is-valid';
-    } else if (control.dirty && control.touched) {
-      return 'is-invalid';
-    }
+    return FormHelper.getFormClasses(control);
   }
 }
