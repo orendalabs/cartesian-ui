@@ -78,6 +78,17 @@ export class LocationHttpService extends HttpService {
   }
 
   /**
+   * Delete city
+   *
+   * @param id Id of city to delete
+   */
+  @DELETE('/cities/{id}')
+  @Adapter(LocationAdapter.locationAdapter)
+  public deleteCity(@Path('id') id: string): Observable<any> {
+    return null;
+  }
+
+  /**
    * Fetch countries list
    *
    * @param SearchForm form to filter api response
@@ -117,6 +128,17 @@ export class LocationHttpService extends HttpService {
    */
   @PUT('/countries/{id}')
   public updateCountry(@Path('id') id: string, @Body form: CountryUpdateForm): Observable<any> {
+    return null;
+  }
+
+  /**
+   * Delete country
+   *
+   * @param id Id of country to delete
+   */
+  @DELETE('/countries/{id}')
+  @Adapter(LocationAdapter.locationAdapter)
+  public deleteCountry(@Path('id') id: string): Observable<any> {
     return null;
   }
 
@@ -164,6 +186,17 @@ export class LocationHttpService extends HttpService {
   }
 
   /**
+   * Delete location
+   *
+   * @param id Id of location to delete
+   */
+  @DELETE('/locations/{id}')
+  @Adapter(LocationAdapter.locationAdapter)
+  public deleteLocation(@Path('id') id: string): Observable<any> {
+    return null;
+  }
+
+  /**
    * Fetch states list
    *
    * @param SearchForm form to filter api response
@@ -175,7 +208,7 @@ export class LocationHttpService extends HttpService {
   }
 
   /**
-   * Fetch state list
+   * Fetch state
    *
    * @param id Id of state to fetch
    */
@@ -202,6 +235,17 @@ export class LocationHttpService extends HttpService {
    */
   @PUT('/states/{id}')
   public updateState(@Path('id') id: string, @Body form: StateUpdateForm): Observable<any> {
+    return null;
+  }
+
+  /**
+   * Delete state
+   *
+   * @param id Id of state to Delete
+   */
+  @DELETE('/states/{id}')
+  @Adapter(LocationAdapter.locationAdapter)
+  public deleteState(@Path('id') id: string): Observable<any> {
     return null;
   }
 }
