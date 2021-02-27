@@ -33,7 +33,7 @@ export class StateDetailComponent implements OnInit {
 
   delete(): void {
     if(confirm("Are you sure you want to delete country " + this.state.name + "?")) {
-      
+      this._sandbox.deleteState(this.state.id);
     }
   }
 

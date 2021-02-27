@@ -50,7 +50,7 @@ export class CityDetailComponent implements OnInit {
 
   delete(): void {
     if(confirm("Are you sure you want to delete city " + this.city.name + "?")) {
-      
+      this._sandbox.deleteCity(this.city.id);
     }
   }
 

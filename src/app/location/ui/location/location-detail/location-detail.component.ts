@@ -39,7 +39,7 @@ export class LocationDetailComponent implements OnInit {
 
   delete(): void {
     if(confirm("Are you sure you want to delete location " + this.location.id + "?")) {
-      
+      this._sandbox.deleteLocation(this.location.id);
     }
   }
 

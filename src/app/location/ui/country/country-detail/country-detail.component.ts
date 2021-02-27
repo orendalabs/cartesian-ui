@@ -41,7 +41,7 @@ export class CountryDetailComponent implements OnInit {
 
   delete(): void {
     if(confirm("Are you sure you want to delete country " + this.country.name + "?")) {
-      
+      this._sandbox.deleteCountry(this.country.id);
     }
   }
 
