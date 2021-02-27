@@ -97,14 +97,13 @@ export class FormHelper {
    * @param e Element of type AbstractControl to test for validity.
    * @returns String with classes for invalid, valid or default form.
    */
-  static getFormClasses = (e: AbstractControl): string => {
-    if (e.touched && e.dirty && e.invalid) {
-      return 'form-control form-danger';
+  static getFormClasses = (control: AbstractControl): string => {
+    if (control.valid) {
+      return 'is-valid';
+    } else if (control.dirty && control.touched) {
+      return 'is-invalid';
     }
-    if (e.valid) {
-      return 'form-control form-success';
-    }
-    return 'form-control';
+    return '';
   };
 
   /**
