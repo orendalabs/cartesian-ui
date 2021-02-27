@@ -24,6 +24,7 @@ import { UserDetailComponent } from './ui/user-detail/user-detail.component';
 import { UserProfileComponent } from './ui/user-profile/user-profile.component';
 import { UserCreateComponent } from './ui/user-create/user-create.component';
 import { UserUpdateComponent } from './ui/user-update/user-update.component';
+import { UserUpdateRolesComponent } from './ui/user-update/user-update-roles/user-update-roles.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { UserUpdateComponent } from './ui/user-update/user-update.component';
     UserProfileComponent,
     UserCreateComponent,
     UserUpdateComponent,
+    UserUpdateRolesComponent,
   ],
   providers: [
     UserHttpService,
