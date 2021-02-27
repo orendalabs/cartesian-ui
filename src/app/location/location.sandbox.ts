@@ -90,6 +90,12 @@ export class LocationSandbox extends Sandbox {
     );
   }
 
+  deleteCity(id: string): void {
+    this.store.dispatch(
+      locationActions.doDeleteCity({ id: id })
+    );
+  }
+
   // Country Methods
   fetchCountries(criteria: RequestCriteria<SearchCountryForm>): void {
     this.store.dispatch(
@@ -112,6 +118,12 @@ export class LocationSandbox extends Sandbox {
   updateCountry(form: CountryUpdateForm): void {
     this.store.dispatch(
       locationActions.doUpdateCountry({ form: form })
+    );
+  }
+
+  deleteCountry(id: string): void {
+    this.store.dispatch(
+      locationActions.doDeleteCountry({ id: id })
     );
   }
 
@@ -140,6 +152,12 @@ export class LocationSandbox extends Sandbox {
     );
   }
 
+  deleteLocation(id: string): void {
+    this.store.dispatch(
+      locationActions.doDeleteLocation({ id: id })
+    );
+  }
+
   // State Methods
   fetchStates(criteria: RequestCriteria<SearchStateForm>): void {
     this.store.dispatch(
@@ -162,6 +180,12 @@ export class LocationSandbox extends Sandbox {
   updateState(form: StateUpdateForm): void {
     this.store.dispatch(
       locationActions.doUpdateState({ form: form })
+    );
+  }
+
+  deleteState(id: string): void {
+    this.store.dispatch(
+      locationActions.doDeleteState({ id: id })
     );
   }
 
