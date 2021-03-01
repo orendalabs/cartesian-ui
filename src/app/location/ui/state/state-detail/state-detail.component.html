@@ -36,7 +36,7 @@
       </div>
       <div class="card-body p-2">
         <form *ngIf="loaded" [formGroup]="formGroup">
-          <div>
+          <div class="form-group">
             <label>Country ID</label>
             <input
               formControlName="countryId"
@@ -46,7 +46,7 @@
             />
             <div class="invalid-feedback">Please enter an ID</div>
           </div>
-          <div class="mt-2">
+          <div class="form-group">
             <label>Name</label>
             <input
               formControlName="name"
@@ -56,7 +56,7 @@
             />
             <div class="invalid-feedback">Please enter a name</div>
           </div>
-          <div class="mt-2">
+          <div class="form-group">
             <label>Code</label>
             <input
               formControlName="code"
