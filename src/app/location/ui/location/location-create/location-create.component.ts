@@ -48,6 +48,11 @@ export class LocationCreateComponent implements OnInit {
     const id = event.target.value;
     this.states = null;
     this.formGroup.controls["stateId"].reset("");
+    
+    this.cities = [];
+    this.formGroup.controls["cityId"].reset("");  
+    this.setCityValidators();
+
     this.statesCriteria.where("country_id", "=", id);
     this._sandbox.fetchStates(this.statesCriteria);
   }
