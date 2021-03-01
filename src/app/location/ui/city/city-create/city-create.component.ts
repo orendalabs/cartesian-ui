@@ -53,7 +53,7 @@ export class CityCreateComponent implements OnInit {
   onCountryInputChange(event): void {
     const id = event.target.value;
     this.states = null;
-    this.formGroup.controls["stateId"].reset();
+    this.formGroup.controls["stateId"].reset("");
     this.statesCriteria.where("country_id", "=", id);
     this._sandbox.fetchStates(this.statesCriteria);
   }
