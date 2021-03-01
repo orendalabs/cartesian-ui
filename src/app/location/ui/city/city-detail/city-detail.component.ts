@@ -63,7 +63,7 @@ export class CityDetailComponent implements OnInit {
         latitude: this.formGroup.controls['latitude'].value,
         longitude: this.formGroup.controls['longitude'].value
       });
-      console.log(form);
+      this._sandbox.updateCity(form);
     }
   }
 
