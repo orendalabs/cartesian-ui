@@ -28,6 +28,9 @@ export class LocationSandbox extends Sandbox {
   // City Observables
   citiesData$ = this.store.pipe(select(locationSelectors.getCitiesList));
   citiesMeta$ = this.store.pipe(select(locationSelectors.getCitiesMeta));
+  citiesLoaded$ = this.store.pipe(select(locationSelectors.getCitiesLoaded));
+  citiesLoading$ = this.store.pipe(select(locationSelectors.getCitiesLoading));
+  citiesFailed$ = this.store.pipe(select(locationSelectors.getCitiesFailed));
   city$ = this.store.pipe(select(locationSelectors.getCityDetail));
   cityLoaded$ = this.store.pipe(select(locationSelectors.getCityLoaded));
   cityLoading$ = this.store.pipe(select(locationSelectors.getCityLoading));
@@ -36,6 +39,9 @@ export class LocationSandbox extends Sandbox {
   // Country Observables
   countriesData$ = this.store.pipe(select(locationSelectors.getCountriesList));
   countriesMeta$ = this.store.pipe(select(locationSelectors.getCountriesMeta));
+  countriesLoaded$ = this.store.pipe(select(locationSelectors.getCountriesLoaded));
+  countriesLoading$ = this.store.pipe(select(locationSelectors.getCountriesLoading));
+  countriesFailed$ = this.store.pipe(select(locationSelectors.getCountriesFailed));
   country$ = this.store.pipe(select(locationSelectors.getCountryDetail));
   countryLoaded$ = this.store.pipe(select(locationSelectors.getCountryLoaded));
   countryLoading$ = this.store.pipe(select(locationSelectors.getCountryLoading));
@@ -44,6 +50,9 @@ export class LocationSandbox extends Sandbox {
   // Location Observables
   locationsData$ = this.store.pipe(select(locationSelectors.getLocationsList));
   locationsMeta$ = this.store.pipe(select(locationSelectors.getLocationsMeta));
+  locationsLoaded$ = this.store.pipe(select(locationSelectors.getLocationsLoaded));
+  locationsLoading$ = this.store.pipe(select(locationSelectors.getLocationsLoading));
+  locationsFailed$ = this.store.pipe(select(locationSelectors.getLocationsFailed));
   location$ = this.store.pipe(select(locationSelectors.getLocationDetail));
   locationLoaded$ = this.store.pipe(select(locationSelectors.getLocationLoaded));
   locationLoading$ = this.store.pipe(select(locationSelectors.getLocationLoading));
@@ -52,6 +61,9 @@ export class LocationSandbox extends Sandbox {
   // State Observables
   statesData$ = this.store.pipe(select(locationSelectors.getStatesList));
   statesMeta$ = this.store.pipe(select(locationSelectors.getStatesMeta));
+  statesLoaded$ = this.store.pipe(select(locationSelectors.getStatesLoaded));
+  statesLoading$ = this.store.pipe(select(locationSelectors.getStatesLoading));
+  statesFailed$ = this.store.pipe(select(locationSelectors.getStatesFailed));
   state$ = this.store.pipe(select(locationSelectors.getStateDetail));
   stateLoaded$ = this.store.pipe(select(locationSelectors.getStateLoaded));
   stateLoading$ = this.store.pipe(select(locationSelectors.getStateLoading));
