@@ -87,7 +87,7 @@ export class CityCreateComponent implements OnInit {
   }
 
   setCountryValidators(): void {
-    const control = this.formGroup.controls["stateId"];
+    const control = this.formGroup.controls["countryId"];
     const countryIds = this.countries.map((c) => c.id.toString());
     control.setValidators([Validators.required, FormHelper.inValidator(countryIds)]);
     control.updateValueAndValidity();
