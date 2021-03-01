@@ -32,9 +32,11 @@ export class CityDetailComponent implements OnInit {
   failed: boolean;
 
   countries: Country[] = [];
+  countriesLoading: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(100000);
 
   states: State[] = [];
+  statesLoading: boolean;
   statesCriteria = new RequestCriteria<SearchStateForm>(new SearchStateForm()).limit(100000);
 
   constructor(protected _sandbox: LocationSandbox,
@@ -101,11 +103,21 @@ export class CityDetailComponent implements OnInit {
       })
     );
     this.subscriptions.push(
+      this._sandbox.countriesLoading$.subscribe((loading) => {
+        this.countriesLoading = loading
+      })
+    );
+    this.subscriptions.push(
       this._sandbox.statesData$.subscribe((s: State[]) => {
         if (s) {
           this.states = Object.values(s);
           this.setStateValidators();
         }
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.statesLoading$.subscribe((loading) => {
+        this.statesLoading = loading
       })
     );
   }

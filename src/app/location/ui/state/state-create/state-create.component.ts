@@ -22,6 +22,7 @@ export class StateCreateComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   countries: Country[] = [];
+  countriesLoading: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(100000);
 
   constructor(protected _sandbox: LocationSandbox) { }
@@ -49,6 +50,11 @@ export class StateCreateComponent implements OnInit {
           this.countries = Object.values(c);
           this.setCountryValidators();
         }
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesLoading$.subscribe((loading) => {
+        this.countriesLoading = loading
       })
     );
   }

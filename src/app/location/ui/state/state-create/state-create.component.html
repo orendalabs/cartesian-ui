@@ -50,7 +50,7 @@ autocomplete="off"
           name=""
           id=""
           class="btn btn-primary btn-block mt-3"
-          [disabled]="formGroup.invalid"
+          [disabled]="formGroup.invalid || countriesLoading"
         >
           Create
         </button>

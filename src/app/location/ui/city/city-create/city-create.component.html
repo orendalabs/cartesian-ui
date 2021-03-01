@@ -11,7 +11,7 @@
         <div class="card-header">
           <strong>Create a City</strong>
         </div>
-        <div *ngIf="countries && states" class="card-body p-2">
+        <div class="card-body p-2">
           <div class="form-group">
             <label>Country</label>
             <select
@@ -78,7 +78,7 @@
             name=""
             id=""
             class="btn btn-primary btn-block mt-3"
-            [disabled]="formGroup.invalid"
+            [disabled]="formGroup.invalid || statesLoading || countriesLoading"
           >
             Create
           </button>

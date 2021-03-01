@@ -17,12 +17,15 @@ export class LocationCreateComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   countries: Country[] = [];
+  countriesLoading: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(100000);
 
   states: State[] = [];
+  statesLoading: boolean;
   statesCriteria = new RequestCriteria<SearchStateForm>(new SearchStateForm()).limit(100000);
 
   cities: City[] = [];
+  citiesLoading: boolean;
   citiesCriteria = new RequestCriteria<SearchCityForm>(new SearchCityForm()).limit(100000);
 
   formGroup = new FormGroup({
@@ -98,6 +101,11 @@ export class LocationCreateComponent implements OnInit {
       })
     );
     this.subscriptions.push(
+      this._sandbox.countriesLoading$.subscribe((loading) => {
+        this.countriesLoading = loading
+      })
+    );
+    this.subscriptions.push(
       this._sandbox.statesData$.subscribe((s: State[]) => {
         if (s) {
           this.states = Object.values(s);
@@ -106,11 +114,21 @@ export class LocationCreateComponent implements OnInit {
       })
     );
     this.subscriptions.push(
+      this._sandbox.statesLoading$.subscribe((loading) => {
+        this.statesLoading = loading
+      })
+    );
+    this.subscriptions.push(
       this._sandbox.citiesData$.subscribe((c: City[]) => {
         if (c) {
           this.cities = Object.values(c);
           this.setCityValidators();
         }
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.citiesLoading$.subscribe((loading) => {
+        this.citiesLoading = loading
       })
     );
   }
