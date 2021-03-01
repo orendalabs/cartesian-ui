@@ -11,28 +11,35 @@
         <div class="card-header">
           <strong>Create a City</strong>
         </div>
-        <div class="card-body p-2">
-          <div>
-            <label>Country ID</label>
-            <input
+        <div *ngIf="countries && states" class="card-body p-2">
+          <div class="form-group">
+            <label>Country</label>
+            <select
               formControlName="countryId"
               class="form-control"
               [ngClass]="getFormClasses('countryId')"
-              placeholder="Country ID..."
-            />
-            <div class="invalid-feedback">Please enter an ID</div>
+              (change)="onCountryInputChange($event)"
+              [disabled]="countries.length == 0"
+            > 
+              <option disabled selected value="">Select Country...</option>
+              <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+            </select>
+            <div class="invalid-feedback">Please select a valid country</div>
           </div>
-          <div class="mt-2">
-            <label>State ID</label>
-            <input
+          <div class="form-group" *ngIf="states && states.length > 0">
+            <label>State</label>
+            <select
               formControlName="stateId"
               class="form-control"
               [ngClass]="getFormClasses('stateId')"
-              placeholder="State ID..."
-            />
-            <div class="invalid-feedback">Please enter an ID</div>
+              [disabled]="states.length == 0"
+            >
+              <option disabled selected value="">Select State...</option>
+              <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+            </select>
+            <div class="invalid-feedback">Please select a valid state</div>
           </div>
-          <div class="mt-2">
+          <div class="form-group">
             <label>Name</label>
             <input
               formControlName="name"
@@ -42,7 +49,7 @@
             />
             <div class="invalid-feedback">Please enter a name</div>
           </div>
-          <div class="mt-2">
+          <div class="form-group">
             <label>Latitude</label>
             <input
               formControlName="latitude"
@@ -54,7 +61,7 @@
             />
             <div class="invalid-feedback">Invalid latitude</div>
           </div>
-          <div class="mt-2">
+          <div class="form-group">
             <label>Longitude</label>
             <input
               formControlName="longitude"
