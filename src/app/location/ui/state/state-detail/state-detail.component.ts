@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LocationSandbox } from '@app/location/location.sandbox';
-import { State } from '@app/location/models/domain';
-import { StateUpdateForm } from '@app/location/models/form';
+import { Country, State } from '@app/location/models/domain';
+import { SearchCountryForm, StateUpdateForm } from '@app/location/models/form';
 import { FormHelper } from '@app/shared/helpers';
+import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -25,11 +26,15 @@ export class StateDetailComponent implements OnInit {
   loading: boolean;
   failed: boolean;
 
+  countries: Country[] = [];
+  countriesCriteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(100000);
+
   constructor(protected _sandbox: LocationSandbox,
     protected route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.registerEvents();
+    this._sandbox.fetchCountries(this.countriesCriteria);
   }
 
   delete(): void {
@@ -69,10 +74,29 @@ export class StateDetailComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.state$.subscribe((state: State) => this.state = state)
     );
+    this.subscriptions.push(
+      this._sandbox.countriesData$.subscribe((c: Country[]) => { 
+        if (c) {
+          this.countries = Object.values(c);
+          this.setCountryValidators();
+        }
+      })
+    );
+  }
+
+  unregisterEvents(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
     return FormHelper.getFormClasses(control);
+  }
+  
+  setCountryValidators(): void {
+    const control = this.formGroup.controls["countryId"];
+    const countryIds = this.countries.map((c) => c.id.toString());
+    control.setValidators([Validators.required, FormHelper.inValidator(countryIds)]);
+    control.updateValueAndValidity();
   }
 }

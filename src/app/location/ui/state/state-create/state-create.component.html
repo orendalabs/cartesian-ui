@@ -13,14 +13,17 @@ autocomplete="off"
       </div>
       <div class="card-body p-2">
         <div class="form-group">
-          <label>Country ID</label>
-          <input
+          <label>Country</label>
+          <select
             formControlName="countryId"
             class="form-control"
             [ngClass]="getFormClasses('countryId')"
-            placeholder="Country ID..."
-          />
-          <div class="invalid-feedback">Please enter an ID</div>
+            [disabled]="countries.length == 0"
+          > 
+            <option disabled selected value="">Select Country...</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+          </select>
+          <div class="invalid-feedback">Please select a valid country</div>
         </div>
         <div class="form-group">
           <label>Name</label>
