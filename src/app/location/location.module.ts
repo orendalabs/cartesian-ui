@@ -21,6 +21,7 @@ import { CityDetailComponent } from './ui/city/city-detail/city-detail.component
 import { CountryDetailComponent } from './ui/country/country-detail/country-detail.component';
 import { LocationDetailComponent } from './ui/location/location-detail/location-detail.component';
 import { StateDetailComponent } from './ui/state/state-detail/state-detail.component';
+import { ConfigurableFormModule } from '@app/shared/components/configurable-form/configurable-form.module';
 
 
 
@@ -33,7 +34,8 @@ import { StateDetailComponent } from './ui/state/state-detail/state-detail.compo
     EffectsModule.forFeature([LocationEffects]),
     NgxDatatableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ConfigurableFormModule
   ],
   providers: [
     LocationHttpService,
