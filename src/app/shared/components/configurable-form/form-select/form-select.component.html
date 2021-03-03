@@ -1,0 +1,13 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label>{{ config.label }}</label>
+  <select 
+    class="form-control" 
+    [ngClass]="getFormClasses()"
+    [formControlName]="config.name"
+    [disabled]="config.disabled">
+    <option disabled selected value="">{{ config.placeholder }}</option>
+    <option *ngFor="let option of config.options" [value]="option.value">
+      {{ option.name }}
+    </option>
+  </select>
+</div>

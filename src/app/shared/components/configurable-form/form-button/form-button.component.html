@@ -1,0 +1,9 @@
+<div class="form-group" [formGroup]="formGroup">
+  <button 
+    type="config.type ? config.type : submit"
+    [ngClass]="config.classes" 
+    (click)="config.click"
+    [disabled]="config.disabled ? config.disabled : formGroup.invalid">
+    {{ config.label }}
+  </button>
+</div>

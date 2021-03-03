@@ -1,0 +1,10 @@
+<div class="form-group" [formGroup]="formGroup">
+  <label *ngIf="config.label">{{ config.label }} </label>
+  <input
+    class="form-control"
+    [ngClass]="getFormClasses()"
+    [attr.type]="config.inputType ? config.inputType : 'text'"
+    [formControlName]="config.name"
+    [disabled]="config.disabled"
+    />
+</div>
