@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country, State } from '@app/location/models/domain';
 import { SearchCountryForm, StateUpdateForm } from '@app/location/models/form';
+import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
 import { FormHelper } from '@app/shared/helpers';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
@@ -14,11 +15,36 @@ import { Subscription } from 'rxjs';
 })
 export class StateDetailComponent implements OnInit {
 
-  formGroup = new FormGroup({
-    countryId: new FormControl('', Validators.required),
-    name: new FormControl('', Validators.required),
-    code: new FormControl('', Validators.required),
-  });
+  config: FieldConfig[] = [
+    {
+      type: 'select',
+      label: 'Country',
+      name: 'countryId',
+      options: [],
+      placeholder: 'Select Country...',
+      validation: [Validators.required],
+    },
+    {
+      type: 'input',
+      label: 'Name',
+      name: 'name',
+      validation: [Validators.required],
+      placeholder: 'Enter name',
+    },
+    {
+      type: 'input',
+      label: 'Code',
+      name: 'code',
+      validation: [Validators.required],
+      placeholder: 'Enter code',
+    },
+    {
+      label: 'Save',
+      name: 'submit',
+      type: 'button',
+      classes: 'btn btn-primary pull-right',
+    },
+  ];
   
   subscriptions: Array<Subscription> = [];
   state: State;
@@ -43,13 +69,13 @@ export class StateDetailComponent implements OnInit {
     }
   }
 
-  save(): void {
-    if(this.formGroup.valid) {
+  save(group): void {
+    if (group.valid) {
       const form = new StateUpdateForm({
         id: this.state.id,
-        countryId: this.formGroup.controls['countryId'].value,
-        name: this.formGroup.controls['name'].value,
-        code: this.formGroup.controls['code'].value,
+        countryId: group.controls['countryId'].value,
+        name: group.controls['name'].value,
+        code: group.controls['code'].value,
       });
       this._sandbox.updateState(form);
     }
@@ -77,8 +103,13 @@ export class StateDetailComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.countriesData$.subscribe((c: Country[]) => { 
         if (c) {
-          this.countries = Object.values(c);
-          this.setCountryValidators();
+          this.config[0].options = [];
+          Object.values(c).forEach((v) => {
+            this.config[0].options.push({
+              name: v.name,
+              value: v.id,
+            });
+          });
         }
       })
     );
@@ -87,16 +118,11 @@ export class StateDetailComponent implements OnInit {
   unregisterEvents(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
-
-  getFormClasses(controlName: string): string {
-    const control = this.formGroup.controls[controlName];
-    return FormHelper.getFormClasses(control);
-  }
   
   setCountryValidators(): void {
-    const control = this.formGroup.controls["countryId"];
-    const countryIds = this.countries.map((c) => c.id.toString());
-    control.setValidators([Validators.required, FormHelper.inValidator(countryIds)]);
-    control.updateValueAndValidity();
+    if (this.config[0].options) {
+      const countryIds = this.config[0].options.map((c) => c.value.toString());
+      this.config[0].validation = [Validators.required, FormHelper.inValidator(countryIds)];
+    }
   }
 }

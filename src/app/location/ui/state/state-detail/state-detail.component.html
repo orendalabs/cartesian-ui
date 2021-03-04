@@ -1,11 +1,5 @@
 <div class="animated fadeIn row">
   <div class="col-sm-12">
-    <button 
-      class="btn btn-primary pull-right" 
-      [disabled]="formGroup.invalid"
-      (click)="save()">
-      <i class="fa fa-save"></i> Save
-    </button>
     <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
       <i class="fa fa-trash"></i> Delete
     </button>
@@ -35,41 +29,10 @@
         <strong>Edit State</strong>
       </div>
       <div class="card-body p-2">
-        <form *ngIf="loaded" [formGroup]="formGroup">
-          <div class="form-group">
-            <label>Country</label>
-            <select
-              formControlName="countryId"
-              class="form-control"
-              [ngClass]="getFormClasses('countryId')"
-              [disabled]="countries.length == 0"
-            > 
-              <option disabled selected value="">Select Country...</option>
-              <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country</div>
-          </div>
-          <div class="form-group">
-            <label>Name</label>
-            <input
-              formControlName="name"
-              class="form-control"
-              [ngClass]="getFormClasses('name')"
-              placeholder="Name..."
-            />
-            <div class="invalid-feedback">Please enter a name</div>
-          </div>
-          <div class="form-group">
-            <label>Code</label>
-            <input
-              formControlName="code"
-              class="form-control"
-              [ngClass]="getFormClasses('code')"
-              placeholder="Code..." 
-            />
-            <div class="invalid-feedback">Invalid latitude</div>
-          </div>
-        </form>
+        <configurable-form
+          [config]="config"
+          (submitted)="save($event)"
+        ></configurable-form>
       </div>
     </div>
   </div>
