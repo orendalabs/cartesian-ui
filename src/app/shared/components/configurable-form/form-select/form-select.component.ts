@@ -22,6 +22,7 @@ export class FormSelectComponent implements OnInit, AfterViewChecked {
       this.oldValidation = this.config.validation;
       const ctrl = this.formGroup.controls[this.config.name];
       ctrl.setValidators(this.config.validation);
+      ctrl.updateValueAndValidity();
     }
   }
 
