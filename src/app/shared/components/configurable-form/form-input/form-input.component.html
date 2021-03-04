@@ -6,5 +6,7 @@
     [attr.type]="config.inputType ? config.inputType : 'text'"
     [formControlName]="config.name"
     [disabled]="config.disabled"
+    (click)="click($event)"
+    (change)="change($event)"
     />
 </div>

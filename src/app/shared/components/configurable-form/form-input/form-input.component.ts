@@ -30,4 +30,16 @@ export class FormInputComponent implements OnInit, AfterViewChecked {
     const control = this.formGroup.controls[this.config.name];
     return FormHelper.getFormClasses(control);
   }
+
+  click(event) {
+    if (this.config.click) {
+      this.config.click(event);
+    }
+  }
+
+  change(event) {
+    if (this.config.change) {
+      this.config.change(event);
+    }
+  }
 }

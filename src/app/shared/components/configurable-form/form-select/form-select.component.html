@@ -4,7 +4,9 @@
     class="form-control" 
     [ngClass]="getFormClasses()"
     [formControlName]="config.name"
-    [disabled]="config.disabled">
+    [disabled]="config.disabled"
+    (click)="click($event)"
+    (change)="change($event)">
     <option disabled selected value="">{{ config.placeholder }}</option>
     <option *ngFor="let option of config.options" [value]="option.value">
       {{ option.name }}
