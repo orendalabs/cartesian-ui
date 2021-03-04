@@ -1,4 +1,4 @@
-<div class="form-group" [formGroup]="formGroup">
+<div *ngIf="!config.hidden" class="form-group" [formGroup]="formGroup">
   <button 
     type="config.type ? config.type : submit"
     [ngClass]="config.classes" 
