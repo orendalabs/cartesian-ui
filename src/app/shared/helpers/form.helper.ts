@@ -91,6 +91,19 @@ export class FormHelper {
     };
   }
 
+  /**
+   * Validates space separated unicodes
+   */
+  static unicodeValidator(): ValidatorFn {
+    const regEx = new RegExp(
+      String.raw`^(U\+[A-F1-9]{1,6})+( U\+[A-F1-9]{1,6})*$`
+    );
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const valid = regEx.test(control.value);
+      return valid ? null : { email: { value: 'Invalid unicode pattern!' } };
+    };
+  }
+   
   // Helpers
   /**
    *
