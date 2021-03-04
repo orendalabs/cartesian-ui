@@ -1,10 +1,3 @@
-
-<form
-novalidate
-autocomplete="off"
-[formGroup]="formGroup"
-(ngSubmit)="create()"
->
 <div class="animated fadeIn row">
   <div class="col-md-6">
     <div class="card">
@@ -12,133 +5,11 @@ autocomplete="off"
         <strong>Create a Location</strong>
       </div>
       <div class="card-body p-2">
-        <div class="form-group">
-          <label>Locatable Type</label>
-          <input
-            formControlName="locatableType"
-            class="form-control"
-            [ngClass]="getFormClasses('locatableType')"
-            placeholder="Locatable Type..."
-          />
-          <div class="invalid-feedback">Invalid value</div>
-        </div>
-        <div class="form-group">
-          <label>Locatable ID</label>
-          <input
-            formControlName="locatableId"
-            class="form-control"
-            [ngClass]="getFormClasses('locatableId')"
-            placeholder="Locatable ID..." 
-          />
-          <div class="invalid-feedback">Invalid value</div>
-        </div>
-        <div class="form-group">
-          <label>Address Line 1</label>
-          <input
-            formControlName="addressLine1"
-            class="form-control"
-            [ngClass]="getFormClasses('addressLine1')"
-            placeholder="Address Line 2..." 
-          />
-          <div class="invalid-feedback">Invalid value</div>
-        </div>
-        <div class="form-group">
-          <label>Address Line 2</label>
-          <input
-            formControlName="addressLine2"
-            class="form-control"
-            [ngClass]="getFormClasses('addressLine2')"
-            placeholder="Address Line 2..." 
-          />
-          <div class="invalid-feedback">Invalid value</div>
-        </div>
-        <div class="form-group">
-          <label>Country</label>
-          <select
-            formControlName="countryId"
-            class="form-control"
-            [ngClass]="getFormClasses('countryId')"
-            (change)="onCountryInputChange($event)"
-            [disabled]="countries.length == 0"
-          > 
-            <option disabled selected value="">Select Country...</option>
-            <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
-          </select>
-          <div class="invalid-feedback">Please select a valid country</div>
-        </div>
-        <div class="form-group" *ngIf="states && states.length > 0">
-          <label>State</label>
-          <select
-            formControlName="stateId"
-            class="form-control"
-            [ngClass]="getFormClasses('stateId')"
-            (change)="onStateInputChange($event)"
-            [disabled]="states.length == 0"
-          >
-            <option disabled selected value="">Select State...</option>
-            <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
-          </select>
-          <div class="invalid-feedback">Please select a valid state</div>
-        </div>
-        <div class="form-group" *ngIf="states && states.length > 0 && cities && cities.length > 0">
-          <label>City</label>
-          <select
-            formControlName="cityId"
-            class="form-control"
-            [ngClass]="getFormClasses('cityId')"
-            [disabled]="cities.length == 0"
-          >
-            <option disabled selected value="">Select City...</option>
-            <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
-          </select>
-          <div class="invalid-feedback">Please select a valid city</div>
-        </div>
-        <div class="form-group">
-          <label>Post Code</label>
-          <input
-            formControlName="postCode"
-            class="form-control"
-            [ngClass]="getFormClasses('postCode')"
-            placeholder="Post Code..." 
-          />
-          <div class="invalid-feedback">Invalid value</div>
-        </div>
-        <div class="form-group">
-          <label>Latitude</label>
-          <input
-            formControlName="latitude"
-            class="form-control"
-            [ngClass]="getFormClasses('latitude')"
-            placeholder="Latitude..." 
-            min="-90"
-            max="90"
-          />
-          <div class="invalid-feedback">Invalid latitude</div>
-        </div>
-        <div class="form-group">
-          <label>Longitude</label>
-          <input
-            formControlName="longitude"
-            class="form-control"
-            [ngClass]="getFormClasses('longitude')"
-            placeholder="Longitude..."
-            min="-180"
-            max="180"
-          />
-          <div class="invalid-feedback">Invalid longitude</div>
-        </div>
-
-        <button
-          type="submit"
-          name=""
-          id=""
-          class="btn btn-primary btn-block mt-3"
-          [disabled]="formGroup.invalid || statesLoading || countriesLoading || citiesLoading"
-        >
-          Create
-        </button>
+        <configurable-form
+        [config]="config"
+        (submitted)="create($event)"
+        ></configurable-form>
       </div>
     </div>
   </div>
 </div>
-</form>
