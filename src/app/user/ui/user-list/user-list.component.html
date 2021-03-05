@@ -25,12 +25,14 @@
         <option
           value="all"
           selected
-          [disabled]="selected != 'admins' && selected != 'clients'"
+          [disabled]="selected !== 'admins' && selected !== 'clients'"
         >
           All users
         </option>
-        <option value="admins" [disabled]="selected == 'admins'">Admins</option>
-        <option value="clients" [disabled]="selected == 'clients'">
+        <option value="admins" [disabled]="selected === 'admins'">
+          Admins
+        </option>
+        <option value="clients" [disabled]="selected === 'clients'">
           Clients
         </option>
       </select>
@@ -38,7 +40,7 @@
     <div class="col-md-6 text-right">
       <button
         class="btn btn-danger ml-2"
-        [disabled]="selectedUsers.length == 0"
+        [disabled]="selectedUsers.length === 0"
       >
         <i class="fa fa-trash"></i> Delete
       </button>

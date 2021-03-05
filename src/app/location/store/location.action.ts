@@ -1,15 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 import { type, RequestCriteria } from '@cartesian-ui/ng-axis';
 import { City, Country, Location, State } from '../models/domain';
-import { 
-  CityCreateForm, 
-  CountryCreateForm, 
-  LocationCreateForm, 
-  StateCreateForm, 
-  CityUpdateForm, 
-  CountryUpdateForm, 
-  LocationUpdateForm, 
-  StateUpdateForm 
+import {
+  CityCreateForm,
+  CountryCreateForm,
+  LocationCreateForm,
+  StateCreateForm,
+  CityUpdateForm,
+  CountryUpdateForm,
+  LocationUpdateForm,
+  StateUpdateForm,
 } from '../models/form';
 
 /**
@@ -41,7 +41,6 @@ export const doFetchCitySuccess = createAction(
 export const doFetchCityFail = createAction(
   type('[Location] Do Fetch City Fail')
 );
-
 
 /**
  * Delete City Actions
@@ -118,7 +117,6 @@ export const doFetchCountryFail = createAction(
   type('[Location] Do Fetch Country Fail')
 );
 
-
 /**
  * Delete Country Actions
  */
@@ -192,7 +190,6 @@ export const doFetchLocationSuccess = createAction(
 export const doFetchLocationFail = createAction(
   type('[Location] Do Fetch Location Fail')
 );
-
 
 /**
  * Delete Location Actions
@@ -268,7 +265,6 @@ export const doFetchStateSuccess = createAction(
 export const doFetchStateFail = createAction(
   type('[Location] Do Fetch State Fail')
 );
-
 
 /**
  * Delete State Actions

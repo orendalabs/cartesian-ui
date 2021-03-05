@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'location',
+  selector: 'app-location',
   template: `<router-outlet></router-outlet>`,
 })
 export class LocationComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

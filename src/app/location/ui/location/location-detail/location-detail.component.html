@@ -1,16 +1,19 @@
 <div class="animated fadeIn row">
   <div class="col-sm-12">
-    <button 
-      class="btn btn-primary pull-right" 
-      [disabled]="formGroup.invalid || statesLoading || countriesLoading || citiesLoading"
-      (click)="save()">
+    <button
+      class="btn btn-primary pull-right"
+      [disabled]="
+        formGroup.invalid || statesLoading || countriesLoading || citiesLoading
+      "
+      (click)="save()"
+    >
       <i class="fa fa-save"></i> Save
     </button>
     <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
       <i class="fa fa-trash"></i> Delete
     </button>
   </div>
-  <hr class="col-sm-12"/>
+  <hr class="col-sm-12" />
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">
@@ -18,12 +21,12 @@
       </div>
       <div class="card-body">
         <div *ngIf="loaded">
-          <p><b>Id: </b>{{location.id}}</p>
-          <p><b>AddressLine1: </b>{{location.addressLine1}}</p>
-          <p><b>AddressLine2: </b>{{location.addressLine2}}</p>
-          <p><b>PostCode: </b>{{location.postCode}}</p>
-          <p><b>Latitude: </b>{{location.latitude}}</p>
-          <p><b>Longitude: </b>{{location.longitude}}</p>
+          <p><b>Id: </b>{{ location.id }}</p>
+          <p><b>AddressLine1: </b>{{ location.addressLine1 }}</p>
+          <p><b>AddressLine2: </b>{{ location.addressLine2 }}</p>
+          <p><b>PostCode: </b>{{ location.postCode }}</p>
+          <p><b>Latitude: </b>{{ location.latitude }}</p>
+          <p><b>Longitude: </b>{{ location.longitude }}</p>
         </div>
         <div *ngIf="failed" class="text-danger">
           <i class="fa fa-times"></i> Loading failed!
@@ -44,7 +47,7 @@
               formControlName="addressLine1"
               class="form-control"
               [ngClass]="getFormClasses('addressLine1')"
-              placeholder="Address Line 2..." 
+              placeholder="Address Line 2..."
             />
             <div class="invalid-feedback">Invalid value</div>
           </div>
@@ -54,7 +57,7 @@
               formControlName="addressLine2"
               class="form-control"
               [ngClass]="getFormClasses('addressLine2')"
-              placeholder="Address Line 2..." 
+              placeholder="Address Line 2..."
             />
             <div class="invalid-feedback">Invalid value</div>
           </div>
@@ -65,10 +68,12 @@
               class="form-control"
               [ngClass]="getFormClasses('countryId')"
               (change)="onCountryInputChange($event)"
-              [disabled]="countries.length == 0"
-            > 
+              [disabled]="countries.length === 0"
+            >
               <option disabled selected value="">Select Country...</option>
-              <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.name }}
+              </option>
             </select>
             <div class="invalid-feedback">Please select a valid country</div>
           </div>
@@ -79,23 +84,30 @@
               class="form-control"
               [ngClass]="getFormClasses('stateId')"
               (change)="onStateInputChange($event)"
-              [disabled]="states.length == 0"
+              [disabled]="states.length === 0"
             >
               <option disabled selected value="">Select State...</option>
-              <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+              <option *ngFor="let state of states" [value]="state.id">
+                {{ state.name }}
+              </option>
             </select>
             <div class="invalid-feedback">Please select a valid state</div>
           </div>
-          <div class="form-group" *ngIf="states && states.length > 0 && cities && cities.length > 0">
+          <div
+            class="form-group"
+            *ngIf="states && states.length > 0 && cities && cities.length > 0"
+          >
             <label>City</label>
             <select
               formControlName="cityId"
               class="form-control"
               [ngClass]="getFormClasses('cityId')"
-              [disabled]="cities.length == 0"
+              [disabled]="cities.length === 0"
             >
               <option disabled selected value="">Select City...</option>
-              <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+              <option *ngFor="let city of cities" [value]="city.id">
+                {{ city.name }}
+              </option>
             </select>
             <div class="invalid-feedback">Please select a valid city</div>
           </div>
@@ -105,7 +117,7 @@
               formControlName="postCode"
               class="form-control"
               [ngClass]="getFormClasses('postCode')"
-              placeholder="Post Code..." 
+              placeholder="Post Code..."
             />
             <div class="invalid-feedback">Invalid value</div>
           </div>
@@ -115,7 +127,7 @@
               formControlName="latitude"
               class="form-control"
               [ngClass]="getFormClasses('latitude')"
-              placeholder="Latitude..." 
+              placeholder="Latitude..."
               min="-90"
               max="90"
             />

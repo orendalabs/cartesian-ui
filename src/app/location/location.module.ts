@@ -23,10 +23,22 @@ import { LocationDetailComponent } from './ui/location/location-detail/location-
 import { StateDetailComponent } from './ui/state/state-detail/state-detail.component';
 import { ConfigurableFormModule } from '@app/shared/components/configurable-form/configurable-form.module';
 
-
-
 @NgModule({
-  declarations: [LocationComponent, CityListComponent, CityCreateComponent, LocationListComponent, LocationCreateComponent, CountryListComponent, CountryCreateComponent, StateListComponent, StateCreateComponent, CityDetailComponent, CountryDetailComponent, LocationDetailComponent, StateDetailComponent],
+  declarations: [
+    LocationComponent,
+    CityListComponent,
+    CityCreateComponent,
+    LocationListComponent,
+    LocationCreateComponent,
+    CountryListComponent,
+    CountryCreateComponent,
+    StateListComponent,
+    StateCreateComponent,
+    CityDetailComponent,
+    CountryDetailComponent,
+    LocationDetailComponent,
+    StateDetailComponent,
+  ],
   imports: [
     CommonModule,
     LocationRoutingModule,
@@ -35,11 +47,8 @@ import { ConfigurableFormModule } from '@app/shared/components/configurable-form
     NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
-    ConfigurableFormModule
+    ConfigurableFormModule,
   ],
-  providers: [
-    LocationHttpService,
-    LocationSandbox,
-  ]
+  providers: [LocationHttpService, LocationSandbox],
 })
-export class LocationModule { }
+export class LocationModule {}

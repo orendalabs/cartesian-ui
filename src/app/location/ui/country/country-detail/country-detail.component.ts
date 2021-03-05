@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
   templateUrl: './country-detail.component.html',
 })
 export class CountryDetailComponent implements OnInit {
-
   config: FieldConfig[] = [
     {
       type: 'input',
@@ -33,14 +32,14 @@ export class CountryDetailComponent implements OnInit {
       type: 'input',
       label: 'Alpha 2',
       name: 'alpha2',
-      validation: [Validators.required, Validators.pattern("[A-Z]{2}")],
+      validation: [Validators.required, Validators.pattern('[A-Z]{2}')],
       placeholder: 'Enter Alpha 2',
     },
     {
       type: 'input',
       label: 'Alpha 3',
       name: 'alpha3',
-      validation: [Validators.required, Validators.pattern("[A-Z]{3}")],
+      validation: [Validators.required, Validators.pattern('[A-Z]{3}')],
       placeholder: 'Enter Alpha 3',
     },
     {
@@ -106,15 +105,21 @@ export class CountryDetailComponent implements OnInit {
   loading: boolean;
   failed: boolean;
 
-  constructor(protected _sandbox: LocationSandbox,
-    protected route: ActivatedRoute) { }
+  constructor(
+    protected _sandbox: LocationSandbox,
+    protected route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.registerEvents();
   }
 
   delete(): void {
-    if(confirm("Are you sure you want to delete country " + this.country.name + "?")) {
+    if (
+      confirm(
+        'Are you sure you want to delete country ' + this.country.name + '?'
+      )
+    ) {
       this._sandbox.deleteCountry(this.country.id);
     }
   }
@@ -123,17 +128,17 @@ export class CountryDetailComponent implements OnInit {
     if (group.valid) {
       const form = new CountryUpdateForm({
         id: this.country.id,
-        name: group.controls['name'].value,
-        native: group.controls['native'].value,
-        alpha2: group.controls['alpha2'].value,
-        alpha3: group.controls['alpha3'].value,
-        isd: group.controls['isd'].value,
-        capital: group.controls['capital'].value,
-        currency: group.controls['currency'].value,
-        continent: group.controls['continent'].value,
-        subcontinent: group.controls['subcontinent'].value,
-        emoji: group.controls['emoji'].value,
-        emojiUnicode: group.controls['emojiUnicode'].value,
+        name: group.controls.name.value,
+        native: group.controls.native.value,
+        alpha2: group.controls.alpha2.value,
+        alpha3: group.controls.alpha3.value,
+        isd: group.controls.isd.value,
+        capital: group.controls.capital.value,
+        currency: group.controls.currency.value,
+        continent: group.controls.continent.value,
+        subcontinent: group.controls.subcontinent.value,
+        emoji: group.controls.emoji.value,
+        emojiUnicode: group.controls.emojiUnicode.value,
       });
       this._sandbox.updateCountry(form);
     }
@@ -147,16 +152,24 @@ export class CountryDetailComponent implements OnInit {
       })
     );
     this.subscriptions.push(
-      this._sandbox.countryLoading$.subscribe((loading: boolean) => this.loading = loading)
+      this._sandbox.countryLoading$.subscribe(
+        (loading: boolean) => (this.loading = loading)
+      )
     );
     this.subscriptions.push(
-      this._sandbox.countryLoaded$.subscribe((loaded: boolean) => this.loaded = loaded)
+      this._sandbox.countryLoaded$.subscribe(
+        (loaded: boolean) => (this.loaded = loaded)
+      )
     );
     this.subscriptions.push(
-      this._sandbox.countryFailed$.subscribe((failed: boolean) => this.failed = failed)
+      this._sandbox.countryFailed$.subscribe(
+        (failed: boolean) => (this.failed = failed)
+      )
     );
     this.subscriptions.push(
-      this._sandbox.country$.subscribe((country: Country) => this.country = country)
+      this._sandbox.country$.subscribe(
+        (country: Country) => (this.country = country)
+      )
     );
   }
 }

@@ -41,14 +41,14 @@ export class LocationUpdateForm implements ILocationUpdateForm {
   init(data?: any) {
     if (data) {
       this.id = data ? data.id : '';
-      this.addressLine1 = data? data.address_line_1 : '';
-      this.addressLine2 = data? data.address_line_2 : '';
-      this.postCode = data? data.post_code : '';
-      this.latitude = data? data.latitude : '';
-      this.longitude = data? data.longitude : '';
-      this.countryId = data? data.country_id : '';
-      this.cityId = data? data.city_id : '';
-      this.stateId = data? data.state_id : '';
+      this.addressLine1 = data ? data.address_line_1 : '';
+      this.addressLine2 = data ? data.address_line_2 : '';
+      this.postCode = data ? data.post_code : '';
+      this.latitude = data ? data.latitude : '';
+      this.longitude = data ? data.longitude : '';
+      this.countryId = data ? data.country_id : '';
+      this.cityId = data ? data.city_id : '';
+      this.stateId = data ? data.state_id : '';
     }
   }
 

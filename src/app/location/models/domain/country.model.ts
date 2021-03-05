@@ -51,9 +51,9 @@ export class Country implements ICountry {
       this.id = data ? data.id : '';
       this.name = data ? data.name : '';
       this.code = data ? data.code : '';
-      this.native  = data ? data.native : '';
-      this.alpha2  = data ? data.alpha2 : '';
-      this.alpha3  = data ? data.alpha3 : '';
+      this.native = data ? data.native : '';
+      this.alpha2 = data ? data.alpha2 : '';
+      this.alpha3 = data ? data.alpha3 : '';
       this.isd = data ? data.isd : '';
       this.capital = data ? data.capital : '';
       this.currency = data ? data.currency : '';
@@ -69,9 +69,9 @@ export class Country implements ICountry {
     data.id = this.id;
     data.name = this.name;
     data.code = this.code;
-    data.native  = this.native;
-    data.alpha2  = this.alpha2;
-    data.alpha3  = this.alpha3;
+    data.native = this.native;
+    data.alpha2 = this.alpha2;
+    data.alpha3 = this.alpha3;
     data.isd = this.isd;
     data.capital = this.capital;
     data.currency = this.currency;

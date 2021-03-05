@@ -20,13 +20,11 @@
         </div>
       </form>
     </div>
-    <div class="col-md-3">
-      
-    </div>
+    <div class="col-md-3"></div>
     <div class="col-md-6 text-right">
       <button
         class="btn btn-danger ml-2"
-        [disabled]="selectedStates.length == 0"
+        [disabled]="selectedStates.length === 0"
       >
         <i class="fa fa-trash"></i> Delete
       </button>
@@ -50,10 +48,7 @@
           <ngx-datatable
             class="material"
             [rows]="data"
-            [columns]="[
-              { name: 'name' },
-              { name: 'code' }
-            ]"
+            [columns]="[{ name: 'name' }, { name: 'code' }]"
             [columnMode]="'force'"
             [headerHeight]="50"
             [footerHeight]="50"

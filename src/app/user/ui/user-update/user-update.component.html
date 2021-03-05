@@ -1,21 +1,22 @@
-<form 
-novalidate 
-autocomplete="off" 
-[formGroup]="formGroup" 
-(ngSubmit)="update()"
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="formGroup"
+  (ngSubmit)="update()"
 >
   <div class="animated fadeIn row">
     <div class="col-sm-12">
-      <button 
-        type="submit" 
-        class="btn btn-primary pull-right ml-2" 
-        (click)="sync()">
+      <button
+        type="submit"
+        class="btn btn-primary pull-right ml-2"
+        (click)="sync()"
+      >
         <i class="fa fa-save"></i> Save
       </button>
-      <button 
-      class="btn btn-danger pull-right" 
-      [disabled]="userRolesComponent.selectedRoles.length == 0" 
-      (click)="userRolesComponent.revokeRoles()"
+      <button
+        class="btn btn-danger pull-right"
+        [disabled]="userRolesComponent.selectedRoles.length === 0"
+        (click)="userRolesComponent.revokeRoles()"
       >
         <i class="fa fa-chain-broken"></i> Revoke
       </button>
@@ -32,21 +33,23 @@ autocomplete="off"
                 <div class="card-body">
                   <div class="form-group required">
                     <label>Name</label>
-                    <input 
-                      type="text" 
-                      formControlName="name" 
-                      class="form-control" 
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
                       [ngClass]="getFormClasses('name')"
-                      placeholder="Name" />
+                      placeholder="Name"
+                    />
                   </div>
                   <div class="form-group required">
                     <label>New Password</label>
-                    <input 
-                      formControlName="password" 
-                      type="password" 
+                    <input
+                      formControlName="password"
+                      type="password"
                       class="form-control"
-                      [ngClass]="getFormClasses('password')" 
-                      placeholder="New Password" />
+                      [ngClass]="getFormClasses('password')"
+                      placeholder="New Password"
+                    />
                   </div>
                 </div>
               </div>
@@ -60,25 +63,34 @@ autocomplete="off"
                   <label>Add Role</label>
                   <form class="form-group form-inline">
                     <div class="required">
-                      <input 
-                        [formControl]="control" 
-                        [typeahead]="typeaheadData" 
-                        [isAnimated]="true" 
+                      <input
+                        [formControl]="control"
+                        [typeahead]="typeaheadData"
+                        [isAnimated]="true"
                         [ngClass]="
                           control.valid
                             ? 'is-valid'
                             : control.touched && control.dirty
                             ? 'is-invalid'
                             : ''
-                        " 
-                        class="form-control" />
+                        "
+                        class="form-control"
+                      />
                     </div>
-                    <button class="btn btn-success ml-1" (click)="addRole()" [disabled]="control.invalid">
+                    <button
+                      class="btn btn-success ml-1"
+                      (click)="addRole()"
+                      [disabled]="control.invalid"
+                    >
                       <i class="fa fa-plus"></i>
                     </button>
                     <div class="invalid-feedback">Invalid role value!</div>
                   </form>
-                  <user-update-roles [parent]="this" [roles]="addedItems" #userRolesComponent>
+                  <user-update-roles
+                    [parent]="this"
+                    [roles]="addedItems"
+                    #userRolesComponent
+                  >
                   </user-update-roles>
                 </div>
               </div>

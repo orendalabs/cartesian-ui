@@ -1,4 +1,3 @@
-
 <form
   novalidate
   autocomplete="off"
@@ -19,10 +18,12 @@
               class="form-control"
               [ngClass]="getFormClasses('countryId')"
               (change)="onCountryInputChange($event)"
-              [disabled]="countries.length == 0"
-            > 
+              [disabled]="countries.length === 0"
+            >
               <option disabled selected value="">Select Country...</option>
-              <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.name }}
+              </option>
             </select>
             <div class="invalid-feedback">Please select a valid country</div>
           </div>
@@ -32,10 +33,12 @@
               formControlName="stateId"
               class="form-control"
               [ngClass]="getFormClasses('stateId')"
-              [disabled]="states.length == 0"
+              [disabled]="states.length === 0"
             >
               <option disabled selected value="">Select State...</option>
-              <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+              <option *ngFor="let state of states" [value]="state.id">
+                {{ state.name }}
+              </option>
             </select>
             <div class="invalid-feedback">Please select a valid state</div>
           </div>
@@ -55,7 +58,7 @@
               formControlName="latitude"
               class="form-control"
               [ngClass]="getFormClasses('latitude')"
-              placeholder="Latitude..." 
+              placeholder="Latitude..."
               min="-90"
               max="90"
             />

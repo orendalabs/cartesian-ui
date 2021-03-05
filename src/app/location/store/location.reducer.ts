@@ -1,6 +1,6 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { LocationState } from '.';
-import { 
+import {
   cityDetailReducer,
   cityListingReducer,
   countryDetailReducer,
@@ -8,8 +8,8 @@ import {
   locationDetailReducer,
   locationListingReducer,
   stateDetailReducer,
-  stateListingReducer
-} from './reducers/'
+  stateListingReducer,
+} from './reducers/';
 
 export const locationFeatureKey = `location`;
 

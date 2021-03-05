@@ -4,27 +4,26 @@ import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Sandbox } from '@app/core/base.sandbox';
-import { 
-  SearchCityForm, 
-  SearchCountryForm, 
-  SearchLocationForm, 
-  SearchStateForm, 
-  CityCreateForm, 
-  StateCreateForm, 
-  CountryCreateForm, 
+import {
+  SearchCityForm,
+  SearchCountryForm,
+  SearchLocationForm,
+  SearchStateForm,
+  CityCreateForm,
+  StateCreateForm,
+  CountryCreateForm,
   LocationCreateForm,
-  CityUpdateForm, 
-  StateUpdateForm, 
-  CountryUpdateForm, 
+  CityUpdateForm,
+  StateUpdateForm,
+  CountryUpdateForm,
   LocationUpdateForm,
 } from './models/form/';
 import { LocationState, locationActions, locationSelectors } from './store';
 
 @Injectable()
 export class LocationSandbox extends Sandbox {
-
   private subscriptions: Array<Subscription> = [];
-  
+
   // City Observables
   citiesData$ = this.store.pipe(select(locationSelectors.getCitiesList));
   citiesMeta$ = this.store.pipe(select(locationSelectors.getCitiesMeta));
@@ -39,24 +38,44 @@ export class LocationSandbox extends Sandbox {
   // Country Observables
   countriesData$ = this.store.pipe(select(locationSelectors.getCountriesList));
   countriesMeta$ = this.store.pipe(select(locationSelectors.getCountriesMeta));
-  countriesLoaded$ = this.store.pipe(select(locationSelectors.getCountriesLoaded));
-  countriesLoading$ = this.store.pipe(select(locationSelectors.getCountriesLoading));
-  countriesFailed$ = this.store.pipe(select(locationSelectors.getCountriesFailed));
+  countriesLoaded$ = this.store.pipe(
+    select(locationSelectors.getCountriesLoaded)
+  );
+  countriesLoading$ = this.store.pipe(
+    select(locationSelectors.getCountriesLoading)
+  );
+  countriesFailed$ = this.store.pipe(
+    select(locationSelectors.getCountriesFailed)
+  );
   country$ = this.store.pipe(select(locationSelectors.getCountryDetail));
   countryLoaded$ = this.store.pipe(select(locationSelectors.getCountryLoaded));
-  countryLoading$ = this.store.pipe(select(locationSelectors.getCountryLoading));
+  countryLoading$ = this.store.pipe(
+    select(locationSelectors.getCountryLoading)
+  );
   countryFailed$ = this.store.pipe(select(locationSelectors.getCountryFailed));
 
   // Location Observables
   locationsData$ = this.store.pipe(select(locationSelectors.getLocationsList));
   locationsMeta$ = this.store.pipe(select(locationSelectors.getLocationsMeta));
-  locationsLoaded$ = this.store.pipe(select(locationSelectors.getLocationsLoaded));
-  locationsLoading$ = this.store.pipe(select(locationSelectors.getLocationsLoading));
-  locationsFailed$ = this.store.pipe(select(locationSelectors.getLocationsFailed));
+  locationsLoaded$ = this.store.pipe(
+    select(locationSelectors.getLocationsLoaded)
+  );
+  locationsLoading$ = this.store.pipe(
+    select(locationSelectors.getLocationsLoading)
+  );
+  locationsFailed$ = this.store.pipe(
+    select(locationSelectors.getLocationsFailed)
+  );
   location$ = this.store.pipe(select(locationSelectors.getLocationDetail));
-  locationLoaded$ = this.store.pipe(select(locationSelectors.getLocationLoaded));
-  locationLoading$ = this.store.pipe(select(locationSelectors.getLocationLoading));
-  locationFailed$ = this.store.pipe(select(locationSelectors.getLocationFailed));
+  locationLoaded$ = this.store.pipe(
+    select(locationSelectors.getLocationLoaded)
+  );
+  locationLoading$ = this.store.pipe(
+    select(locationSelectors.getLocationLoading)
+  );
+  locationFailed$ = this.store.pipe(
+    select(locationSelectors.getLocationFailed)
+  );
 
   // State Observables
   statesData$ = this.store.pipe(select(locationSelectors.getStatesList));
@@ -85,27 +104,19 @@ export class LocationSandbox extends Sandbox {
   }
 
   fetchCity(id: string): void {
-    this.store.dispatch(
-      locationActions.doFetchCity({ id: id })
-    );
+    this.store.dispatch(locationActions.doFetchCity({ id }));
   }
 
   createCity(form: CityCreateForm): void {
-    this.store.dispatch(
-      locationActions.doCreateCity({ form: form })
-    );
+    this.store.dispatch(locationActions.doCreateCity({ form }));
   }
-  
+
   updateCity(form: CityUpdateForm): void {
-    this.store.dispatch(
-      locationActions.doUpdateCity({ form: form })
-    );
+    this.store.dispatch(locationActions.doUpdateCity({ form }));
   }
 
   deleteCity(id: string): void {
-    this.store.dispatch(
-      locationActions.doDeleteCity({ id: id })
-    );
+    this.store.dispatch(locationActions.doDeleteCity({ id }));
   }
 
   // Country Methods
@@ -116,27 +127,19 @@ export class LocationSandbox extends Sandbox {
   }
 
   fetchCountry(id: string): void {
-    this.store.dispatch(
-      locationActions.doFetchCountry({ id: id })
-    );
+    this.store.dispatch(locationActions.doFetchCountry({ id }));
   }
 
   createCountry(form: CountryCreateForm): void {
-    this.store.dispatch(
-      locationActions.doCreateCountry({ form: form })
-    );
+    this.store.dispatch(locationActions.doCreateCountry({ form }));
   }
-  
+
   updateCountry(form: CountryUpdateForm): void {
-    this.store.dispatch(
-      locationActions.doUpdateCountry({ form: form })
-    );
+    this.store.dispatch(locationActions.doUpdateCountry({ form }));
   }
 
   deleteCountry(id: string): void {
-    this.store.dispatch(
-      locationActions.doDeleteCountry({ id: id })
-    );
+    this.store.dispatch(locationActions.doDeleteCountry({ id }));
   }
 
   // Location Methods
@@ -147,27 +150,19 @@ export class LocationSandbox extends Sandbox {
   }
 
   fetchLocation(id: string): void {
-    this.store.dispatch(
-      locationActions.doFetchLocation({ id: id })
-    );
+    this.store.dispatch(locationActions.doFetchLocation({ id }));
   }
 
   createLocation(form: LocationCreateForm): void {
-    this.store.dispatch(
-      locationActions.doCreateLocation({ form: form })
-    );
+    this.store.dispatch(locationActions.doCreateLocation({ form }));
   }
-  
+
   updateLocation(form: LocationUpdateForm): void {
-    this.store.dispatch(
-      locationActions.doUpdateLocation({ form: form })
-    );
+    this.store.dispatch(locationActions.doUpdateLocation({ form }));
   }
 
   deleteLocation(id: string): void {
-    this.store.dispatch(
-      locationActions.doDeleteLocation({ id: id })
-    );
+    this.store.dispatch(locationActions.doDeleteLocation({ id }));
   }
 
   // State Methods
@@ -178,29 +173,20 @@ export class LocationSandbox extends Sandbox {
   }
 
   fetchState(id: string): void {
-    this.store.dispatch(
-      locationActions.doFetchState({ id: id })
-    );
+    this.store.dispatch(locationActions.doFetchState({ id }));
   }
 
   createState(form: StateCreateForm): void {
-    this.store.dispatch(
-      locationActions.doCreateState({ form: form })
-    );
+    this.store.dispatch(locationActions.doCreateState({ form }));
   }
-  
+
   updateState(form: StateUpdateForm): void {
-    this.store.dispatch(
-      locationActions.doUpdateState({ form: form })
-    );
+    this.store.dispatch(locationActions.doUpdateState({ form }));
   }
 
   deleteState(id: string): void {
-    this.store.dispatch(
-      locationActions.doDeleteState({ id: id })
-    );
+    this.store.dispatch(locationActions.doDeleteState({ id }));
   }
-
 
   /**
    * Unsubscribe from events

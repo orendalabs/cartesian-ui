@@ -48,9 +48,9 @@ export class CountryUpdateForm implements ICountryUpdateForm {
     if (data) {
       this.id = data ? data.id : '';
       this.name = data ? data.name : '';
-      this.native  = data ? data.native : '';
-      this.alpha2  = data ? data.alpha2 : '';
-      this.alpha3  = data ? data.alpha3 : '';
+      this.native = data ? data.native : '';
+      this.alpha2 = data ? data.alpha2 : '';
+      this.alpha3 = data ? data.alpha3 : '';
       this.isd = data ? data.isd : '';
       this.capital = data ? data.capital : '';
       this.currency = data ? data.currency : '';
@@ -64,9 +64,9 @@ export class CountryUpdateForm implements ICountryUpdateForm {
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
     data.id = this.id;
-    data.native  = this.native;
-    data.alpha2  = this.alpha2;
-    data.alpha3  = this.alpha3;
+    data.native = this.native;
+    data.alpha2 = this.alpha2;
+    data.alpha3 = this.alpha3;
     data.isd = this.isd;
     data.capital = this.capital;
     data.currency = this.currency;

@@ -1,4 +1,13 @@
-import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnChanges, OnInit, Type, ViewContainerRef } from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  Input,
+  OnChanges,
+  OnInit,
+  Type,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormButtonComponent } from '../form-button/form-button.component';
@@ -8,21 +17,19 @@ import { FormSelectComponent } from '../form-select/form-select.component';
 import { Field } from '../models/field.model';
 import { FieldConfig } from '../models/field-config.model';
 
-const components: {[type: string]: Type<Field>} = {
+const components: { [type: string]: Type<Field> } = {
   button: FormButtonComponent,
   input: FormInputComponent,
-  select: FormSelectComponent
+  select: FormSelectComponent,
 };
 
 @Directive({
-  selector: '[configurableField]'
+  selector: '[configurableField]',
 })
 export class ConfigurableFieldDirective implements Field, OnChanges, OnInit {
-  @Input()
-  config: FieldConfig;
+  @Input() config: FieldConfig;
 
-  @Input()
-  formGroup: FormGroup;
+  @Input() formGroup: FormGroup;
 
   component: ComponentRef<Field>;
 
@@ -46,7 +53,9 @@ export class ConfigurableFieldDirective implements Field, OnChanges, OnInit {
         Supported types: ${supportedTypes}`
       );
     }
-    const component = this.resolver.resolveComponentFactory<Field>(components[this.config.type]);
+    const component = this.resolver.resolveComponentFactory<Field>(
+      components[this.config.type]
+    );
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.formGroup = this.formGroup;

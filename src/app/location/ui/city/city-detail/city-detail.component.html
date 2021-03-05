@@ -1,16 +1,17 @@
 <div class="animated fadeIn row">
   <div class="col-sm-12">
-    <button 
-      class="btn btn-primary pull-right" 
+    <button
+      class="btn btn-primary pull-right"
       [disabled]="formGroup.invalid || countriesLoading || statesLoading"
-      (click)="save()">
+      (click)="save()"
+    >
       <i class="fa fa-save"></i> Save
     </button>
     <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
       <i class="fa fa-trash"></i> Delete
     </button>
   </div>
-  <hr class="col-sm-12"/>
+  <hr class="col-sm-12" />
   <div class="col-lg-6">
     <div class="card">
       <div class="card-header">
@@ -18,10 +19,10 @@
       </div>
       <div class="card-body">
         <div *ngIf="loaded">
-          <p><b>ID: </b>{{city.id}}</p>
-          <p><b>Name: </b>{{city.name}}</p>
-          <p><b>Latitude: </b>{{city.latitude}}</p>
-          <p><b>Longitude: </b>{{city.longitude}}</p>
+          <p><b>ID: </b>{{ city.id }}</p>
+          <p><b>Name: </b>{{ city.name }}</p>
+          <p><b>Latitude: </b>{{ city.latitude }}</p>
+          <p><b>Longitude: </b>{{ city.longitude }}</p>
         </div>
         <div *ngIf="failed" class="text-danger">
           <i class="fa fa-times"></i> Loading failed!
@@ -44,10 +45,12 @@
                 class="form-control"
                 [ngClass]="getFormClasses('countryId')"
                 (change)="onCountryInputChange($event)"
-                [disabled]="countries.length == 0"
-              > 
+                [disabled]="countries.length === 0"
+              >
                 <option disabled selected value="">Select Country...</option>
-                <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+                <option *ngFor="let country of countries" [value]="country.id">
+                  {{ country.name }}
+                </option>
               </select>
               <div class="invalid-feedback">Please select a valid country</div>
             </div>
@@ -59,7 +62,9 @@
                 [ngClass]="getFormClasses('stateId')"
               >
                 <option disabled selected value="">Select State...</option>
-                <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+                <option *ngFor="let state of states" [value]="state.id">
+                  {{ state.name }}
+                </option>
               </select>
               <div class="invalid-feedback">Please select a valid state</div>
             </div>

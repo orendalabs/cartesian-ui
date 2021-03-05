@@ -20,13 +20,11 @@
         </div>
       </form>
     </div>
-    <div class="col-md-3">
-      
-    </div>
+    <div class="col-md-3"></div>
     <div class="col-md-6 text-right">
       <button
         class="btn btn-danger ml-2"
-        [disabled]="selectedCountries.length == 0"
+        [disabled]="selectedCountries.length === 0"
       >
         <i class="fa fa-trash"></i> Delete
       </button>
@@ -89,7 +87,11 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Capital" [flexGrow]="3" [minWidth]="200">
+            <ngx-datatable-column
+              name="Capital"
+              [flexGrow]="3"
+              [minWidth]="200"
+            >
               <ng-template let-value="value" ngx-datatable-cell-template>
                 {{ value }}
               </ng-template>

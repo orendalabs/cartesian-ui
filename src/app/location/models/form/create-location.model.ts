@@ -44,14 +44,14 @@ export class LocationCreateForm implements ILocationCreateForm {
     if (data) {
       this.locatableId = data ? data.locatable_id : '';
       this.locatableType = data ? data.locatable_type : '';
-      this.addressLine1 = data? data.address_line_1 : '';
-      this.addressLine2 = data? data.address_line_2 : '';
-      this.postCode = data? data.post_code : '';
-      this.latitude = data? data.latitude : '';
-      this.longitude = data? data.longitude : '';
-      this.countryId = data? data.country_id : '';
-      this.cityId = data? data.city_id : '';
-      this.stateId = data? data.state_id : '';
+      this.addressLine1 = data ? data.address_line_1 : '';
+      this.addressLine2 = data ? data.address_line_2 : '';
+      this.postCode = data ? data.post_code : '';
+      this.latitude = data ? data.latitude : '';
+      this.longitude = data ? data.longitude : '';
+      this.countryId = data ? data.country_id : '';
+      this.cityId = data ? data.city_id : '';
+      this.stateId = data ? data.state_id : '';
     }
   }
 

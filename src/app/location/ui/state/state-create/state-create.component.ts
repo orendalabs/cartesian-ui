@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
@@ -13,11 +13,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './state-create.component.html',
 })
 export class StateCreateComponent implements OnInit {
-
   subscriptions: Subscription[] = [];
 
   countriesLoading: boolean;
-  countriesCriteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(100000);
+  countriesCriteria = new RequestCriteria<SearchCountryForm>(
+    new SearchCountryForm()
+  ).limit(100000);
 
   config: FieldConfig[] = [
     {
@@ -50,7 +51,7 @@ export class StateCreateComponent implements OnInit {
     },
   ];
 
-  constructor(protected _sandbox: LocationSandbox) { }
+  constructor(protected _sandbox: LocationSandbox) {}
 
   ngOnInit(): void {
     this.registerEvents();
@@ -60,9 +61,9 @@ export class StateCreateComponent implements OnInit {
   create(group): void {
     if (group.valid) {
       const form = new StateCreateForm({
-        countryId: group.controls['countryId'].value,
-        name: group.controls['name'].value,
-        code: group.controls['code'].value,
+        countryId: group.controls.countryId.value,
+        name: group.controls.name.value,
+        code: group.controls.code.value,
       });
       this._sandbox.createState(form);
     }
@@ -70,7 +71,7 @@ export class StateCreateComponent implements OnInit {
 
   registerEvents(): void {
     this.subscriptions.push(
-      this._sandbox.countriesData$.subscribe((c: Country[]) => { 
+      this._sandbox.countriesData$.subscribe((c: Country[]) => {
         if (c) {
           this.config[0].options = [];
           Object.values(c).forEach((v) => {
@@ -85,7 +86,7 @@ export class StateCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.countriesLoading$.subscribe((loading) => {
-        this.countriesLoading = loading
+        this.countriesLoading = loading;
       })
     );
   }
@@ -97,7 +98,10 @@ export class StateCreateComponent implements OnInit {
   setCountryValidators(): void {
     if (this.config[0].options) {
       const countryIds = this.config[0].options.map((c) => c.value.toString());
-      this.config[0].validation = [Validators.required, FormHelper.inValidator(countryIds)];
+      this.config[0].validation = [
+        Validators.required,
+        FormHelper.inValidator(countryIds),
+      ];
     }
   }
 }

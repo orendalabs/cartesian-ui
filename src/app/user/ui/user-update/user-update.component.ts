@@ -21,7 +21,7 @@ import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
 export class UserUpdateComponent
   extends TypeaheadItemListHelper<Role>
   implements OnInit {
-  @ViewChild("userRolesComponent") userRolesComponent: ElementRef;
+  @ViewChild('userRolesComponent') userRolesComponent: ElementRef;
 
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -109,21 +109,18 @@ export class UserUpdateComponent
       if (this.formGroup.valid) {
         this.updateRoles();
         this.update();
-        alert("Updating User and Roles");
+        alert('Updating User and Roles');
       } else {
-        alert("User details are invalid");
+        alert('User details are invalid');
       }
-    }
-    else if (shouldUpdateRoles) {
+    } else if (shouldUpdateRoles) {
       this.updateRoles();
-      alert("Updating Roles");
-    }
-    else if (shouldUpdateUser) {
+      alert('Updating Roles');
+    } else if (shouldUpdateUser) {
       this.update();
-      alert("Updating User");
-    }
-    else {
-      alert("No changes to update");
+      alert('Updating User');
+    } else {
+      alert('No changes to update');
     }
   }
 
@@ -134,9 +131,11 @@ export class UserUpdateComponent
       userId: this.userId,
       rolesIds: roleIds,
     });
-    const message = this.addedItems.length == 0 ? 
-      "Are you sure you want to remove all roles?" : 
-      "Are you sure you want to save the following roles?\n\t- " + roleNames.join("\n\t- ");
+    const message =
+      this.addedItems.length === 0
+        ? 'Are you sure you want to remove all roles?'
+        : 'Are you sure you want to save the following roles?\n\t- ' +
+          roleNames.join('\n\t- ');
     if (confirm(message)) {
       this._sandbox.syncRolesOnUser(form);
     }
@@ -153,7 +152,7 @@ export class UserUpdateComponent
 
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
-    if(control.value == "") {
+    if (control.value === '') {
       return '';
     }
     if (control.valid) {
@@ -172,11 +171,11 @@ export class UserUpdateComponent
   }
 
   isRoleListChanged(): boolean {
-    if (this.user.roles.length != this.addedItems.length) {
+    if (this.user.roles.length !== this.addedItems.length) {
       return true;
     }
     this.user.roles.forEach((role) => {
-      if (!this.addedItems.find((item) => item.id == role.id)) {
+      if (!this.addedItems.find((item) => item.id === role.id)) {
         return true;
       }
     });
@@ -184,10 +183,13 @@ export class UserUpdateComponent
   }
 
   isUserDataChanged(): boolean {
-    if (this.formGroup.controls["name"].value == "" && 
-        this.formGroup.controls["password"].value == "") {
-          return false;
-        }
-    else return true;
+    if (
+      this.formGroup.controls.name.value === '' &&
+      this.formGroup.controls.password.value === ''
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

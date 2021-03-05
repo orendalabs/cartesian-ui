@@ -14,7 +14,6 @@ import { Subscription } from 'rxjs';
   templateUrl: './state-detail.component.html',
 })
 export class StateDetailComponent implements OnInit {
-
   config: FieldConfig[] = [
     {
       type: 'select',
@@ -45,7 +44,7 @@ export class StateDetailComponent implements OnInit {
       classes: 'btn btn-primary pull-right',
     },
   ];
-  
+
   subscriptions: Array<Subscription> = [];
   state: State;
   loaded: boolean;
@@ -53,10 +52,14 @@ export class StateDetailComponent implements OnInit {
   failed: boolean;
 
   countries: Country[] = [];
-  countriesCriteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(100000);
+  countriesCriteria = new RequestCriteria<SearchCountryForm>(
+    new SearchCountryForm()
+  ).limit(100000);
 
-  constructor(protected _sandbox: LocationSandbox,
-    protected route: ActivatedRoute) { }
+  constructor(
+    protected _sandbox: LocationSandbox,
+    protected route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.registerEvents();
@@ -64,7 +67,11 @@ export class StateDetailComponent implements OnInit {
   }
 
   delete(): void {
-    if(confirm("Are you sure you want to delete country " + this.state.name + "?")) {
+    if (
+      confirm(
+        'Are you sure you want to delete country ' + this.state.name + '?'
+      )
+    ) {
       this._sandbox.deleteState(this.state.id);
     }
   }
@@ -73,9 +80,9 @@ export class StateDetailComponent implements OnInit {
     if (group.valid) {
       const form = new StateUpdateForm({
         id: this.state.id,
-        countryId: group.controls['countryId'].value,
-        name: group.controls['name'].value,
-        code: group.controls['code'].value,
+        countryId: group.controls.countryId.value,
+        name: group.controls.name.value,
+        code: group.controls.code.value,
       });
       this._sandbox.updateState(form);
     }
@@ -83,25 +90,31 @@ export class StateDetailComponent implements OnInit {
 
   registerEvents(): void {
     this.subscriptions.push(
-      this.route.params.subscribe((params) => { 
+      this.route.params.subscribe((params) => {
         const id = params.id;
         this._sandbox.fetchState(id);
       })
     );
     this.subscriptions.push(
-      this._sandbox.stateLoading$.subscribe((loading: boolean) => this.loading = loading)
+      this._sandbox.stateLoading$.subscribe(
+        (loading: boolean) => (this.loading = loading)
+      )
     );
     this.subscriptions.push(
-      this._sandbox.stateLoaded$.subscribe((loaded: boolean) => this.loaded = loaded)
+      this._sandbox.stateLoaded$.subscribe(
+        (loaded: boolean) => (this.loaded = loaded)
+      )
     );
     this.subscriptions.push(
-      this._sandbox.stateFailed$.subscribe((failed: boolean) => this.failed = failed)
+      this._sandbox.stateFailed$.subscribe(
+        (failed: boolean) => (this.failed = failed)
+      )
     );
     this.subscriptions.push(
-      this._sandbox.state$.subscribe((state: State) => this.state = state)
+      this._sandbox.state$.subscribe((state: State) => (this.state = state))
     );
     this.subscriptions.push(
-      this._sandbox.countriesData$.subscribe((c: Country[]) => { 
+      this._sandbox.countriesData$.subscribe((c: Country[]) => {
         if (c) {
           this.config[0].options = [];
           Object.values(c).forEach((v) => {
@@ -118,11 +131,14 @@ export class StateDetailComponent implements OnInit {
   unregisterEvents(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
-  
+
   setCountryValidators(): void {
     if (this.config[0].options) {
       const countryIds = this.config[0].options.map((c) => c.value.toString());
-      this.config[0].validation = [Validators.required, FormHelper.inValidator(countryIds)];
+      this.config[0].validation = [
+        Validators.required,
+        FormHelper.inValidator(countryIds),
+      ];
     }
   }
 }

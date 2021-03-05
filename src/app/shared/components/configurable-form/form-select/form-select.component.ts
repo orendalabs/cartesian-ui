@@ -11,14 +11,14 @@ export class FormSelectComponent implements OnInit, AfterViewChecked {
   oldValidation;
   config: FieldConfig;
   formGroup: FormGroup;
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.oldValidation = this.config.validation;
   }
 
   ngAfterViewChecked(): void {
-    if (this.oldValidation != this.config.validation) {
+    if (this.oldValidation !== this.config.validation) {
       this.oldValidation = this.config.validation;
       const ctrl = this.formGroup.controls[this.config.name];
       ctrl.setValidators(this.config.validation);

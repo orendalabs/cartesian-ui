@@ -20,13 +20,11 @@
         </div>
       </form>
     </div>
-    <div class="col-md-3">
-      
-    </div>
+    <div class="col-md-3"></div>
     <div class="col-md-6 text-right">
       <button
         class="btn btn-danger ml-2"
-        [disabled]="selectedLocations.length == 0"
+        [disabled]="selectedLocations.length === 0"
       >
         <i class="fa fa-trash"></i> Delete
       </button>
@@ -53,7 +51,7 @@
             [columns]="[
               { name: 'postCode' },
               { name: 'addressLine1' },
-              { name: 'addressLine2' } 
+              { name: 'addressLine2' }
             ]"
             [columnMode]="'force'"
             [headerHeight]="50"
@@ -79,7 +77,11 @@
               [checkboxable]="true"
             ></ngx-datatable-column>
 
-            <ngx-datatable-column name="Post Code" [flexGrow]="3" [minWidth]="200">
+            <ngx-datatable-column
+              name="Post Code"
+              [flexGrow]="3"
+              [minWidth]="200"
+            >
               <ng-template
                 let-value="value"
                 let-row="row"
@@ -89,7 +91,11 @@
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Address Line 1" [flexGrow]="3" [minWidth]="200">
+            <ngx-datatable-column
+              name="Address Line 1"
+              [flexGrow]="3"
+              [minWidth]="200"
+            >
               <ng-template let-row="row" ngx-datatable-cell-template>
                 {{ row.addressLine1 }}
               </ng-template>
@@ -103,10 +109,7 @@
               >
                 <span class="mobile-hidden">{{ column.name }} </span>
               </ng-template>
-              <ng-template
-                let-row="row"
-                ngx-datatable-cell-template
-              >
+              <ng-template let-row="row" ngx-datatable-cell-template>
                 <span class="mobile-hidden">{{ row.addressLine2 }}</span>
               </ng-template>
             </ngx-datatable-column>

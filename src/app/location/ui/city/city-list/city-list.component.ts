@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ListingControlsComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City } from '@app/location/models/domain';
@@ -10,18 +17,17 @@ import { Subscription } from 'rxjs';
   selector: 'city-list',
   templateUrl: './city-list.component.html',
 })
-export class CityListComponent extends ListingControlsComponent<City, SearchCityForm> implements OnInit, AfterViewInit {
+export class CityListComponent
+  extends ListingControlsComponent<City, SearchCityForm>
+  implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   subscriptions: Array<Subscription> = [];
   selectedCities: City[] = [];
-  criteria = new RequestCriteria<SearchCityForm>(new SearchCityForm()).limit(2)
+  criteria = new RequestCriteria<SearchCityForm>(new SearchCityForm()).limit(2);
   searchModel = '';
 
-  constructor(
-    protected _sandbox: LocationSandbox,
-    injector: Injector,
-    ) { 
+  constructor(protected _sandbox: LocationSandbox, injector: Injector) {
     super(injector);
   }
 
@@ -67,9 +73,7 @@ export class CityListComponent extends ListingControlsComponent<City, SearchCity
     this.isTableLoading = true;
     this._sandbox.fetchCities(this.criteria);
   }
-  protected delete(): void {
-    
-  }
+  protected delete(): void {}
   protected unregisterEvents(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
@@ -80,5 +84,4 @@ export class CityListComponent extends ListingControlsComponent<City, SearchCity
   }
 
   onActivate(event) {}
-
 }

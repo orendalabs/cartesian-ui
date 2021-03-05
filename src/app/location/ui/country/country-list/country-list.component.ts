@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ListingControlsComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
@@ -10,18 +17,19 @@ import { Subscription } from 'rxjs';
   selector: 'country-list',
   templateUrl: './country-list.component.html',
 })
-export class CountryListComponent extends ListingControlsComponent<Country, SearchCountryForm> implements OnInit, AfterViewInit {
+export class CountryListComponent
+  extends ListingControlsComponent<Country, SearchCountryForm>
+  implements OnInit, AfterViewInit {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   subscriptions: Array<Subscription> = [];
   selectedCountries: Country[] = [];
-  criteria = new RequestCriteria<SearchCountryForm>(new SearchCountryForm()).limit(2)
+  criteria = new RequestCriteria<SearchCountryForm>(
+    new SearchCountryForm()
+  ).limit(2);
   searchModel = '';
 
-  constructor(
-    protected _sandbox: LocationSandbox,
-    injector: Injector,
-    ) { 
+  constructor(protected _sandbox: LocationSandbox, injector: Injector) {
     super(injector);
   }
 
@@ -67,9 +75,7 @@ export class CountryListComponent extends ListingControlsComponent<Country, Sear
     this.isTableLoading = true;
     this._sandbox.fetchCountries(this.criteria);
   }
-  protected delete(): void {
-    
-  }
+  protected delete(): void {}
   protected unregisterEvents(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
@@ -80,5 +86,4 @@ export class CountryListComponent extends ListingControlsComponent<Country, Sear
   }
 
   onActivate(event) {}
-
 }
