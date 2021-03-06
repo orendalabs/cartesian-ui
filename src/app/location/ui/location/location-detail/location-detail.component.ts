@@ -182,30 +182,6 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
 
-  onCountryInputChange(event): void {
-    const id = event.target.value;
-
-    const stateControl = this.config[nameIndexMap.stateId];
-    stateControl.options = null;
-    stateControl.value = '';
-
-    const cityControl = this.config[nameIndexMap.cityId];
-    cityControl.options = null;
-    cityControl.value = '';
-    this.setCityValidators();
-
-    this.statesCriteria.where('country_id', '=', id);
-    this._sandbox.fetchStates(this.statesCriteria);
-  }
-
-  onStateInputChange(event): void {
-    const id = event.target.value;
-    this.config[nameIndexMap.cityId].options = null;
-    this.config[nameIndexMap.cityId].value = '';
-    this.citiesCriteria.where('state_id', '=', id);
-    this._sandbox.fetchCities(this.citiesCriteria);
-  }
-
   delete(): void {
     if (
       confirm(
