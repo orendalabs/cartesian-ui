@@ -13,7 +13,7 @@ import {
   SearchStateForm,
 } from '../../../models/form/';
 import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
-import { ISelectField } from '@app/shared/components/configurable-form/models/select-field.model';
+import { ISelectFieldOption } from '@app/shared/components/configurable-form/models/select-field.model';
 
 enum nameIndexMap {
   'locatableType' = 0,
@@ -26,6 +26,7 @@ enum nameIndexMap {
   'postCode' = 7,
   'latitude' = 8,
   'longitude' = 9,
+  'submit' = 10,
 }
 
 @Component({
@@ -91,6 +92,25 @@ export class LocationCreateComponent implements OnInit {
         label: 'Country',
         name: 'countryId',
         options: [],
+        change: (event) => {
+          const id = event.target.value;
+
+          const stateControl = this.config[nameIndexMap.stateId];
+          stateControl.options = [];
+          stateControl.hidden = true;
+          stateControl.value = '';
+
+          const cityControl = this.config[nameIndexMap.cityId];
+          cityControl.options = [];
+          cityControl.hidden = true;
+          cityControl.value = '';
+          this.setCityValidators();
+
+          this.config[nameIndexMap.submit].disabled = true;
+
+          this.statesCriteria.where('country_id', '=', id);
+          this._sandbox.fetchStates(this.statesCriteria);
+        },
         placeholder: 'Select Country...',
         validation: [Validators.required],
       },
@@ -99,6 +119,18 @@ export class LocationCreateComponent implements OnInit {
         label: 'State',
         name: 'stateId',
         options: [],
+        change: (event) => {
+          const id = event.target.value;
+          const cityControl = this.config[nameIndexMap.cityId];
+          cityControl.options = [];
+          cityControl.hidden = true;
+          cityControl.value = '';
+
+          this.config[nameIndexMap.submit].disabled = true;
+
+          this.citiesCriteria.where('state_id', '=', id);
+          this._sandbox.fetchCities(this.citiesCriteria);
+        },
         hidden: true,
         placeholder: 'Select State...',
       },
@@ -145,57 +177,25 @@ export class LocationCreateComponent implements OnInit {
         classes: 'btn btn-primary pull-right',
       },
     ];
-    console.log(this.config);
-    this.config[nameIndexMap.countryId].change = this.onCountryInputChange;
-    this.config[nameIndexMap.stateId].change = this.onStateInputChange;
-  }
-
-  onCountryInputChange(event): void {
-    const id = event.target.value;
-
-    const stateControl = this.config[nameIndexMap.stateId];
-    stateControl.options = null;
-    stateControl.hidden = true;
-    stateControl.value = '';
-
-    const cityControl = this.config[nameIndexMap.cityId];
-    cityControl.options = null;
-    cityControl.hidden = true;
-    cityControl.value = '';
-    this.setCityValidators();
-
-    this.statesCriteria.where('country_id', '=', id);
-    this._sandbox.fetchStates(this.statesCriteria);
-  }
-
-  onStateInputChange(event): void {
-    const id = event.target.value;
-
-    const cityControl = this.config[nameIndexMap.cityId];
-    cityControl.options = null;
-    cityControl.hidden = true;
-    cityControl.value = '';
-
-    this.citiesCriteria.where('state_id', '=', id);
-    this._sandbox.fetchCities(this.citiesCriteria);
   }
 
   create(group): void {
     if (group.valid) {
+      const noState = this.config[nameIndexMap.stateId].hidden;
+      const noCity = this.config[nameIndexMap.cityId].hidden;
       const form = new LocationCreateForm({
-        locatableType: group.controls.locatableType.value,
-        locatableId: group.controls.locatableId.value,
-        addressLine1: group.controls.addressLine1.value,
-        addressLine2: group.controls.addressLine2.value,
-        countryId: group.controls.countryId.value,
-        stateId: group.controls.stateId.value,
-        cityId: group.controls.cityId.value,
-        postCode: group.controls.postCode.value,
-        latitude: group.controls.latitude.value,
-        longitude: group.controls.longitude.value,
+        locatableType: group.controls['locatableType'].value,
+        locatableId: group.controls['locatableId'].value,
+        addressLine1: group.controls['addressLine1'].value,
+        addressLine2: group.controls['addressLine2'].value,
+        countryId: group.controls['countryId'].value,
+        stateId: noState ? '' : group.controls['stateId'].value,
+        cityId: noCity ? '' : group.controls['cityId'].value,
+        postCode: group.controls['postCode'].value,
+        latitude: group.controls['latitude'].value,
+        longitude: group.controls['longitude'].value,
       });
-      console.log(form);
-      // this._sandbox.createLocation(form);
+      this._sandbox.createLocation(form);
     }
   }
 
@@ -222,8 +222,10 @@ export class LocationCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.statesData$.subscribe((s: State[]) => {
-        if (s && s.length > 0) {
-          this.config[nameIndexMap.stateId].options = Object.values(s).map(
+        if (s) {
+          const values = Object.values(s);
+          this.config[nameIndexMap.stateId].hidden = values.length === 0;
+          this.config[nameIndexMap.stateId].options = values.map(
             (v): ISelectFieldOption => {
               return {
                 name: v.name,
@@ -231,7 +233,7 @@ export class LocationCreateComponent implements OnInit {
               };
             }
           );
-          this.config[nameIndexMap.stateId].hidden = false;
+          this.config[nameIndexMap.submit].disabled = false;
           this.setStateValidators();
         }
       })
@@ -243,8 +245,10 @@ export class LocationCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.citiesData$.subscribe((c: City[]) => {
-        if (c && c.length > 0) {
-          this.config[nameIndexMap.cityId].options = Object.values(c).map(
+        if (c) {
+          const values = Object.values(c);
+          this.config[nameIndexMap.cityId].hidden = values.length === 0;
+          this.config[nameIndexMap.cityId].options = values.map(
             (v): ISelectFieldOption => {
               return {
                 name: v.name,
@@ -252,7 +256,7 @@ export class LocationCreateComponent implements OnInit {
               };
             }
           );
-          this.config[nameIndexMap.cityId].hidden = false;
+          this.config[nameIndexMap.submit].disabled = false;
           this.setCityValidators();
         }
       })
