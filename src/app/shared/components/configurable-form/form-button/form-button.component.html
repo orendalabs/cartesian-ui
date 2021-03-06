@@ -3,7 +3,7 @@
     type="config.type ? config.type : submit"
     [ngClass]="config.classes" 
     (click)="config.click"
-    [disabled]="config.disabled ? config.disabled : formGroup.invalid">
+    [disabled]="config.disabled ? config.disabled || formGroup.invalid : formGroup.invalid">
     {{ config.label }}
   </button>
 </div>
