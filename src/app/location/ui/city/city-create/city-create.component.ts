@@ -12,39 +12,32 @@ import { FormHelper } from '@app/shared/helpers';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { State } from '@app/location/models/domain/state.model';
 import { Subscription } from 'rxjs';
+import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
+
+enum nameIndexMap {
+  countryId = 0,
+  stateId = 1,
+  name = 2,
+  latitude = 3,
+  longitude = 4,
+  submit = 5,
+}
 
 @Component({
   selector: 'city-create',
   templateUrl: './city-create.component.html',
 })
 export class CityCreateComponent implements OnInit {
-  formGroup = new FormGroup({
-    countryId: new FormControl('', Validators.required),
-    stateId: new FormControl(''),
-    name: new FormControl('', Validators.required),
-    latitude: new FormControl('', [
-      Validators.required,
-      FormHelper.isFloatValidator(),
-      Validators.min(-90),
-      Validators.max(90),
-    ]),
-    longitude: new FormControl('', [
-      Validators.required,
-      FormHelper.isFloatValidator(),
-      Validators.min(-180),
-      Validators.max(180),
-    ]),
-  });
+
+  config: FieldConfig[];
 
   subscriptions: Subscription[] = [];
 
-  countries: Country[] = [];
   countriesLoading: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(
     new SearchCountryForm()
   ).limit(100000);
 
-  states: State[] = [];
   statesLoading: boolean;
   statesCriteria = new RequestCriteria<SearchStateForm>(
     new SearchStateForm()
@@ -53,41 +46,96 @@ export class CityCreateComponent implements OnInit {
   constructor(protected _sandbox: LocationSandbox) {}
 
   ngOnInit(): void {
+    this.initConfig();
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
 
-  create(): void {
-    if (this.formGroup.valid) {
+  initConfig(): void {
+    this.config = [
+      {
+        type: 'select',
+        label: 'Country',
+        name: 'countryId',
+        options: [],
+        change: (event) => {
+          const id = event.target.value;
+        
+          const stateControl = this.config[nameIndexMap.stateId];
+          stateControl.options = null;
+          stateControl.value = '';
+          stateControl.hidden = true;
+          stateControl.validation = [];
+
+          this.config[nameIndexMap.submit].disabled = true;
+    
+          this.statesCriteria.where("country_id", "=", id);
+          this._sandbox.fetchStates(this.statesCriteria);
+        },
+        validation: [Validators.required],
+        placeholder: 'Select Country',
+      },
+      {
+        type: 'select',
+        label: 'State',
+        name: 'stateId',
+        options: [],
+        hidden: true,
+        validation: [Validators.required],
+        placeholder: 'Select State',
+      },
+      {
+        type: 'input',
+        label: 'Name',
+        name: 'name',
+        validation: [Validators.required],
+        placeholder: 'Enter Name',
+      },
+      {
+        type: 'input',
+        label: 'Latitude',
+        name: 'latitude',
+        validation: [Validators.required, FormHelper.isFloatValidator(), Validators.min(-90), Validators.max(90)],
+      },
+      {
+        type: 'input',
+        label: 'Longitude',
+        name: 'longitude',
+        validation: [Validators.required, FormHelper.isFloatValidator(), Validators.min(-180), Validators.max(180)],
+      },
+      {
+        label: 'Create',
+        name: 'submit',
+        type: 'button',
+        classes: 'btn btn-primary pull-right',
+      },
+    ];
+  }
+
+  create(group): void {
+    if(group.valid) {
+      const noState = this.config[nameIndexMap.stateId].hidden;
       const form = new CityCreateForm({
-        countryId: this.formGroup.controls.countryId.value,
-        stateId: this.formGroup.controls.stateId.value,
-        name: this.formGroup.controls.name.value,
-        latitude: this.formGroup.controls.latitude.value,
-        longitude: this.formGroup.controls.longitude.value,
+        countryId: group.controls.countryId.value,
+        stateId: noState ? '' : group.controls.stateId.value,
+        name: group.controls.name.value,
+        latitude: group.controls.latitude.value,
+        longitude: group.controls.longitude.value,
       });
       this._sandbox.createCity(form);
     }
-  }
-
-  onCountryInputChange(event): void {
-    const id = event.target.value;
-    this.states = null;
-    this.formGroup.controls.stateId.reset('');
-    this.statesCriteria.where('country_id', '=', id);
-    this._sandbox.fetchStates(this.statesCriteria);
-  }
-
-  getFormClasses(controlName: string): string {
-    const control = this.formGroup.controls[controlName];
-    return FormHelper.getFormClasses(control);
   }
 
   registerEvents(): void {
     this.subscriptions.push(
       this._sandbox.countriesData$.subscribe((c: Country[]) => {
         if (c) {
-          this.countries = Object.values(c);
+          this.config[nameIndexMap.countryId].options = Object.values(c).map((c) => {
+            return {
+              name: c.name,
+              value: c.id,
+            }
+          });
           this.setCountryValidators();
         }
       })
@@ -100,7 +148,15 @@ export class CityCreateComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.statesData$.subscribe((s: State[]) => {
         if (s) {
-          this.states = Object.values(s);
+          const values = Object.values(s);
+          this.config[nameIndexMap.stateId].hidden = values.length === 0;
+          this.config[nameIndexMap.stateId].options = values.map((s) => {
+            return {
+              name: s.name,
+              value: s.id,
+            }
+          });
+          this.config[nameIndexMap.submit].disabled = false;
           this.setStateValidators();
         }
       })
@@ -117,26 +173,18 @@ export class CityCreateComponent implements OnInit {
   }
 
   setCountryValidators(): void {
-    const control = this.formGroup.controls.countryId;
-    const countryIds = this.countries.map((c) => c.id.toString());
-    control.setValidators([
-      Validators.required,
-      FormHelper.inValidator(countryIds),
-    ]);
-    control.updateValueAndValidity();
+    const control = this.config[nameIndexMap.countryId];
+    const countryIds = control.options.map((c) => c.value.toString());
+    control.validation = [Validators.required, FormHelper.inValidator(countryIds)];
   }
 
   setStateValidators(): void {
-    const control = this.formGroup.controls.stateId;
-    if (this.states.length === 0) {
-      control.clearValidators();
+    const control = this.config[nameIndexMap.stateId];
+    if (control.options.length === 0) {
+      control.validation = [];
     } else {
-      const stateIds = this.states.map((s) => s.id.toString());
-      control.setValidators([
-        Validators.required,
-        FormHelper.inValidator(stateIds),
-      ]);
+      const stateIds = control.options.map((s) => s.value.toString());
+      control.validation = [Validators.required, FormHelper.inValidator(stateIds)];
     }
-    control.updateValueAndValidity();
   }
 }
