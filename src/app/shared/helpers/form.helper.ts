@@ -5,7 +5,7 @@ export class FormHelper {
   // Validators
 
   /**
-   * Validates email based on the RegEx ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$
+   * Validates email
    */
   static emailValidator(): ValidatorFn {
     const regEx = new RegExp(
@@ -40,7 +40,7 @@ export class FormHelper {
   }
 
   /**
-   *
+   * Validates if date of birth meets age requirement
    * @param minAge Minimum age (inclusive)
    */
   static dobValidator(minAge: number): ValidatorFn {
@@ -68,7 +68,7 @@ export class FormHelper {
   /**
    *
    * @param values Array of values to look in
-   * @returns true if control value is in the given array, false otherwise
+   * @returns true if control value is not in the given array, false otherwise
    */
   static notInValidator(values: any[]): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -78,14 +78,12 @@ export class FormHelper {
   }
 
   /**
-   *
+   * Validates float value
    * @returns true if control value is a float
    */
   static isFloatValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const regex = new RegExp(
-        String.raw`^\d+(\.\d+){0,1}$`
-      );
+      const regex = new RegExp(String.raw`^\d+(\.\d+){0,1}$`);
       const valid = regex.test(control.value);
       return valid ? null : { value: { value: 'Data must be a number.' } };
     };
@@ -103,11 +101,11 @@ export class FormHelper {
       return valid ? null : { email: { value: 'Invalid unicode pattern!' } };
     };
   }
-   
+
   // Helpers
   /**
    *
-   * @param e Element of type AbstractControl to test for validity.
+   * @param control The AbstractControl to test for validity.
    * @returns String with classes for invalid, valid or default form.
    */
   static getFormClasses = (control: AbstractControl): string => {
@@ -147,10 +145,10 @@ export class FormHelper {
   // Private helpers
   /**
    *
-   * @param dob The date to compare with current date for age.
+   * @param dob The date string to compare with current date for age.
    * @returns Number representing the age.
    */
-  static getAge = (dob) => {
+  static getAge = (dob: string) => {
     const today = new Date();
     const birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
