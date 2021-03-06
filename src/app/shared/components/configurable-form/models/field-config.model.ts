@@ -18,7 +18,7 @@ export interface FieldConfig {
   hidden?: boolean;
 
   /** Options for a select control */
-  options?: ISelectField[];
+  options?: ISelectFieldOption[];
 
   /** Placeholder for the control */
   placeholder?: string;

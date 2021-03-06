@@ -1,4 +1,4 @@
-export interface ISelectField {
+export interface ISelectFieldOption {
   /** Display name for the option */
   name: any;
 

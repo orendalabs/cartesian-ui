@@ -204,7 +204,7 @@ export class LocationCreateComponent implements OnInit {
       this._sandbox.countriesData$.subscribe((c: Country[]) => {
         if (c) {
           this.config[nameIndexMap.countryId].options = Object.values(c).map(
-            (v): ISelectField => {
+            (v): ISelectFieldOption => {
               return {
                 name: v.name,
                 value: v.id,
@@ -224,7 +224,7 @@ export class LocationCreateComponent implements OnInit {
       this._sandbox.statesData$.subscribe((s: State[]) => {
         if (s && s.length > 0) {
           this.config[nameIndexMap.stateId].options = Object.values(s).map(
-            (v): ISelectField => {
+            (v): ISelectFieldOption => {
               return {
                 name: v.name,
                 value: v.id,
@@ -245,7 +245,7 @@ export class LocationCreateComponent implements OnInit {
       this._sandbox.citiesData$.subscribe((c: City[]) => {
         if (c && c.length > 0) {
           this.config[nameIndexMap.cityId].options = Object.values(c).map(
-            (v): ISelectField => {
+            (v): ISelectFieldOption => {
               return {
                 name: v.name,
                 value: v.id,
