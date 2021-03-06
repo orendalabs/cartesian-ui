@@ -220,28 +220,16 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
     );
     this.subscriptions.push(
       this._sandbox.locationLoading$.subscribe((loading: boolean) => {
-        if (loading) {
-          this._sandbox.setBusy(
-            this.locationDetailCard.nativeElement,
-            'Loading'
-          );
-        }
         this.loading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.locationLoaded$.subscribe((loaded: boolean) => {
-        if (loaded) {
-          this._sandbox.clearBusy(this.locationDetailCard.nativeElement);
-        }
         this.loaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.locationFailed$.subscribe((failed: boolean) => {
-        if (failed) {
-          this._sandbox.clearBusy(this.locationDetailCard.nativeElement);
-        }
         this.failed = failed;
       })
     );
@@ -271,6 +259,16 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
       })
     );
     this.subscriptions.push(
+      this._sandbox.countriesLoaded$.subscribe((loaded) => {
+        this.countriesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesFailed$.subscribe((failed) => {
+        this.countriesFailed = failed;
+      })
+    );
+    this.subscriptions.push(
       this._sandbox.statesData$.subscribe((s: State[]) => {
         if (s) {
           const values = Object.values(s);
@@ -290,25 +288,16 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
     );
     this.subscriptions.push(
       this._sandbox.statesLoading$.subscribe((loading) => {
-        if (loading) {
-          this._sandbox.setBusy(this.form.nativeElement, 'Loading');
-        }
         this.statesLoading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.statesLoaded$.subscribe((loaded) => {
-        if (loaded) {
-          this._sandbox.clearBusy(this.form.nativeElement);
-        }
         this.statesLoaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.statesFailed$.subscribe((failed) => {
-        if (failed) {
-          this._sandbox.clearBusy(this.form.nativeElement);
-        }
         this.statesFailed = failed;
       })
     );
@@ -331,26 +320,17 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
       })
     );
     this.subscriptions.push(
-      this._sandbox.citiesLoading$.subscribe((loading) => {
-        if (loading) {
-          this._sandbox.setBusy(this.form.nativeElement, 'Loading');
-        }
+      this._sandbox.citiesLoading$.subscribe((loading: boolean) => {
         this.citiesLoading = loading;
       })
     );
     this.subscriptions.push(
-      this._sandbox.citiesLoaded$.subscribe((loaded) => {
-        if (loaded) {
-          this._sandbox.clearBusy(this.form.nativeElement);
-        }
+      this._sandbox.citiesLoaded$.subscribe((loaded: boolean) => {
         this.citiesLoaded = loaded;
       })
     );
     this.subscriptions.push(
-      this._sandbox.citiesFailed$.subscribe((failed) => {
-        if (failed) {
-          this._sandbox.clearBusy(this.form.nativeElement);
-        }
+      this._sandbox.citiesFailed$.subscribe((failed: boolean) => {
         this.citiesFailed = failed;
       })
     );
