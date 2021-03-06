@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country, Location, State } from '@app/location/models/domain';
@@ -9,35 +15,133 @@ import {
   SearchCountryForm,
   SearchStateForm,
 } from '@app/location/models/form';
+import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
+import { ISelectFieldOption } from '@app/shared/components/configurable-form/models/select-field.model';
 import { FormHelper } from '@app/shared/helpers';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
+
+enum nameIndexMap {
+  addressLine1 = 0,
+  addressLine2 = 1,
+  countryId = 2,
+  stateId = 3,
+  cityId = 4,
+  postCode = 5,
+  latitude = 6,
+  longitude = 7,
+  submit = 8,
+}
 
 @Component({
   selector: 'location-detail',
   templateUrl: './location-detail.component.html',
 })
-export class LocationDetailComponent implements OnInit {
-  formGroup = new FormGroup({
-    addressLine1: new FormControl('', [Validators.required]),
-    addressLine2: new FormControl('', [Validators.required]),
-    countryId: new FormControl('', [Validators.required]),
-    stateId: new FormControl(''),
-    cityId: new FormControl(''),
-    postCode: new FormControl('', [Validators.required]),
-    latitude: new FormControl('', [
-      Validators.required,
-      FormHelper.isFloatValidator(),
-      Validators.min(-90),
-      Validators.max(90),
-    ]),
-    longitude: new FormControl('', [
-      Validators.required,
-      FormHelper.isFloatValidator(),
-      Validators.min(-180),
-      Validators.max(180),
-    ]),
-  });
+export class LocationDetailComponent implements OnInit, AfterViewInit {
+  @ViewChild('locationDetailCard') locationDetailCard: ElementRef;
+  @ViewChild('form') form: ElementRef;
+
+  config: FieldConfig[] = [
+    {
+      type: 'input',
+      label: 'Address Line 1',
+      name: 'addressLine1',
+      validation: [Validators.required],
+    },
+    {
+      type: 'input',
+      label: 'Address Line 2',
+      name: 'addressLine2',
+      validation: [Validators.required],
+    },
+    {
+      type: 'select',
+      label: 'Country',
+      name: 'countryId',
+      options: [],
+      change: (event) => {
+        const id = event.target.value;
+
+        const stateControl = this.config[nameIndexMap.stateId];
+        stateControl.options = [];
+        stateControl.hidden = true;
+        stateControl.value = '';
+
+        const cityControl = this.config[nameIndexMap.cityId];
+        cityControl.options = [];
+        cityControl.hidden = true;
+        cityControl.value = '';
+        this.setCityValidators();
+
+        this.config[nameIndexMap.submit].disabled = true;
+
+        this.statesCriteria.where('country_id', '=', id);
+        this._sandbox.fetchStates(this.statesCriteria);
+      },
+      placeholder: 'Select Country...',
+      validation: [Validators.required],
+    },
+    {
+      type: 'select',
+      label: 'State',
+      name: 'stateId',
+      options: [],
+      change: (event) => {
+        const id = event.target.value;
+        const cityControl = this.config[nameIndexMap.cityId];
+        cityControl.options = [];
+        cityControl.hidden = true;
+        cityControl.value = '';
+
+        this.config[nameIndexMap.submit].disabled = true;
+
+        this.citiesCriteria.where('state_id', '=', id);
+        this._sandbox.fetchCities(this.citiesCriteria);
+      },
+      placeholder: 'Select State...',
+    },
+    {
+      type: 'select',
+      label: 'City',
+      name: 'cityId',
+      options: [],
+      placeholder: 'Select City...',
+    },
+    {
+      type: 'input',
+      label: 'Post Code',
+      name: 'postCode',
+      validation: [Validators.required],
+    },
+    {
+      type: 'input',
+      label: 'Latitude',
+      name: 'latitude',
+      validation: [
+        Validators.required,
+        FormHelper.isFloatValidator(),
+        Validators.min(-90),
+        Validators.max(90),
+      ],
+    },
+    {
+      type: 'input',
+      label: 'Longitude',
+      name: 'longitude',
+      validation: [
+        Validators.required,
+        FormHelper.isFloatValidator(),
+        Validators.min(-180),
+        Validators.max(180),
+      ],
+    },
+    {
+      label: 'Create',
+      name: 'submit',
+      type: 'button',
+      classes: 'btn btn-primary pull-right',
+    },
+  ];
 
   subscriptions: Array<Subscription> = [];
   location: Location;
@@ -45,20 +149,23 @@ export class LocationDetailComponent implements OnInit {
   loading: boolean;
   failed: boolean;
 
-  countries: Country[] = [];
   countriesLoading: boolean;
+  countriesLoaded: boolean;
+  countriesFailed: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(
     new SearchCountryForm()
   ).limit(100000);
 
-  states: State[] = [];
   statesLoading: boolean;
+  statesLoaded: boolean;
+  statesFailed: boolean;
   statesCriteria = new RequestCriteria<SearchStateForm>(
     new SearchStateForm()
   ).limit(100000);
 
-  cities: City[] = [];
   citiesLoading: boolean;
+  citiesLoaded: boolean;
+  citiesFailed: boolean;
   citiesCriteria = new RequestCriteria<SearchCityForm>(
     new SearchCityForm()
   ).limit(100000);
@@ -68,18 +175,23 @@ export class LocationDetailComponent implements OnInit {
     protected route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
 
   onCountryInputChange(event): void {
     const id = event.target.value;
-    this.states = null;
-    this.formGroup.controls.stateId.reset('');
 
-    this.cities = [];
-    this.formGroup.controls.cityId.reset('');
+    const stateControl = this.config[nameIndexMap.stateId];
+    stateControl.options = null;
+    stateControl.value = '';
+
+    const cityControl = this.config[nameIndexMap.cityId];
+    cityControl.options = null;
+    cityControl.value = '';
     this.setCityValidators();
 
     this.statesCriteria.where('country_id', '=', id);
@@ -88,8 +200,8 @@ export class LocationDetailComponent implements OnInit {
 
   onStateInputChange(event): void {
     const id = event.target.value;
-    this.cities = null;
-    this.formGroup.controls.cityId.reset('');
+    this.config[nameIndexMap.cityId].options = null;
+    this.config[nameIndexMap.cityId].value = '';
     this.citiesCriteria.where('state_id', '=', id);
     this._sandbox.fetchCities(this.citiesCriteria);
   }
@@ -104,18 +216,20 @@ export class LocationDetailComponent implements OnInit {
     }
   }
 
-  save(): void {
-    if (this.formGroup.valid) {
+  save(group): void {
+    if (group.valid) {
+      const noState = this.config[nameIndexMap.stateId].hidden;
+      const noCity = this.config[nameIndexMap.cityId].hidden;
       const form = new LocationUpdateForm({
         id: this.location.id,
-        addressLine1: this.formGroup.controls.addressLine1.value,
-        addressLine2: this.formGroup.controls.addressLine2.value,
-        countryId: this.formGroup.controls.countryId.value,
-        stateId: this.formGroup.controls.stateId.value,
-        cityId: this.formGroup.controls.cityId.value,
-        postCode: this.formGroup.controls.postCode.value,
-        latitude: this.formGroup.controls.latitude.value,
-        longitude: this.formGroup.controls.longitude.value,
+        addressLine1: group.controls['addressLine1'].value,
+        addressLine2: group.controls['addressLine2'].value,
+        countryId: group.controls['countryId'].value,
+        stateId: noState ? '' : group.controls['stateId'].value,
+        cityId: noCity ? '' : group.controls['cityId'].value,
+        postCode: group.controls['postCode'].value,
+        latitude: group.controls['latitude'].value,
+        longitude: group.controls['longitude'].value,
       });
       this._sandbox.updateLocation(form);
     }
@@ -129,19 +243,31 @@ export class LocationDetailComponent implements OnInit {
       })
     );
     this.subscriptions.push(
-      this._sandbox.locationLoading$.subscribe(
-        (loading: boolean) => (this.loading = loading)
-      )
+      this._sandbox.locationLoading$.subscribe((loading: boolean) => {
+        if (loading) {
+          this._sandbox.setBusy(
+            this.locationDetailCard.nativeElement,
+            'Loading'
+          );
+        }
+        this.loading = loading;
+      })
     );
     this.subscriptions.push(
-      this._sandbox.locationLoaded$.subscribe(
-        (loaded: boolean) => (this.loaded = loaded)
-      )
+      this._sandbox.locationLoaded$.subscribe((loaded: boolean) => {
+        if (loaded) {
+          this._sandbox.clearBusy(this.locationDetailCard.nativeElement);
+        }
+        this.loaded = loaded;
+      })
     );
     this.subscriptions.push(
-      this._sandbox.locationFailed$.subscribe(
-        (failed: boolean) => (this.failed = failed)
-      )
+      this._sandbox.locationFailed$.subscribe((failed: boolean) => {
+        if (failed) {
+          this._sandbox.clearBusy(this.locationDetailCard.nativeElement);
+        }
+        this.failed = failed;
+      })
     );
     this.subscriptions.push(
       this._sandbox.location$.subscribe(
@@ -151,7 +277,14 @@ export class LocationDetailComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.countriesData$.subscribe((c: Country[]) => {
         if (c) {
-          this.countries = Object.values(c);
+          this.config[nameIndexMap.countryId].options = Object.values(c).map(
+            (v): ISelectFieldOption => {
+              return {
+                name: v.name,
+                value: v.id,
+              };
+            }
+          );
           this.setCountryValidators();
         }
       })
@@ -164,62 +297,112 @@ export class LocationDetailComponent implements OnInit {
     this.subscriptions.push(
       this._sandbox.statesData$.subscribe((s: State[]) => {
         if (s) {
-          this.states = Object.values(s);
+          const values = Object.values(s);
+          this.config[nameIndexMap.stateId].hidden = values.length === 0;
+          this.config[nameIndexMap.stateId].options = values.map(
+            (v): ISelectFieldOption => {
+              return {
+                name: v.name,
+                value: v.id,
+              };
+            }
+          );
+          this.config[nameIndexMap.submit].disabled = false;
           this.setStateValidators();
         }
       })
     );
     this.subscriptions.push(
       this._sandbox.statesLoading$.subscribe((loading) => {
+        if (loading) {
+          this._sandbox.setBusy(this.form.nativeElement, 'Loading');
+        }
         this.statesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.statesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this._sandbox.clearBusy(this.form.nativeElement);
+        }
+        this.statesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.statesFailed$.subscribe((failed) => {
+        if (failed) {
+          this._sandbox.clearBusy(this.form.nativeElement);
+        }
+        this.statesFailed = failed;
       })
     );
     this.subscriptions.push(
       this._sandbox.citiesData$.subscribe((c: City[]) => {
         if (c) {
-          this.cities = Object.values(c);
+          const values = Object.values(c);
+          this.config[nameIndexMap.cityId].hidden = values.length === 0;
+          this.config[nameIndexMap.cityId].options = values.map(
+            (v): ISelectFieldOption => {
+              return {
+                name: v.name,
+                value: v.id,
+              };
+            }
+          );
+          this.config[nameIndexMap.submit].disabled = false;
           this.setCityValidators();
         }
       })
     );
     this.subscriptions.push(
       this._sandbox.citiesLoading$.subscribe((loading) => {
+        if (loading) {
+          this._sandbox.setBusy(this.form.nativeElement, 'Loading');
+        }
         this.citiesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.citiesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this._sandbox.clearBusy(this.form.nativeElement);
+        }
+        this.citiesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.citiesFailed$.subscribe((failed) => {
+        if (failed) {
+          this._sandbox.clearBusy(this.form.nativeElement);
+        }
+        this.citiesFailed = failed;
       })
     );
   }
 
-  getFormClasses(controlName: string): string {
-    const control = this.formGroup.controls[controlName];
-    return FormHelper.getFormClasses(control);
-  }
-
   setCountryValidators(): void {
-    const control = this.formGroup.controls.countryId;
-    const countryIds = this.countries.map((c) => c.id.toString());
-    control.setValidators([FormHelper.inValidator(countryIds)]);
-    control.updateValueAndValidity();
+    const control = this.config[nameIndexMap.countryId];
+    const countryIds = control.options.map((c) => c.value.toString());
+    control.validation = [FormHelper.inValidator(countryIds)];
   }
 
   setStateValidators(): void {
-    const control = this.formGroup.controls.stateId;
-    if (this.states.length === 0) {
-      control.clearValidators();
+    const control = this.config[nameIndexMap.stateId];
+    if (control.options.length === 0) {
+      control.validation = [];
     } else {
-      const stateIds = this.states.map((s) => s.id.toString());
-      control.setValidators([FormHelper.inValidator(stateIds)]);
+      const stateIds = control.options.map((s) => s.value.toString());
+      control.validation = [FormHelper.inValidator(stateIds)];
     }
-    control.updateValueAndValidity();
   }
 
   setCityValidators(): void {
-    const control = this.formGroup.controls.cityId;
-    if (this.cities.length === 0) {
-      control.clearValidators();
+    const control = this.config[nameIndexMap.cityId];
+    if (control.options.length === 0) {
+      control.validation = [];
     } else {
-      const cityIds = this.cities.map((c) => c.id.toString());
-      control.setValidators([FormHelper.inValidator(cityIds)]);
+      const cityIds = control.options.map((c) => c.value.toString());
+      control.validation = [FormHelper.inValidator(cityIds)];
     }
-    control.updateValueAndValidity();
   }
 }
