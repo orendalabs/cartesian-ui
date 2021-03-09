@@ -1,10 +1,25 @@
-<form
-  novalidate
-  autocomplete="off"
-  [formGroup]="formGroup"
-  (ngSubmit)="update()"
+<form 
+novalidate 
+autocomplete="off" 
+[formGroup]="formGroup" 
+(ngSubmit)="update()"
 >
   <div class="animated fadeIn row">
+    <div class="col-sm-12">
+      <button 
+        type="submit" 
+        class="btn btn-primary pull-right ml-2" 
+        (click)="sync()">
+        <i class="fa fa-save"></i> Save
+      </button>
+      <button 
+      class="btn btn-danger pull-right" 
+      [disabled]="userRolesComponent.selectedRoles.length == 0" 
+      (click)="userRolesComponent.revokeRoles()"
+      >
+        <i class="fa fa-chain-broken"></i> Revoke
+      </button>
+    </div>
     <div class="col-md-12 mx-auto">
       <tabset>
         <tab heading="User">
@@ -17,110 +32,60 @@
                 <div class="card-body">
                   <div class="form-group required">
                     <label>Name</label>
-                    <input
-                      type="text"
-                      formControlName="name"
-                      class="form-control"
+                    <input 
+                      type="text" 
+                      formControlName="name" 
+                      class="form-control" 
                       [ngClass]="getFormClasses('name')"
-                      placeholder="Name"
-                    />
+                      placeholder="Name" />
                   </div>
                   <div class="form-group required">
                     <label>New Password</label>
-                    <input
-                      formControlName="password"
-                      type="password"
+                    <input 
+                      formControlName="password" 
+                      type="password" 
                       class="form-control"
-                      [ngClass]="getFormClasses('password')"
-                      placeholder="New Password"
-                    />
+                      [ngClass]="getFormClasses('password')" 
+                      placeholder="New Password" />
                   </div>
-                  <button
-                    type="submit"
-                    class="btn btn-primary pull-right"
-                    [disabled]="formGroup.invalid"
-                  >
-                    Save
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </tab>
-        <tab heading="Roles">
-          <div class="row">
             <div class="col-md-6">
               <div class="card">
                 <div class="card-header">
                   <strong>User Roles </strong>
                 </div>
                 <div class="card-body">
-                  <div
-                    class="row mx-auto"
-                    *ngIf="
-                      addedItems && addedItems.length > 0;
-                      else viewNoRoles
-                    "
-                  >
-                    <span
-                      *ngFor="let role of addedItems; let i = index"
-                      class="badge badge-light m-1"
-                    >
-                      {{ role.name }}
-                      <span
-                        class="text-light badge badge-danger"
-                        (click)="removeRole(i)"
-                      >
-                        <i class="fa fa-times cursor-pointer"></i>
-                      </span>
-                    </span>
-                  </div>
-                  <ng-template #viewNoRoles>
-                    <div class="badge badge-light m-1">No Roles...</div>
-                  </ng-template>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card">
-                <div class="card-header">
-                  <strong>Add Role </strong>
-                </div>
-                <div class="card-body">
-                  <label>Select Role</label>
+                  <label>Add Role</label>
                   <form class="form-group form-inline">
                     <div class="required">
-                      <input
-                        [formControl]="control"
-                        [typeahead]="typeaheadData"
-                        [isAnimated]="true"
+                      <input 
+                        [formControl]="control" 
+                        [typeahead]="typeaheadData" 
+                        [isAnimated]="true" 
                         [ngClass]="
                           control.valid
                             ? 'is-valid'
                             : control.touched && control.dirty
                             ? 'is-invalid'
                             : ''
-                        "
-                        class="form-control ml-auto"
-                      />
+                        " 
+                        class="form-control" />
                     </div>
-                    <button
-                      class="btn btn-success mr-auto ml-1"
-                      (click)="addRole()"
-                      [disabled]="control.invalid"
-                    >
+                    <button class="btn btn-success ml-1" (click)="addRole()" [disabled]="control.invalid">
                       <i class="fa fa-plus"></i>
                     </button>
                     <div class="invalid-feedback">Invalid role value!</div>
                   </form>
-                  <button class="btn btn-primary pull-right" (click)="sync()">
-                    Save
-                  </button>
+                  <user-update-roles [parent]="this" [roles]="addedItems" #userRolesComponent>
+                  </user-update-roles>
                 </div>
               </div>
             </div>
           </div>
         </tab>
+        <!-- More tabs -->
       </tabset>
     </div>
   </div>

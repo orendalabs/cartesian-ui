@@ -14,11 +14,9 @@ import { SearchPermissionForm } from '@app/authorization/models/form/search-perm
 import { ManagePermissionForm } from '@app/authorization/models/manage/permission.model';
 import { Permission } from '@app/authorization/models/permission.model';
 import { Role } from '@app/authorization/models/role.model';
-import { ListingControlsComponent } from '@app/core/ui';
 import { FormHelper } from '@app/shared/helpers';
 import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
-import { isObject } from 'lodash';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -28,8 +26,8 @@ import { Subscription } from 'rxjs';
 export class RoleDetailComponent
   extends TypeaheadItemListHelper<Permission>
   implements OnInit {
+  @ViewChild('rolePermissionsComponent') rolePermissionsComponent: ElementRef;
   @ViewChild('dtContainer') dtContainer: ElementRef;
-
   roleId: string;
   role;
   loaded;
