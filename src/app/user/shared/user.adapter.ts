@@ -8,7 +8,7 @@ export class UserAdapter {
   /**
    * Camelize response keys
    *
-   * @param object token get user, authenticated user, register user api's response
+   * @param user Object to camelize keys of
    */
   static userAdapter(user: any): any {
     return Object.assign({}, user, convertObjectKeysToCamel(user));
