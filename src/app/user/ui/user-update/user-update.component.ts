@@ -16,7 +16,6 @@ import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
 @Component({
   selector: 'user-update',
   templateUrl: './user-update.component.html',
-  styleUrls: ['./user-update.component.scss'],
 })
 export class UserUpdateComponent
   extends TypeaheadItemListHelper<Role>
