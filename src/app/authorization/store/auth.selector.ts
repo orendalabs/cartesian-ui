@@ -10,22 +10,6 @@ export const getAuthState = createFeatureSelector<AuthorizationState>(
   authFeatureKey
 );
 
-export const getRoleCreateSuccess: MemoizedSelector<
-  object,
-  boolean
-> = createSelector(
-  getAuthState,
-  (state: AuthorizationState) => state.roleDetail.loaded
-);
-
-export const getRoleCreateFail: MemoizedSelector<
-  object,
-  boolean
-> = createSelector(
-  getAuthState,
-  (state: AuthorizationState) => state.roleDetail.failed
-);
-
 export const getRoleFetchData: MemoizedSelector<
   object,
   object
@@ -74,20 +58,28 @@ export const getRolesFetchMeta: MemoizedSelector<
   (state: AuthorizationState) => state.roleListing.data.meta
 );
 
-export const getRoleDeleteSuccess: MemoizedSelector<
+export const getRolesLoaded: MemoizedSelector<
   object,
   boolean
 > = createSelector(
   getAuthState,
-  (state: AuthorizationState) => state.roleDetail.loaded
+  (state: AuthorizationState) => state.roleListing.loaded
 );
 
-export const getRoleDeleteFail: MemoizedSelector<
+export const getRolesLoading: MemoizedSelector<
   object,
   boolean
 > = createSelector(
   getAuthState,
-  (state: AuthorizationState) => state.roleDetail.failed
+  (state: AuthorizationState) => state.roleListing.loading
+);
+
+export const getRolesFailed: MemoizedSelector<
+  object,
+  boolean
+> = createSelector(
+  getAuthState,
+  (state: AuthorizationState) => state.roleListing.failed
 );
 
 export const getPermissionFetchData: MemoizedSelector<
@@ -98,13 +90,6 @@ export const getPermissionFetchData: MemoizedSelector<
   (state: AuthorizationState) => state.permissionDetail.data
 );
 
-export const getPermissionsFetchData: MemoizedSelector<
-  object,
-  object
-> = createSelector(
-  getAuthState,
-  (state: AuthorizationState) => state.permissionListing.data.data
-);
 
 export const getPermissionLoaded: MemoizedSelector<
   object,
@@ -131,10 +116,44 @@ export const getPermissionFailed: MemoizedSelector<
   (state: AuthorizationState) => state.permissionDetail.failed
 );
 
+export const getPermissionsFetchData: MemoizedSelector<
+  object,
+  object
+> = createSelector(
+  getAuthState,
+  (state: AuthorizationState) => state.permissionListing.data.data
+);
+
 export const getPermissionsFetchMeta: MemoizedSelector<
   object,
   object
 > = createSelector(
   getAuthState,
   (state: AuthorizationState) => state.permissionListing.data.meta
+);
+
+
+export const getPermissionsLoaded: MemoizedSelector<
+  object,
+  boolean
+> = createSelector(
+  getAuthState,
+  (state: AuthorizationState) => state.permissionListing.loaded
+);
+
+export const getPermissionsLoading: MemoizedSelector<
+  object,
+  boolean
+> = createSelector(
+  getAuthState,
+  (state: AuthorizationState) => state.permissionListing.loading
+);
+
+
+export const getPermissionsFailed: MemoizedSelector<
+  object,
+  boolean
+> = createSelector(
+  getAuthState,
+  (state: AuthorizationState) => state.permissionListing.failed
 );
