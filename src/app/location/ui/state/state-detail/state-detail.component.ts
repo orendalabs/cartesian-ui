@@ -1,6 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country, State } from '@app/location/models/domain';
 import { SearchCountryForm, StateUpdateForm } from '@app/location/models/form';
@@ -13,7 +21,10 @@ import { Subscription } from 'rxjs';
   selector: 'state-detail',
   templateUrl: './state-detail.component.html',
 })
-export class StateDetailComponent implements OnInit {
+export class StateDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+  @ViewChild('detailCard') detailCard: ElementRef;
+  @ViewChild('formCard') formCard: ElementRef;
+
   config: FieldConfig[] = [
     {
       type: 'select',
@@ -52,16 +63,25 @@ export class StateDetailComponent implements OnInit {
   failed: boolean;
 
   countries: Country[] = [];
+  countriesLoading: boolean;
+  countriesLoaded: boolean;
+  countriesFailed: boolean;
+
   countriesCriteria = new RequestCriteria<SearchCountryForm>(
     new SearchCountryForm()
   ).limit(100000);
 
   constructor(
+    protected injector: Injector,
     protected _sandbox: LocationSandbox,
     protected route: ActivatedRoute
-  ) {}
+  ) {
+    super(injector);
+  }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
@@ -96,19 +116,28 @@ export class StateDetailComponent implements OnInit {
       })
     );
     this.subscriptions.push(
-      this._sandbox.stateLoading$.subscribe(
-        (loading: boolean) => (this.loading = loading)
-      )
+      this._sandbox.stateLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
+        }
+        this.loading = loading;
+      })
     );
     this.subscriptions.push(
-      this._sandbox.stateLoaded$.subscribe(
-        (loaded: boolean) => (this.loaded = loaded)
-      )
+      this._sandbox.stateLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
+        this.loaded = loaded;
+      })
     );
     this.subscriptions.push(
-      this._sandbox.stateFailed$.subscribe(
-        (failed: boolean) => (this.failed = failed)
-      )
+      this._sandbox.stateFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
+        this.failed = failed;
+      })
     );
     this.subscriptions.push(
       this._sandbox.state$.subscribe((state: State) => (this.state = state))
@@ -124,6 +153,30 @@ export class StateDetailComponent implements OnInit {
             });
           });
         }
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
+        this.countriesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.countriesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.countriesFailed = failed;
       })
     );
   }

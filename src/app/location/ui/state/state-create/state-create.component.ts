@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Validators } from '@angular/forms';
+import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
 import { SearchCountryForm, StateCreateForm } from '@app/location/models/form';
@@ -12,10 +20,13 @@ import { Subscription } from 'rxjs';
   selector: 'state-create',
   templateUrl: './state-create.component.html',
 })
-export class StateCreateComponent implements OnInit {
+export class StateCreateComponent extends BaseComponent implements OnInit, AfterViewInit {
+  @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
   countriesLoading: boolean;
+  countriesLoaded: boolean;
+  countriesFailed: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(
     new SearchCountryForm()
   ).limit(100000);
@@ -51,9 +62,14 @@ export class StateCreateComponent implements OnInit {
     },
   ];
 
-  constructor(protected _sandbox: LocationSandbox) {}
+  constructor(protected injector: Injector,
+    protected _sandbox: LocationSandbox) {
+      super(injector);
+    }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
@@ -86,7 +102,26 @@ export class StateCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.countriesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.countriesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.countriesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.countriesFailed = failed;
       })
     );
   }

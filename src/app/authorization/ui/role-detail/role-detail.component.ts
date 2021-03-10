@@ -25,14 +25,18 @@ import { Subscription } from 'rxjs';
 })
 export class RoleDetailComponent
   extends TypeaheadControlsComponent<Permission>
+  implements OnInit, AfterViewInit {
   @ViewChild('rolePermissionsComponent') rolePermissionsComponent: ElementRef;
-  @ViewChild('dtContainer') dtContainer: ElementRef;
+  @ViewChild('detailCard') detailCard: ElementRef;
   roleId: string;
   role;
   loaded;
   loading;
   failed;
 
+  permissionsLoading: boolean;
+  permissionsLoaded: boolean;
+  permissionsFailed: boolean;
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(
     new SearchPermissionForm()
   );
@@ -53,6 +57,10 @@ export class RoleDetailComponent
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchRoleById(this.roleId);
     this.fetchPermissions();
@@ -83,16 +91,49 @@ export class RoleDetailComponent
     );
     this.subscriptions.push(
       this._sandbox.roleLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
+        }
         this.loading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.roleLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
         this.loaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.roleFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
+        this.failed = failed;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionsLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
+        }
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionsLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionsFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
         this.failed = failed;
       })
     );

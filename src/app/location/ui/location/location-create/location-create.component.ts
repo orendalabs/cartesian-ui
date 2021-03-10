@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country } from '@app/location/models/domain';
@@ -14,6 +21,7 @@ import {
 } from '../../../models/form/';
 import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
 import { ISelectFieldOption } from '@app/shared/components/configurable-form/models/select-field.model';
+import { BaseComponent } from '@app/core/ui';
 
 enum nameIndexMap {
   'locatableType' = 0,
@@ -33,30 +41,43 @@ enum nameIndexMap {
   selector: 'location-create',
   templateUrl: './location-create.component.html',
 })
-export class LocationCreateComponent implements OnInit {
+export class LocationCreateComponent extends BaseComponent implements OnInit, AfterViewInit {
+  @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
   countriesLoading: boolean;
+  countriesLoaded: boolean;
+  countriesFailed: boolean;
   countriesCriteria = new RequestCriteria<SearchCountryForm>(
     new SearchCountryForm()
   ).limit(100000);
 
   statesLoading: boolean;
+  statesLoaded: boolean;
+  statesFailed: boolean;
   statesCriteria = new RequestCriteria<SearchStateForm>(
     new SearchStateForm()
   ).limit(100000);
 
   citiesLoading: boolean;
+  citiesLoaded: boolean;
+  citiesFailed: boolean;
   citiesCriteria = new RequestCriteria<SearchCityForm>(
     new SearchCityForm()
   ).limit(100000);
 
   config: FieldConfig[];
 
-  constructor(protected _sandbox: LocationSandbox) {}
+  constructor(protected injector: Injector,
+     protected _sandbox: LocationSandbox) {
+      super(injector);
+  }
 
   ngOnInit(): void {
     this.initConfig();
+  }
+
+  ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
@@ -217,7 +238,26 @@ export class LocationCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.countriesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.countriesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.countriesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countriesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.countriesFailed = failed;
       })
     );
     this.subscriptions.push(
@@ -240,7 +280,26 @@ export class LocationCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.statesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.statesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.statesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.statesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.statesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.statesFailed = failed;
       })
     );
     this.subscriptions.push(
@@ -263,7 +322,26 @@ export class LocationCreateComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.citiesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.citiesLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.citiesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.citiesLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.citiesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
+        this.citiesFailed = failed;
       })
     );
   }

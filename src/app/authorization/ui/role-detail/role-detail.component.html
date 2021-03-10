@@ -3,14 +3,14 @@
     <button class="btn btn-primary pull-right ml-2" (click)="sync()">
       <i class="fa fa-save"></i> Save
     </button>
-    <button class="btn btn-danger pull-right" 
+    <button class="btn btn-danger pull-right"
       [disabled]="rolePermissionsComponent.selectedPermissions.length < 1"
       (click)="rolePermissionsComponent.revokePermissions()">
       <i class="fa fa-chain-broken"></i> Revoke
     </button>
   </div>
   <div class="col-lg-6">
-    <div class="card">
+    <div class="card" #detailCard>
       <div class="card-header">
         <strong>Role permissions</strong>
       </div>
@@ -29,9 +29,9 @@
             </button>
             <div class="invalid-feedback">Invalid permission value!</div>
           </form>
-          <role-detail-permissions 
-            [perms]='addedItems' 
-            [parent]='this' 
+          <role-detail-permissions
+            [perms]='addedItems'
+            [parent]='this'
             #rolePermissionsComponent>
           </role-detail-permissions>
           <br class='mt-5' />

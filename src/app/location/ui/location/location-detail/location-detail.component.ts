@@ -2,11 +2,13 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Injector,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country, Location, State } from '@app/location/models/domain';
 import {
@@ -37,9 +39,9 @@ enum nameIndexMap {
   selector: 'location-detail',
   templateUrl: './location-detail.component.html',
 })
-export class LocationDetailComponent implements OnInit, AfterViewInit {
-  @ViewChild('locationDetailCard') locationDetailCard: ElementRef;
-  @ViewChild('form') form: ElementRef;
+export class LocationDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+  @ViewChild('detailCard') detailCard: ElementRef;
+  @ViewChild('formCard') formCard: ElementRef;
 
   config: FieldConfig[] = [
     {
@@ -171,9 +173,12 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
   ).limit(100000);
 
   constructor(
+    protected injector: Injector,
     protected _sandbox: LocationSandbox,
     protected route: ActivatedRoute
-  ) {}
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {}
 
@@ -220,16 +225,25 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
     );
     this.subscriptions.push(
       this._sandbox.locationLoading$.subscribe((loading: boolean) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
+        }
         this.loading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.locationLoaded$.subscribe((loaded: boolean) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
         this.loaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.locationFailed$.subscribe((failed: boolean) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
         this.failed = failed;
       })
     );
@@ -255,16 +269,25 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
     );
     this.subscriptions.push(
       this._sandbox.countriesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.countriesLoading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.countriesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
         this.countriesLoaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.countriesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
         this.countriesFailed = failed;
       })
     );
@@ -288,16 +311,25 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
     );
     this.subscriptions.push(
       this._sandbox.statesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.statesLoading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.statesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
         this.statesLoaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.statesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
         this.statesFailed = failed;
       })
     );
@@ -320,17 +352,26 @@ export class LocationDetailComponent implements OnInit, AfterViewInit {
       })
     );
     this.subscriptions.push(
-      this._sandbox.citiesLoading$.subscribe((loading: boolean) => {
+      this._sandbox.citiesLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.formCard.nativeElement);
+        }
         this.citiesLoading = loading;
       })
     );
     this.subscriptions.push(
-      this._sandbox.citiesLoaded$.subscribe((loaded: boolean) => {
+      this._sandbox.citiesLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
         this.citiesLoaded = loaded;
       })
     );
     this.subscriptions.push(
-      this._sandbox.citiesFailed$.subscribe((failed: boolean) => {
+      this._sandbox.citiesFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.formCard.nativeElement);
+        }
         this.citiesFailed = failed;
       })
     );

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
 import { CountryUpdateForm } from '@app/location/models/form';
@@ -12,7 +13,8 @@ import { Subscription } from 'rxjs';
   selector: 'country-detail',
   templateUrl: './country-detail.component.html',
 })
-export class CountryDetailComponent implements OnInit {
+export class CountryDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+  @ViewChild('detailCard') detailCard: ElementRef;
   config: FieldConfig[] = [
     {
       type: 'input',
@@ -106,11 +108,18 @@ export class CountryDetailComponent implements OnInit {
   failed: boolean;
 
   constructor(
+    protected injector: Injector,
     protected _sandbox: LocationSandbox,
     protected route: ActivatedRoute
-  ) {}
+  ) {
+    super(injector);
+  }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
     this.registerEvents();
   }
 
@@ -153,17 +162,32 @@ export class CountryDetailComponent implements OnInit {
     );
     this.subscriptions.push(
       this._sandbox.countryLoading$.subscribe(
-        (loading: boolean) => (this.loading = loading)
+        (loading: boolean) => {
+          if (loading) {
+            this.ui.setBusy(this.detailCard.nativeElement);
+          }
+          this.loading = loading;
+        }
       )
     );
     this.subscriptions.push(
       this._sandbox.countryLoaded$.subscribe(
-        (loaded: boolean) => (this.loaded = loaded)
+        (loaded: boolean) => {
+          if (loaded) {
+            this.ui.clearBusy(this.detailCard.nativeElement);
+          }
+          this.loaded = loaded;
+        }
       )
     );
     this.subscriptions.push(
       this._sandbox.countryFailed$.subscribe(
-        (failed: boolean) => (this.failed = failed)
+        (failed: boolean) => {
+          if (failed) {
+            this.ui.clearBusy(this.detailCard.nativeElement);
+          }
+          this.failed = failed;
+        }
       )
     );
     this.subscriptions.push(
