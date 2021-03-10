@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormHelper } from '@shared/helpers';
@@ -11,14 +11,14 @@ import { SearchUserForm } from '@app/user/models/form/search-user.model';
 import { UserSandbox } from '@app/user/user.sandbox';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
-import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
+import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
 
 @Component({
   selector: 'user-update',
   templateUrl: './user-update.component.html',
 })
 export class UserUpdateComponent
-  extends TypeaheadItemListHelper<Role>
+  extends TypeaheadControlsComponent<Role>
   implements OnInit {
   @ViewChild('userRolesComponent') userRolesComponent: ElementRef;
 
@@ -38,10 +38,11 @@ export class UserUpdateComponent
   user: User;
 
   constructor(
+    protected injector: Injector,
     protected _sandbox: UserSandbox,
     protected route: ActivatedRoute
   ) {
-    super();
+    super(injector);
     this.control = new FormControl('', [
       Validators.required,
       FormHelper.inValidator(this.typeaheadData),

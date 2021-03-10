@@ -15,7 +15,7 @@ import { ManagePermissionForm } from '@app/authorization/models/manage/permissio
 import { Permission } from '@app/authorization/models/permission.model';
 import { Role } from '@app/authorization/models/role.model';
 import { FormHelper } from '@app/shared/helpers';
-import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
+import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
 
@@ -24,8 +24,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './role-detail.component.html',
 })
 export class RoleDetailComponent
-  extends TypeaheadItemListHelper<Permission>
-  implements OnInit {
+  extends TypeaheadControlsComponent<Permission>
   @ViewChild('rolePermissionsComponent') rolePermissionsComponent: ElementRef;
   @ViewChild('dtContainer') dtContainer: ElementRef;
   roleId: string;
@@ -41,11 +40,12 @@ export class RoleDetailComponent
   subscriptions: Subscription[] = [];
 
   constructor(
+    protected injector: Injector,
     protected route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     protected _sandbox: AuthorizationSandbox
   ) {
-    super();
+    super(injector);
     this.control = new FormControl('', [
       Validators.required,
       FormHelper.inValidator(this.typeaheadData),
