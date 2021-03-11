@@ -151,7 +151,7 @@ export const doSyncRoles = createAction(
 );
 export const doSyncRolesSuccess = createAction(
   type('[User] Do Sync Roles Success'),
-  props<{ role: Role }>()
+  props<{ user: User }>()
 );
 export const doSyncRolesFail = createAction(
   type('[User] Do Sync Roles Fail'),
