@@ -174,12 +174,10 @@ export class UserUpdateComponent
     if (this.user.roles.length !== this.addedItems.length) {
       return true;
     }
-    this.user.roles.forEach((role) => {
-      if (!this.addedItems.find((item) => item.id === role.id)) {
-        return true;
-      }
-    });
-    return false;
+
+    return (this.user.roles.some((role) => {
+      return this.addedItems.find((item) => item.id !== role.id);
+    }))
   }
 
   isUserDataChanged(): boolean {
