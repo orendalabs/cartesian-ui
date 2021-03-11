@@ -110,6 +110,9 @@ export class UserUpdateComponent
             this.notify.success('User detail updated.', 'Success!');
             this.updatingDetail = false;
           }
+          if (this.user) {
+            this.user.roles = this.addedItems;
+          }
         }
         this.loaded = loaded;
       })
