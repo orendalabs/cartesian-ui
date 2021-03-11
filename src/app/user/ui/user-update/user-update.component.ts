@@ -240,7 +240,7 @@ export class UserUpdateComponent
     }
 
     return (this.user.roles.some((role) => {
-      return this.addedItems.find((item) => item.id !== role.id);
+      return !this.addedItems.find((item) => item.id === role.id);
     }))
   }
 
