@@ -60,6 +60,20 @@ export const getUsersMeta: MemoizedSelector<object, object> = createSelector(
   (state: UserState) => state.listing.data.meta
 );
 
+export const getRolesLoading: MemoizedSelector<object,boolean> = createSelector(
+  getUserState, (state: UserState) => state.roleListing.loading
+);
+
+export const getRolesLoaded: MemoizedSelector<object, boolean> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.loaded
+);
+
+export const getRolesFailed: MemoizedSelector<object, boolean> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.failed
+);
+
 export const getRolesFetchData: MemoizedSelector<
   object,
   object
