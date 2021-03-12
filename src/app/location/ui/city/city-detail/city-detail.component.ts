@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country } from '@app/location/models/domain';
 import { SearchCountryForm, SearchStateForm } from '@app/location/models/form';
@@ -37,6 +37,7 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
   loaded: boolean;
   loading: boolean;
   failed: boolean;
+  deleting: boolean = false;
 
   countriesLoading: boolean;
   countriesLoaded: boolean;
@@ -53,9 +54,10 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
   ).limit(100000);
 
   constructor(
-    protected injector: Injector,
-    protected _sandbox: LocationSandbox,
-    protected route: ActivatedRoute
+    private injector: Injector,
+    private _sandbox: LocationSandbox,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super(injector);
   }
@@ -131,6 +133,10 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
   }
 
   save(group): void {
+    if (this.loading) {
+      this.notify.warn("Please wait for previous request", "Warning!");
+      return;
+    }
     if(group.valid) {
       const noState = this.config[nameIndexMap.stateId].hidden;
       const form = new CityUpdateForm({
@@ -142,15 +148,23 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
         longitude: group.controls.longitude.value,
       });
       this._sandbox.updateCity(form);
+    } else {
+      this.notify.warn("Invalid form data", "Warning!");
     }
   }
 
   delete(): void {
-    if (
-      confirm('Are you sure you want to delete city ' + this.city.name + '?')
-    ) {
-      this._sandbox.deleteCity(this.city.id);
-    }
+    this.message.confirm(
+      `Are you sure you want to delete city ${this.city.name}?`,
+      'Delete City',
+      (result) => {
+        if (result) {
+          this.notify.info("Deleting city");
+          this.deleting = true;
+          this._sandbox.deleteCity(this.city.id);
+        }
+      }
+    );
   }
 
   registerEvents(): void {
@@ -175,6 +189,10 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
         (loaded: boolean) => {
           if (loaded) {
             this.ui.clearBusy(this.detailCard.nativeElement);
+            if (this.deleting) {
+              this.notify.success("City deleted", "Success!");
+              this.router.navigate(["locations", "cities"]);
+            }
           }
           this.loaded = loaded;
         }
@@ -185,6 +203,10 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
         (failed: boolean) => {
           if (failed) {
             this.ui.clearBusy(this.detailCard.nativeElement);
+            if (this.deleting) {
+              this.notify.success("Could not delete city", "Error!");
+              this.deleting = false;
+            }
           }
           this.failed = failed;
         }
