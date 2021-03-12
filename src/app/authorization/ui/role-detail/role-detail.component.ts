@@ -147,7 +147,7 @@ export class RoleDetailComponent
     );
     this.subscriptions.push(
       this._sandbox.permissionLoading$.subscribe((loading) => {
-        if (loading) {
+        if (loading && this.permissionLoading != undefined) {
           this.notify.info("Updating permissions");
         }
         this.permissionLoading = loading;
@@ -155,7 +155,7 @@ export class RoleDetailComponent
     );
     this.subscriptions.push(
       this._sandbox.permissionLoaded$.subscribe((loaded) => {
-        if (loaded) {
+        if (loaded && this.permissionLoaded != undefined) {
           this.notify.success("Permissions updated", "Success!");
         }
         this.permissionLoaded = loaded;
@@ -163,7 +163,7 @@ export class RoleDetailComponent
     );
     this.subscriptions.push(
       this._sandbox.permissionFailed$.subscribe((failed) => {
-        if (failed) {
+        if (failed && this.permissionFailed != undefined) {
           this.notify.error("Could not update permissions", "Error!");
         }
         this.permissionFailed = failed;
