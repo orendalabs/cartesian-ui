@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -39,7 +40,7 @@ enum nameIndexMap {
   selector: 'location-detail',
   templateUrl: './location-detail.component.html',
 })
-export class LocationDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class LocationDetailComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
   @ViewChild('formCard') formCard: ElementRef;
 
@@ -187,6 +188,10 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
   ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   delete(): void {

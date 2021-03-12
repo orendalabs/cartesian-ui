@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -18,7 +19,7 @@ import { RequestCriteria } from '@cartesian-ui/ng-axis';
 })
 export class PermissionListComponent
   extends ListingControlsComponent<Permission, SearchPermissionForm>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dtContainer') dtContainer: ElementRef;
   searchModel = '';
   selectedPermissions: Permission[] = [];
@@ -44,10 +45,6 @@ export class PermissionListComponent
     );
   };
 
-  unregisterEvents = () => {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  };
-
   ngOnInit(): void {
     this.criteria = new RequestCriteria<SearchPermissionForm>(
       new SearchPermissionForm()
@@ -57,6 +54,10 @@ export class PermissionListComponent
 
   ngAfterViewInit(): void {
     this.reloadTable();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   search() {

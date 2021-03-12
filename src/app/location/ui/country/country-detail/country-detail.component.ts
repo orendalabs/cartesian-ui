@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   selector: 'country-detail',
   templateUrl: './country-detail.component.html',
 })
-export class CountryDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class CountryDetailComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
   config: FieldConfig[] = [
     {
@@ -123,6 +123,10 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
 
   ngAfterViewInit(): void {
     this.registerEvents();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   delete(): void {

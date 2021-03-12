@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -41,7 +42,7 @@ enum nameIndexMap {
   selector: 'location-create',
   templateUrl: './location-create.component.html',
 })
-export class LocationCreateComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class LocationCreateComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
@@ -84,6 +85,10 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
   ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   initConfig() {
@@ -350,7 +355,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     );
     this.subscriptions.push(
       this._sandbox.locationLoading$.subscribe((loading) => {
-        if (loading) {
+        if (loading && this.loading != undefined) {
           this.notify.info('Creating location');
           this.config[nameIndexMap.submit].disabled = true;
         }
@@ -359,7 +364,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     );
     this.subscriptions.push(
       this._sandbox.locationLoaded$.subscribe((loaded) => {
-        if (loaded) {
+        if (loaded && this.loaded != undefined) {
           this.notify.success('Location created', 'Success!');
           this.config[nameIndexMap.submit].disabled = false;
         }
@@ -368,17 +373,13 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     );
     this.subscriptions.push(
       this._sandbox.locationFailed$.subscribe((failed) => {
-        if (failed) {
+        if (failed && this.failed != undefined) {
           this.notify.error('Could not create location', 'Error!');
           this.config[nameIndexMap.submit].disabled = false;
         }
         this.failed = failed;
       })
     );
-  }
-
-  unregisterEvents(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   setCountryValidators(): void {

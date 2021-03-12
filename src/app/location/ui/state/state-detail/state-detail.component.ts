@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -23,7 +24,7 @@ import { Subscription } from 'rxjs';
 })
 export class StateDetailComponent
   extends BaseComponent
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
   @ViewChild('formCard') formCard: ElementRef;
 
@@ -88,6 +89,10 @@ export class StateDetailComponent
   ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   delete(): void {
@@ -202,10 +207,6 @@ export class StateDetailComponent
         this.countriesFailed = failed;
       })
     );
-  }
-
-  unregisterEvents(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   setCountryValidators(): void {

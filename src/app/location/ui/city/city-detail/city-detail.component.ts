@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationSandbox } from '@app/location/location.sandbox';
@@ -25,7 +25,7 @@ enum nameIndexMap {
   selector: 'city-detail',
   templateUrl: './city-detail.component.html',
 })
-export class CityDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class CityDetailComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
   @ViewChild('formCard') formCard: ElementRef;
 
@@ -69,6 +69,10 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
   ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   initConfig(): void {

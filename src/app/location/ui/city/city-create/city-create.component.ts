@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
@@ -27,7 +27,7 @@ enum nameIndexMap {
   selector: 'city-create',
   templateUrl: './city-create.component.html',
 })
-export class CityCreateComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class CityCreateComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('formCard') formCard: ElementRef;
   config: FieldConfig[];
 
@@ -64,6 +64,10 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
   ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchCountries(this.countriesCriteria);
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   initConfig(): void {
@@ -221,7 +225,7 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
     );
     this.subscriptions.push(
       this._sandbox.cityLoading$.subscribe((loading) => {
-        if (loading) {
+        if (loading && this.loading != undefined) {
           this.notify.info("Creating city");
           this.config[5].disabled = true;
         }
@@ -230,7 +234,7 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
     );
     this.subscriptions.push(
       this._sandbox.cityLoaded$.subscribe((loaded) => {
-        if (loaded) {
+        if (loaded && this.loaded != undefined) {
           this.notify.success("City created", "Success!");
         }
         this.config[5].disabled = false;
@@ -239,7 +243,7 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
     );
     this.subscriptions.push(
       this._sandbox.cityFailed$.subscribe((failed) => {
-        if (failed) {
+        if (failed && this.failed != undefined) {
           this.notify.error("Could not create city", "Error!");
         }
         this.config[5].disabled = false;
@@ -247,10 +251,6 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
       })
     );
 
-  }
-
-  unregisterEvents(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   setCountryValidators(): void {

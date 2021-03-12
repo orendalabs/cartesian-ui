@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -25,7 +26,7 @@ import { Subscription } from 'rxjs';
 })
 export class RoleDetailComponent
   extends TypeaheadControlsComponent<Permission>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('rolePermissionsComponent') rolePermissionsComponent: ElementRef;
   @ViewChild('detailCard') detailCard: ElementRef;
   roleId: string;
@@ -67,6 +68,10 @@ export class RoleDetailComponent
     this.registerEvents();
     this._sandbox.fetchRoleById(this.roleId);
     this.fetchPermissions();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   registerEvents() {
@@ -183,9 +188,5 @@ export class RoleDetailComponent
       permissionsIds: permsIds,
     };
     this._sandbox.syncPermissionsOnRole(form);
-  }
-
-  protected unregisterEvents(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

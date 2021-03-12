@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -19,7 +20,7 @@ import { Subscription } from 'rxjs';
 })
 export class CountryListComponent
   extends ListingControlsComponent<Country, SearchCountryForm>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   subscriptions: Array<Subscription> = [];
@@ -39,6 +40,10 @@ export class CountryListComponent
 
   ngAfterViewInit(): void {
     this.reloadTable();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   search(): void {
@@ -75,9 +80,9 @@ export class CountryListComponent
     this.isTableLoading = true;
     this._sandbox.fetchCountries(this.criteria);
   }
-  protected delete(): void {}
-  protected unregisterEvents(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+
+  protected delete(): void {
+
   }
 
   onSelect({ selected }) {

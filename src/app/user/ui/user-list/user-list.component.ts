@@ -5,6 +5,7 @@ import {
   AfterViewInit,
   ElementRef,
   ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { ListingControlsComponent } from '@app/core/ui';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent
   extends ListingControlsComponent<User, SearchUserForm>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   selected = 'all';
@@ -42,6 +43,10 @@ export class UserListComponent
 
   ngAfterViewInit(): void {
     this.reloadTable();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   onDropDownChange(event) {
@@ -107,14 +112,12 @@ export class UserListComponent
     );
   }
 
-  protected unregisterEvents(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
-
   onSelect({ selected }) {
     this.selectedUsers.splice(0, this.selectedUsers.length);
     this.selectedUsers.push(...selected);
   }
 
-  onActivate(event) {}
+  onActivate(event) {
+
+  }
 }

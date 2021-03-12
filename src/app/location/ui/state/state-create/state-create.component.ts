@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -20,7 +21,7 @@ import { Subscription } from 'rxjs';
   selector: 'state-create',
   templateUrl: './state-create.component.html',
 })
-export class StateCreateComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class StateCreateComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
@@ -78,6 +79,10 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
 
+  ngOnDestroy() {
+    this.unregisterEvents();
+  }
+
   create(group): void {
     if (group.valid) {
       const form = new StateCreateForm({
@@ -130,35 +135,31 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
     );
     this.subscriptions.push(
       this._sandbox.stateLoading$.subscribe((loading) => {
-        this.loading = loading;
-        if (loading) {
+        if (loading && this.loading != undefined) {
           this.notify.info('Creating state');
           this.config[3].disabled = true;
         }
+        this.loading = loading;
       })
     )
     this.subscriptions.push(
       this._sandbox.stateLoaded$.subscribe((loaded) => {
-        this.loaded = loaded;
-        if (loaded) {
+        if (loaded && this.loaded != undefined) {
           this.notify.success('State created', 'Success!');
           this.config[3].disabled = false;
         }
+        this.loaded = loaded;
       })
     )
     this.subscriptions.push(
       this._sandbox.stateFailed$.subscribe((failed) => {
-        this.failed = failed;
-        if (failed) {
+        if (failed && this.failed != undefined) {
           this.notify.error('Could not create state', 'Error!');
           this.config[3].disabled = false;
         }
+        this.failed = failed;
       })
     )
-  }
-
-  unregisterEvents(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   setCountryValidators(): void {

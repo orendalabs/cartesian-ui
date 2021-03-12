@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
@@ -10,7 +10,7 @@ import { FormHelper } from '@app/shared/helpers';
   selector: 'country-create',
   templateUrl: './country-create.component.html',
 })
-export class CountryCreateComponent extends BaseComponent implements OnInit {
+export class CountryCreateComponent extends BaseComponent implements OnInit, OnDestroy {
   config: FieldConfig[] = [
     {
       type: 'input',
@@ -96,6 +96,11 @@ export class CountryCreateComponent extends BaseComponent implements OnInit {
       classes: 'btn btn-primary pull-right',
     },
   ];
+
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
+
   constructor(
     private injector: Injector,
     private _sandbox: LocationSandbox) {
@@ -104,6 +109,10 @@ export class CountryCreateComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerEvents();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   create(group): void {
@@ -131,23 +140,32 @@ export class CountryCreateComponent extends BaseComponent implements OnInit {
   }
 
   registerEvents() {
-    this._sandbox.countryLoading$.subscribe((loading) => {
-      if (loading) {
-        this.notify.info('Creating country');
-      }
-      this.config[11].disabled = true;
-    });
-    this._sandbox.countryLoaded$.subscribe((loaded) => {
-      if (loaded) {
-        this.notify.success('Country created', 'Success!');
-      }
-      this.config[11].disabled = false;
-    });
-    this._sandbox.countryFailed$.subscribe((failed) => {
-      if (failed) {
-        this.notify.error('Could not create country', 'Error!');
-      }
-      this.config[11].disabled = false;
-    });
+    this.subscriptions.push(
+      this._sandbox.countryLoading$.subscribe((loading) => {
+        if (loading && this.loading != undefined) {
+          this.notify.info('Creating country');
+        }
+        this.config[11].disabled = true;
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countryLoaded$.subscribe((loaded) => {
+        if (loaded && this.loaded != undefined) {
+          this.notify.success('Country created', 'Success!');
+        }
+        this.config[11].disabled = false;
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countryFailed$.subscribe((failed) => {
+        if (failed && this.failed != undefined) {
+          this.notify.error('Could not create country', 'Error!');
+        }
+        this.config[11].disabled = false;
+        this.failed = failed;
+      })
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormHelper } from '@shared/helpers';
@@ -19,7 +19,7 @@ import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-co
 })
 export class UserUpdateComponent
   extends TypeaheadControlsComponent<Role>
-  implements OnInit {
+  implements OnInit, OnDestroy {
   @ViewChild('userRolesComponent') userRolesComponent: ElementRef;
 
   formGroup = new FormGroup({
@@ -59,6 +59,10 @@ export class UserUpdateComponent
     this.registerEvents();
     this.fetchUser();
     this.fetchRoles();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   registerEvents() {
@@ -200,6 +204,7 @@ export class UserUpdateComponent
       }
     });
   }
+
   update() {
     if (this.formGroup.valid) {
       const form = new EditUserForm({
