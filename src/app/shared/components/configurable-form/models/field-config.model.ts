@@ -35,6 +35,9 @@ export interface FieldConfig {
   /** Style classes for the control */
   classes?: string;
 
+  /** Message to show if data invalid */
+  invalidMessage?: string;
+
   /** Method called on click event. Takes an event parameter */
   click?: (event) => void;
 

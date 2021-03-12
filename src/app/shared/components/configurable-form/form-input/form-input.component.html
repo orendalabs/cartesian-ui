@@ -9,4 +9,7 @@
     (click)="click($event)"
     (change)="change($event)"
     />
+  <div *ngIf="config.invalidMessage" class="invalid-feedback">
+    {{ config.invalidMessage }}
+  </div>
 </div>
