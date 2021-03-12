@@ -166,15 +166,6 @@ export class RoleDetailComponent
     );
   }
 
-  deleteRole = (id: string) => {
-    const confirmation = confirm(
-      'Are you sure you want to delete the role with ID: ' + id
-    );
-    if (confirmation) {
-      this._sandbox.deleteRoleById(id);
-    }
-  };
-
   fetchPermissions() {
     this._sandbox.fetchPermissions(this.permissionCriteria);
   }
