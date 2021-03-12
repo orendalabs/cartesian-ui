@@ -37,6 +37,9 @@ export class RoleDetailComponent
   permissionsLoading: boolean;
   permissionsLoaded: boolean;
   permissionsFailed: boolean;
+  permissionLoading: boolean;
+  permissionLoaded: boolean;
+  permissionFailed: boolean;
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(
     new SearchPermissionForm()
   );
@@ -118,7 +121,7 @@ export class RoleDetailComponent
         if (loading) {
           this.ui.setBusy(this.detailCard.nativeElement);
         }
-        this.loading = loading;
+        this.permissionsLoading = loading;
       })
     );
     this.subscriptions.push(
@@ -126,7 +129,7 @@ export class RoleDetailComponent
         if (loaded) {
           this.ui.clearBusy(this.detailCard.nativeElement);
         }
-        this.loaded = loaded;
+        this.permissionsLoaded = loaded;
       })
     );
     this.subscriptions.push(
@@ -134,7 +137,31 @@ export class RoleDetailComponent
         if (failed) {
           this.ui.clearBusy(this.detailCard.nativeElement);
         }
-        this.failed = failed;
+        this.permissionsFailed = failed;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionLoading$.subscribe((loading) => {
+        if (loading) {
+          this.notify.info("Updating permissions");
+        }
+        this.permissionLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.notify.success("Permissions updated", "Success!");
+        }
+        this.permissionLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionFailed$.subscribe((failed) => {
+        if (failed) {
+          this.notify.error("Could not update permissions", "Error!");
+        }
+        this.permissionFailed = failed;
       })
     );
   }
