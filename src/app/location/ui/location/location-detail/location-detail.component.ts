@@ -147,7 +147,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)'
     },
     {
-      label: 'Create',
+      label: 'Save',
       name: 'submit',
       type: 'button',
       classes: 'btn btn-primary pull-right',
