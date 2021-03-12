@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormHelper } from '@shared/helpers';
 import { AdminUserCreateForm } from '@app/user/models/form/admin-user.model';
 import { UserSandbox } from '@app/user/user.sandbox';
+import { BaseComponent } from '@app/core/ui';
 
 @Component({
   selector: 'user-create',
   templateUrl: './user-create.component.html',
 })
-export class UserCreateComponent implements OnInit {
+export class UserCreateComponent extends BaseComponent implements OnInit {
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [
@@ -20,9 +21,16 @@ export class UserCreateComponent implements OnInit {
       Validators.minLength(6),
     ]),
   });
-  constructor(protected _sandbox: UserSandbox) {}
 
-  ngOnInit(): void {}
+  loading: boolean = false;
+
+  constructor(protected injector: Injector, protected _sandbox: UserSandbox) {
+    super(injector);
+  }
+
+  ngOnInit(): void {
+    this.registerEvents();
+  }
 
   create() {
     if (this.formGroup.valid) {
@@ -35,12 +43,20 @@ export class UserCreateComponent implements OnInit {
     }
   }
 
+  registerEvents() {
+    this._sandbox.userLoading$.subscribe((loading) => {
+      this.loading = loading;
+      this.notify.info("Creating user");
+    });
+    this._sandbox.userLoaded$.subscribe((loaded) => {
+      this.notify.success("User Created", "Success!");
+    });
+    this._sandbox.userFailed$.subscribe((failed) => {
+      this.notify.error("User creation failed", "Error!");
+    });
+  }
   getFormClasses(controlName: string): string {
     const control = this.formGroup.controls[controlName];
-    if (control.valid) {
-      return 'is-valid';
-    } else if (control.dirty && control.touched) {
-      return 'is-invalid';
-    }
+    return FormHelper.getFormClasses(control);
   }
 }
