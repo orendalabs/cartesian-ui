@@ -18,6 +18,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'name',
       validation: [Validators.required],
       placeholder: 'Enter name',
+      invalidMessage: 'Please enter a name'
     },
     {
       type: 'input',
@@ -25,6 +26,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'native',
       validation: [Validators.required],
       placeholder: 'Enter native',
+      invalidMessage: 'Please enter a native'
     },
     {
       type: 'input',
@@ -32,6 +34,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'alpha2',
       validation: [Validators.required, Validators.pattern('[A-Z]{2}')],
       placeholder: 'Enter Alpha 2',
+      invalidMessage: 'Please enter a valid code (Two capital letters)'
     },
     {
       type: 'input',
@@ -39,6 +42,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'alpha3',
       validation: [Validators.required, Validators.pattern('[A-Z]{3}')],
       placeholder: 'Enter Alpha 3',
+      invalidMessage: 'Please enter a valid code (Three capital letters)'
     },
     {
       type: 'input',
@@ -46,6 +50,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'isd',
       validation: [Validators.required],
       placeholder: 'Enter ISD',
+      invalidMessage: 'Please enter an ISD'
     },
     {
       type: 'input',
@@ -53,6 +58,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'capital',
       validation: [Validators.required],
       placeholder: 'Enter capital',
+      invalidMessage: 'Please enter a Capital '
     },
     {
       type: 'input',
@@ -60,6 +66,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'currency',
       validation: [Validators.required],
       placeholder: 'Enter currency',
+      invalidMessage: 'Please enter a currency'
     },
     {
       type: 'input',
@@ -67,6 +74,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'continent',
       validation: [Validators.required],
       placeholder: 'Enter continent',
+      invalidMessage: 'Please enter a continent'
     },
     {
       type: 'input',
@@ -74,6 +82,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'subcontinent',
       validation: [Validators.required],
       placeholder: 'Enter subcontinent',
+      invalidMessage: 'Please enter a subcontinent'
     },
     {
       type: 'input',
@@ -81,6 +90,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'emoji',
       validation: [Validators.required],
       placeholder: 'Enter emoji',
+      invalidMessage: 'Please enter an emoji'
     },
     {
       type: 'input',
@@ -88,6 +98,7 @@ export class CountryCreateComponent extends BaseComponent implements OnInit, OnD
       name: 'emojiUnicode',
       validation: [Validators.required, FormHelper.unicodeValidator()],
       placeholder: 'Enter emoji unicode',
+      invalidMessage: 'Please enter a valid unicode'
     },
     {
       label: 'Create',

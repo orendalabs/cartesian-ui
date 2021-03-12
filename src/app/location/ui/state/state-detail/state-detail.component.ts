@@ -36,6 +36,7 @@ export class StateDetailComponent
       options: [],
       placeholder: 'Select Country...',
       validation: [Validators.required],
+      invalidMessage: 'Please select a valid country'
     },
     {
       type: 'input',
@@ -43,6 +44,7 @@ export class StateDetailComponent
       name: 'name',
       validation: [Validators.required],
       placeholder: 'Enter name',
+      invalidMessage: 'Please enter a name'
     },
     {
       type: 'input',
@@ -50,6 +52,7 @@ export class StateDetailComponent
       name: 'code',
       validation: [Validators.required],
       placeholder: 'Enter code',
+      invalidMessage: 'Please enter a code'
     },
     {
       label: 'Save',

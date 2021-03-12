@@ -98,6 +98,7 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
         },
         validation: [Validators.required],
         placeholder: 'Select Country',
+        invalidMessage: 'Please select a valid country'
       },
       {
         type: 'select',
@@ -107,6 +108,7 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
         hidden: true,
         validation: [Validators.required],
         placeholder: 'Select State',
+        invalidMessage: 'Please select a valid state'
       },
       {
         type: 'input',
@@ -114,18 +116,21 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
         name: 'name',
         validation: [Validators.required],
         placeholder: 'Enter Name',
+        invalidMessage: 'Please enter a name'
       },
       {
         type: 'input',
         label: 'Latitude',
         name: 'latitude',
         validation: [Validators.required, FormHelper.isFloatValidator(), Validators.min(-90), Validators.max(90)],
+        invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)'
       },
       {
         type: 'input',
         label: 'Longitude',
         name: 'longitude',
         validation: [Validators.required, FormHelper.isFloatValidator(), Validators.min(-180), Validators.max(180)],
+        invalidMessage: 'Please enter a valid latitude (-180.0 to 180.0)'
       },
       {
         label: 'Create',

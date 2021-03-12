@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class CountryDetailComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
+
   config: FieldConfig[] = [
     {
       type: 'input',
@@ -22,6 +23,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'name',
       validation: [Validators.required],
       placeholder: 'Enter name',
+      invalidMessage: 'Please enter a name'
     },
     {
       type: 'input',
@@ -29,6 +31,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'native',
       validation: [Validators.required],
       placeholder: 'Enter native',
+      invalidMessage: 'Please enter a native'
     },
     {
       type: 'input',
@@ -36,6 +39,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'alpha2',
       validation: [Validators.required, Validators.pattern('[A-Z]{2}')],
       placeholder: 'Enter Alpha 2',
+      invalidMessage: 'Please enter a valid code (Two capital letters)'
     },
     {
       type: 'input',
@@ -43,6 +47,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'alpha3',
       validation: [Validators.required, Validators.pattern('[A-Z]{3}')],
       placeholder: 'Enter Alpha 3',
+      invalidMessage: 'Please enter a valid code (Three capital letters)'
     },
     {
       type: 'input',
@@ -50,6 +55,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'isd',
       validation: [Validators.required],
       placeholder: 'Enter ISD',
+      invalidMessage: 'Please enter an ISD'
     },
     {
       type: 'input',
@@ -57,6 +63,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'capital',
       validation: [Validators.required],
       placeholder: 'Enter capital',
+      invalidMessage: 'Please enter a Capital '
     },
     {
       type: 'input',
@@ -64,6 +71,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'currency',
       validation: [Validators.required],
       placeholder: 'Enter currency',
+      invalidMessage: 'Please enter a currency'
     },
     {
       type: 'input',
@@ -71,6 +79,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'continent',
       validation: [Validators.required],
       placeholder: 'Enter continent',
+      invalidMessage: 'Please enter a continent'
     },
     {
       type: 'input',
@@ -78,6 +87,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'subcontinent',
       validation: [Validators.required],
       placeholder: 'Enter subcontinent',
+      invalidMessage: 'Please enter a subcontinent'
     },
     {
       type: 'input',
@@ -85,6 +95,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'emoji',
       validation: [Validators.required],
       placeholder: 'Enter emoji',
+      invalidMessage: 'Please enter an emoji'
     },
     {
       type: 'input',
@@ -92,6 +103,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'emojiUnicode',
       validation: [Validators.required, FormHelper.unicodeValidator()],
       placeholder: 'Enter emoji unicode',
+      invalidMessage: 'Please enter a valid unicode'
     },
     {
       label: 'Save',

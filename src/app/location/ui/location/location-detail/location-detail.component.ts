@@ -50,12 +50,14 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       label: 'Address Line 1',
       name: 'addressLine1',
       validation: [Validators.required],
+      invalidMessage: 'Please enter an address'
     },
     {
       type: 'input',
       label: 'Address Line 2',
       name: 'addressLine2',
       validation: [Validators.required],
+      invalidMessage: 'Please enter an address'
     },
     {
       type: 'select',
@@ -83,6 +85,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       },
       placeholder: 'Select Country...',
       validation: [Validators.required],
+      invalidMessage: 'Please select a valid country'
     },
     {
       type: 'select',
@@ -102,6 +105,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         this._sandbox.fetchCities(this.citiesCriteria);
       },
       placeholder: 'Select State...',
+      invalidMessage: 'Please select a valid state'
     },
     {
       type: 'select',
@@ -109,12 +113,14 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       name: 'cityId',
       options: [],
       placeholder: 'Select City...',
+      invalidMessage: 'Please select a valid city '
     },
     {
       type: 'input',
       label: 'Post Code',
       name: 'postCode',
       validation: [Validators.required],
+      invalidMessage: 'Please enter a post code'
     },
     {
       type: 'input',
@@ -126,6 +132,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         Validators.min(-90),
         Validators.max(90),
       ],
+      invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)'
     },
     {
       type: 'input',
@@ -137,6 +144,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         Validators.min(-180),
         Validators.max(180),
       ],
+      invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)'
     },
     {
       label: 'Create',

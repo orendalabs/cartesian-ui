@@ -44,6 +44,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
       options: [],
       placeholder: 'Select Country...',
       validation: [Validators.required],
+      invalidMessage: 'Please select a valid country'
     },
     {
       type: 'input',
@@ -51,6 +52,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
       name: 'name',
       validation: [Validators.required],
       placeholder: 'Enter name',
+      invalidMessage: 'Please enter a name'
     },
     {
       type: 'input',
@@ -58,6 +60,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
       name: 'code',
       validation: [Validators.required],
       placeholder: 'Enter code',
+      invalidMessage: 'Please enter a code'
     },
     {
       label: 'Create',
