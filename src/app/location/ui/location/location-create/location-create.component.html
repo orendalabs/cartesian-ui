@@ -1,0 +1,15 @@
+<div class="animated fadeIn row">
+  <div class="col-md-6">
+    <div class="card" #formCard>
+      <div class="card-header">
+        <strong>Create a Location</strong>
+      </div>
+      <div class="card-body p-2">
+        <configurable-form
+          [config]="config"
+          (submitted)="create($event)"
+        ></configurable-form>
+      </div>
+    </div>
+  </div>
+</div>

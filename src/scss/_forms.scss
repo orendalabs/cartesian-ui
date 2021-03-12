@@ -1,0 +1,23 @@
+.is-invalid {
+  background-color: #dc354511;
+  border: 1px solid #ee8ad4;
+  transition: background-color 0.2s, border 0.2s
+}
+
+.is-invalid:focus {
+  background-color: #dc354511;
+  border: 1px solid #ee8ad4;
+  box-shadow: 0 0 0 0.2rem #dc354511;
+}
+
+.is-valid {
+  background-color: #28a74511;
+  border: 1px solid #d4ee8a;
+  transition: background-color 0.2s, border 0.2s
+}
+
+.is-valid:focus {
+  background-color: #28a74511;
+  border: 1px solid #d4ee8a;
+  box-shadow: 0 0 0 0.2rem #28a74511;
+}

@@ -1,26 +1,25 @@
+import { Injector } from '@angular/core';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { FormHelper } from './form.helper';
+import { BaseComponent } from '@app/core/ui';
+import { FormHelper } from '../../../shared/helpers/form.helper';
 
-export class TypeaheadHelper {
+
+export class TypeaheadControlsComponent<ItemType> extends BaseComponent{
+  /** Data suggested by typeahead */
   typeaheadData: string[] = [];
+  /** The FormControl object */
   control: FormControl;
-}
-
-export class TypeaheadItemListHelper<ItemType> extends TypeaheadHelper {
   /** List of all items. */
   items: ItemType[] = [];
   /** List of added items. */
   addedItems: ItemType[] = [];
   /** Property used for validation of `control.value`. */
-  private validationPropertyName = 'name';
+  validationPropertyName = 'name';
 
-  /**
-   *
-   * @param validationPropertyName Name of the property used for data validation. Defaults to `name`.
-   */
-  constructor(validationPropertyName = 'name') {
-    super();
-    this.validationPropertyName = validationPropertyName;
+  constructor(
+    protected injector: Injector,
+    ) {
+    super(injector);
   }
 
   /**

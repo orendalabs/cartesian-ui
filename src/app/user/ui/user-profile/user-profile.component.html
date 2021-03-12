@@ -16,7 +16,7 @@
             <div class="col-md-4 d-inline-block" *ngIf="user.gender">
               <i
                 class="fa"
-                [ngClass]="user.gender == 'male' ? 'fa-male' : 'fa-female'"
+                [ngClass]="user.gender === 'male' ? 'fa-male' : 'fa-female'"
               ></i>
               {{ user.gender }}
             </div>

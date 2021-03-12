@@ -23,4 +23,31 @@ export const navItems: INavData[] = [
     url: '/authorization/permissions',
     icon: 'icon-check',
   },
+  {
+    name: 'Locations',
+    url: '/locations',
+    icon: 'icon-map',
+    children: [
+      {
+        name: 'Cities',
+        url: '/locations/cities',
+        icon: 'icon-home',
+      },
+      {
+        name: 'Countries',
+        url: '/locations/countries',
+        icon: 'icon-flag',
+      },
+      {
+        name: 'Locations',
+        url: '/locations/locations',
+        icon: 'icon-location-pin',
+      },
+      {
+        name: 'States',
+        url: '/locations/states',
+        icon: 'icon-layers',
+      },
+    ]
+  },
 ];

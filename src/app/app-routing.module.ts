@@ -31,6 +31,13 @@ const routes: Routes = [
     },
     children: [
       {
+        path: 'authorization',
+        loadChildren: () =>
+          import('@app/authorization/authorization.module').then(
+            (m) => m.AuthorizationModule
+          ),
+      },
+      {
         path: 'dashboard',
         loadChildren: () =>
           import('@app/dashboard/dashboard.module').then(
@@ -43,10 +50,10 @@ const routes: Routes = [
           import('@app/user/user.module').then((m) => m.UserModule),
       },
       {
-        path: 'authorization',
+        path: 'locations',
         loadChildren: () =>
-          import('@app/authorization/authorization.module').then(
-            (m) => m.AuthorizationModule
+          import('@app/location/location.module').then(
+            (m) => m.LocationModule
           ),
       },
     ],

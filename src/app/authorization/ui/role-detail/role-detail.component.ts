@@ -15,7 +15,7 @@ import { ManagePermissionForm } from '@app/authorization/models/manage/permissio
 import { Permission } from '@app/authorization/models/permission.model';
 import { Role } from '@app/authorization/models/role.model';
 import { FormHelper } from '@app/shared/helpers';
-import { TypeaheadItemListHelper } from '@app/shared/helpers/typeahead.helper';
+import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
 
@@ -24,16 +24,19 @@ import { Subscription } from 'rxjs';
   templateUrl: './role-detail.component.html',
 })
 export class RoleDetailComponent
-  extends TypeaheadItemListHelper<Permission>
-  implements OnInit {
+  extends TypeaheadControlsComponent<Permission>
+  implements OnInit, AfterViewInit {
   @ViewChild('rolePermissionsComponent') rolePermissionsComponent: ElementRef;
-  @ViewChild('dtContainer') dtContainer: ElementRef;
+  @ViewChild('detailCard') detailCard: ElementRef;
   roleId: string;
   role;
   loaded;
   loading;
   failed;
 
+  permissionsLoading: boolean;
+  permissionsLoaded: boolean;
+  permissionsFailed: boolean;
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(
     new SearchPermissionForm()
   );
@@ -41,11 +44,12 @@ export class RoleDetailComponent
   subscriptions: Subscription[] = [];
 
   constructor(
+    protected injector: Injector,
     protected route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     protected _sandbox: AuthorizationSandbox
   ) {
-    super();
+    super(injector);
     this.control = new FormControl('', [
       Validators.required,
       FormHelper.inValidator(this.typeaheadData),
@@ -53,6 +57,10 @@ export class RoleDetailComponent
   }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
     this.registerEvents();
     this._sandbox.fetchRoleById(this.roleId);
     this.fetchPermissions();
@@ -83,16 +91,49 @@ export class RoleDetailComponent
     );
     this.subscriptions.push(
       this._sandbox.roleLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
+        }
         this.loading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.roleLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
         this.loaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.roleFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
+        this.failed = failed;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionsLoading$.subscribe((loading) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
+        }
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionsLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionsFailed$.subscribe((failed) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+        }
         this.failed = failed;
       })
     );

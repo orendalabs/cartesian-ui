@@ -20,21 +20,23 @@ export class AuthorizationSandbox extends Sandbox {
   roleLoading$ = this.store.pipe(select(selectors.getRoleLoading));
   roleLoaded$ = this.store.pipe(select(selectors.getRoleLoaded));
   roleFailed$ = this.store.pipe(select(selectors.getRoleFailed));
+
   rolesFetchData$ = this.store.pipe(select(selectors.getRolesFetchData));
   rolesFetchMeta$ = this.store.pipe(select(selectors.getRolesFetchMeta));
+  rolesLoading$ = this.store.pipe(select(selectors.getRolesLoading));
+  rolesLoaded$ = this.store.pipe(select(selectors.getRolesLoaded));
+  rolesFailed$ = this.store.pipe(select(selectors.getRolesFailed));
 
-  permissionFetchData$ = this.store.pipe(
-    select(selectors.getPermissionFetchData)
-  );
+  permissionFetchData$ = this.store.pipe(select(selectors.getPermissionFetchData));
   permissionLoading$ = this.store.pipe(select(selectors.getPermissionLoading));
   permissionLoaded$ = this.store.pipe(select(selectors.getPermissionLoaded));
   permissionFailed$ = this.store.pipe(select(selectors.getPermissionFailed));
-  permissionsFetchData$ = this.store.pipe(
-    select(selectors.getPermissionsFetchData)
-  );
-  permissionsFetchMeta$ = this.store.pipe(
-    select(selectors.getPermissionsFetchMeta)
-  );
+
+  permissionsFetchData$ = this.store.pipe(select(selectors.getPermissionsFetchData));
+  permissionsFetchMeta$ = this.store.pipe(select(selectors.getPermissionsFetchMeta));
+  permissionsLoading$ = this.store.pipe(select(selectors.getPermissionsLoading));
+  permissionsLoaded$ = this.store.pipe(select(selectors.getPermissionsLoaded));
+  permissionsFailed$ = this.store.pipe(select(selectors.getPermissionsFailed));
 
   constructor(protected store: Store<State>, protected injector: Injector) {
     super(injector);

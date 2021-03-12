@@ -1,10 +1,11 @@
+import { Type } from '@angular/core';
 import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
 
 export class FormHelper {
   // Validators
 
   /**
-   * Validates email based on the RegEx ^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$
+   * Validates email
    */
   static emailValidator(): ValidatorFn {
     const regEx = new RegExp(
@@ -39,7 +40,7 @@ export class FormHelper {
   }
 
   /**
-   *
+   * Validates if date of birth meets age requirement
    * @param minAge Minimum age (inclusive)
    */
   static dobValidator(minAge: number): ValidatorFn {
@@ -67,7 +68,7 @@ export class FormHelper {
   /**
    *
    * @param values Array of values to look in
-   * @returns true if control value is in the given array, false otherwise
+   * @returns true if control value is not in the given array, false otherwise
    */
   static notInValidator(values: any[]): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -76,20 +77,44 @@ export class FormHelper {
     };
   }
 
+  /**
+   * Validates float value
+   * @returns true if control value is a float
+   */
+  static isFloatValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const regex = new RegExp(String.raw`^\d+(\.\d+){0,1}$`);
+      const valid = regex.test(control.value);
+      return valid ? null : { value: { value: 'Data must be a number.' } };
+    };
+  }
+
+  /**
+   * Validates space separated unicodes
+   */
+  static unicodeValidator(): ValidatorFn {
+    const regEx = new RegExp(
+      String.raw`^(U\+[A-F1-9]{1,6})+( U\+[A-F1-9]{1,6})*$`
+    );
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const valid = regEx.test(control.value);
+      return valid ? null : { email: { value: 'Invalid unicode pattern!' } };
+    };
+  }
+
   // Helpers
   /**
    *
-   * @param e Element of type AbstractControl to test for validity.
+   * @param control The AbstractControl to test for validity.
    * @returns String with classes for invalid, valid or default form.
    */
-  static getFormClasses = (e: AbstractControl): string => {
-    if (e.touched && e.dirty && e.invalid) {
-      return 'form-control form-danger';
+  static getFormClasses = (control: AbstractControl): string => {
+    if (control.valid) {
+      return 'is-valid';
+    } else if (control.dirty && control.touched) {
+      return 'is-invalid';
     }
-    if (e.valid) {
-      return 'form-control form-success';
-    }
-    return 'form-control';
+    return '';
   };
 
   /**
@@ -120,10 +145,10 @@ export class FormHelper {
   // Private helpers
   /**
    *
-   * @param dob The date to compare with current date for age.
+   * @param dob The date string to compare with current date for age.
    * @returns Number representing the age.
    */
-  static getAge = (dob) => {
+  static getAge = (dob: string) => {
     const today = new Date();
     const birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
