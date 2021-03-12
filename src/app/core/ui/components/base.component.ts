@@ -64,5 +64,10 @@ export abstract class BaseComponent {
   isGranted(permissionName: string): boolean {
     return this.permissionCheckerService.isGranted(permissionName);
   }
+
+  protected unregisterEvents() {
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 }
