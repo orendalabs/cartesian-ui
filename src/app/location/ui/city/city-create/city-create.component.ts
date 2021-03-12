@@ -47,6 +47,10 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
     new SearchStateForm()
   ).limit(100000);
 
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
+
   constructor(
     protected injector: Injector,
     protected _sandbox: LocationSandbox) {
@@ -215,6 +219,34 @@ export class CityCreateComponent extends BaseComponent implements OnInit, AfterV
         this.statesFailed = failed;
       })
     );
+    this.subscriptions.push(
+      this._sandbox.cityLoading$.subscribe((loading) => {
+        if (loading) {
+          this.notify.info("Creating city");
+          this.config[5].disabled = true;
+        }
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.cityLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.notify.success("City created", "Success!");
+        }
+        this.config[5].disabled = false;
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.cityFailed$.subscribe((failed) => {
+        if (failed) {
+          this.notify.error("Could not create city", "Error!");
+        }
+        this.config[5].disabled = false;
+        this.failed = failed;
+      })
+    );
+
   }
 
   unregisterEvents(): void {
