@@ -94,7 +94,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       placeholder: 'Enter emoji unicode',
     },
     {
-      label: 'Create',
+      label: 'Save',
       name: 'submit',
       type: 'button',
       classes: 'btn btn-primary pull-right',
