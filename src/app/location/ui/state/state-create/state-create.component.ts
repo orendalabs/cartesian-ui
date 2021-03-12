@@ -24,6 +24,10 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
+
   countriesLoading: boolean;
   countriesLoaded: boolean;
   countriesFailed: boolean;
@@ -124,6 +128,33 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
         this.countriesFailed = failed;
       })
     );
+    this.subscriptions.push(
+      this._sandbox.stateLoading$.subscribe((loading) => {
+        this.loading = loading;
+        if (loading) {
+          this.notify.info('Creating state');
+          this.config[3].disabled = true;
+        }
+      })
+    )
+    this.subscriptions.push(
+      this._sandbox.stateLoaded$.subscribe((loaded) => {
+        this.loaded = loaded;
+        if (loaded) {
+          this.notify.success('State created', 'Success!');
+          this.config[3].disabled = false;
+        }
+      })
+    )
+    this.subscriptions.push(
+      this._sandbox.stateFailed$.subscribe((failed) => {
+        this.failed = failed;
+        if (failed) {
+          this.notify.error('Could not create state', 'Error!');
+          this.config[3].disabled = false;
+        }
+      })
+    )
   }
 
   unregisterEvents(): void {

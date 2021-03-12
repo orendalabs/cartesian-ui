@@ -45,6 +45,10 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
+
   countriesLoading: boolean;
   countriesLoaded: boolean;
   countriesFailed: boolean;
@@ -342,6 +346,33 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
           this.ui.clearBusy(this.formCard.nativeElement);
         }
         this.citiesFailed = failed;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.locationLoading$.subscribe((loading) => {
+        if (loading) {
+          this.notify.info('Creating location');
+          this.config[nameIndexMap.submit].disabled = true;
+        }
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.locationLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.notify.success('Location created', 'Success!');
+          this.config[nameIndexMap.submit].disabled = false;
+        }
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.locationFailed$.subscribe((failed) => {
+        if (failed) {
+          this.notify.error('Could not create location', 'Error!');
+          this.config[nameIndexMap.submit].disabled = false;
+        }
+        this.failed = failed;
       })
     );
   }

@@ -1,6 +1,6 @@
 <div class="animated fadeIn row">
   <div class="col-sm-12">
-    <button class="btn btn-danger mr-2 pull-right" (click)="delete()">
+    <button class="btn btn-danger mr-2 pull-right" (click)="delete()" [disabled]="loading">
       <i class="fa fa-trash"></i> Delete
     </button>
   </div>

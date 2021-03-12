@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country, Location, State } from '@app/location/models/domain';
@@ -150,6 +150,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
   loaded: boolean;
   loading: boolean;
   failed: boolean;
+  deleting: boolean;
 
   countriesLoading: boolean;
   countriesLoaded: boolean;
@@ -173,9 +174,10 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
   ).limit(100000);
 
   constructor(
-    protected injector: Injector,
-    protected _sandbox: LocationSandbox,
-    protected route: ActivatedRoute
+    private injector: Injector,
+    private _sandbox: LocationSandbox,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super(injector);
   }
@@ -188,16 +190,25 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
   }
 
   delete(): void {
-    if (
-      confirm(
-        'Are you sure you want to delete location ' + this.location.id + '?'
-      )
-    ) {
-      this._sandbox.deleteLocation(this.location.id);
-    }
+    this.message.confirm(
+        `Are you sure you want to delete location ${this.location.id}?`,
+        'Delete Location',
+        (result) => {
+          if (result) {
+            this.notify.info('Deleting location');
+            this.deleting = true;
+            this._sandbox.deleteLocation(this.location.id);
+          }
+        }
+      );
   }
 
   save(group): void {
+    if (this.loading) {
+      this.notify.warn('Please wait for the previous request', 'Warning!');
+      return;
+    }
+
     if (group.valid) {
       const noState = this.config[nameIndexMap.stateId].hidden;
       const noCity = this.config[nameIndexMap.cityId].hidden;
@@ -213,6 +224,8 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         longitude: group.controls['longitude'].value,
       });
       this._sandbox.updateLocation(form);
+    } else {
+      this.notify.warn('Invalid form data', 'Warning!');
     }
   }
 
@@ -227,6 +240,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       this._sandbox.locationLoading$.subscribe((loading: boolean) => {
         if (loading) {
           this.ui.setBusy(this.detailCard.nativeElement);
+          this.config[nameIndexMap.submit].disabled = true;
         }
         this.loading = loading;
       })
@@ -235,6 +249,11 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       this._sandbox.locationLoaded$.subscribe((loaded: boolean) => {
         if (loaded) {
           this.ui.clearBusy(this.detailCard.nativeElement);
+          this.config[nameIndexMap.submit].disabled = false;
+          if (this.deleting) {
+            this.notify.success('Location delete successfully', 'Success!');
+            this.router.navigate(['locations', 'locations']);
+          }
         }
         this.loaded = loaded;
       })
@@ -243,6 +262,11 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       this._sandbox.locationFailed$.subscribe((failed: boolean) => {
         if (failed) {
           this.ui.clearBusy(this.detailCard.nativeElement);
+          this.config[nameIndexMap.submit].disabled = false;
+          if (this.deleting) {
+            this.notify.error('Could not delete location', 'Error!');
+            this.deleting = false;
+          }
         }
         this.failed = failed;
       })

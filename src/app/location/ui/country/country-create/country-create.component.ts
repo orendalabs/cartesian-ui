@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { CountryCreateForm } from '@app/location/models/form';
 import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
@@ -9,7 +10,7 @@ import { FormHelper } from '@app/shared/helpers';
   selector: 'country-create',
   templateUrl: './country-create.component.html',
 })
-export class CountryCreateComponent implements OnInit {
+export class CountryCreateComponent extends BaseComponent implements OnInit {
   config: FieldConfig[] = [
     {
       type: 'input',
@@ -95,11 +96,20 @@ export class CountryCreateComponent implements OnInit {
       classes: 'btn btn-primary pull-right',
     },
   ];
-  constructor(protected _sandbox: LocationSandbox) {}
+  constructor(
+    private injector: Injector,
+    private _sandbox: LocationSandbox) {
+      super(injector);
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.registerEvents();
+  }
 
   create(group): void {
+    if (this.config[11].disabled) {
+      this.notify.warn('Please wait for the previous request', 'Warning!');
+    }
     if (group.valid) {
       const form = new CountryCreateForm({
         name: group.controls.name.value,
@@ -115,6 +125,29 @@ export class CountryCreateComponent implements OnInit {
         emojiUnicode: group.controls.emojiUnicode.value,
       });
       this._sandbox.createCountry(form);
+    } else {
+      this.notify.warn('Invalid data', 'Warning!');
     }
+  }
+
+  registerEvents() {
+    this._sandbox.countryLoading$.subscribe((loading) => {
+      if (loading) {
+        this.notify.info('Creating country');
+      }
+      this.config[11].disabled = true;
+    });
+    this._sandbox.countryLoaded$.subscribe((loaded) => {
+      if (loaded) {
+        this.notify.success('Country created', 'Success!');
+      }
+      this.config[11].disabled = false;
+    });
+    this._sandbox.countryFailed$.subscribe((failed) => {
+      if (failed) {
+        this.notify.error('Could not create country', 'Error!');
+      }
+      this.config[11].disabled = false;
+    });
   }
 }

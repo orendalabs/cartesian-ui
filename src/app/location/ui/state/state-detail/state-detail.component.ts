@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country, State } from '@app/location/models/domain';
@@ -21,7 +21,9 @@ import { Subscription } from 'rxjs';
   selector: 'state-detail',
   templateUrl: './state-detail.component.html',
 })
-export class StateDetailComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class StateDetailComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit {
   @ViewChild('detailCard') detailCard: ElementRef;
   @ViewChild('formCard') formCard: ElementRef;
 
@@ -61,6 +63,7 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
   loaded: boolean;
   loading: boolean;
   failed: boolean;
+  deleting: boolean;
 
   countries: Country[] = [];
   countriesLoading: boolean;
@@ -72,9 +75,10 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
   ).limit(100000);
 
   constructor(
-    protected injector: Injector,
-    protected _sandbox: LocationSandbox,
-    protected route: ActivatedRoute
+    private injector: Injector,
+    private _sandbox: LocationSandbox,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super(injector);
   }
@@ -87,16 +91,22 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
   }
 
   delete(): void {
-    if (
-      confirm(
-        'Are you sure you want to delete country ' + this.state.name + '?'
-      )
-    ) {
-      this._sandbox.deleteState(this.state.id);
-    }
+    this.message.confirm(
+      `Are you sure you want to delete country ${this.state.name}?`,
+      'Delete State',
+      (result) => {
+        if (result) {
+          this._sandbox.deleteState(this.state.id);
+        }
+      }
+    );
   }
 
   save(group): void {
+    if (this.loading) {
+      this.notify.warn('Please wait for the previous request', 'Warning!');
+      return;
+    }
     if (group.valid) {
       const form = new StateUpdateForm({
         id: this.state.id,
@@ -105,6 +115,8 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
         code: group.controls.code.value,
       });
       this._sandbox.updateState(form);
+    } else {
+      this.notify.warn('Invalid form data', 'Warning!');
     }
   }
 
@@ -119,6 +131,7 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
       this._sandbox.stateLoading$.subscribe((loading) => {
         if (loading) {
           this.ui.setBusy(this.detailCard.nativeElement);
+          this.config[3].disabled = true;
         }
         this.loading = loading;
       })
@@ -127,6 +140,11 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
       this._sandbox.stateLoaded$.subscribe((loaded) => {
         if (loaded) {
           this.ui.clearBusy(this.detailCard.nativeElement);
+          if (this.deleting) {
+            this.notify.success('State deleted', 'Success!');
+            this.router.navigate(['locations', 'states']);
+          }
+          this.config[3].disabled = false;
         }
         this.loaded = loaded;
       })
@@ -135,6 +153,11 @@ export class StateDetailComponent extends BaseComponent implements OnInit, After
       this._sandbox.stateFailed$.subscribe((failed) => {
         if (failed) {
           this.ui.clearBusy(this.detailCard.nativeElement);
+          if (this.deleting) {
+            this.notify.error('Could not delete state', 'Error!');
+            this.deleting = false;
+          }
+          this.config[3].disabled = false;
         }
         this.failed = failed;
       })

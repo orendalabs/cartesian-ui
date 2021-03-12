@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { Country } from '@app/location/models/domain';
@@ -106,11 +106,13 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
   loaded: boolean;
   loading: boolean;
   failed: boolean;
+  deleting: boolean = false;
 
   constructor(
-    protected injector: Injector,
-    protected _sandbox: LocationSandbox,
-    protected route: ActivatedRoute
+    private injector: Injector,
+    private _sandbox: LocationSandbox,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super(injector);
   }
@@ -124,13 +126,17 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
   }
 
   delete(): void {
-    if (
-      confirm(
-        'Are you sure you want to delete country ' + this.country.name + '?'
-      )
-    ) {
-      this._sandbox.deleteCountry(this.country.id);
-    }
+    this.message.confirm(
+      `Are you sure you want to delete country ${this.country.name}?`,
+      'Delete Country',
+      (result) => {
+        if (result) {
+          this.notify.info('Deleting country');
+          this.deleting = true;
+          this._sandbox.deleteCountry(this.country.id);
+        };
+      }
+    );
   }
 
   save(group): void {
@@ -175,6 +181,10 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
         (loaded: boolean) => {
           if (loaded) {
             this.ui.clearBusy(this.detailCard.nativeElement);
+            if (this.deleting) {
+              this.notify.success('Country deleted', 'Success!');
+              this.router.navigate(['locations', 'countries']);
+            }
           }
           this.loaded = loaded;
         }
@@ -185,6 +195,9 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
         (failed: boolean) => {
           if (failed) {
             this.ui.clearBusy(this.detailCard.nativeElement);
+            if (this.deleting) {
+              this.notify.success('Could not delete country', 'Error!');
+            }
           }
           this.failed = failed;
         }
