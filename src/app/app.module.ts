@@ -28,6 +28,7 @@ import * as _ from 'lodash';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { TenantModule } from './tenant/tenant.module';
 
 export function getCurrentLanguage(): string {
   if (axis.localization.currentLanguage.name) {
@@ -55,6 +56,7 @@ export function getCurrentLanguage(): string {
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot(),
+    TenantModule,
   ],
   declarations: [AppComponent],
   providers: [
