@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-authorization',
-  templateUrl: './authorization.component.html',
+  template: `<router-outlet></router-outlet>`,
 })
 export class AuthorizationComponent implements OnInit {
   constructor() {}

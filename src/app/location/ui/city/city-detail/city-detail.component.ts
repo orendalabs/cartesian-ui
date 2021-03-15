@@ -54,7 +54,7 @@ export class CityDetailComponent extends BaseComponent implements OnInit, AfterV
   ).limit(100000);
 
   constructor(
-    private injector: Injector,
+    injector: Injector,
     private _sandbox: LocationSandbox,
     private route: ActivatedRoute,
     private router: Router

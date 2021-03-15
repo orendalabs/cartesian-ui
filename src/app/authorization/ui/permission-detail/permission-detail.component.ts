@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
 import { Permission } from '@app/authorization/models/permission.model';
 import { BaseComponent } from '@app/core/ui';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'permission-detail',
@@ -19,7 +18,7 @@ export class PermissionDetailComponent extends BaseComponent implements OnInit {
   constructor(
     private _sandbox: AuthorizationSandbox,
     private route: ActivatedRoute,
-    private injector: Injector
+    injector: Injector
   ) {
     super(injector);
     this.registerEvents();

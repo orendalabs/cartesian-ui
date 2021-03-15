@@ -1,6 +1,4 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   Injector,
@@ -25,7 +23,7 @@ export class RoleDetailPermissionsComponent
   selectedPermissions: Permission[] = [];
   constructor(
     protected _sandbox: AuthorizationSandbox,
-    private injector: Injector
+    injector: Injector
   ) {
     super(injector);
   }

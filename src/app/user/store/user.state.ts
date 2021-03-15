@@ -1,5 +1,4 @@
 import { User } from '@app/user/models';
-import { IPaginationModel } from '@app/core/models';
 import {
   RoleDetailState,
   RoleListingState,

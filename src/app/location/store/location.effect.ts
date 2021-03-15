@@ -6,7 +6,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { State } from '@app/app.store';
 import { LocationHttpService } from '../shared';
 import * as locationActions from './location.action';
-import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
 
 @Injectable()
 export class LocationEffects {

@@ -1,5 +1,4 @@
 import { Injectable, Injector } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';

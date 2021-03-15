@@ -6,7 +6,6 @@ import {
 } from '@ngrx/store';
 import { UserState } from './user.state';
 import { userFeatureKey } from './user.reducer';
-import { AuthorizationState } from '@app/authorization/store/auth.state';
 
 export const getUserState = createFeatureSelector<UserState>(userFeatureKey);
 

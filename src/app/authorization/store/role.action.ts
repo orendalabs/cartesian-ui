@@ -4,7 +4,6 @@ import { type, RequestCriteria } from '@cartesian-ui/ng-axis';
 import { ManageRoleForm } from '../models/manage/role.model';
 import { SearchRoleForm } from '../models/form/search-role.model';
 import { RoleUpdateForm } from '../models/update/role-update.model';
-import { RoleDeleteForm } from '../models/delete/role.model';
 import { CreateRoleForm } from '../models/create/role.model';
 
 /**

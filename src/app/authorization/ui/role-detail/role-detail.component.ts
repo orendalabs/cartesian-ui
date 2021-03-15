@@ -53,7 +53,7 @@ export class RoleDetailComponent
   subscriptions: Subscription[] = [];
 
   constructor(
-    protected injector: Injector,
+    injector: Injector,
     protected route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     protected _sandbox: AuthorizationSandbox

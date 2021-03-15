@@ -26,7 +26,7 @@ export class UserCreateComponent extends BaseComponent implements OnInit, OnDest
   loaded: boolean;
   failed: boolean;
 
-  constructor(protected injector: Injector, protected _sandbox: UserSandbox) {
+  constructor(injector: Injector, protected _sandbox: UserSandbox) {
     super(injector);
   }
 

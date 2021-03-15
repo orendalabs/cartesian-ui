@@ -7,7 +7,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country } from '@app/location/models/domain';
 import { FormHelper } from '@app/shared/helpers';
@@ -73,7 +73,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
 
   config: FieldConfig[];
 
-  constructor(protected injector: Injector,
+  constructor(injector: Injector,
      protected _sandbox: LocationSandbox) {
       super(injector);
   }

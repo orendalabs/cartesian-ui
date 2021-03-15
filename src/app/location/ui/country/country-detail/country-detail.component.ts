@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
@@ -121,7 +121,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
   deleting: boolean = false;
 
   constructor(
-    private injector: Injector,
+    injector: Injector,
     private _sandbox: LocationSandbox,
     private route: ActivatedRoute,
     private router: Router

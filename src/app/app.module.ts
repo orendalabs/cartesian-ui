@@ -21,7 +21,6 @@ import { AppSandbox } from './app.sandbox';
 // Third Party
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import * as _ from 'lodash';
 
@@ -51,7 +50,6 @@ export function getCurrentLanguage(): string {
     AppRoutingModule,
     ModalModule.forRoot(),
     BsDropdownModule.forRoot(),
-    // CollapseModule.forRoot(),
     TabsModule.forRoot(),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),

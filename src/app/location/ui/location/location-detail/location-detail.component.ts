@@ -183,7 +183,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
   ).limit(100000);
 
   constructor(
-    private injector: Injector,
+    injector: Injector,
     private _sandbox: LocationSandbox,
     private route: ActivatedRoute,
     private router: Router

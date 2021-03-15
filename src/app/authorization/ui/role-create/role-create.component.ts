@@ -15,7 +15,7 @@ export class RoleCreateComponent extends BaseComponent implements OnInit, OnDest
     displayName: new FormControl(''),
   });
   constructor(
-    private injector: Injector,
+    injector: Injector,
     private _sandbox: AuthorizationSandbox
   ) {
       super(injector);

@@ -70,7 +70,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
     },
   ];
 
-  constructor(protected injector: Injector,
+  constructor(injector: Injector,
     protected _sandbox: LocationSandbox) {
       super(injector);
     }

@@ -79,7 +79,7 @@ export class StateDetailComponent
   ).limit(100000);
 
   constructor(
-    private injector: Injector,
+    injector: Injector,
     private _sandbox: LocationSandbox,
     private route: ActivatedRoute,
     private router: Router

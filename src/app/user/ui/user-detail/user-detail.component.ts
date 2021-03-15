@@ -20,7 +20,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   constructor(
     protected route: ActivatedRoute,
     protected _sandbox: UserSandbox,
-    protected injector: Injector
+    injector: Injector
   ) {
     super(injector);
   }
