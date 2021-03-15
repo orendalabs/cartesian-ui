@@ -12,6 +12,7 @@ import { UserSandbox } from '@app/user/user.sandbox';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
 import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
+import { ListHelper } from '@app/shared/helpers/list.helper';
 
 @Component({
   selector: 'user-update',
@@ -240,13 +241,7 @@ export class UserUpdateComponent
   }
 
   isRoleListChanged(): boolean {
-    if (this.user.roles.length !== this.addedItems.length) {
-      return true;
-    }
-
-    return (this.user.roles.some((role) => {
-      return !this.addedItems.find((item) => item.id === role.id);
-    }))
+    return !ListHelper.compareListData(this.user.roles, this.addedItems, 'id');
   }
 
   isUserDataChanged(): boolean {
