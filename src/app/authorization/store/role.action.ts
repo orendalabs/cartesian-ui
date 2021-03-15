@@ -12,7 +12,7 @@ import { CreateRoleForm } from '../models/create/role.model';
  */
 export const doFetchRole = createAction(
   type('[Auth] Do Fetch Role'),
-  props<{ id: string }>()
+  props<{ id: string, criteria: RequestCriteria<SearchRoleForm> }>()
 );
 export const doFetchRoleSuccess = createAction(
   type('[Auth] Do Fetch Role Success'),

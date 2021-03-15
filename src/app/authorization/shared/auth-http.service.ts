@@ -14,6 +14,7 @@ import {
 } from '@cartesian-ui/ng-axis';
 import { Observable } from 'rxjs';
 import { CreateRoleForm } from '../models/create/role.model';
+import { SearchRoleForm } from '../models/form/search-role.model';
 import { ManagePermissionForm } from '../models/manage/permission.model';
 import { ManageRoleForm } from '../models/manage/role.model';
 
@@ -52,7 +53,7 @@ export class AuthHttpService extends HttpService {
   }
 
   @GET('/roles/{id}')
-  public fetchRoleById(@Path('id') id: string): Observable<any> {
+  public fetchRoleById(@Path('id') id: string, @Criteria criteria: RequestCriteria<SearchRoleForm>): Observable<any> {
     return null;
   }
 

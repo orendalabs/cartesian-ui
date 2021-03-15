@@ -19,6 +19,7 @@ import { FormHelper } from '@app/shared/helpers';
 import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
+import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 
 @Component({
   selector: 'role-detail',
@@ -34,6 +35,9 @@ export class RoleDetailComponent
   loaded;
   loading;
   failed;
+  roleCriteria = new RequestCriteria<SearchRoleForm>(
+    new SearchRoleForm()
+  ).with('permissions');
 
   permissionsLoading: boolean;
   permissionsLoaded: boolean;
@@ -43,7 +47,7 @@ export class RoleDetailComponent
   permissionFailed: boolean;
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(
     new SearchPermissionForm()
-  );
+  )
 
   subscriptions: Subscription[] = [];
 
@@ -66,7 +70,7 @@ export class RoleDetailComponent
 
   ngAfterViewInit(): void {
     this.registerEvents();
-    this._sandbox.fetchRoleById(this.roleId);
+    this._sandbox.fetchRoleById(this.roleId, this.roleCriteria);
     this.fetchPermissions();
   }
 

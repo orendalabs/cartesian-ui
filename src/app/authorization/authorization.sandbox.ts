@@ -54,8 +54,8 @@ export class AuthorizationSandbox extends Sandbox {
     this.store.dispatch(roleActions.doFetchRoles({ requestCriteria }));
   };
 
-  fetchRoleById = (id: string) => {
-    this.store.dispatch(roleActions.doFetchRole({ id }));
+  fetchRoleById = (id: string, criteria: RequestCriteria<SearchRoleForm>) => {
+    this.store.dispatch(roleActions.doFetchRole({ id, criteria }));
   };
 
   createRole = (form: CreateRoleForm) => {
