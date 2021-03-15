@@ -19,6 +19,7 @@ import { FormHelper } from '@app/shared/helpers';
 import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
+import { ListHelper } from '@app/shared/helpers/list.helper';
 import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 
 @Component({
@@ -186,11 +187,22 @@ export class RoleDetailComponent
   }
 
   sync() {
-    const permsIds = this.addedItems.map((perm) => perm.id);
-    const form: ManagePermissionForm = {
-      roleId: this.roleId,
-      permissionsIds: permsIds,
-    };
-    this._sandbox.syncPermissionsOnRole(form);
+    if (this.permissionsLoading || this.loading) {
+      this.notify.warn("Please wait for the loading to finish", "Warning!");
+    } else if (this.isPermissionListChanged()) {
+      const permsIds = this.addedItems.map((perm) => perm.id);
+      const form: ManagePermissionForm = {
+        roleId: this.roleId,
+        permissionsIds: permsIds,
+      };
+      this._sandbox.syncPermissionsOnRole(form);
+    } else {
+      this.notify.info("No changes to update!");
+    }
+  }
+
+  isPermissionListChanged(): boolean {
+    return !ListHelper.compareListData(this.role.permissions.data, this.addedItems, 'id');
   }
 }
+
