@@ -1,1 +1,1 @@
-export { Tenant } from './tenant.model'
+export { Tenant } from './tenant.model';

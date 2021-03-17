@@ -1,1 +1,1 @@
-export * from './tenant-http.service'
+export * from './tenant-http.service';

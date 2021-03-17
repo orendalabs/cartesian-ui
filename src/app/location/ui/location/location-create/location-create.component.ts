@@ -42,7 +42,9 @@ enum nameIndexMap {
   selector: 'location-create',
   templateUrl: './location-create.component.html',
 })
-export class LocationCreateComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LocationCreateComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
@@ -73,9 +75,8 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
 
   config: FieldConfig[];
 
-  constructor(injector: Injector,
-     protected _sandbox: LocationSandbox) {
-      super(injector);
+  constructor(injector: Injector, protected _sandbox: LocationSandbox) {
+    super(injector);
   }
 
   ngOnInit(): void {
@@ -98,28 +99,28 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         label: 'Locatable Type',
         name: 'locatableType',
         validation: [Validators.required],
-        invalidMessage: 'Please enter a locatable Type'
+        invalidMessage: 'Please enter a locatable Type',
       },
       {
         type: 'input',
         label: 'Locatable ID',
         name: 'locatableId',
         validation: [Validators.required],
-        invalidMessage: 'Please enter a locatable ID'
+        invalidMessage: 'Please enter a locatable ID',
       },
       {
         type: 'input',
         label: 'Address Line 1',
         name: 'addressLine1',
         validation: [Validators.required],
-        invalidMessage: 'Please enter an address'
+        invalidMessage: 'Please enter an address',
       },
       {
         type: 'input',
         label: 'Address Line 2',
         name: 'addressLine2',
         validation: [Validators.required],
-        invalidMessage: 'Please enter an address'
+        invalidMessage: 'Please enter an address',
       },
       {
         type: 'select',
@@ -147,7 +148,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         },
         placeholder: 'Select Country...',
         validation: [Validators.required],
-        invalidMessage: 'Please select a valid country'
+        invalidMessage: 'Please select a valid country',
       },
       {
         type: 'select',
@@ -168,7 +169,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         },
         hidden: true,
         placeholder: 'Select State...',
-        invalidMessage: 'Please select a valid state'
+        invalidMessage: 'Please select a valid state',
       },
       {
         type: 'select',
@@ -177,14 +178,14 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         options: [],
         hidden: true,
         placeholder: 'Select City...',
-        invalidMessage: 'Please select a valid city '
+        invalidMessage: 'Please select a valid city ',
       },
       {
         type: 'input',
         label: 'Post Code',
         name: 'postCode',
         validation: [Validators.required],
-        invalidMessage: 'Please enter a post code'
+        invalidMessage: 'Please enter a post code',
       },
       {
         type: 'input',
@@ -196,7 +197,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
           Validators.min(-90),
           Validators.max(90),
         ],
-        invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)'
+        invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)',
       },
       {
         type: 'input',
@@ -208,7 +209,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
           Validators.min(-180),
           Validators.max(180),
         ],
-        invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)'
+        invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)',
       },
       {
         label: 'Create',
@@ -224,16 +225,16 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
       const noState = this.config[nameIndexMap.stateId].hidden;
       const noCity = this.config[nameIndexMap.cityId].hidden;
       const form = new LocationCreateForm({
-        locatableType: group.controls['locatableType'].value,
-        locatableId: group.controls['locatableId'].value,
-        addressLine1: group.controls['addressLine1'].value,
-        addressLine2: group.controls['addressLine2'].value,
-        countryId: group.controls['countryId'].value,
-        stateId: noState ? '' : group.controls['stateId'].value,
-        cityId: noCity ? '' : group.controls['cityId'].value,
-        postCode: group.controls['postCode'].value,
-        latitude: group.controls['latitude'].value,
-        longitude: group.controls['longitude'].value,
+        locatableType: group.controls.locatableType.value,
+        locatableId: group.controls.locatableId.value,
+        addressLine1: group.controls.addressLine1.value,
+        addressLine2: group.controls.addressLine2.value,
+        countryId: group.controls.countryId.value,
+        stateId: noState ? '' : group.controls.stateId.value,
+        cityId: noCity ? '' : group.controls.cityId.value,
+        postCode: group.controls.postCode.value,
+        latitude: group.controls.latitude.value,
+        longitude: group.controls.longitude.value,
       });
       this._sandbox.createLocation(form);
     }
@@ -365,7 +366,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     );
     this.subscriptions.push(
       this._sandbox.locationLoading$.subscribe((loading) => {
-        if (loading && this.loading != undefined) {
+        if (loading && this.loading !== undefined) {
           this.notify.info('Creating location');
           this.config[nameIndexMap.submit].disabled = true;
         }
@@ -374,7 +375,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     );
     this.subscriptions.push(
       this._sandbox.locationLoaded$.subscribe((loaded) => {
-        if (loaded && this.loaded != undefined) {
+        if (loaded && this.loaded !== undefined) {
           this.notify.success('Location created', 'Success!');
           this.config[nameIndexMap.submit].disabled = false;
         }
@@ -383,7 +384,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     );
     this.subscriptions.push(
       this._sandbox.locationFailed$.subscribe((failed) => {
-        if (failed && this.failed != undefined) {
+        if (failed && this.failed !== undefined) {
           this.notify.error('Could not create location', 'Error!');
           this.config[nameIndexMap.submit].disabled = false;
         }

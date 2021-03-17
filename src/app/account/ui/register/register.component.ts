@@ -25,7 +25,9 @@ import { FormHelper } from '@shared/helpers/form.helper';
   templateUrl: './register.component.html',
   animations: [accountModuleAnimation()],
 })
-export class RegisterComponent extends BaseComponent implements OnInit, OnDestroy {
+export class RegisterComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   formGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -71,7 +73,7 @@ export class RegisterComponent extends BaseComponent implements OnInit, OnDestro
 
   save(): void {
     if (this.loading) {
-      this.notify.warn("Please wait for previous request", "Warning!");
+      this.notify.warn('Please wait for previous request', 'Warning!');
     } else if (this.formGroup.valid) {
       const form = new RegisterForm();
       form.email = this.formGroup.controls.email.value;
@@ -81,7 +83,7 @@ export class RegisterComponent extends BaseComponent implements OnInit, OnDestro
       form.birth = this.formGroup.controls.dob.value;
       this._sandbox.register(form);
     } else {
-      this.notify.warn("Invalid form data", "Warning!");
+      this.notify.warn('Invalid form data', 'Warning!');
     }
     // this.saving = true;
     // this._accountService

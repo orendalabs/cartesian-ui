@@ -88,7 +88,7 @@ export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
 
   login(): void {
     if (this.loading) {
-      this.notify.warn("Please wait for previous request", "Warning!");
+      this.notify.warn('Please wait for previous request', 'Warning!');
     } else if (this.formGroup.valid) {
       const form = new LoginForm();
       form.email = this.formGroup.controls.email.value;
@@ -96,7 +96,7 @@ export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
       // form.remember = this.formGroup.controls['remember'].value;
       this._sandbox.authenticate(form);
     } else {
-      this.notify.warn("Invalid form data", "Warning!");
+      this.notify.warn('Invalid form data', 'Warning!');
     }
   }
 

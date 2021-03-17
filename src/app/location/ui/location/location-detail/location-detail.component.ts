@@ -40,7 +40,9 @@ enum nameIndexMap {
   selector: 'location-detail',
   templateUrl: './location-detail.component.html',
 })
-export class LocationDetailComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class LocationDetailComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
   @ViewChild('formCard') formCard: ElementRef;
 
@@ -50,14 +52,14 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       label: 'Address Line 1',
       name: 'addressLine1',
       validation: [Validators.required],
-      invalidMessage: 'Please enter an address'
+      invalidMessage: 'Please enter an address',
     },
     {
       type: 'input',
       label: 'Address Line 2',
       name: 'addressLine2',
       validation: [Validators.required],
-      invalidMessage: 'Please enter an address'
+      invalidMessage: 'Please enter an address',
     },
     {
       type: 'select',
@@ -85,7 +87,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       },
       placeholder: 'Select Country...',
       validation: [Validators.required],
-      invalidMessage: 'Please select a valid country'
+      invalidMessage: 'Please select a valid country',
     },
     {
       type: 'select',
@@ -105,7 +107,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         this._sandbox.fetchCities(this.citiesCriteria);
       },
       placeholder: 'Select State...',
-      invalidMessage: 'Please select a valid state'
+      invalidMessage: 'Please select a valid state',
     },
     {
       type: 'select',
@@ -113,14 +115,14 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       name: 'cityId',
       options: [],
       placeholder: 'Select City...',
-      invalidMessage: 'Please select a valid city '
+      invalidMessage: 'Please select a valid city ',
     },
     {
       type: 'input',
       label: 'Post Code',
       name: 'postCode',
       validation: [Validators.required],
-      invalidMessage: 'Please enter a post code'
+      invalidMessage: 'Please enter a post code',
     },
     {
       type: 'input',
@@ -132,7 +134,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         Validators.min(-90),
         Validators.max(90),
       ],
-      invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)'
+      invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)',
     },
     {
       type: 'input',
@@ -144,7 +146,7 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
         Validators.min(-180),
         Validators.max(180),
       ],
-      invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)'
+      invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)',
     },
     {
       label: 'Save',
@@ -204,16 +206,16 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
 
   delete(): void {
     this.message.confirm(
-        `Are you sure you want to delete location ${this.location.id}?`,
-        'Delete Location',
-        (result) => {
-          if (result) {
-            this.notify.info('Deleting location');
-            this.deleting = true;
-            this._sandbox.deleteLocation(this.location.id);
-          }
+      `Are you sure you want to delete location ${this.location.id}?`,
+      'Delete Location',
+      (result) => {
+        if (result) {
+          this.notify.info('Deleting location');
+          this.deleting = true;
+          this._sandbox.deleteLocation(this.location.id);
         }
-      );
+      }
+    );
   }
 
   save(group): void {
@@ -227,14 +229,14 @@ export class LocationDetailComponent extends BaseComponent implements OnInit, Af
       const noCity = this.config[nameIndexMap.cityId].hidden;
       const form = new LocationUpdateForm({
         id: this.location.id,
-        addressLine1: group.controls['addressLine1'].value,
-        addressLine2: group.controls['addressLine2'].value,
-        countryId: group.controls['countryId'].value,
-        stateId: noState ? '' : group.controls['stateId'].value,
-        cityId: noCity ? '' : group.controls['cityId'].value,
-        postCode: group.controls['postCode'].value,
-        latitude: group.controls['latitude'].value,
-        longitude: group.controls['longitude'].value,
+        addressLine1: group.controls.addressLine1.value,
+        addressLine2: group.controls.addressLine2.value,
+        countryId: group.controls.countryId.value,
+        stateId: noState ? '' : group.controls.stateId.value,
+        cityId: noCity ? '' : group.controls.cityId.value,
+        postCode: group.controls.postCode.value,
+        latitude: group.controls.latitude.value,
+        longitude: group.controls.longitude.value,
       });
       this._sandbox.updateLocation(form);
     } else {

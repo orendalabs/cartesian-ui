@@ -21,7 +21,9 @@ import { Subscription } from 'rxjs';
   selector: 'state-create',
   templateUrl: './state-create.component.html',
 })
-export class StateCreateComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class StateCreateComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
 
@@ -44,7 +46,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
       options: [],
       placeholder: 'Select Country...',
       validation: [Validators.required],
-      invalidMessage: 'Please select a valid country'
+      invalidMessage: 'Please select a valid country',
     },
     {
       type: 'input',
@@ -52,7 +54,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
       name: 'name',
       validation: [Validators.required],
       placeholder: 'Enter name',
-      invalidMessage: 'Please enter a name'
+      invalidMessage: 'Please enter a name',
     },
     {
       type: 'input',
@@ -60,7 +62,7 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
       name: 'code',
       validation: [Validators.required],
       placeholder: 'Enter code',
-      invalidMessage: 'Please enter a code'
+      invalidMessage: 'Please enter a code',
     },
     {
       label: 'Create',
@@ -70,10 +72,9 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
     },
   ];
 
-  constructor(injector: Injector,
-    protected _sandbox: LocationSandbox) {
-      super(injector);
-    }
+  constructor(injector: Injector, protected _sandbox: LocationSandbox) {
+    super(injector);
+  }
 
   ngOnInit(): void {}
 
@@ -138,31 +139,31 @@ export class StateCreateComponent extends BaseComponent implements OnInit, After
     );
     this.subscriptions.push(
       this._sandbox.stateLoading$.subscribe((loading) => {
-        if (loading && this.loading != undefined) {
+        if (loading && this.loading !== undefined) {
           this.notify.info('Creating state');
           this.config[3].disabled = true;
         }
         this.loading = loading;
       })
-    )
+    );
     this.subscriptions.push(
       this._sandbox.stateLoaded$.subscribe((loaded) => {
-        if (loaded && this.loaded != undefined) {
+        if (loaded && this.loaded !== undefined) {
           this.notify.success('State created', 'Success!');
           this.config[3].disabled = false;
         }
         this.loaded = loaded;
       })
-    )
+    );
     this.subscriptions.push(
       this._sandbox.stateFailed$.subscribe((failed) => {
-        if (failed && this.failed != undefined) {
+        if (failed && this.failed !== undefined) {
           this.notify.error('Could not create state', 'Error!');
           this.config[3].disabled = false;
         }
         this.failed = failed;
       })
-    )
+    );
   }
 
   setCountryValidators(): void {

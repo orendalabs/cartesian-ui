@@ -9,7 +9,9 @@ import { BaseComponent } from '@app/core/ui';
   selector: 'user-create',
   templateUrl: './user-create.component.html',
 })
-export class UserCreateComponent extends BaseComponent implements OnInit, OnDestroy {
+export class UserCreateComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   formGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [
@@ -52,7 +54,7 @@ export class UserCreateComponent extends BaseComponent implements OnInit, OnDest
   registerEvents() {
     this.subscriptions.push(
       this._sandbox.userLoading$.subscribe((loading) => {
-        if (loading && this.loading != undefined) {
+        if (loading && this.loading !== undefined) {
           this.notify.info('Creating user');
         }
         this.loading = loading;
@@ -60,7 +62,7 @@ export class UserCreateComponent extends BaseComponent implements OnInit, OnDest
     );
     this.subscriptions.push(
       this._sandbox.userLoaded$.subscribe((loaded) => {
-        if (loaded && this.loaded != undefined) {
+        if (loaded && this.loaded !== undefined) {
           this.notify.success('User Created', 'Success!');
         }
         this.loaded = loaded;
@@ -68,7 +70,7 @@ export class UserCreateComponent extends BaseComponent implements OnInit, OnDest
     );
     this.subscriptions.push(
       this._sandbox.userFailed$.subscribe((failed) => {
-        if (failed && this.failed != undefined) {
+        if (failed && this.failed !== undefined) {
           this.notify.error('User creation failed', 'Error!');
         }
         this.failed = failed;

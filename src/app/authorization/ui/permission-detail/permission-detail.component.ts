@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
 import { Permission } from '@app/authorization/models/permission.model';
@@ -8,7 +8,9 @@ import { BaseComponent } from '@app/core/ui';
   selector: 'permission-detail',
   templateUrl: './permission-detail.component.html',
 })
-export class PermissionDetailComponent extends BaseComponent implements OnInit {
+export class PermissionDetailComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   permission: Permission = null;
 
   loading: boolean;

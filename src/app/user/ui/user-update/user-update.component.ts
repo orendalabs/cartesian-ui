@@ -1,4 +1,11 @@
-import { Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Injector,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormHelper } from '@shared/helpers';
@@ -31,8 +38,8 @@ export class UserUpdateComponent
     ]),
   });
 
-  updatingRoles: boolean = false;
-  updatingDetail: boolean = false;
+  updatingRoles = false;
+  updatingDetail = false;
 
   loading: boolean;
   loaded: boolean;
@@ -163,7 +170,7 @@ export class UserUpdateComponent
 
   sync() {
     if (this.loading) {
-      this.notify.warn("Please wait for the previous request", "Warning!");
+      this.notify.warn('Please wait for the previous request', 'Warning!');
       return;
     }
     this.updatingRoles = this.isRoleListChanged();
@@ -198,7 +205,7 @@ export class UserUpdateComponent
         ? 'Are you sure you want to remove all roles?'
         : 'Are you sure you want to save the following roles?\n\t- ' +
           roleNames.join('\n\t- ');
-    this.message.confirm(message, "Confirm Action", (res) => {
+    this.message.confirm(message, 'Confirm Action', (res) => {
       if (res) {
         this._sandbox.syncRolesOnUser(form);
         this.notify.info('Updating Roles');
@@ -230,7 +237,7 @@ export class UserUpdateComponent
 
   addRole() {
     if (this.loading) {
-      this.notify.warn("Please wait for the previous request", "Warning!");
+      this.notify.warn('Please wait for the previous request', 'Warning!');
       return;
     }
     this.addItem(Role.getRoleByName(this.control.value, this.items));

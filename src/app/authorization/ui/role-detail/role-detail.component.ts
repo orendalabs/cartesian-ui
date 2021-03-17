@@ -36,9 +36,9 @@ export class RoleDetailComponent
   loaded;
   loading;
   failed;
-  roleCriteria = new RequestCriteria<SearchRoleForm>(
-    new SearchRoleForm()
-  ).with('permissions');
+  roleCriteria = new RequestCriteria<SearchRoleForm>(new SearchRoleForm()).with(
+    'permissions'
+  );
 
   permissionsLoading: boolean;
   permissionsLoaded: boolean;
@@ -48,7 +48,7 @@ export class RoleDetailComponent
   permissionFailed: boolean;
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(
     new SearchPermissionForm()
-  )
+  );
 
   subscriptions: Subscription[] = [];
 
@@ -65,9 +65,7 @@ export class RoleDetailComponent
     ]);
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.registerEvents();
@@ -152,24 +150,24 @@ export class RoleDetailComponent
     );
     this.subscriptions.push(
       this._sandbox.permissionLoading$.subscribe((loading) => {
-        if (loading && this.permissionLoading != undefined) {
-          this.notify.info("Updating permissions");
+        if (loading && this.permissionLoading !== undefined) {
+          this.notify.info('Updating permissions');
         }
         this.permissionLoading = loading;
       })
     );
     this.subscriptions.push(
       this._sandbox.permissionLoaded$.subscribe((loaded) => {
-        if (loaded && this.permissionLoaded != undefined) {
-          this.notify.success("Permissions updated", "Success!");
+        if (loaded && this.permissionLoaded !== undefined) {
+          this.notify.success('Permissions updated', 'Success!');
         }
         this.permissionLoaded = loaded;
       })
     );
     this.subscriptions.push(
       this._sandbox.permissionFailed$.subscribe((failed) => {
-        if (failed && this.permissionFailed != undefined) {
-          this.notify.error("Could not update permissions", "Error!");
+        if (failed && this.permissionFailed !== undefined) {
+          this.notify.error('Could not update permissions', 'Error!');
         }
         this.permissionFailed = failed;
       })
@@ -188,7 +186,7 @@ export class RoleDetailComponent
 
   sync() {
     if (this.permissionsLoading || this.loading) {
-      this.notify.warn("Please wait for the loading to finish", "Warning!");
+      this.notify.warn('Please wait for the loading to finish', 'Warning!');
     } else if (this.isPermissionListChanged()) {
       const permsIds = this.addedItems.map((perm) => perm.id);
       const form: ManagePermissionForm = {
@@ -197,12 +195,15 @@ export class RoleDetailComponent
       };
       this._sandbox.syncPermissionsOnRole(form);
     } else {
-      this.notify.info("No changes to update!");
+      this.notify.info('No changes to update!');
     }
   }
 
   isPermissionListChanged(): boolean {
-    return !ListHelper.compareListData(this.role.permissions.data, this.addedItems, 'id');
+    return !ListHelper.compareListData(
+      this.role.permissions.data,
+      this.addedItems,
+      'id'
+    );
   }
 }
-

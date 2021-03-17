@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Injector,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
@@ -13,7 +21,9 @@ import { Subscription } from 'rxjs';
   selector: 'country-detail',
   templateUrl: './country-detail.component.html',
 })
-export class CountryDetailComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CountryDetailComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('detailCard') detailCard: ElementRef;
 
   config: FieldConfig[] = [
@@ -23,7 +33,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'name',
       validation: [Validators.required],
       placeholder: 'Enter name',
-      invalidMessage: 'Please enter a name'
+      invalidMessage: 'Please enter a name',
     },
     {
       type: 'input',
@@ -31,7 +41,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'native',
       validation: [Validators.required],
       placeholder: 'Enter native',
-      invalidMessage: 'Please enter a native'
+      invalidMessage: 'Please enter a native',
     },
     {
       type: 'input',
@@ -39,7 +49,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'alpha2',
       validation: [Validators.required, Validators.pattern('[A-Z]{2}')],
       placeholder: 'Enter Alpha 2',
-      invalidMessage: 'Please enter a valid code (Two capital letters)'
+      invalidMessage: 'Please enter a valid code (Two capital letters)',
     },
     {
       type: 'input',
@@ -47,7 +57,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'alpha3',
       validation: [Validators.required, Validators.pattern('[A-Z]{3}')],
       placeholder: 'Enter Alpha 3',
-      invalidMessage: 'Please enter a valid code (Three capital letters)'
+      invalidMessage: 'Please enter a valid code (Three capital letters)',
     },
     {
       type: 'input',
@@ -55,7 +65,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'isd',
       validation: [Validators.required],
       placeholder: 'Enter ISD',
-      invalidMessage: 'Please enter an ISD'
+      invalidMessage: 'Please enter an ISD',
     },
     {
       type: 'input',
@@ -63,7 +73,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'capital',
       validation: [Validators.required],
       placeholder: 'Enter capital',
-      invalidMessage: 'Please enter a Capital '
+      invalidMessage: 'Please enter a Capital ',
     },
     {
       type: 'input',
@@ -71,7 +81,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'currency',
       validation: [Validators.required],
       placeholder: 'Enter currency',
-      invalidMessage: 'Please enter a currency'
+      invalidMessage: 'Please enter a currency',
     },
     {
       type: 'input',
@@ -79,7 +89,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'continent',
       validation: [Validators.required],
       placeholder: 'Enter continent',
-      invalidMessage: 'Please enter a continent'
+      invalidMessage: 'Please enter a continent',
     },
     {
       type: 'input',
@@ -87,7 +97,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'subcontinent',
       validation: [Validators.required],
       placeholder: 'Enter subcontinent',
-      invalidMessage: 'Please enter a subcontinent'
+      invalidMessage: 'Please enter a subcontinent',
     },
     {
       type: 'input',
@@ -95,7 +105,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'emoji',
       validation: [Validators.required],
       placeholder: 'Enter emoji',
-      invalidMessage: 'Please enter an emoji'
+      invalidMessage: 'Please enter an emoji',
     },
     {
       type: 'input',
@@ -103,7 +113,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       name: 'emojiUnicode',
       validation: [Validators.required, FormHelper.unicodeValidator()],
       placeholder: 'Enter emoji unicode',
-      invalidMessage: 'Please enter a valid unicode'
+      invalidMessage: 'Please enter a valid unicode',
     },
     {
       label: 'Save',
@@ -118,7 +128,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
   loaded: boolean;
   loading: boolean;
   failed: boolean;
-  deleting: boolean = false;
+  deleting = false;
 
   constructor(
     injector: Injector,
@@ -129,9 +139,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
     super(injector);
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.registerEvents();
@@ -150,7 +158,7 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
           this.notify.info('Deleting country');
           this.deleting = true;
           this._sandbox.deleteCountry(this.country.id);
-        };
+        }
       }
     );
   }
@@ -183,41 +191,35 @@ export class CountryDetailComponent extends BaseComponent implements OnInit, Aft
       })
     );
     this.subscriptions.push(
-      this._sandbox.countryLoading$.subscribe(
-        (loading: boolean) => {
-          if (loading) {
-            this.ui.setBusy(this.detailCard.nativeElement);
-          }
-          this.loading = loading;
+      this._sandbox.countryLoading$.subscribe((loading: boolean) => {
+        if (loading) {
+          this.ui.setBusy(this.detailCard.nativeElement);
         }
-      )
+        this.loading = loading;
+      })
     );
     this.subscriptions.push(
-      this._sandbox.countryLoaded$.subscribe(
-        (loaded: boolean) => {
-          if (loaded) {
-            this.ui.clearBusy(this.detailCard.nativeElement);
-            if (this.deleting) {
-              this.notify.success('Country deleted', 'Success!');
-              this.router.navigate(['locations', 'countries']);
-            }
+      this._sandbox.countryLoaded$.subscribe((loaded: boolean) => {
+        if (loaded) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+          if (this.deleting) {
+            this.notify.success('Country deleted', 'Success!');
+            this.router.navigate(['locations', 'countries']);
           }
-          this.loaded = loaded;
         }
-      )
+        this.loaded = loaded;
+      })
     );
     this.subscriptions.push(
-      this._sandbox.countryFailed$.subscribe(
-        (failed: boolean) => {
-          if (failed) {
-            this.ui.clearBusy(this.detailCard.nativeElement);
-            if (this.deleting) {
-              this.notify.success('Could not delete country', 'Error!');
-            }
+      this._sandbox.countryFailed$.subscribe((failed: boolean) => {
+        if (failed) {
+          this.ui.clearBusy(this.detailCard.nativeElement);
+          if (this.deleting) {
+            this.notify.success('Could not delete country', 'Error!');
           }
-          this.failed = failed;
         }
-      )
+        this.failed = failed;
+      })
     );
     this.subscriptions.push(
       this._sandbox.country$.subscribe(

@@ -9,8 +9,9 @@ import { TenantSandbox } from '@app/tenant/tenant.sandbox';
   selector: 'tenant-create',
   templateUrl: './tenant-create.component.html',
 })
-export class TenantCreateComponent extends BaseComponent implements OnInit, OnDestroy {
-
+export class TenantCreateComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   loading: boolean;
   loaded: boolean;
   failed: boolean;
@@ -21,7 +22,7 @@ export class TenantCreateComponent extends BaseComponent implements OnInit, OnDe
       label: 'Name',
       name: 'name',
       validation: [Validators.required],
-      invalidMessage: 'Please enter a name'
+      invalidMessage: 'Please enter a name',
     },
     {
       label: 'Create',
@@ -47,14 +48,14 @@ export class TenantCreateComponent extends BaseComponent implements OnInit, OnDe
     this.subscriptions.push(
       this._sandbox.tenantLoading$.subscribe((loading) => {
         if (loading && this.loading !== undefined) {
-          this.notify.info("Creating tenant");
+          this.notify.info('Creating tenant');
           this.config[1].disabled = true;
         }
         this.loading = loading;
       }),
       this._sandbox.tenantLoaded$.subscribe((loaded) => {
         if (loaded && this.loaded !== undefined) {
-          this.notify.success("Tenant created", "Success!");
+          this.notify.success('Tenant created', 'Success!');
           this.config[1].disabled = false;
         }
         this.loaded = loaded;
@@ -70,13 +71,12 @@ export class TenantCreateComponent extends BaseComponent implements OnInit, OnDe
 
   create(group): void {
     if (this.loading) {
-      this.notify.warn("Please wait for the previous request", "Warning!");
+      this.notify.warn('Please wait for the previous request', 'Warning!');
     } else if (group.valid) {
-      const form = new TenantCreateForm({name: group.controls.name.value});
+      const form = new TenantCreateForm({ name: group.controls.name.value });
       this._sandbox.createTenant(form);
     } else {
-      this.notify.warn("Invalid form data", "Warning!");
+      this.notify.warn('Invalid form data', 'Warning!');
     }
   }
-
 }

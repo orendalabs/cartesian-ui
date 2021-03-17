@@ -14,40 +14,36 @@ const routes: Routes = [
         path: '',
         component: TenantListComponent,
         data: {
-          title: 'List'
+          title: 'List',
         },
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'create',
         component: TenantCreateComponent,
         data: {
-          title: 'Create'
+          title: 'Create',
         },
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: 'edit/:id',
         component: TenantUpdateComponent,
         data: {
-          title: 'Update'
+          title: 'Update',
         },
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
         path: '*',
-        redirectTo: 'list'
+        redirectTo: 'list',
       },
-    ]
-  }
-]
+    ],
+  },
+];
 @NgModule({
   declarations: [],
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class TenantRoutingModule { }
+export class TenantRoutingModule {}

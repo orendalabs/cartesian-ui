@@ -61,7 +61,7 @@ export class UserDetailComponent extends BaseComponent implements OnInit {
   deleteUser = (id: string) => {
     this.message.confirm(
       'Are you sure you want to delete the User with ID: ' + id,
-      "Delete User",
+      'Delete User',
       (confirmation) => {
         if (confirmation) {
           this._sandbox.deleteUserById(id);
