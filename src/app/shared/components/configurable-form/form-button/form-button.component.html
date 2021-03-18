@@ -1,9 +1,12 @@
 <div *ngIf="!config.hidden" class="form-group" [formGroup]="formGroup">
-  <button 
+  <button
     type="config.type ? config.type : submit"
-    [ngClass]="config.classes" 
-    (click)="config.click"
-    [disabled]="config.disabled ? config.disabled || formGroup.invalid : formGroup.invalid">
+    [ngClass]="config.classes"
+    (click)="(config.onClick)"
+    [disabled]="
+      config.disabled ? config.disabled || formGroup.invalid : formGroup.invalid
+    "
+  >
     {{ config.label }}
   </button>
 </div>

@@ -92,21 +92,21 @@ export class CityDetailComponent
         label: 'Country',
         name: 'countryId',
         options: [],
-        change: (event) => {
+        onChange: (event) => {
           const id = event.target.value;
 
           const stateControl = this.config[nameIndexMap.stateId];
           stateControl.options = null;
           stateControl.value = '';
           stateControl.hidden = true;
-          stateControl.validation = [];
+          stateControl.validators = [];
 
           this.config[nameIndexMap.submit].disabled = true;
 
           this.statesCriteria.where('country_id', '=', id);
           this._sandbox.fetchStates(this.statesCriteria);
         },
-        validation: [Validators.required],
+        validators: [Validators.required],
         placeholder: 'Select Country',
         invalidMessage: 'Please select a valid country',
       },
@@ -116,7 +116,7 @@ export class CityDetailComponent
         name: 'stateId',
         options: [],
         hidden: true,
-        validation: [Validators.required],
+        validators: [Validators.required],
         placeholder: 'Select State',
         invalidMessage: 'Please select a valid state',
       },
@@ -124,7 +124,7 @@ export class CityDetailComponent
         type: 'input',
         label: 'Name',
         name: 'name',
-        validation: [Validators.required],
+        validators: [Validators.required],
         placeholder: 'Enter Name',
         invalidMessage: 'Please enter a name',
       },
@@ -132,7 +132,7 @@ export class CityDetailComponent
         type: 'input',
         label: 'Latitude',
         name: 'latitude',
-        validation: [
+        validators: [
           Validators.required,
           FormHelper.isFloatValidator(),
           Validators.min(-90),
@@ -144,7 +144,7 @@ export class CityDetailComponent
         type: 'input',
         label: 'Longitude',
         name: 'longitude',
-        validation: [
+        validators: [
           Validators.required,
           FormHelper.isFloatValidator(),
           Validators.min(-180),
@@ -322,7 +322,7 @@ export class CityDetailComponent
   setCountryValidators(): void {
     const control = this.config[nameIndexMap.countryId];
     const countryIds = control.options.map((c) => c.value.toString());
-    control.validation = [
+    control.validators = [
       Validators.required,
       FormHelper.inValidator(countryIds),
     ];
@@ -331,10 +331,10 @@ export class CityDetailComponent
   setStateValidators(): void {
     const control = this.config[nameIndexMap.stateId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const stateIds = control.options.map((s) => s.value.toString());
-      control.validation = [
+      control.validators = [
         Validators.required,
         FormHelper.inValidator(stateIds),
       ];

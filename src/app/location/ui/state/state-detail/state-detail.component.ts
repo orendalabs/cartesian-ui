@@ -35,24 +35,24 @@ export class StateDetailComponent
       name: 'countryId',
       options: [],
       placeholder: 'Select Country...',
-      validation: [Validators.required],
-      invalidMessage: 'Please select a valid country'
+      validators: [Validators.required],
+      invalidMessage: 'Please select a valid country',
     },
     {
       type: 'input',
       label: 'Name',
       name: 'name',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter name',
-      invalidMessage: 'Please enter a name'
+      invalidMessage: 'Please enter a name',
     },
     {
       type: 'input',
       label: 'Code',
       name: 'code',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter code',
-      invalidMessage: 'Please enter a code'
+      invalidMessage: 'Please enter a code',
     },
     {
       label: 'Save',
@@ -215,7 +215,7 @@ export class StateDetailComponent
   setCountryValidators(): void {
     if (this.config[0].options) {
       const countryIds = this.config[0].options.map((c) => c.value.toString());
-      this.config[0].validation = [
+      this.config[0].validators = [
         Validators.required,
         FormHelper.inValidator(countryIds),
       ];

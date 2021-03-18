@@ -21,7 +21,7 @@ export class TenantCreateComponent
       type: 'input',
       label: 'Name',
       name: 'name',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please enter a name',
     },
     {

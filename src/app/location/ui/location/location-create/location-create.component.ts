@@ -98,28 +98,28 @@ export class LocationCreateComponent
         type: 'input',
         label: 'Locatable Type',
         name: 'locatableType',
-        validation: [Validators.required],
+        validators: [Validators.required],
         invalidMessage: 'Please enter a locatable Type',
       },
       {
         type: 'input',
         label: 'Locatable ID',
         name: 'locatableId',
-        validation: [Validators.required],
+        validators: [Validators.required],
         invalidMessage: 'Please enter a locatable ID',
       },
       {
         type: 'input',
         label: 'Address Line 1',
         name: 'addressLine1',
-        validation: [Validators.required],
+        validators: [Validators.required],
         invalidMessage: 'Please enter an address',
       },
       {
         type: 'input',
         label: 'Address Line 2',
         name: 'addressLine2',
-        validation: [Validators.required],
+        validators: [Validators.required],
         invalidMessage: 'Please enter an address',
       },
       {
@@ -127,7 +127,7 @@ export class LocationCreateComponent
         label: 'Country',
         name: 'countryId',
         options: [],
-        change: (event) => {
+        onChange: (event) => {
           const id = event.target.value;
 
           const stateControl = this.config[nameIndexMap.stateId];
@@ -147,7 +147,7 @@ export class LocationCreateComponent
           this._sandbox.fetchStates(this.statesCriteria);
         },
         placeholder: 'Select Country...',
-        validation: [Validators.required],
+        validators: [Validators.required],
         invalidMessage: 'Please select a valid country',
       },
       {
@@ -155,7 +155,7 @@ export class LocationCreateComponent
         label: 'State',
         name: 'stateId',
         options: [],
-        change: (event) => {
+        onChange: (event) => {
           const id = event.target.value;
           const cityControl = this.config[nameIndexMap.cityId];
           cityControl.options = [];
@@ -184,14 +184,14 @@ export class LocationCreateComponent
         type: 'input',
         label: 'Post Code',
         name: 'postCode',
-        validation: [Validators.required],
+        validators: [Validators.required],
         invalidMessage: 'Please enter a post code',
       },
       {
         type: 'input',
         label: 'Latitude',
         name: 'latitude',
-        validation: [
+        validators: [
           Validators.required,
           FormHelper.isFloatValidator(),
           Validators.min(-90),
@@ -203,7 +203,7 @@ export class LocationCreateComponent
         type: 'input',
         label: 'Longitude',
         name: 'longitude',
-        validation: [
+        validators: [
           Validators.required,
           FormHelper.isFloatValidator(),
           Validators.min(-180),
@@ -396,26 +396,26 @@ export class LocationCreateComponent
   setCountryValidators(): void {
     const control = this.config[nameIndexMap.countryId];
     const countryIds = control.options.map((c) => c.value.toString());
-    control.validation = [FormHelper.inValidator(countryIds)];
+    control.validators = [FormHelper.inValidator(countryIds)];
   }
 
   setStateValidators(): void {
     const control = this.config[nameIndexMap.stateId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const stateIds = control.options.map((s) => s.value.toString());
-      control.validation = [FormHelper.inValidator(stateIds)];
+      control.validators = [FormHelper.inValidator(stateIds)];
     }
   }
 
   setCityValidators(): void {
     const control = this.config[nameIndexMap.cityId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const cityIds = control.options.map((c) => c.value.toString());
-      control.validation = [FormHelper.inValidator(cityIds)];
+      control.validators = [FormHelper.inValidator(cityIds)];
     }
   }
 }

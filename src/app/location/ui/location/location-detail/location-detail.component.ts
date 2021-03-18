@@ -51,14 +51,14 @@ export class LocationDetailComponent
       type: 'input',
       label: 'Address Line 1',
       name: 'addressLine1',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please enter an address',
     },
     {
       type: 'input',
       label: 'Address Line 2',
       name: 'addressLine2',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please enter an address',
     },
     {
@@ -66,7 +66,7 @@ export class LocationDetailComponent
       label: 'Country',
       name: 'countryId',
       options: [],
-      change: (event) => {
+      onChange: (event) => {
         const id = event.target.value;
 
         const stateControl = this.config[nameIndexMap.stateId];
@@ -86,7 +86,7 @@ export class LocationDetailComponent
         this._sandbox.fetchStates(this.statesCriteria);
       },
       placeholder: 'Select Country...',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please select a valid country',
     },
     {
@@ -94,7 +94,7 @@ export class LocationDetailComponent
       label: 'State',
       name: 'stateId',
       options: [],
-      change: (event) => {
+      onChange: (event) => {
         const id = event.target.value;
         const cityControl = this.config[nameIndexMap.cityId];
         cityControl.options = [];
@@ -121,14 +121,14 @@ export class LocationDetailComponent
       type: 'input',
       label: 'Post Code',
       name: 'postCode',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please enter a post code',
     },
     {
       type: 'input',
       label: 'Latitude',
       name: 'latitude',
-      validation: [
+      validators: [
         Validators.required,
         FormHelper.isFloatValidator(),
         Validators.min(-90),
@@ -140,7 +140,7 @@ export class LocationDetailComponent
       type: 'input',
       label: 'Longitude',
       name: 'longitude',
-      validation: [
+      validators: [
         Validators.required,
         FormHelper.isFloatValidator(),
         Validators.min(-180),
@@ -419,26 +419,26 @@ export class LocationDetailComponent
   setCountryValidators(): void {
     const control = this.config[nameIndexMap.countryId];
     const countryIds = control.options.map((c) => c.value.toString());
-    control.validation = [FormHelper.inValidator(countryIds)];
+    control.validators = [FormHelper.inValidator(countryIds)];
   }
 
   setStateValidators(): void {
     const control = this.config[nameIndexMap.stateId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const stateIds = control.options.map((s) => s.value.toString());
-      control.validation = [FormHelper.inValidator(stateIds)];
+      control.validators = [FormHelper.inValidator(stateIds)];
     }
   }
 
   setCityValidators(): void {
     const control = this.config[nameIndexMap.cityId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const cityIds = control.options.map((c) => c.value.toString());
-      control.validation = [FormHelper.inValidator(cityIds)];
+      control.validators = [FormHelper.inValidator(cityIds)];
     }
   }
 }

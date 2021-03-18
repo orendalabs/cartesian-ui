@@ -3,10 +3,12 @@ import {
   ComponentRef,
   Directive,
   Input,
+  Output,
   OnChanges,
   OnInit,
   Type,
   ViewContainerRef,
+  EventEmitter,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -28,8 +30,9 @@ const components: { [type: string]: Type<Field> } = {
 })
 export class ConfigurableFieldDirective implements Field, OnChanges, OnInit {
   @Input() config: FieldConfig;
-
   @Input() formGroup: FormGroup;
+  @Output() changed?: EventEmitter<Event> = new EventEmitter();
+  @Output() clicked?: EventEmitter<Event> = new EventEmitter();
 
   component: ComponentRef<Field>;
 
@@ -59,5 +62,15 @@ export class ConfigurableFieldDirective implements Field, OnChanges, OnInit {
     this.component = this.container.createComponent(component);
     this.component.instance.config = this.config;
     this.component.instance.formGroup = this.formGroup;
+    if (this.config.onChange) {
+      this.component.instance.changed.subscribe((event) =>
+        this.config.onChange(event)
+      );
+    }
+    if (this.config.onClick) {
+      this.component.instance.clicked.subscribe((event) =>
+        this.config.onClick(event)
+      );
+    }
   }
 }

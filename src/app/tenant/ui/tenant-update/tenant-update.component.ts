@@ -13,7 +13,6 @@ import { TenantSandbox } from '@app/tenant/tenant.sandbox';
 export class TenantUpdateComponent
   extends BaseComponent
   implements OnInit, OnDestroy {
-
   deleting: boolean;
   loading: boolean;
   loaded: boolean;
@@ -26,14 +25,14 @@ export class TenantUpdateComponent
       type: 'input',
       label: 'Name',
       name: 'name',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please enter a name',
     },
     {
       type: 'input',
       label: 'Status',
       name: 'status',
-      validation: [Validators.required],
+      validators: [Validators.required],
       invalidMessage: 'Please enter a status',
     },
     {
