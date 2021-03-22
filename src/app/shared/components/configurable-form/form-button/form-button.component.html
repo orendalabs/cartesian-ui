@@ -2,7 +2,7 @@
   <button
     type="config.type ? config.type : submit"
     [ngClass]="config.classes"
-    (click)="(config.onClick)"
+    (click)="clicked.emit($event)"
     [disabled]="
       config.disabled ? config.disabled || formGroup.invalid : formGroup.invalid
     "

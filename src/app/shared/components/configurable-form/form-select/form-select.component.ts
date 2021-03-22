@@ -7,7 +7,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 import { FormHelper } from '@app/shared/helpers';
 import { FieldConfig } from '../models/field-config.model';
 
@@ -16,23 +16,24 @@ import { FieldConfig } from '../models/field-config.model';
   templateUrl: './form-select.component.html',
 })
 export class FormSelectComponent implements OnInit, AfterViewChecked {
-  oldValidation;
   @Input() config: FieldConfig;
   @Input() formGroup: FormGroup;
   @Output() changed?: EventEmitter<Event> = new EventEmitter();
   @Output() clicked?: EventEmitter<Event> = new EventEmitter();
 
+  validators: ValidatorFn[];
+
   constructor() {}
 
   ngOnInit(): void {
-    this.oldValidation = this.config.validators;
+    this.validators = this.config.validators;
   }
 
   ngAfterViewChecked(): void {
-    if (this.oldValidation !== this.config.validators) {
-      this.oldValidation = this.config.validators;
+    if (this.validators !== this.config.validators) {
+      this.validators = this.config.validators;
       const ctrl = this.formGroup.controls[this.config.name];
-      ctrl.setValidators(this.config.validators);
+      ctrl.setValidators(this.validators);
       ctrl.updateValueAndValidity();
     }
   }

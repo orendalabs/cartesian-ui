@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FieldConfig } from '../models/field-config.model';
 
@@ -9,8 +9,10 @@ import { FieldConfig } from '../models/field-config.model';
 export class FormButtonComponent implements OnInit {
   config: FieldConfig;
   formGroup: FormGroup;
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  @Output() clicked?: EventEmitter<Event> = new EventEmitter();
+
+  constructor() {}
+
+  ngOnInit(): void {}
 }
