@@ -1,7 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as permissionActions from './permission.action';
 import { PermissionDetailState } from './auth.state';
-import { Permission } from '../models/permission.model';
 
 const INITIAL_STATE: PermissionDetailState = {
   loading: false,

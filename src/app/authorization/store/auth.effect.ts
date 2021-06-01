@@ -76,9 +76,9 @@ export class AuthEffects {
   doFetchRole$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromRoleActions.doFetchRole),
-      map((action) => action.id),
-      switchMap((id) =>
-        this.roleHttpService.fetchRoleById(id).pipe(
+      map((action) => Object.assign({}, { id: action.id, criteria: action.criteria })),
+      switchMap((data) =>
+        this.roleHttpService.fetchRoleById(data.id, data.criteria).pipe(
           map((result) =>
             fromRoleActions.doFetchRoleSuccess({ role: result.data })
           ),

@@ -27,7 +27,7 @@ export interface FieldConfig {
   type: string;
 
   /** Array of validator functions */
-  validation?: ValidatorFn[];
+  validators?: ValidatorFn[];
 
   /** The value of the control */
   value?: any;
@@ -35,9 +35,18 @@ export interface FieldConfig {
   /** Style classes for the control */
   classes?: string;
 
+  /** Message to show if data invalid */
+  invalidMessage?: string;
+
+  /** Names of the classes to use as prepend icon. Example `fa fa-user` */
+  prependIcon?: string;
+
+  /** Names of the classes to use as append icon. Example `fa fa-user` */
+  appendIcon?: string;
+
   /** Method called on click event. Takes an event parameter */
-  click?: (event) => void;
+  onClick?: (event) => void;
 
   /** Method called on change event. Takes an event parameter */
-  change?: (event) => void;
+  onChange?: (event) => void;
 }

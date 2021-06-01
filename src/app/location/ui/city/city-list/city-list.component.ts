@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -19,7 +20,7 @@ import { Subscription } from 'rxjs';
 })
 export class CityListComponent
   extends ListingControlsComponent<City, SearchCityForm>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dtContainer') dtContainer: ElementRef;
 
   subscriptions: Array<Subscription> = [];
@@ -39,13 +40,17 @@ export class CityListComponent
     this.reloadTable();
   }
 
+  ngOnDestroy() {
+    this.unregisterEvents();
+  }
+
   search(): void {
     this.setPage(1);
     if (this.searchModel) {
       this.criteria.where('name', 'like', this.searchModel);
     } else {
       this.criteria.where('name', 'like', '');
-    } // TODO: Remove where
+    }
     this.list();
   }
 
@@ -74,9 +79,6 @@ export class CityListComponent
     this._sandbox.fetchCities(this.criteria);
   }
   protected delete(): void {}
-  protected unregisterEvents(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
 
   onSelect({ selected }) {
     this.selectedCities.splice(0, this.selectedCities.length);

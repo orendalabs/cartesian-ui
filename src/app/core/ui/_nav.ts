@@ -11,42 +11,47 @@ export const navItems: INavData[] = [
   {
     name: 'User',
     url: '/users',
-    icon: 'icon-user',
+    icon: 'fa fa-user',
+  },
+  {
+    name: 'Tenants',
+    url: '/tenants',
+    icon: 'fa fa-users',
   },
   {
     name: 'Roles',
     url: '/authorization/roles',
-    icon: 'icon-people',
+    icon: 'fa fa-id-card',
   },
   {
     name: 'Permissions',
     url: '/authorization/permissions',
-    icon: 'icon-check',
+    icon: 'fa fa-check',
   },
   {
     name: 'Locations',
     url: '/locations',
-    icon: 'icon-map',
+    icon: 'fa fa-map',
     children: [
       {
         name: 'Cities',
         url: '/locations/cities',
-        icon: 'icon-home',
+        icon: 'fa fa-home',
       },
       {
         name: 'Countries',
         url: '/locations/countries',
-        icon: 'icon-flag',
+        icon: 'fa fa-flag',
       },
       {
         name: 'Locations',
         url: '/locations/locations',
-        icon: 'icon-location-pin',
+        icon: 'fa fa-map-marker',
       },
       {
         name: 'States',
         url: '/locations/states',
-        icon: 'icon-layers',
+        icon: 'fa fa-landmark',
       },
     ]
   },

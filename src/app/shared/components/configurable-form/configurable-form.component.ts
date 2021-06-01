@@ -12,7 +12,7 @@ export class ConfigurableFormComponent implements OnInit {
 
   formGroup: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.formGroup = this.createGroup();
@@ -20,7 +20,9 @@ export class ConfigurableFormComponent implements OnInit {
 
   createGroup(): FormGroup {
     const group = this.fb.group({});
-    this.config.forEach(config => group.addControl(config.name, this.fb.control('', config.validation)));
+    this.config.forEach((config) =>
+      group.addControl(config.name, this.fb.control('', config.validators))
+    );
     return group;
   }
 }

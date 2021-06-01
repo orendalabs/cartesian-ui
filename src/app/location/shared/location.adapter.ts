@@ -8,7 +8,7 @@ export class LocationAdapter {
   /**
    * Camelize response keys
    *
-   * @param object locationObject
+   * @param loc Object to camelize keys of
    */
   static locationAdapter(loc: any): any {
     return Object.assign({}, loc, convertObjectKeysToCamel(loc));

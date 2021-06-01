@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
-  Adapter,
   Body,
   Criteria,
   DefaultHeaders,
   DELETE,
   GET,
-  Header,
   HttpService,
   Path,
   POST,
   RequestCriteria,
 } from '@cartesian-ui/ng-axis';
 import { Observable } from 'rxjs';
-import { CreateRoleForm } from '../models/create/role.model';
-import { ManagePermissionForm } from '../models/manage/permission.model';
-import { ManageRoleForm } from '../models/manage/role.model';
+import { SearchRoleForm } from '../models/form/search-role.model';
 
 @Injectable()
 @DefaultHeaders({
@@ -52,7 +48,7 @@ export class AuthHttpService extends HttpService {
   }
 
   @GET('/roles/{id}')
-  public fetchRoleById(@Path('id') id: string): Observable<any> {
+  public fetchRoleById(@Path('id') id: string, @Criteria criteria: RequestCriteria<SearchRoleForm>): Observable<any> {
     return null;
   }
 

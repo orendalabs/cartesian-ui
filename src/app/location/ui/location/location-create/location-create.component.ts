@@ -3,10 +3,11 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { City, Country } from '@app/location/models/domain';
 import { FormHelper } from '@app/shared/helpers';
@@ -41,9 +42,15 @@ enum nameIndexMap {
   selector: 'location-create',
   templateUrl: './location-create.component.html',
 })
-export class LocationCreateComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class LocationCreateComponent
+  extends BaseComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('formCard') formCard: ElementRef;
   subscriptions: Subscription[] = [];
+
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
 
   countriesLoading: boolean;
   countriesLoaded: boolean;
@@ -68,9 +75,8 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
 
   config: FieldConfig[];
 
-  constructor(protected injector: Injector,
-     protected _sandbox: LocationSandbox) {
-      super(injector);
+  constructor(injector: Injector, protected _sandbox: LocationSandbox) {
+    super(injector);
   }
 
   ngOnInit(): void {
@@ -82,38 +88,46 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
     this._sandbox.fetchCountries(this.countriesCriteria);
   }
 
+  ngOnDestroy() {
+    this.unregisterEvents();
+  }
+
   initConfig() {
     this.config = [
       {
         type: 'input',
         label: 'Locatable Type',
         name: 'locatableType',
-        validation: [Validators.required],
+        validators: [Validators.required],
+        invalidMessage: 'Please enter a locatable Type',
       },
       {
         type: 'input',
         label: 'Locatable ID',
         name: 'locatableId',
-        validation: [Validators.required],
+        validators: [Validators.required],
+        invalidMessage: 'Please enter a locatable ID',
       },
       {
         type: 'input',
         label: 'Address Line 1',
         name: 'addressLine1',
-        validation: [Validators.required],
+        validators: [Validators.required],
+        invalidMessage: 'Please enter an address',
       },
       {
         type: 'input',
         label: 'Address Line 2',
         name: 'addressLine2',
-        validation: [Validators.required],
+        validators: [Validators.required],
+        invalidMessage: 'Please enter an address',
       },
       {
         type: 'select',
         label: 'Country',
         name: 'countryId',
         options: [],
-        change: (event) => {
+        onChange: (event) => {
           const id = event.target.value;
 
           const stateControl = this.config[nameIndexMap.stateId];
@@ -133,14 +147,15 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
           this._sandbox.fetchStates(this.statesCriteria);
         },
         placeholder: 'Select Country...',
-        validation: [Validators.required],
+        validators: [Validators.required],
+        invalidMessage: 'Please select a valid country',
       },
       {
         type: 'select',
         label: 'State',
         name: 'stateId',
         options: [],
-        change: (event) => {
+        onChange: (event) => {
           const id = event.target.value;
           const cityControl = this.config[nameIndexMap.cityId];
           cityControl.options = [];
@@ -154,6 +169,7 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         },
         hidden: true,
         placeholder: 'Select State...',
+        invalidMessage: 'Please select a valid state',
       },
       {
         type: 'select',
@@ -162,34 +178,38 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         options: [],
         hidden: true,
         placeholder: 'Select City...',
+        invalidMessage: 'Please select a valid city ',
       },
       {
         type: 'input',
         label: 'Post Code',
         name: 'postCode',
-        validation: [Validators.required],
+        validators: [Validators.required],
+        invalidMessage: 'Please enter a post code',
       },
       {
         type: 'input',
         label: 'Latitude',
         name: 'latitude',
-        validation: [
+        validators: [
           Validators.required,
           FormHelper.isFloatValidator(),
           Validators.min(-90),
           Validators.max(90),
         ],
+        invalidMessage: 'Please enter a valid latitude (-90.0 to 90.0)',
       },
       {
         type: 'input',
         label: 'Longitude',
         name: 'longitude',
-        validation: [
+        validators: [
           Validators.required,
           FormHelper.isFloatValidator(),
           Validators.min(-180),
           Validators.max(180),
         ],
+        invalidMessage: 'Please enter a valid longitude (-180.0 to 180.0)',
       },
       {
         label: 'Create',
@@ -205,16 +225,16 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
       const noState = this.config[nameIndexMap.stateId].hidden;
       const noCity = this.config[nameIndexMap.cityId].hidden;
       const form = new LocationCreateForm({
-        locatableType: group.controls['locatableType'].value,
-        locatableId: group.controls['locatableId'].value,
-        addressLine1: group.controls['addressLine1'].value,
-        addressLine2: group.controls['addressLine2'].value,
-        countryId: group.controls['countryId'].value,
-        stateId: noState ? '' : group.controls['stateId'].value,
-        cityId: noCity ? '' : group.controls['cityId'].value,
-        postCode: group.controls['postCode'].value,
-        latitude: group.controls['latitude'].value,
-        longitude: group.controls['longitude'].value,
+        locatableType: group.controls.locatableType.value,
+        locatableId: group.controls.locatableId.value,
+        addressLine1: group.controls.addressLine1.value,
+        addressLine2: group.controls.addressLine2.value,
+        countryId: group.controls.countryId.value,
+        stateId: noState ? '' : group.controls.stateId.value,
+        cityId: noCity ? '' : group.controls.cityId.value,
+        postCode: group.controls.postCode.value,
+        latitude: group.controls.latitude.value,
+        longitude: group.controls.longitude.value,
       });
       this._sandbox.createLocation(form);
     }
@@ -344,35 +364,58 @@ export class LocationCreateComponent extends BaseComponent implements OnInit, Af
         this.citiesFailed = failed;
       })
     );
-  }
-
-  unregisterEvents(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
+    this.subscriptions.push(
+      this._sandbox.locationLoading$.subscribe((loading) => {
+        if (loading && this.loading !== undefined) {
+          this.notify.info('Creating location');
+          this.config[nameIndexMap.submit].disabled = true;
+        }
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.locationLoaded$.subscribe((loaded) => {
+        if (loaded && this.loaded !== undefined) {
+          this.notify.success('Location created', 'Success!');
+          this.config[nameIndexMap.submit].disabled = false;
+        }
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.locationFailed$.subscribe((failed) => {
+        if (failed && this.failed !== undefined) {
+          this.notify.error('Could not create location', 'Error!');
+          this.config[nameIndexMap.submit].disabled = false;
+        }
+        this.failed = failed;
+      })
+    );
   }
 
   setCountryValidators(): void {
     const control = this.config[nameIndexMap.countryId];
     const countryIds = control.options.map((c) => c.value.toString());
-    control.validation = [FormHelper.inValidator(countryIds)];
+    control.validators = [FormHelper.inValidator(countryIds)];
   }
 
   setStateValidators(): void {
     const control = this.config[nameIndexMap.stateId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const stateIds = control.options.map((s) => s.value.toString());
-      control.validation = [FormHelper.inValidator(stateIds)];
+      control.validators = [FormHelper.inValidator(stateIds)];
     }
   }
 
   setCityValidators(): void {
     const control = this.config[nameIndexMap.cityId];
     if (control.options.length === 0) {
-      control.validation = [];
+      control.validators = [];
     } else {
       const cityIds = control.options.map((c) => c.value.toString());
-      control.validation = [FormHelper.inValidator(cityIds)];
+      control.validators = [FormHelper.inValidator(cityIds)];
     }
   }
 }

@@ -1,6 +1,6 @@
 <div class="animated fadeIn row" #dtContainer>
   <div class="col-sm-12">
-    <button class="btn btn-primary pull-right ml-2" (click)="sync()">
+    <button class="btn btn-primary pull-right ml-2" (click)="sync()" [disabled]="permissionLoading || loading">
       <i class="fa fa-save"></i> Save
     </button>
     <button class="btn btn-danger pull-right"

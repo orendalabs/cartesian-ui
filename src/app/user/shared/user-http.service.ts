@@ -17,7 +17,6 @@ import { UserAdapter } from './user.adapter';
 import { SearchUserForm } from '../models/form/search-user.model';
 import { AdminUserCreateForm } from '../models/form/admin-user.model';
 import { EditUserForm } from '../models/form/edit-user.model';
-import { ManageRoleForm } from '@app/authorization/models/manage/role.model';
 
 @Injectable()
 @DefaultHeaders({

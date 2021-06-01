@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -18,7 +19,7 @@ import { RequestCriteria } from '@cartesian-ui/ng-axis';
 })
 export class RoleListComponent
   extends ListingControlsComponent<Role, SearchRoleForm>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('dtContainer') dtContainer: ElementRef;
   searchModel = '';
   selectedRoles: Role[] = [];
@@ -44,10 +45,6 @@ export class RoleListComponent
     );
   }
 
-  unregisterEvents() {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
-
   ngOnInit(): void {
     this.criteria = new RequestCriteria<SearchRoleForm>(
       new SearchRoleForm()
@@ -57,6 +54,10 @@ export class RoleListComponent
 
   ngAfterViewInit(): void {
     this.reloadTable();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   search() {

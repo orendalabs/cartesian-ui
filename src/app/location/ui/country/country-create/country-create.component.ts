@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { BaseComponent } from '@app/core/ui';
 import { LocationSandbox } from '@app/location/location.sandbox';
 import { CountryCreateForm } from '@app/location/models/form';
 import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
@@ -9,84 +10,97 @@ import { FormHelper } from '@app/shared/helpers';
   selector: 'country-create',
   templateUrl: './country-create.component.html',
 })
-export class CountryCreateComponent implements OnInit {
+export class CountryCreateComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   config: FieldConfig[] = [
     {
       type: 'input',
       label: 'Name',
       name: 'name',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter name',
+      invalidMessage: 'Please enter a name',
     },
     {
       type: 'input',
       label: 'Native',
       name: 'native',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter native',
+      invalidMessage: 'Please enter a native',
     },
     {
       type: 'input',
       label: 'Alpha 2',
       name: 'alpha2',
-      validation: [Validators.required, Validators.pattern('[A-Z]{2}')],
+      validators: [Validators.required, Validators.pattern('[A-Z]{2}')],
       placeholder: 'Enter Alpha 2',
+      invalidMessage: 'Please enter a valid code (Two capital letters)',
     },
     {
       type: 'input',
       label: 'Alpha 3',
       name: 'alpha3',
-      validation: [Validators.required, Validators.pattern('[A-Z]{3}')],
+      validators: [Validators.required, Validators.pattern('[A-Z]{3}')],
       placeholder: 'Enter Alpha 3',
+      invalidMessage: 'Please enter a valid code (Three capital letters)',
     },
     {
       type: 'input',
       label: 'ISD',
       name: 'isd',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter ISD',
+      invalidMessage: 'Please enter an ISD',
     },
     {
       type: 'input',
       label: 'Capital',
       name: 'capital',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter capital',
+      invalidMessage: 'Please enter a Capital ',
     },
     {
       type: 'input',
       label: 'Currency',
       name: 'currency',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter currency',
+      invalidMessage: 'Please enter a currency',
     },
     {
       type: 'input',
       label: 'Continent',
       name: 'continent',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter continent',
+      invalidMessage: 'Please enter a continent',
     },
     {
       type: 'input',
       label: 'Subcontinent',
       name: 'subcontinent',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter subcontinent',
+      invalidMessage: 'Please enter a subcontinent',
     },
     {
       type: 'input',
       label: 'Emoji',
       name: 'emoji',
-      validation: [Validators.required],
+      validators: [Validators.required],
       placeholder: 'Enter emoji',
+      invalidMessage: 'Please enter an emoji',
     },
     {
       type: 'input',
       label: 'Emoji Unicode',
       name: 'emojiUnicode',
-      validation: [Validators.required, FormHelper.unicodeValidator()],
+      validators: [Validators.required, FormHelper.unicodeValidator()],
       placeholder: 'Enter emoji unicode',
+      invalidMessage: 'Please enter a valid unicode',
     },
     {
       label: 'Create',
@@ -95,11 +109,27 @@ export class CountryCreateComponent implements OnInit {
       classes: 'btn btn-primary pull-right',
     },
   ];
-  constructor(protected _sandbox: LocationSandbox) {}
 
-  ngOnInit(): void {}
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
+
+  constructor(injector: Injector, private _sandbox: LocationSandbox) {
+    super(injector);
+  }
+
+  ngOnInit(): void {
+    this.registerEvents();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
+  }
 
   create(group): void {
+    if (this.config[11].disabled) {
+      this.notify.warn('Please wait for the previous request', 'Warning!');
+    }
     if (group.valid) {
       const form = new CountryCreateForm({
         name: group.controls.name.value,
@@ -115,6 +145,38 @@ export class CountryCreateComponent implements OnInit {
         emojiUnicode: group.controls.emojiUnicode.value,
       });
       this._sandbox.createCountry(form);
+    } else {
+      this.notify.warn('Invalid data', 'Warning!');
     }
+  }
+
+  registerEvents() {
+    this.subscriptions.push(
+      this._sandbox.countryLoading$.subscribe((loading) => {
+        if (loading && this.loading !== undefined) {
+          this.notify.info('Creating country');
+        }
+        this.config[11].disabled = true;
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countryLoaded$.subscribe((loaded) => {
+        if (loaded && this.loaded !== undefined) {
+          this.notify.success('Country created', 'Success!');
+        }
+        this.config[11].disabled = false;
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.countryFailed$.subscribe((failed) => {
+        if (failed && this.failed !== undefined) {
+          this.notify.error('Could not create country', 'Error!');
+        }
+        this.config[11].disabled = false;
+        this.failed = failed;
+      })
+    );
   }
 }

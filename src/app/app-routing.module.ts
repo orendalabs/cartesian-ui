@@ -56,6 +56,13 @@ const routes: Routes = [
             (m) => m.LocationModule
           ),
       },
+      {
+        path: 'tenants',
+        loadChildren: () =>
+          import('@app/tenant/tenant.module').then(
+            (m) => m.TenantModule
+          ),
+      },
     ],
   },
 ];

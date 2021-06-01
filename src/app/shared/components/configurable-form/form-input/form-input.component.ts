@@ -1,5 +1,12 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  AfterViewChecked,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 import { FormHelper } from '@app/shared/helpers';
 import { FieldConfig } from '../models/field-config.model';
 
@@ -8,20 +15,24 @@ import { FieldConfig } from '../models/field-config.model';
   templateUrl: './form-input.component.html',
 })
 export class FormInputComponent implements OnInit, AfterViewChecked {
-  oldValidation;
-  config: FieldConfig;
-  formGroup: FormGroup;
+  @Input() config: FieldConfig;
+  @Input() formGroup: FormGroup;
+  @Output() changed?: EventEmitter<Event> = new EventEmitter();
+  @Output() clicked?: EventEmitter<Event> = new EventEmitter();
+
+  validators: ValidatorFn[];
+
   constructor() {}
 
   ngOnInit(): void {
-    this.oldValidation = this.config.validation;
+    this.validators = this.config.validators;
   }
 
   ngAfterViewChecked(): void {
-    if (this.oldValidation !== this.config.validation) {
-      this.oldValidation = this.config.validation;
+    if (this.validators !== this.config.validators) {
+      this.validators = this.config.validators;
       const ctrl = this.formGroup.controls[this.config.name];
-      ctrl.setValidators(this.config.validation);
+      ctrl.setValidators(this.validators);
       ctrl.updateValueAndValidity();
     }
   }
@@ -29,17 +40,5 @@ export class FormInputComponent implements OnInit, AfterViewChecked {
   getFormClasses(): string {
     const control = this.formGroup.controls[this.config.name];
     return FormHelper.getFormClasses(control);
-  }
-
-  click(event) {
-    if (this.config.click) {
-      this.config.click(event);
-    }
-  }
-
-  change(event) {
-    if (this.config.change) {
-      this.config.change(event);
-    }
   }
 }

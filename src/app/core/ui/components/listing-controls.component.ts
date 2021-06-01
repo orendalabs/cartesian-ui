@@ -54,6 +54,4 @@ export abstract class ListingControlsComponent<
   protected abstract delete(): void;
 
   protected abstract registerEvents(): void;
-
-  protected abstract unregisterEvents(): void;
 }

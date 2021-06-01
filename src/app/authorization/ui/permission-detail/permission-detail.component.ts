@@ -1,29 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorizationSandbox } from '@app/authorization/authorization.sandbox';
 import { Permission } from '@app/authorization/models/permission.model';
-import { Subscription } from 'rxjs';
+import { BaseComponent } from '@app/core/ui';
 
 @Component({
   selector: 'permission-detail',
   templateUrl: './permission-detail.component.html',
 })
-export class PermissionDetailComponent implements OnInit {
+export class PermissionDetailComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   permission: Permission = null;
-  subscriptions: Subscription[] = [];
-  
+
   loading: boolean;
   loaded: boolean;
   failed: boolean;
 
   constructor(
-    protected _sandbox: AuthorizationSandbox,
-    protected route: ActivatedRoute
+    private _sandbox: AuthorizationSandbox,
+    private route: ActivatedRoute,
+    injector: Injector
   ) {
+    super(injector);
     this.registerEvents();
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy() {
+    this.unregisterEvents();
+  }
 
   registerEvents() {
     this.subscriptions.push(

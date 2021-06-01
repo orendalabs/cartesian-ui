@@ -1,4 +1,11 @@
-import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Injector,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FormHelper } from '@shared/helpers';
@@ -12,6 +19,7 @@ import { UserSandbox } from '@app/user/user.sandbox';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
 import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
+import { ListHelper } from '@app/shared/helpers/list.helper';
 
 @Component({
   selector: 'user-update',
@@ -19,7 +27,7 @@ import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-co
 })
 export class UserUpdateComponent
   extends TypeaheadControlsComponent<Role>
-  implements OnInit {
+  implements OnInit, OnDestroy {
   @ViewChild('userRolesComponent') userRolesComponent: ElementRef;
 
   formGroup = new FormGroup({
@@ -30,6 +38,12 @@ export class UserUpdateComponent
     ]),
   });
 
+  updatingRoles = false;
+  updatingDetail = false;
+
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
   roleCriteria = new RequestCriteria<SearchRoleForm>(new SearchRoleForm());
   userCriteria = new RequestCriteria<SearchUserForm>(new SearchUserForm());
   subscriptions: Array<Subscription> = [];
@@ -53,6 +67,10 @@ export class UserUpdateComponent
     this.registerEvents();
     this.fetchUser();
     this.fetchRoles();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   registerEvents() {
@@ -89,6 +107,54 @@ export class UserUpdateComponent
         }
       })
     );
+
+    this.subscriptions.push(
+      this._sandbox.rolesLoaded$.subscribe((loaded: boolean) => {
+        if (loaded) {
+          if (this.updatingRoles && this.updatingDetail) {
+            this.notify.success('User roles and details updated.', 'Success!');
+            this.updatingRoles = false;
+            this.updatingDetail = false;
+          } else if (this.updatingRoles) {
+            this.notify.success('User roles updated.', 'Success!');
+            this.updatingRoles = false;
+          } else if (this.updatingDetail) {
+            this.notify.success('User detail updated.', 'Success!');
+            this.updatingDetail = false;
+          }
+          if (this.user) {
+            this.user.roles = this.addedItems;
+          }
+        }
+        this.loaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.rolesLoading$.subscribe((loading: boolean) => {
+        this.loading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.rolesFailed$.subscribe((failed: boolean) => {
+        if (failed) {
+          if (this.updatingRoles && this.updatingDetail) {
+            this.notify.error(
+              'Could not update user roles and detail.',
+              'Error!'
+            );
+            this.updatingRoles = false;
+            this.updatingDetail = false;
+          } else if (this.updatingRoles) {
+            this.notify.error('Could not update user roles', 'Error!');
+            this.updatingRoles = false;
+          } else if (this.updatingDetail) {
+            this.notify.error('Could not update user detail.', 'Error!');
+            this.updatingDetail = false;
+          }
+        }
+        this.failed = failed;
+      })
+    );
   }
 
   fetchUser() {
@@ -103,24 +169,27 @@ export class UserUpdateComponent
   }
 
   sync() {
-    const shouldUpdateRoles = this.isRoleListChanged();
-    const shouldUpdateUser = this.isUserDataChanged();
-    if (shouldUpdateRoles && shouldUpdateUser) {
+    if (this.loading) {
+      this.notify.warn('Please wait for the previous request', 'Warning!');
+      return;
+    }
+    this.updatingRoles = this.isRoleListChanged();
+    this.updatingDetail = this.isUserDataChanged();
+    if (this.updatingRoles && this.updatingDetail) {
       if (this.formGroup.valid) {
         this.updateRoles();
         this.update();
-        alert('Updating User and Roles');
+        this.notify.info('Updating User and Roles');
       } else {
-        alert('User details are invalid');
+        this.notify.warn('User details are invalid');
       }
-    } else if (shouldUpdateRoles) {
+    } else if (this.updatingRoles) {
       this.updateRoles();
-      alert('Updating Roles');
-    } else if (shouldUpdateUser) {
+    } else if (this.updatingDetail) {
       this.update();
-      alert('Updating User');
+      this.notify.info('Updating User');
     } else {
-      alert('No changes to update');
+      this.notify.info('No changes to update');
     }
   }
 
@@ -136,10 +205,14 @@ export class UserUpdateComponent
         ? 'Are you sure you want to remove all roles?'
         : 'Are you sure you want to save the following roles?\n\t- ' +
           roleNames.join('\n\t- ');
-    if (confirm(message)) {
-      this._sandbox.syncRolesOnUser(form);
-    }
+    this.message.confirm(message, 'Confirm Action', (res) => {
+      if (res) {
+        this._sandbox.syncRolesOnUser(form);
+        this.notify.info('Updating Roles');
+      }
+    });
   }
+
   update() {
     if (this.formGroup.valid) {
       const form = new EditUserForm({
@@ -163,6 +236,10 @@ export class UserUpdateComponent
   }
 
   addRole() {
+    if (this.loading) {
+      this.notify.warn('Please wait for the previous request', 'Warning!');
+      return;
+    }
     this.addItem(Role.getRoleByName(this.control.value, this.items));
   }
 
@@ -171,15 +248,7 @@ export class UserUpdateComponent
   }
 
   isRoleListChanged(): boolean {
-    if (this.user.roles.length !== this.addedItems.length) {
-      return true;
-    }
-    this.user.roles.forEach((role) => {
-      if (!this.addedItems.find((item) => item.id === role.id)) {
-        return true;
-      }
-    });
-    return false;
+    return !ListHelper.compareListData(this.user.roles, this.addedItems, 'id');
   }
 
   isUserDataChanged(): boolean {

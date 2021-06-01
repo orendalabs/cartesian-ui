@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Injector,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -18,6 +19,8 @@ import { FormHelper } from '@app/shared/helpers';
 import { TypeaheadControlsComponent } from '@app/core/ui/components/typeahead-controls.component';
 import { RequestCriteria } from '@cartesian-ui/ng-axis';
 import { Subscription } from 'rxjs';
+import { ListHelper } from '@app/shared/helpers/list.helper';
+import { SearchRoleForm } from '@app/authorization/models/form/search-role.model';
 
 @Component({
   selector: 'role-detail',
@@ -25,7 +28,7 @@ import { Subscription } from 'rxjs';
 })
 export class RoleDetailComponent
   extends TypeaheadControlsComponent<Permission>
-  implements OnInit, AfterViewInit {
+  implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('rolePermissionsComponent') rolePermissionsComponent: ElementRef;
   @ViewChild('detailCard') detailCard: ElementRef;
   roleId: string;
@@ -33,10 +36,16 @@ export class RoleDetailComponent
   loaded;
   loading;
   failed;
+  roleCriteria = new RequestCriteria<SearchRoleForm>(new SearchRoleForm()).with(
+    'permissions'
+  );
 
   permissionsLoading: boolean;
   permissionsLoaded: boolean;
   permissionsFailed: boolean;
+  permissionLoading: boolean;
+  permissionLoaded: boolean;
+  permissionFailed: boolean;
   permissionCriteria = new RequestCriteria<SearchPermissionForm>(
     new SearchPermissionForm()
   );
@@ -44,7 +53,7 @@ export class RoleDetailComponent
   subscriptions: Subscription[] = [];
 
   constructor(
-    protected injector: Injector,
+    injector: Injector,
     protected route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     protected _sandbox: AuthorizationSandbox
@@ -56,14 +65,16 @@ export class RoleDetailComponent
     ]);
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.registerEvents();
-    this._sandbox.fetchRoleById(this.roleId);
+    this._sandbox.fetchRoleById(this.roleId, this.roleCriteria);
     this.fetchPermissions();
+  }
+
+  ngOnDestroy() {
+    this.unregisterEvents();
   }
 
   registerEvents() {
@@ -118,7 +129,7 @@ export class RoleDetailComponent
         if (loading) {
           this.ui.setBusy(this.detailCard.nativeElement);
         }
-        this.loading = loading;
+        this.permissionsLoading = loading;
       })
     );
     this.subscriptions.push(
@@ -126,7 +137,7 @@ export class RoleDetailComponent
         if (loaded) {
           this.ui.clearBusy(this.detailCard.nativeElement);
         }
-        this.loaded = loaded;
+        this.permissionsLoaded = loaded;
       })
     );
     this.subscriptions.push(
@@ -134,19 +145,34 @@ export class RoleDetailComponent
         if (failed) {
           this.ui.clearBusy(this.detailCard.nativeElement);
         }
-        this.failed = failed;
+        this.permissionsFailed = failed;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionLoading$.subscribe((loading) => {
+        if (loading && this.permissionLoading !== undefined) {
+          this.notify.info('Updating permissions');
+        }
+        this.permissionLoading = loading;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionLoaded$.subscribe((loaded) => {
+        if (loaded && this.permissionLoaded !== undefined) {
+          this.notify.success('Permissions updated', 'Success!');
+        }
+        this.permissionLoaded = loaded;
+      })
+    );
+    this.subscriptions.push(
+      this._sandbox.permissionFailed$.subscribe((failed) => {
+        if (failed && this.permissionFailed !== undefined) {
+          this.notify.error('Could not update permissions', 'Error!');
+        }
+        this.permissionFailed = failed;
       })
     );
   }
-
-  deleteRole = (id: string) => {
-    const confirmation = confirm(
-      'Are you sure you want to delete the role with ID: ' + id
-    );
-    if (confirmation) {
-      this._sandbox.deleteRoleById(id);
-    }
-  };
 
   fetchPermissions() {
     this._sandbox.fetchPermissions(this.permissionCriteria);
@@ -159,15 +185,25 @@ export class RoleDetailComponent
   }
 
   sync() {
-    const permsIds = this.addedItems.map((perm) => perm.id);
-    const form: ManagePermissionForm = {
-      roleId: this.roleId,
-      permissionsIds: permsIds,
-    };
-    this._sandbox.syncPermissionsOnRole(form);
+    if (this.permissionsLoading || this.loading) {
+      this.notify.warn('Please wait for the loading to finish', 'Warning!');
+    } else if (this.isPermissionListChanged()) {
+      const permsIds = this.addedItems.map((perm) => perm.id);
+      const form: ManagePermissionForm = {
+        roleId: this.roleId,
+        permissionsIds: permsIds,
+      };
+      this._sandbox.syncPermissionsOnRole(form);
+    } else {
+      this.notify.info('No changes to update!');
+    }
   }
 
-  protected unregisterEvents(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  isPermissionListChanged(): boolean {
+    return !ListHelper.compareListData(
+      this.role.permissions.data,
+      this.addedItems,
+      'id'
+    );
   }
 }

@@ -26,6 +26,9 @@ export class UserSandbox extends Sandbox {
   public user$ = this.store.pipe(select(userSelectors.getUserDetail));
   public profile$ = this.store.pipe(select(userSelectors.getProfile));
 
+  public rolesLoading$ = this.store.pipe(select(userSelectors.getRolesLoading));
+  public rolesLoaded$ = this.store.pipe(select(userSelectors.getRolesLoaded));
+  public rolesFailed$ = this.store.pipe(select(userSelectors.getRolesFailed));
   public rolesFetchData$ = this.store.pipe(
     select(userSelectors.getRolesFetchData)
   );

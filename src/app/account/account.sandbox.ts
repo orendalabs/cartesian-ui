@@ -25,6 +25,12 @@ export class AccountSandbox extends Sandbox {
   public authFailed$ = this.store.pipe(
     select(fromAccountSelectors.getAuthFailed)
   );
+  public authLoaded$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoaded)
+  );
+  public authLoading$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoading)
+  );
 
   private subscriptions: Array<Subscription> = [];
 

@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Injector,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { BaseComponent } from '@app/core/ui';
 import { accountModuleAnimation } from '@app/core/animations';
@@ -12,7 +13,6 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { FormHelper } from '@shared/helpers/form.helper';
@@ -23,7 +23,7 @@ import { FormHelper } from '@shared/helpers/form.helper';
   animations: [accountModuleAnimation()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent extends BaseComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
   formGroup: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -36,11 +36,41 @@ export class LoginComponent extends BaseComponent implements OnInit {
     remember: new FormControl(false),
   });
 
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
+
   constructor(injector: Injector, public _sandbox: AccountSandbox) {
     super(injector);
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.registerEvents();
+  }
+
+  ngOnDestroy(): void {
+    this.unregisterEvents();
+  }
+
+  registerEvents(): void {
+    this.subscriptions.push(
+      this._sandbox.authLoading$.subscribe((loading) => {
+        if (loading) {
+          this.notify.info('Logging in');
+        }
+        this.loading = loading;
+      }),
+      this._sandbox.authLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.notify.success('Login successful', 'Success!');
+        }
+        this.loaded = loaded;
+      }),
+      this._sandbox.authFailed$.subscribe((failed) => {
+        this.failed = failed;
+      })
+    );
+  }
 
   get multiTenancySideIsTeanant(): boolean {
     // return this._sessionService.tenantId > 0;
@@ -57,12 +87,16 @@ export class LoginComponent extends BaseComponent implements OnInit {
   }
 
   login(): void {
-    if (this.formGroup.valid) {
+    if (this.loading) {
+      this.notify.warn('Please wait for previous request', 'Warning!');
+    } else if (this.formGroup.valid) {
       const form = new LoginForm();
       form.email = this.formGroup.controls.email.value;
       form.password = this.formGroup.controls.password.value;
       // form.remember = this.formGroup.controls['remember'].value;
       this._sandbox.authenticate(form);
+    } else {
+      this.notify.warn('Invalid form data', 'Warning!');
     }
   }
 

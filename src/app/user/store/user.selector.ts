@@ -6,7 +6,6 @@ import {
 } from '@ngrx/store';
 import { UserState } from './user.state';
 import { userFeatureKey } from './user.reducer';
-import { AuthorizationState } from '@app/authorization/store/auth.state';
 
 export const getUserState = createFeatureSelector<UserState>(userFeatureKey);
 
@@ -58,6 +57,24 @@ export const getUsersList: MemoizedSelector<object, object> = createSelector(
 export const getUsersMeta: MemoizedSelector<object, object> = createSelector(
   getUserState,
   (state: UserState) => state.listing.data.meta
+);
+
+export const getRolesLoading: MemoizedSelector<
+  object,
+  boolean
+> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.loading
+);
+
+export const getRolesLoaded: MemoizedSelector<object, boolean> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.loaded
+);
+
+export const getRolesFailed: MemoizedSelector<object, boolean> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.failed
 );
 
 export const getRolesFetchData: MemoizedSelector<

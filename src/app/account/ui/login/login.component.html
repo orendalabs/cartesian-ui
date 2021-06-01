@@ -92,9 +92,7 @@
                         type="submit"
                         class="btn btn-primary px-4"
                         [disabled]="
-                          !formGroup.valid ||
-                          (_sandbox.loginLoading$ | async) ||
-                          (_sandbox.authFailed$ | async)
+                          !formGroup.valid || loading
                         "
                       >
                         {{ 'Login' | localize }}

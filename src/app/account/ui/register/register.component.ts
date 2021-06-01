@@ -1,12 +1,7 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { BaseComponent } from '@app/core/ui';
-import {
-  AccountServiceProxy,
-  RegisterInput,
-  RegisterOutput,
-} from '@shared/service-proxies/service-proxies';
 import { accountModuleAnimation } from '@app/core/animations';
 import { AuthService } from '../../shared';
 
@@ -25,7 +20,9 @@ import { FormHelper } from '@shared/helpers/form.helper';
   templateUrl: './register.component.html',
   animations: [accountModuleAnimation()],
 })
-export class RegisterComponent extends BaseComponent {
+export class RegisterComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy {
   formGroup = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -46,11 +43,13 @@ export class RegisterComponent extends BaseComponent {
       FormHelper.dobValidator(12),
     ]),
   });
-  saving = false;
+
+  loading: boolean;
+  loaded: boolean;
+  failed: boolean;
 
   constructor(
     injector: Injector,
-    private _accountService: AccountServiceProxy,
     private _router: Router,
     private authService: AuthService,
     public _sandbox: AccountSandbox
@@ -58,9 +57,18 @@ export class RegisterComponent extends BaseComponent {
     super(injector);
   }
 
+  ngOnInit(): void {
+    this.registerEvents();
+  }
+
+  ngOnDestroy(): void {
+    this.unregisterEvents();
+  }
+
   save(): void {
-    if (this.formGroup.valid) {
-      this.saving = true;
+    if (this.loading) {
+      this.notify.warn('Please wait for previous request', 'Warning!');
+    } else if (this.formGroup.valid) {
       const form = new RegisterForm();
       form.email = this.formGroup.controls.email.value;
       form.name = this.formGroup.controls.name.value;
@@ -68,8 +76,9 @@ export class RegisterComponent extends BaseComponent {
       form.gender = this.formGroup.controls.gender.value;
       form.birth = this.formGroup.controls.dob.value;
       this._sandbox.register(form);
+    } else {
+      this.notify.warn('Invalid form data', 'Warning!');
     }
-
     // this.saving = true;
     // this._accountService
     //  .register(this.model)
@@ -93,6 +102,27 @@ export class RegisterComponent extends BaseComponent {
     //   this.saving = false;
     // });
     // });
+  }
+
+  registerEvents(): void {
+    this.subscriptions.push(
+      this._sandbox.authLoading$.subscribe((loading) => {
+        if (loading) {
+          this.notify.info('Registering');
+        }
+        this.loading = loading;
+      }),
+      this._sandbox.authLoaded$.subscribe((loaded) => {
+        if (loaded) {
+          this.notify.success('Registered successfully', 'Success!');
+          this._router.navigate(['account', 'login']);
+        }
+        this.loaded = loaded;
+      }),
+      this._sandbox.authFailed$.subscribe((failed) => {
+        this.failed = failed;
+      })
+    );
   }
 
   getFormClasses = (e: AbstractControl): string => {

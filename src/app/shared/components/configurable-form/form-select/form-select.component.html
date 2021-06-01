@@ -1,15 +1,31 @@
 <div *ngIf="!config.hidden" class="form-group" [formGroup]="formGroup">
   <label>{{ config.label }}</label>
-  <select 
-    class="form-control" 
-    [ngClass]="getFormClasses()"
-    [formControlName]="config.name"
-    [disabled]="config.disabled"
-    (click)="click($event)"
-    (change)="change($event)">
-    <option disabled selected value="">{{ config.placeholder }}</option>
-    <option *ngFor="let option of config.options" [value]="option.value">
-      {{ option.name }}
-    </option>
-  </select>
+  <div class="input-group">
+    <div *ngIf="config.prependIcon" class="input-group-prepend">
+      <span class="input-group-text"
+        ><i class="{{ config.prependIcon }}"></i
+      ></span>
+    </div>
+    <select
+      class="form-control"
+      [ngClass]="getFormClasses()"
+      [formControlName]="config.name"
+      [disabled]="config.disabled"
+      (click)="clicked.emit($event)"
+      (change)="changed.emit($event)"
+    >
+      <option disabled selected value="">{{ config.placeholder }}</option>
+      <option *ngFor="let option of config.options" [value]="option.value">
+        {{ option.name }}
+      </option>
+    </select>
+    <div *ngIf="config.appendIcon" class="input-group-append">
+      <div class="input-group-text">
+        <span class="{{ config.appendIcon }}"></span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="config.invalidMessage" class="invalid-feedback">
+    {{ config.invalidMessage }}
+  </div>
 </div>

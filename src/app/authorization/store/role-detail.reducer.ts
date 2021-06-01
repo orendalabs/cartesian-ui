@@ -1,5 +1,4 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { Role } from '../models/role.model';
 import * as fromRoleActions from './role.action';
 import { RoleDetailState } from './auth.state';
 
