@@ -73,7 +73,7 @@ export class AppInitializerService {
             },
             (err) => {
               this._uiService.clearBusy();
-              resolve();
+              resolve(true);
             }
           );
           // });

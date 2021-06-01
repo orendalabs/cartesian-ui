@@ -2,11 +2,6 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { BaseComponent } from '@app/core/ui';
-import {
-  AccountServiceProxy,
-  RegisterInput,
-  RegisterOutput,
-} from '@shared/service-proxies/service-proxies';
 import { accountModuleAnimation } from '@app/core/animations';
 import { AuthService } from '../../shared';
 
@@ -55,7 +50,6 @@ export class RegisterComponent
 
   constructor(
     injector: Injector,
-    private _accountService: AccountServiceProxy,
     private _router: Router,
     private authService: AuthService,
     public _sandbox: AccountSandbox
