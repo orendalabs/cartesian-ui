@@ -1,5 +1,8 @@
 import { User } from '@app/user/models';
-import { IPaginationModel } from '@app/core/models';
+import {
+  RoleDetailState,
+  RoleListingState,
+} from '@app/authorization/store/auth.state';
 
 export interface UserListingState {
   loading: boolean;
@@ -21,4 +24,6 @@ export interface UserDetailState {
 export interface UserState {
   listing: UserListingState;
   detail: UserDetailState;
+  roleListing: RoleListingState;
+  roleDetail: RoleDetailState;
 }

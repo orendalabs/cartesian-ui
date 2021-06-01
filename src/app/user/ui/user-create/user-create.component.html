@@ -1,0 +1,58 @@
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="formGroup"
+  (ngSubmit)="create()"
+>
+  <div class="animated fadeIn row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          <strong>Create an Admin</strong>
+        </div>
+        <div class="card-body p-2">
+          <div>
+            <label>Name</label>
+            <input
+              formControlName="name"
+              class="form-control"
+              [ngClass]="getFormClasses('name')"
+              placeholder="Name..."
+            />
+            <div class="invalid-feedback">Invalid name</div>
+          </div>
+          <div class="mt-2">
+            <label>Email</label>
+            <input
+              formControlName="email"
+              class="form-control"
+              [ngClass]="getFormClasses('email')"
+              placeholder="Email..."
+            />
+            <div class="invalid-feedback">Invalid email</div>
+          </div>
+          <div class="mt-2">
+            <label>Password</label>
+            <input
+              formControlName="password"
+              type="password"
+              class="form-control"
+              [ngClass]="getFormClasses('password')"
+              placeholder="Password..."
+            />
+            <div class="invalid-feedback">Invalid password</div>
+          </div>
+          <button
+            type="submit"
+            name=""
+            id=""
+            class="btn btn-primary btn-block mt-3"
+            [disabled]="formGroup.invalid || loading"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

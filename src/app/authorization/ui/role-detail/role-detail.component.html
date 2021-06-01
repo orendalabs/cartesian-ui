@@ -1,0 +1,41 @@
+<div class="animated fadeIn row" #dtContainer>
+  <div class="col-sm-12">
+    <button class="btn btn-primary pull-right ml-2" (click)="sync()" [disabled]="permissionLoading || loading">
+      <i class="fa fa-save"></i> Save
+    </button>
+    <button class="btn btn-danger pull-right"
+      [disabled]="rolePermissionsComponent.selectedPermissions.length < 1"
+      (click)="rolePermissionsComponent.revokePermissions()">
+      <i class="fa fa-chain-broken"></i> Revoke
+    </button>
+  </div>
+  <div class="col-lg-6">
+    <div class="card" #detailCard>
+      <div class="card-header">
+        <strong>Role permissions</strong>
+      </div>
+      <div class="card-body">
+          <label>Select Permission</label>
+          <form class="form-group form-inline">
+            <input [formControl]="control" [typeahead]="typeaheadData" [isAnimated]="true" [ngClass]="
+                      control.valid
+                        ? 'is-valid'
+                        : control.touched && control.dirty
+                        ? 'is-invalid'
+                        : ''
+                    " class="form-control" />
+            <button class="btn btn-success ml-1" (click)="addPermission()" [disabled]="control.invalid">
+              <i class="fa fa-plus"></i>
+            </button>
+            <div class="invalid-feedback">Invalid permission value!</div>
+          </form>
+          <role-detail-permissions
+            [perms]='addedItems'
+            [parent]='this'
+            #rolePermissionsComponent>
+          </role-detail-permissions>
+          <br class='mt-5' />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-﻿<div class="app-body" [@routerTransition]>
+﻿<div class="app-body app-account" [@routerTransition]>
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
@@ -9,12 +9,12 @@
                 <form
                   novalidate
                   autocomplete="off"
-                  #loginForm="ngForm"
+                  [formGroup]="formGroup"
                   (ngSubmit)="login()"
                 >
                   <h1>{{ 'Login' | localize }}</h1>
                   <p class="text-muted">Sign In to your account</p>
-                  <div class="input-group mb-3">
+                  <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text"
                         ><i class="icon-user"></i
@@ -23,20 +23,33 @@
                     <input
                       type="text"
                       class="form-control"
+                      [ngClass]="getFormClasses(formGroup.controls['email'])"
                       name="userNameOrEmailAddress"
-                      [(ngModel)]="form.email"
+                      formControlName="email"
                       [placeholder]="'Username or Email' | localize"
                       required
                       maxlength="256"
-                      #emailModel="ngModel"
                       #emailEl
                     />
-                    <app-validation-summary
-                      [control]="emailModel"
-                      [controlEl]="emailEl"
-                    ></app-validation-summary>
                   </div>
-                  <div class="input-group mb-4">
+                  <div
+                    *ngIf="
+                      formGroup.controls['email'].touched &&
+                      formGroup.controls['email'].dirty &&
+                      !formGroup.controls['email'].valid
+                    "
+                    class="text-danger text-right mb-3"
+                  >
+                    <span
+                      *ngIf="
+                        formGroup.controls['email'].errors.required;
+                        else emailPatternError
+                      "
+                      >Please enter an email!</span
+                    >
+                    <ng-template #emailPatternError>Invalid email!</ng-template>
+                  </div>
+                  <div class="input-group mt-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text"
                         ><i class="icon-lock"></i
@@ -45,53 +58,41 @@
                     <input
                       type="password"
                       class="form-control"
+                      [ngClass]="getFormClasses(formGroup.controls['password'])"
                       name="password"
-                      [(ngModel)]="form.password"
+                      formControlName="password"
                       [placeholder]="'Password' | localize"
                       required
                       maxlength="32"
-                      #passwordModel="ngModel"
                       #passwordEl
                     />
-                    <app-validation-summary
-                      [control]="passwordModel"
-                      [controlEl]="passwordEl"
-                    ></app-validation-summary>
                   </div>
-                  <!-- div class="form-group row">
-                    <div class="col-md-8">
-                      <div class="custom-control custom-checkbox">
-                        <input
-                          type="checkbox"
-                          class="custom-control-input"
-                          id="rememberMe"
-                          name="rememberMe"
-                          [(ngModel)]="authService.rememberMe"
-                        />
-                        <label for="rememberMe" class="custom-control-label">
-                          {{ "RememberMe" | localize }}
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <button
-                        type="submit"
-                        class="btn btn-primary btn-block"
-                        [disabled]="!loginForm.form.valid || submitting"
-                      >
-                        {{ "LogIn" | localize }}
-                      </button>
-                    </div>
-                  </div -->
-                  <div class="row">
+                  <div
+                    *ngIf="
+                      formGroup.controls['password'].touched &&
+                      formGroup.controls['password'].dirty &&
+                      !formGroup.controls['password'].valid
+                    "
+                    class="text-danger text-right"
+                  >
+                    <span
+                      *ngIf="
+                        formGroup.controls['password'].errors.required;
+                        else passLengthError
+                      "
+                      >Please enter a password!</span
+                    >
+                    <ng-template #passLengthError
+                      >Password must be at least 6 characters long!</ng-template
+                    >
+                  </div>
+                  <div class="row mt-4">
                     <div class="col-6">
                       <button
                         type="submit"
                         class="btn btn-primary px-4"
                         [disabled]="
-                          !loginForm.form.valid ||
-                          (_sandbox.loginLoading$ | async) ||
-                          (_sandbox.authFailed$ | async)
+                          !formGroup.valid || loading
                         "
                       >
                         {{ 'Login' | localize }}

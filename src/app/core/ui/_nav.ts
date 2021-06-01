@@ -2,37 +2,58 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW',
-    },
-  },
-  {
     title: true,
     name: 'Authorization',
   },
   {
-    name: 'User',
-    url: '/users',
-    icon: 'icon-user',
-    children: [
-      {
-        name: 'List',
-        url: '/users',
-        icon: 'icon-list',
-      },
-      {
-        name: 'Add',
-        url: '/users/create',
-        icon: 'icon-plus',
-      },
-    ],
+    divider: true,
   },
   {
-    divider: true,
+    name: 'User',
+    url: '/users',
+    icon: 'fa fa-user',
+  },
+  {
+    name: 'Tenants',
+    url: '/tenants',
+    icon: 'fa fa-users',
+  },
+  {
+    name: 'Roles',
+    url: '/authorization/roles',
+    icon: 'fa fa-id-card',
+  },
+  {
+    name: 'Permissions',
+    url: '/authorization/permissions',
+    icon: 'fa fa-check',
+  },
+  {
+    name: 'Locations',
+    url: '/locations',
+    icon: 'fa fa-map',
+    children: [
+      {
+        name: 'Cities',
+        url: '/locations/cities',
+        icon: 'fa fa-home',
+      },
+      {
+        name: 'Countries',
+        url: '/locations/countries',
+        icon: 'fa fa-flag',
+      },
+      {
+        name: 'Locations',
+        url: '/locations/locations',
+        icon: 'fa fa-map-marker',
+      },
+      {
+        name: 'States',
+        url: '/locations/states',
+        icon: 'fa fa-landmark',
+      },
+    ]
   },
   {
     name: 'Settings',

@@ -22,7 +22,7 @@ export class AuthHttpService extends HttpService {
    *
    * @param LoginForm form AuthUser login form
    */
-  @POST('/clients/web/admin/login')
+  @POST('/clients/web/login')
   @Adapter(AccountAdapter.accountAdapter)
   public login(@Body form: LoginForm): Observable<any> {
     return null;
@@ -43,7 +43,7 @@ export class AuthHttpService extends HttpService {
    *
    * @param RegisterForm form AuthUser registration form
    */
-  @POST('/account/register')
+  @POST('/register')
   @Adapter(AccountAdapter.userAdapter)
   public register(@Body form: RegisterForm): Observable<any> {
     return null;

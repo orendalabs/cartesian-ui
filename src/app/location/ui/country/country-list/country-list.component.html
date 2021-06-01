@@ -1,0 +1,121 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-3">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchModel"
+          />
+          <div class="input-group-append">
+            <button
+              class="input-group-text cursor-pointer btn-light"
+              (click)="search()"
+            >
+              <span class="fas fa-search"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+    <div class="col-md-6 text-right">
+      <button
+        class="btn btn-danger ml-2"
+        [disabled]="selectedCountries.length === 0"
+      >
+        <i class="fa fa-trash"></i> Delete
+      </button>
+      <button class="btn btn-primary ml-2" routerLink="create">
+        <i class="fa fa-plus"></i> Create
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 my-2">
+      <span class="pull-right">Total: {{ pagination.total }}</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <strong>COUNTRIES</strong>
+    </div>
+    <div class="card-body p-0">
+      <div class="row dt" #dtContainer>
+        <div class="col-sm-12">
+          <ngx-datatable
+            class="material"
+            [rows]="data"
+            [columns]="[
+              { name: 'name' },
+              { name: 'capital' },
+              { name: 'currency' }
+            ]"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="43"
+            [externalPaging]="true"
+            [count]="pagination.total"
+            [offset]="getOffsetFromPagination()"
+            [limit]="pagination.per_page"
+            [selected]="selectedCountries"
+            [selectionType]="'checkbox'"
+            (activate)="onActivate($event)"
+            (select)="onSelect($event)"
+            (page)="setPage($event)"
+          >
+            <ngx-datatable-column
+              [width]="30"
+              [sortable]="false"
+              [canAutoResize]="false"
+              [draggable]="false"
+              [resizeable]="false"
+              [headerCheckboxable]="true"
+              [checkboxable]="true"
+            ></ngx-datatable-column>
+
+            <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
+              <ng-template
+                let-value="value"
+                let-row="row"
+                ngx-datatable-cell-template
+              >
+                <a routerLink="{{ row.id }}">{{ value }}</a>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column
+              name="Capital"
+              [flexGrow]="3"
+              [minWidth]="200"
+            >
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                {{ value }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Currency" [flexGrow]="1">
+              <ng-template
+                let-column="column"
+                let-sort="sortFn"
+                ngx-datatable-header-template
+              >
+                <span class="mobile-hidden">{{ column.name }} </span>
+              </ng-template>
+              <ng-template
+                let-row="row"
+                let-value="value"
+                ngx-datatable-cell-template
+              >
+                <span class="mobile-hidden">{{ value }}</span>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

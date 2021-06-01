@@ -1,0 +1,27 @@
+<div *ngIf="!config.hidden" class="form-group" [formGroup]="formGroup">
+  <label *ngIf="config.label">{{ config.label }} </label>
+  <div class="input-group">
+    <div *ngIf="config.prependIcon" class="input-group-prepend">
+      <span class="input-group-text"
+        ><i class="{{ config.prependIcon }}"></i
+      ></span>
+    </div>
+    <input
+      class="form-control"
+      [ngClass]="getFormClasses()"
+      [attr.type]="config.inputType ? config.inputType : 'text'"
+      [formControlName]="config.name"
+      [disabled]="config.disabled"
+      (click)="clicked.emit($event)"
+      (change)="changed.emit($event)"
+    />
+    <div *ngIf="config.appendIcon" class="input-group-append">
+      <div class="input-group-text">
+        <span class="{{ config.appendIcon }}"></span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="config.invalidMessage" class="invalid-feedback">
+    {{ config.invalidMessage }}
+  </div>
+</div>

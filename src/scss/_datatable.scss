@@ -1,0 +1,30 @@
+.ngx-datatable {
+  &.material {
+    box-shadow: none !important;
+
+    .datatable-header {
+      text-transform: uppercase;
+      border-bottom: 1px solid $cartesian-light;
+    }
+
+    .datatable-body {
+      .datatable-body-row {
+        .datatable-body-cell {
+          padding: 0.7rem 1.2rem;
+        }
+      }
+    }
+
+    .datatable-footer {
+      border-top: none;
+    }
+  }
+
+  &.fixed-row {
+    .datatable-scroll {
+      .datatable-body-row {
+        border-bottom: 1px solid $cartesian-light;
+      }
+    }
+  }
+}

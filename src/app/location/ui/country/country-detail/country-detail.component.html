@@ -1,0 +1,47 @@
+<div class="animated fadeIn row">
+  <div class="col-sm-12">
+    <button class="btn btn-danger mr-2 pull-right" (click)="delete()" [disabled]="loading">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+  </div>
+  <hr class="col-sm-12"/>
+  <div class="col-lg-6">
+    <div class="card" #detailCard>
+      <div class="card-header">
+        <strong>Country Detail</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <p><b>Alpha2: </b>{{country.alpha2}}</p>
+          <p><b>Alpha3: </b>{{country.alpha3}}</p>
+          <p><b>Capital: </b>{{country.capital}}</p>
+          <p><b>Continent: </b>{{country.continent}}</p>
+          <p><b>Subcontinent: </b>{{country.subcontinent}}</p>
+          <p><b>Currency: </b>{{country.currency}}</p>
+          <p><b>Emoji: </b>{{country.emoji}}</p>
+          <p><b>Emoji Unicode: </b>{{country.emojiUnicode}}</p>
+          <p><b>Isd: </b>{{country.isd}}</p>
+          <p><b>Name: </b>{{country.name}}</p>
+          <p><b>Native: </b>{{country.native}}</p>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Edit Country</strong>
+      </div>
+      <div class="card-body p-2">
+        <configurable-form
+          [config]="config"
+          (submitted)="save($event)"
+        >
+        </configurable-form>
+      </div>
+    </div>
+  </div>
+</div>

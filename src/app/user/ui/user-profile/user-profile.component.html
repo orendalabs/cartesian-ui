@@ -1,0 +1,31 @@
+<div class="animated fadeIn row">
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Profile</strong>
+      </div>
+      <div class="card-body">
+        <div *ngIf="user">
+          <p>
+            <b>{{ user.name }}</b>
+          </p>
+          <div class="text-muted row my-2">
+            <div class="col-md-4 d-inline-block">
+              <i class="fa fa-envelope"></i> {{ user.email }}<br />
+            </div>
+            <div class="col-md-4 d-inline-block" *ngIf="user.gender">
+              <i
+                class="fa"
+                [ngClass]="user.gender === 'male' ? 'fa-male' : 'fa-female'"
+              ></i>
+              {{ user.gender }}
+            </div>
+            <div class="col-md-4 d-inline-block" *ngIf="user.birth">
+              <i class="fa fa-birthday-cake"></i> {{ user.birth }}<br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

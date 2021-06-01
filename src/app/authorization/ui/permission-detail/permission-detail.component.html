@@ -1,0 +1,23 @@
+<div class="animated fadeIn row">
+  <div class="col-lg-6 text-center mx-auto">
+    <div class="card">
+      <div class="card-header">Permission Detail</div>
+      <div class="card-body">
+        <div *ngIf="loaded">
+          <h1>
+            <b>{{ permission.name }}</b>
+          </h1>
+          <div class="text-muted">
+            {{ permission.description }}
+          </div>
+        </div>
+        <div *ngIf="loading">
+          <i class="fa fa-spin fa-circle-o-notch"></i>
+        </div>
+        <div *ngIf="failed" class="text-danger">
+          <i class="fa fa-times"></i> Loading failed!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

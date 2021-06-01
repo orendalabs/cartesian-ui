@@ -1,0 +1,10 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="submitted.emit(formGroup)">
+  <ng-container
+    *ngFor="let field of config"
+    configurableField
+    [config]="field"
+    [formGroup]="formGroup">
+  </ng-container>
+</form>

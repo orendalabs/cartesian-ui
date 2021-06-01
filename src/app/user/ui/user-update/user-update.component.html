@@ -1,0 +1,105 @@
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="formGroup"
+  (ngSubmit)="update()"
+>
+  <div class="animated fadeIn row">
+    <div class="col-sm-12">
+      <button
+        type="submit"
+        class="btn btn-primary pull-right ml-2"
+        (click)="sync()"
+        [disabled]="loading"
+      >
+        <i class="fa fa-save"></i> Save
+      </button>
+      <button
+        class="btn btn-danger pull-right"
+        [disabled]="userRolesComponent.selectedRoles.length === 0"
+        (click)="userRolesComponent.revokeRoles()"
+      >
+        <i class="fa fa-chain-broken"></i> Revoke
+      </button>
+    </div>
+    <div class="col-md-12 mx-auto">
+      <tabset>
+        <tab heading="User">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <strong>User Details </strong>
+                </div>
+                <div class="card-body">
+                  <div class="form-group required">
+                    <label>Name</label>
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
+                      [ngClass]="getFormClasses('name')"
+                      placeholder="Name"
+                    />
+                  </div>
+                  <div class="form-group required">
+                    <label>New Password</label>
+                    <input
+                      formControlName="password"
+                      type="password"
+                      class="form-control"
+                      [ngClass]="getFormClasses('password')"
+                      placeholder="New Password"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header">
+                  <strong>User Roles </strong>
+                </div>
+                <div class="card-body">
+                  <label>Add Role</label>
+                  <form class="form-group form-inline">
+                    <div class="required">
+                      <input
+                        [formControl]="control"
+                        [typeahead]="typeaheadData"
+                        [isAnimated]="true"
+                        [ngClass]="
+                          control.valid
+                            ? 'is-valid'
+                            : control.touched && control.dirty
+                            ? 'is-invalid'
+                            : ''
+                        "
+                        class="form-control"
+                      />
+                    </div>
+                    <button
+                      class="btn btn-success ml-1"
+                      (click)="addRole()"
+                      [disabled]="control.invalid || loading"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <div class="invalid-feedback">Invalid role value!</div>
+                  </form>
+                  <user-update-roles
+                    [parent]="this"
+                    [roles]="addedItems"
+                    #userRolesComponent
+                  >
+                  </user-update-roles>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+        <!-- More tabs -->
+      </tabset>
+    </div>
+  </div>
+</form>

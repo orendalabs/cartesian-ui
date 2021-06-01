@@ -44,7 +44,7 @@
     "object-literal-key-quotes": [true, "as-needed"],
     "quotemark": [true, "single"],
     "semicolon": {
-      "options": ["always"]
+      "options": [true, "always", "ignore-bound-class-methods"]
     },
     "space-before-function-paren": {
       "options": {

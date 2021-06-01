@@ -1,0 +1,134 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-3">
+      <form>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search..."
+            [(ngModel)]="searchModel"
+          />
+          <div class="input-group-append">
+            <button
+              class="input-group-text cursor-pointer btn-light"
+              (click)="search()"
+            >
+              <span class="fas fa-search"></span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <select class="form-control" (change)="onDropDownChange($event)">
+        <option
+          value="all"
+          selected
+          [disabled]="selected !== 'admins' && selected !== 'clients'"
+        >
+          All users
+        </option>
+        <option value="admins" [disabled]="selected === 'admins'">
+          Admins
+        </option>
+        <option value="clients" [disabled]="selected === 'clients'">
+          Clients
+        </option>
+      </select>
+    </div>
+    <div class="col-md-6 text-right">
+      <button
+        class="btn btn-danger ml-2"
+        [disabled]="selectedUsers.length === 0"
+      >
+        <i class="fa fa-trash"></i> Delete
+      </button>
+      <button class="btn btn-primary ml-2" routerLink="create">
+        <i class="fa fa-plus"></i> Create
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 my-2">
+      <span class="pull-right">Total: {{ pagination.total }}</span>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <strong>USERS</strong>
+    </div>
+    <div class="card-body p-0">
+      <div class="row dt" #dtContainer>
+        <div class="col-sm-12">
+          <ngx-datatable
+            class="material"
+            [rows]="data"
+            [columns]="[
+              { name: 'Select' },
+              { name: 'name' },
+              { name: 'gender' },
+              { name: 'email' }
+            ]"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="43"
+            [externalPaging]="true"
+            [count]="pagination.total"
+            [offset]="getOffsetFromPagination()"
+            [limit]="pagination.per_page"
+            [selected]="selectedUsers"
+            [selectionType]="'checkbox'"
+            (activate)="onActivate($event)"
+            (select)="onSelect($event)"
+            (page)="setPage($event)"
+          >
+            <ngx-datatable-column
+              [width]="30"
+              [sortable]="false"
+              [canAutoResize]="false"
+              [draggable]="false"
+              [resizeable]="false"
+              [headerCheckboxable]="true"
+              [checkboxable]="true"
+            ></ngx-datatable-column>
+
+            <ngx-datatable-column name="Name" [flexGrow]="3" [minWidth]="200">
+              <ng-template
+                let-value="value"
+                let-row="row"
+                ngx-datatable-cell-template
+              >
+                <a routerLink="edit/{{ row.id }}">{{ value }}</a>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Email" [flexGrow]="3" [minWidth]="200">
+              <ng-template let-value="value" ngx-datatable-cell-template>
+                {{ value }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Gender" [flexGrow]="1">
+              <ng-template
+                let-column="column"
+                let-sort="sortFn"
+                ngx-datatable-header-template
+              >
+                <span class="mobile-hidden">{{ column.name }} </span>
+              </ng-template>
+              <ng-template
+                let-row="row"
+                let-value="value"
+                ngx-datatable-cell-template
+              >
+                <span class="mobile-hidden">{{ value }}</span>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

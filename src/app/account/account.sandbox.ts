@@ -25,6 +25,12 @@ export class AccountSandbox extends Sandbox {
   public authFailed$ = this.store.pipe(
     select(fromAccountSelectors.getAuthFailed)
   );
+  public authLoaded$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoaded)
+  );
+  public authLoading$ = this.store.pipe(
+    select(fromAccountSelectors.getAuthLoading)
+  );
 
   private subscriptions: Array<Subscription> = [];
 
@@ -53,9 +59,9 @@ export class AccountSandbox extends Sandbox {
    *
    * @param RegisterForm form AuthUser registration form
    */
-  public register(form: any): void {
+  public register(form: RegisterForm): void {
     this.store.dispatch(
-      actions.doRegister({ registerForm: new RegisterForm(form) })
+      actions.doRegister({ registerForm: form })
     );
   }
 

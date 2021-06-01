@@ -13,11 +13,11 @@
     "importHelpers": true,
     "target": "es2015",
     "emitDecoratorMetadata": false,
-    "lib": [ "es6", "dom" ],
+    "lib": ["es6", "dom"],
     "paths": {
-      "@app/*": [ "src/app/*" ],
-      "@shared/*": [ "src/app/shared/*" ],
-      "@node_modules/*": [ "node_modules/*" ]
+      "@app/*": ["src/app/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@node_modules/*": ["node_modules/*"]
     }
   },
   "angularCompilerOptions": {

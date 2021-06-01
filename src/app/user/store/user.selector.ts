@@ -29,6 +29,11 @@ export const getUserDetail: MemoizedSelector<object, object> = createSelector(
   (state: UserState) => state.detail.data
 );
 
+export const getProfile: MemoizedSelector<object, object> = createSelector(
+  getUserState,
+  (state: UserState) => state.detail.data
+);
+
 export const getUsersLoading: MemoizedSelector<
   object,
   boolean
@@ -48,8 +53,34 @@ export const getUsersList: MemoizedSelector<object, object> = createSelector(
   getUserState,
   (state: UserState) => state.listing.data.data
 );
+
 export const getUsersMeta: MemoizedSelector<object, object> = createSelector(
   getUserState,
   (state: UserState) => state.listing.data.meta
 );
-/* tslint:enable:max-line-length */
+
+export const getRolesLoading: MemoizedSelector<
+  object,
+  boolean
+> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.loading
+);
+
+export const getRolesLoaded: MemoizedSelector<object, boolean> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.loaded
+);
+
+export const getRolesFailed: MemoizedSelector<object, boolean> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.failed
+);
+
+export const getRolesFetchData: MemoizedSelector<
+  object,
+  object
+> = createSelector(
+  getUserState,
+  (state: UserState) => state.roleListing.data.data
+);

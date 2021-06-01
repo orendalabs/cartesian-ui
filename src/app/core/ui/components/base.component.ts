@@ -19,7 +19,7 @@ export abstract class BaseComponent {
     AppConstants.localization.defaultLocalizationSourceName;
 
   localization: LocalizationService;
-  permission: PermissionCheckerService;
+  permissionCheckerService: PermissionCheckerService;
   feature: FeatureCheckerService;
   notify: NotifyService;
   ui: UiService;
@@ -32,7 +32,7 @@ export abstract class BaseComponent {
 
   constructor(injector: Injector) {
     this.localization = injector.get(LocalizationService);
-    this.permission = injector.get(PermissionCheckerService);
+    this.permissionCheckerService = injector.get(PermissionCheckerService);
     this.feature = injector.get(FeatureCheckerService);
     this.notify = injector.get(NotifyService);
     this.ui = injector.get(UiService);
@@ -62,6 +62,12 @@ export abstract class BaseComponent {
   }
 
   isGranted(permissionName: string): boolean {
-    return this.permission.isGranted(permissionName);
+    return this.permissionCheckerService.isGranted(permissionName);
+  }
+
+  protected unregisterEvents() {
+    this.subscriptions.forEach((sub) => {
+      sub.unsubscribe();
+    });
   }
 }
