@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FieldConfig } from '../models/field-config.model';
+import { IFormField } from '../../models/form-field.model';
 
 @Component({
   selector: 'form-button',
-  templateUrl: './form-button.component.html',
+  templateUrl: './button.component.html',
 })
-export class FormButtonComponent implements OnInit {
-  config: FieldConfig;
+export class ButtonComponent implements OnInit {
+  config: IFormField;
   formGroup: FormGroup;
 
   @Output() clicked?: EventEmitter<Event> = new EventEmitter();

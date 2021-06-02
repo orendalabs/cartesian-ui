@@ -1,7 +1,7 @@
 import { ValidatorFn } from '@angular/forms';
-import { ISelectFieldOption } from './select-field.model';
+import { IFormFieldSelectOptions } from './form-field-select.model';
 
-export interface FieldConfig {
+export interface IFormField {
   /** Handles disabled attribute of a control */
   disabled?: boolean;
 
@@ -18,7 +18,7 @@ export interface FieldConfig {
   hidden?: boolean;
 
   /** Options for a select control */
-  options?: ISelectFieldOption[];
+  options?: IFormFieldSelectOptions[];
 
   /** Placeholder for the control */
   placeholder?: string;

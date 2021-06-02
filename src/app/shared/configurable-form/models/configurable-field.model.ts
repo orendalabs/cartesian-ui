@@ -1,9 +1,9 @@
 import { EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FieldConfig } from './field-config.model';
+import { IFormField } from './form-field.model';
 
-export interface Field {
-  config: FieldConfig;
+export interface IConfigurableField {
+  config: IFormField;
   formGroup: FormGroup;
   clicked?: EventEmitter<any>;
   changed?: EventEmitter<any>;

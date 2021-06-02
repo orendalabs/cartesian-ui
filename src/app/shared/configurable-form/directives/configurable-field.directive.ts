@@ -12,29 +12,29 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import { FormButtonComponent } from '../form-button/form-button.component';
-import { FormInputComponent } from '../form-input/form-input.component';
-import { FormSelectComponent } from '../form-select/form-select.component';
+import { ButtonComponent } from '../elements/button/button.component';
+import { InputComponent } from '../elements/input/input.component';
+import { SelectComponent } from '../elements/select/select.component';
 
-import { Field } from '../models/field.model';
-import { FieldConfig } from '../models/field-config.model';
+import { IConfigurableField } from '../models/configurable-field.model';
+import { IFormField } from '../models/form-field.model';
 
-const components: { [type: string]: Type<Field> } = {
-  button: FormButtonComponent,
-  input: FormInputComponent,
-  select: FormSelectComponent,
+const components: { [type: string]: Type<IConfigurableField> } = {
+  button: ButtonComponent,
+  input: InputComponent,
+  select: SelectComponent,
 };
 
 @Directive({
   selector: '[configurableField]',
 })
-export class ConfigurableFieldDirective implements Field, OnChanges, OnInit {
-  @Input() config: FieldConfig;
+export class ConfigurableField implements IConfigurableField, OnChanges, OnInit {
+  @Input() config: IFormField;
   @Input() formGroup: FormGroup;
   @Output() changed?: EventEmitter<Event> = new EventEmitter();
   @Output() clicked?: EventEmitter<Event> = new EventEmitter();
 
-  component: ComponentRef<Field>;
+  component: ComponentRef<IConfigurableField>;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -56,7 +56,7 @@ export class ConfigurableFieldDirective implements Field, OnChanges, OnInit {
         Supported types: ${supportedTypes}`
       );
     }
-    const component = this.resolver.resolveComponentFactory<Field>(
+    const component = this.resolver.resolveComponentFactory<IConfigurableField>(
       components[this.config.type]
     );
     this.component = this.container.createComponent(component);

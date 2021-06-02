@@ -1,4 +1,4 @@
-export interface ISelectFieldOption {
+export interface IFormFieldSelectOptions {
   /** Display name for the option */
   name: any;
 

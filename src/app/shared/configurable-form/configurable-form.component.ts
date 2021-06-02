@@ -1,13 +1,13 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { FieldConfig } from './models/field-config.model';
+import { IFormField } from './models/form-field.model';
 
 @Component({
   selector: 'configurable-form',
   templateUrl: './configurable-form.component.html',
 })
 export class ConfigurableFormComponent implements OnInit {
-  @Input() config: FieldConfig[] = [];
+  @Input() config: IFormField[] = [];
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter();
 
   formGroup: FormGroup;
