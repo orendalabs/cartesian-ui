@@ -1,7 +1,7 @@
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { BaseComponent } from '@app/core/ui';
-import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
+import { IFormField } from '@shared/configurable-form/models/form-field.model';
 import { TenantCreateForm } from '@app/tenant/models/form';
 import { TenantSandbox } from '@app/tenant/tenant.sandbox';
 
@@ -16,7 +16,7 @@ export class TenantCreateComponent
   loaded: boolean;
   failed: boolean;
 
-  config: FieldConfig[] = [
+  config: IFormField[] = [
     {
       type: 'input',
       label: 'Name',

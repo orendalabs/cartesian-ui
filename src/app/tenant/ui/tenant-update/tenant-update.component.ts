@@ -2,7 +2,7 @@ import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@app/core/ui';
-import { FieldConfig } from '@app/shared/components/configurable-form/models/field-config.model';
+import { IFormField } from '@shared/configurable-form/models/form-field.model';
 import { TenantUpdateForm } from '@app/tenant/models/form';
 import { TenantSandbox } from '@app/tenant/tenant.sandbox';
 
@@ -20,7 +20,7 @@ export class TenantUpdateComponent
 
   id: string;
 
-  config: FieldConfig[] = [
+  config: IFormField[] = [
     {
       type: 'input',
       label: 'Name',

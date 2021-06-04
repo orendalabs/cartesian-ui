@@ -15,7 +15,7 @@ import { TenantListComponent } from './ui/tenant-list/tenant-list.component';
 import { TenantHttpService } from './shared';
 import { TenantCreateComponent } from './ui/tenant-create/tenant-create.component';
 import { TenantUpdateComponent } from './ui/tenant-update/tenant-update.component';
-import { ConfigurableFormModule } from '@app/shared/components/configurable-form/configurable-form.module';
+import { ConfigurableFormModule } from '@shared/configurable-form/configurable-form.module';
 
 @NgModule({
   declarations: [TenantComponent, TenantListComponent, TenantCreateComponent, TenantUpdateComponent],
